@@ -1,7 +1,2 @@
 .codex-tmp/
 .app-review.txt
-node_modules/
-.env
-data/
-_site/
-.wrangler/

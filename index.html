@@ -12,7 +12,7 @@
 <style>
 /* Layout: dark brand bar over a single 1120px column. Welcome = intro beside a start form. Quiz = one narrow step at a time.
    Results = profile header, a three-up summary (interests, work style, values), a ranked role list, Ask Serasi and job tasters.
-   Dashboard (editors only) = filters, stat tiles, four single-series bar lists and event ideas. */
+   Dashboard (mock data) = filters, stat tiles, four single-series bar lists, a cross-tab, event ideas with a planning note, and a records preview. */
 :root {
   --bg: #F4EFE4;
   --surface: #FFFCF6;
@@ -254,15 +254,14 @@ fieldset.scenario legend { padding: 0; font-weight: 600; font-size: 1.0625rem; f
 
 footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .875rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
 
-/* Ask Serasi (AI explainer) */
+/* Ask Serasi (rule-based answers) */
 [hidden] { display: none !important; }
 .ask { display: flex; flex-direction: column; gap: 14px; }
 .ask-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 12px; }
 .ask-intro { max-width: 62ch; }
 .ask-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .ask-chip { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .875rem; cursor: pointer; text-align: left; }
-.ask-chip:hover:not(:disabled) { border-color: var(--accent); }
-.ask-chip:disabled, .ask-role:disabled, #ask-send:disabled { opacity: .5; cursor: not-allowed; }
+.ask-chip:hover { border-color: var(--accent); }
 .ask-log { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .ask-log:empty { display: none; }
 .msg { max-width: min(68ch, 92%); display: flex; flex-direction: column; gap: 4px; padding: 10px 14px; border-radius: 12px; font-size: .9375rem; line-height: 1.55; overflow-wrap: anywhere; min-width: 0; }
@@ -270,8 +269,6 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 .msg .txt { white-space: pre-wrap; color: var(--ink); }
 .msg.user { align-self: flex-end; background: var(--accent-soft); }
 .msg.bot { align-self: flex-start; background: var(--surface-2); }
-.msg.thinking .txt { color: var(--muted); font-style: italic; }
-.msg .note { font-size: .8125rem; color: var(--flag); }
 .ask-form { display: flex; flex-wrap: wrap; gap: 8px; }
 .ask-form input { flex: 1 1 240px; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
 .ask-role { margin-top: 8px; padding-left: 0; }
@@ -360,14 +357,36 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 .idea-list { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 10px; }
 .idea-list li { color: var(--ink); }
 .idea-list li b { display: block; font-weight: 600; }
-.ai-sum { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-.ai-sum .msg { max-width: min(76ch, 100%); }
 .empty { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .empty p { color: var(--ink-2); max-width: 62ch; }
-.dash-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
-.field input { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); max-width: 360px; width: 100%; }
-.staff-form { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
-.staff-form .btn.primary { align-self: flex-start; }
+
+/* Dashboard tables: a cross-tab of interest types and a preview of the mock records */
+.by-field { max-width: 240px; }
+.by-field select { width: 100%; max-width: none; }
+.table-wrap { overflow-x: auto; }
+.tbl { width: 100%; border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
+.tbl th, .tbl td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; color: var(--ink-2); }
+.tbl th:first-child, .tbl td:first-child { text-align: left; }
+.tbl thead th { color: var(--ink); font-weight: 700; vertical-align: bottom; }
+.tbl tbody th { color: var(--ink); font-weight: 600; }
+.tbl .n { display: block; font-size: .75rem; font-weight: 400; color: var(--muted); }
+.tbl td.hi { color: var(--accent); font-weight: 700; }
+.tbl tr.extra th, .tbl tr.extra td { border-top: 2px solid var(--line); }
+.rec th, .rec td { text-align: left; }
+.rec th { white-space: normal; }
+.rec td { white-space: normal; vertical-align: top; }
+.rec td.nw { white-space: nowrap; }
+.rec td.grp { min-width: 9rem; }
+.rec td.vals { min-width: 11rem; }
+.rec td.skl { min-width: 10rem; }
+.rec td.jobs { min-width: 15rem; }
+.rec tr.you td { background: var(--accent-soft); }
+details.records > summary { cursor: pointer; font-family: var(--font-display); font-size: 1.2rem; }
+.records-body { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.plan { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 16px; }
+.plan h3 { font-size: 1.1rem; }
+.plan-text { white-space: pre-wrap; background: var(--surface-2); border-radius: 12px; padding: 12px 14px; font-size: .9375rem; line-height: 1.55; color: var(--ink); max-width: 76ch; overflow-wrap: anywhere; }
+.plan-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 
 @media (max-width: 900px) {
   .welcome { grid-template-columns: minmax(0, 1fr); }
@@ -398,7 +417,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
       <button class="chip-btn" type="button" data-action="mine" id="nav-mine" hidden>My results</button>
       <button class="chip-btn" type="button" data-action="example">Example</button>
       <button class="chip-btn" type="button" data-action="about">About and privacy</button>
-      <button class="chip-btn" type="button" data-action="dashboard" id="nav-dash" hidden>MENDAKI insights</button>
+      <button class="chip-btn" type="button" data-action="dashboard" id="nav-dash">MENDAKI insights</button>
       <button class="chip-btn solid" type="button" data-action="start-quiz">Take the quiz</button>
     </nav>
   </div>
@@ -410,8 +429,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   <p><b>Explore the proposal:</b> <a href="Serasi%20overview.pdf">Read the overview (PDF)</a> · <a href="Serasi%20pitch%20deck.pdf">View the pitch deck (PDF)</a></p>
   <p>Proposed pilot: 300 youths · Draft budget: S$22,000 · Preparation November 2026–March 2027 · Pilot April–June 2027 · Follow-up and decision by June 2028.</p>
   <p>Partnerships, funding, job tasters and internships are proposals. No partner has been approached. Scores and role data are illustrative and have not been validated.</p>
-  <p id="foot-mode">This public demo saves quiz answers on your device. AI chat, sharing results with MENDAKI and live partner insights require connected services and are unavailable on GitHub Pages.</p>
-  <p id="foot-staff" hidden><button class="btn link" type="button" data-action="dashboard">MENDAKI staff sign-in</button></p>
+  <p>This demo runs in your browser and saves quiz answers on your device. Ask Serasi answers simple questions with fixed rules, and the MENDAKI dashboard uses a mock database of made-up youths.</p>
 </footer>
 
 <script>
@@ -808,7 +826,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     return '<div class="role-body" id="body-' + r.id + '">' +
       '<div class="col">' +
         (flag ? '<div>' + flag + '</div>' : '') +
-        '<div><h4>Why it fits</h4><ul class="reasons">' + reasons + '</ul>' + (askAvail === true ? '<button class="btn link ask-role" type="button" data-action="ask-role" data-id="' + r.id + '">Ask Serasi about this job</button>' : '') + '</div>' +
+        '<div><h4>Why it fits</h4><ul class="reasons">' + reasons + '</ul>' + '<button class="btn link ask-role" type="button" data-action="ask-role" data-id="' + r.id + '">Ask Serasi about this job</button>' + '</div>' +
         '<div><h4>Fit score</h4><ul class="breakdown">' + bd + '</ul></div>' +
         '<div><h4>Work style match</h4><ul class="traits">' + wsRows + '</ul><p class="legend" style="margin-top:8px"><span><span class="sw"></span>You</span><span><span class="sw need"></span>What this role tends to need</span></p></div>' +
       '</div>' +
@@ -900,7 +918,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
       body = '<div class="step-intro"><p class="eyebrow">Step 3 of 5 · Values</p><h1>What has to be true about a job?</h1><p>Choose up to three values. The percentages show how many Malay/Muslim youths picked each one in a 2026 NYC survey.</p></div>' +
         '<div class="group"><h3>Your top values</h3><p class="small muted" id="values-hint">' + a.values.length + ' of 3 chosen</p><div class="option-grid">' +
         VALUES.map(v => '<label class="opt"><input type="checkbox" data-group="values" value="' + v.k + '" id="v-' + v.k + '"' + (a.values.includes(v.k) ? ' checked' : '') + '><span class="o-text"><span>' + esc(v.label) + '</span>' + (v.pct ? '<span class="o-sub">Chosen by ' + v.pct + '% of youths surveyed</span>' : '') + '</span></label>').join('') + '</div></div>' +
-        '<div class="group"><h3>Personal preferences (optional)</h3><p class="small muted">These are never scored or shared with MENDAKI. Some flag roles; others become questions to ask employers.</p><div class="option-grid">' +
+        '<div class="group"><h3>Personal preferences (optional)</h3><p class="small muted">These are never scored and stay on this device. Some flag roles; others become questions to ask employers.</p><div class="option-grid">' +
         FAITH.map(f => '<label class="opt"><input type="checkbox" data-group="faith" value="' + f.k + '" id="f-' + f.k + '"' + (a.faith.includes(f.k) ? ' checked' : '') + '><span class="o-text"><span>' + esc(f.label) + '</span><span class="o-sub">' + (f.kind === 'filter' ? 'Flags matching roles' : 'Added to your interview questions') + '</span></span></label>').join('') + '</div></div>';
     } else if (st === 3) {
       body = '<div class="step-intro"><p class="eyebrow">Step 4 of 5 · Work scenarios</p><h1>What would you most likely do?</h1><p>Pick the response closest to what you would really do. These check your self-ratings against choices in realistic Singapore workplaces.</p></div>' +
@@ -940,41 +958,64 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   }
 
 
-  /* ---------- Ask Serasi (AI explainer) ---------- */
-  // Questions go to the Serasi server (api/ask), which holds the answer rules and calls Claude.
-  const ask = { msgs: [], busy: false, ctl: null, key: '', draft: '', seq: 0, since: 0 };
-  let askAvail = null; // null: not known yet; true: can ask; false: hidden for this view
+  /* ---------- Ask Serasi (rule-based answers) ---------- */
+  // Ask Serasi matches a question to one of a few simple topics and answers from the profile and job data.
+  // It runs in the browser and uses no AI, so nothing typed leaves the device.
+  const ask = { msgs: [], key: '', draft: '', seq: 0 };
 
   function askKey() { return state.example ? 'example' : 'mine'; }
   function reduceMotion() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
   function lowerTitle(t) { return /^[A-Z][A-Z]/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1); }
+  function lowerFirst(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
+  function upperFirst(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  function article(t) { return (/^[A-Z]{2}/.test(t) ? /^[AEFHILMNORSX]/.test(t) : /^[aeiou]/i.test(t)) ? 'an' : 'a'; }
 
-  function askContext() {
-    const { p, who } = currentProfile();
-    const res = rank(p);
-    const code = codeOf(p.interest);
-    const lines = ['PROFILE'];
-    lines.push('Who: ' + (who ? 'a made-up example profile' : 'the youth using the app') + '. Stage: ' + PATH[p.pathway].label + '.');
-    lines.push('Interest scores (0-100, Holland RIASEC): ' + TYPES.map(t => t + ' ' + TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ') ' + pct(p.interest[t])).join('; ') + '. Top three code: ' + code + '. Profile: ' + TYPE_INFO[code[0]].profile + '-' + TYPE_INFO[code[1]].profile + '.');
-    lines.push('Work-style traits (0-100): ' + TRAITS.map(t => t.name + ' ' + pct(p.traits[t.k]) + ' (low = ' + t.low.toLowerCase() + ', high = ' + t.high.toLowerCase() + ')').join('; ') + '.');
-    lines.push('Values chosen: ' + (p.values.map(v => VALUE[v].label).join('; ') || 'none') + '.');
-    lines.push('Personal preferences the youth set (never scored): ' + (p.faith.map(f => FAITH_ITEM[f].label).join('; ') || 'none') + '.');
-    lines.push('Skills, self-rated 1-5: ' + SKILLS.map(s => s.label + ' ' + p.skills[s.k]).join('; ') + '.');
-    lines.push('Fit score weights: ' + weightText() + '.');
-    lines.push('');
-    lines.push('ROLES (shortlist, best first, then stretch roles)');
-    const roleLine = (s, label) => {
-      const r = s.role;
-      const needs = Object.entries(r.skills).map(([k, v]) => SKILL[k].label + ' ' + v + '/5').join(', ');
-      const traits = Object.entries(r.ws).map(([k, v]) => TRAIT[k].name + ' ' + pct(v)).join(', ');
-      return label + ' ' + r.title + ' (' + r.sector + '). Holland code ' + r.code + '. Fit ' + s.total + '/100: interests ' + pct(s.interest) + ', work style ' + pct(s.work) + ', values ' + pct(s.values) +
-        '. Usually needs ' + EDU_LABEL[r.edu] + '; skills ' + needs + '; traits ' + traits + '. Offers: ' + r.values.map(v => VALUE[v].short).join(', ') +
-        '. Notes: ' + s.reasons.map(x => x.text).join(' ') + (s.flag ? ' ' + s.flag.text : '');
-    };
-    res.main.forEach((s, i) => lines.push(roleLine(s, (i + 1) + '.')));
-    res.stretch.forEach(s => lines.push(roleLine(s, 'Stretch:')));
-    return lines.join('\n');
-  }
+  /* One line on what each job involves, for "What does a … do?" */
+  const ROLE_DOES = {
+    'eng-tech': 'Builds, tests and maintains machines and equipment, working from drawings alongside engineers.',
+    'aircraft-tech': 'Inspects, services and repairs aircraft to strict safety checklists, often in shifts at the airport.',
+    'facilities-tech': 'Keeps a building’s air-conditioning, lifts, lighting and plumbing running, and fixes faults when they appear.',
+    'lab-tech': 'Runs tests on blood and other samples in a hospital lab so doctors can diagnose patients.',
+    'data-analyst': 'Collects and cleans data, then turns it into charts and reports that help a team make decisions.',
+    'software-eng': 'Designs, writes and tests the code behind apps and websites, usually as part of a product team.',
+    'backend-eng': 'Builds the servers, databases and connections that apps rely on behind the scenes.',
+    'cyber': 'Watches an organisation’s systems for attacks, investigates alerts and helps fix security weaknesses.',
+    'product-analyst': 'Studies how people use an app or service and recommends changes to the product team.',
+    'data-consultant': 'Helps client organisations use their data, from scoping the problem to presenting findings.',
+    'risk-analyst': 'Measures the risks a bank takes, such as loans not being repaid, and reports them to managers.',
+    'bank-ops': 'Processes and checks transactions, accounts and paperwork so a bank’s daily operations run accurately.',
+    'islamic-banking': 'Serves customers and handles accounts and financing products that follow Islamic principles.',
+    'takaful': 'Advises customers on takaful, a form of insurance based on Islamic principles, and handles their plans and claims.',
+    'accounts-exec': 'Records transactions, prepares invoices and payments, and helps close the accounts each month.',
+    'ops-exec': 'Coordinates the daily running of a team or site: schedules, suppliers, processes and reports.',
+    'compliance': 'Checks that the organisation follows laws and regulations, and trains staff on the rules.',
+    'logistics': 'Plans and tracks how goods move from suppliers to warehouses to customers, and sorts out delays.',
+    'pharm-tech': 'Prepares and dispenses medicines under a pharmacist’s supervision and helps patients with their prescriptions.',
+    'ux': 'Researches what users need and designs app and website screens that are easy to use.',
+    'content': 'Plans and creates videos, posts and articles for an organisation’s channels.',
+    'graphic': 'Designs logos, posters, social media graphics and other visuals to a brief.',
+    'arch': 'Helps architects develop building designs, drawings and 3D models.',
+    'video': 'Cuts raw footage into finished videos, adding sound, graphics and effects.',
+    'events': 'Plans and runs events, from venues and suppliers to the programme on the day.',
+    'nurse': 'Cares for patients in hospitals or clinics: monitors them, gives medicines and works with doctors.',
+    'physio': 'Helps people recover movement after injury, illness or surgery through exercise and hands-on treatment.',
+    'teacher': 'Plans and teaches lessons in a school, marks work and guides students as they grow.',
+    'preschool': 'Teaches and cares for young children through play-based learning and daily routines.',
+    'social-worker': 'Supports individuals and families through difficulties and connects them to help and services.',
+    'youth-worker': 'Runs programmes for young people and mentors them as they build skills and confidence.',
+    'hr': 'Handles hiring, onboarding, staff records and employee questions for an organisation.',
+    'bizdev': 'Finds new clients and partners and builds relationships to grow the business.',
+    'marketing': 'Plans campaigns, social media and promotions to attract and keep customers.',
+    'sales': 'Meets customers, understands their needs and sells products or services to hit targets.',
+    'fnb': 'Runs a restaurant shift: leads the service team, looks after customers and keeps standards up.',
+    'enrolled-nurse': 'Gives hands-on nursing care to patients under the guidance of registered nurses.',
+    'customer-service': 'Answers customer questions and complaints by phone, chat or in person, and solves problems.',
+    'community-care': 'Supports seniors and others in the community with daily activities, care and companionship.',
+    'multimedia': 'Creates graphics, animations and simple videos for digital and print media.',
+    'retail': 'Leads a store team, manages stock and displays, and makes sure customers are well served.',
+    'public-officer': 'Supports a government department with administration, records, processes and public enquiries.',
+    'policy': 'Researches issues and helps develop, review and explain government policies.'
+  };
 
   function askSuggestions() {
     const { p } = currentProfile();
@@ -982,89 +1023,167 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     const list = [];
     if (top) {
       const t = lowerTitle(top.role.title);
-      const art = /^[aeiou]/i.test(t) && !/^U[A-Z]/.test(t) ? 'an' : 'a';
       list.push('Why is ' + t + ' my top match?');
-      list.push('What does ' + art + ' ' + t + ' do day to day?');
+      list.push('What does ' + article(t) + ' ' + t + ' do?');
     }
-    list.push('Which skill should I build first?');
-    list.push('Terangkan profil saya dalam Bahasa Melayu');
-    return list;
+    return list.concat(['What does my interest code mean?', 'Which skill should I build first?', 'How do I like to work?', 'What are my stretch roles?', 'How do I find job openings?', 'Who can I talk to?']);
+  }
+  const askMenu = () => askSuggestions().map(x => '- ' + x).join('\n');
+  const askFallback = () => 'Sorry, I can only answer a few simple questions about your results. Try one of these:\n' + askMenu();
+
+  // Topics are checked in order, and the first match answers.
+  function askAnswer(question) {
+    const { p } = currentProfile();
+    const res = rank(p);
+    const q = ' ' + question.toLowerCase().replace(/[’']/g, '') + ' ';
+    const has = re => re.test(q);
+    const s = askRole(q, res, p);
+    if (s) return has(/\b(do|does|day|daily|involve|involves)\b/) && !has(/\bwhy\b|\bfits?\b/) ? roleDoes(s, res) : roleFit(s, res);
+    if (has(/\b(pay|salary|salaries|wages?|earn|income|gaji)\b/)) return askPay(res);
+    if (has(/stretch/)) return askStretch(res);
+    if (has(/\bskills?\b|\bbuild\b|\bimprove|\bcourses?\b|\bweak/)) return askSkills(res, p);
+    if (has(/\bcode\b|riasec|holland|interest type|\bmy interests?\b/)) return askCode(p);
+    if (has(/work style|personality|strength|\btraits?\b|how do i (like to )?work/)) return askStyle(p);
+    if (has(/\bvalues?\b/)) return askValues(res, p);
+    if (has(/coach|counsel|talk to|someone|advice|advise|unsure|not sure|worried|confused|help me (choose|decide)/)) return askCoach();
+    if (has(/opening|vacanc|apply|hiring|portal|job search|find (a )?(job|work)|look for (a )?job/)) return askOpenings(res, p);
+    if (has(/\b(why|top|best|match|fit)\b/)) return res.main[0] ? roleFit(res.main[0], res) : askFallback();
+    if (has(/^ (hi|hello|hey|salam|assalamualaikum)\b/)) return 'Hi! I answer simple questions about your results. Try one of these:\n' + askMenu();
+    return askFallback();
+  }
+
+  // Finds a job named in the question: the longest full title it contains (so "bank operations executive"
+  // beats "operations executive"), then a title's last word (such as "nurse"). Jobs on the youth's list
+  // come first, so "analyst" means their best-ranked analyst role.
+  function askRole(q, res, p) {
+    const listed = res.main.concat(res.stretch);
+    const all = listed.concat(ROLES.filter(r => !listed.some(s => s.role === r)).map(r => scoreRole(r, p, state.weights)));
+    const plain = t => t.replace(/\s*\(.*\)/, '').toLowerCase();
+    let best = null, bestLen = 0;
+    all.forEach(s => [s.role.title.toLowerCase(), plain(s.role.title), s.role.q].forEach(n => {
+      if (n.length > bestLen && q.includes(n)) { best = s; bestLen = n.length; }
+    }));
+    return best ||
+      all.find(s => { const w = plain(s.role.title).split(/[\s/]+/).at(-1); return w.length >= 5 && new RegExp('\\b' + w + 's?\\b').test(q); }) ||
+      null;
+  }
+
+  function placeOf(s, res) {
+    const i = res.main.indexOf(s);
+    if (i >= 0) return 'number ' + (i + 1) + ' on your list';
+    return res.stretch.includes(s) ? 'one of your stretch roles' : 'not on your list';
+  }
+
+  function roleFit(s, res) {
+    const r = s.role;
+    const lines = [r.title + ' is ' + placeOf(s, res) + ', with a fit score of ' + s.total + ' out of 100 (interests ' + pct(s.interest) + ', work style ' + pct(s.work) + ', values ' + pct(s.values) + ').'];
+    s.reasons.forEach(x => lines.push('- ' + x.text));
+    if (s.flag) lines.push('- ' + s.flag.text);
+    lines.push('What the work involves: ' + ROLE_DOES[r.id]);
+    return lines.join('\n');
+  }
+
+  function roleDoes(s, res) {
+    const r = s.role, t = lowerTitle(r.title);
+    return upperFirst(article(t)) + ' ' + t + ' ' + lowerFirst(ROLE_DOES[r.id]) +
+      '\n- Sector: ' + r.sector + '. It usually needs ' + EDU_LABEL[r.edu] + '.' +
+      '\n- For you, it’s ' + placeOf(s, res) + ' (fit ' + s.total + ' out of 100).' +
+      '\n- To see real tasks, read a few job ads for “' + s.query + '” on ' + PORTALS[r.portals[0]].name + '.';
+  }
+
+  function askSkills(res, p) {
+    const need = {};
+    res.main.concat(res.stretch).forEach(s => Object.entries(s.role.skills).forEach(([k, lvl]) => {
+      const gap = lvl - (p.skills[k] || 0);
+      if (gap > 0) { const n = need[k] || (need[k] = { k, roles: [], gap: 0 }); n.roles.push(lowerTitle(s.role.title)); n.gap += gap; }
+    }));
+    const list = Object.values(need).sort((a, b) => b.roles.length - a.roles.length || b.gap - a.gap);
+    if (!list.length) return 'Your skill ratings already meet what the jobs on your list usually need. Next, build real experience through a job taster, internship or part-time job.';
+    const [first, second] = list;
+    const lines = ['Build ' + SKILL[first.k].label.toLowerCase() + ' first. You rated it ' + p.skills[first.k] + ' out of 5, and ' +
+      (first.roles.length === 1 ? 'one job on your list usually needs more: ' + first.roles[0] + '.' : first.roles.length + ' jobs on your list usually need more, including ' + joinList(first.roles.slice(0, 2)) + '.')];
+    if (second) lines.push('- Next: ' + SKILL[second.k].label.toLowerCase() + ' (' + second.roles.length + (second.roles.length === 1 ? ' job' : ' jobs') + ').');
+    lines.push('- Short courses on MySkillsFuture are a good place to start.');
+    return lines.join('\n');
+  }
+
+  function askCode(p) {
+    const code = codeOf(p.interest);
+    return 'Your interest code is ' + code + '. It shows your three strongest interest types, strongest first:\n' +
+      [...code].map(t => '- ' + TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ', ' + pct(p.interest[t]) + ' out of 100): ' + TYPE_INFO[t].blurb).join('\n') +
+      '\nThe letters come from Holland’s six RIASEC types, the same ones MySkillsFuture uses.';
+  }
+
+  function askStyle(p) {
+    return 'Here’s how you described your work style, from 0 to 100:\n' + TRAITS.map(t => {
+      const v = p.traits[t.k];
+      return '- ' + t.name + ' ' + pct(v) + ': ' + (v >= .6 ? 'closer to “' + t.high + '”' : v <= .4 ? 'closer to “' + t.low + '”' : 'in the middle') + '.';
+    }).join('\n') + '\nThese are your own ratings, so treat them as a guide.';
+  }
+
+  function askValues(res, p) {
+    if (!p.values.length) return 'You didn’t choose any values. Retake the quiz to add up to three.';
+    const all = res.main.filter(s => p.values.every(v => s.role.values.includes(v)));
+    const some = res.main.filter(s => p.values.some(v => s.role.values.includes(v)));
+    const W = state.weights;
+    return 'You chose ' + joinList(p.values.map(v => VALUE[v].short)) + '.\n' +
+      (all.length
+        ? '- Jobs on your list that offer ' + (p.values.length > 1 ? 'all of them' : 'it') + ': ' + joinList(all.slice(0, 4).map(s => s.role.title)) + '.'
+        : '- No job on your list offers all of them, but ' + some.length + ' offer at least one.') +
+      '\n- Values make up ' + Math.round(100 * W.v / (W.i + W.w + W.v || 1)) + '% of each fit score.';
+  }
+
+  function askStretch(res) {
+    if (!res.stretch.length) return 'You have no stretch roles right now. The good fits on your list are within reach of your current skills and qualification.';
+    return 'Stretch roles fit you well but need something first:\n' + res.stretch.map(s => {
+      const needs = (s.eduGap ? [EDU_LABEL[s.role.edu]] : []).concat(s.gaps.map(k => 'more ' + SKILL[k].label.toLowerCase()));
+      return '- ' + s.role.title + ' (fit ' + s.total + '): usually needs ' + joinList(needs) + '.';
+    }).join('\n') + '\nAsk about one by name to see why it fits.';
+  }
+
+  function askOpenings(res, p) {
+    const top = res.main[0];
+    const lines = ['Open any job on your list and tap a job portal to see live openings.'];
+    if (top) lines.push('- For ' + lowerTitle(top.role.title) + ', start with ' + PORTALS[top.role.portals[0]].name + ' and search for “' + top.query + '”.');
+    lines.push('- MyCareersFuture ads show a salary range.');
+    if (p.grit) lines.push('- You may also qualify for GRIT traineeships: 3 to 6 months with a monthly allowance.');
+    return lines.join('\n');
+  }
+
+  function askPay(res) {
+    const top = res.main[0];
+    return 'Serasi doesn’t show pay. Job ads on MyCareersFuture list a salary range' + (top ? ', so search there for “' + top.query + '” to see what ' + lowerTitle(top.role.title) + ' jobs offer.' : '.');
+  }
+
+  function askCoach() {
+    return 'Your results are a guide, not a decision. A career coach can help you talk it through:\n- NTUC e2i offers career coaching and job matching.\n- M³+ offers job matching support.\nOpen any job on your list for links to both.';
   }
 
   function askMsgHTML(m) {
-    const cls = 'msg ' + (m.role === 'user' ? 'user' : 'bot') + (m.thinking ? ' thinking' : '');
-    const body = m.thinking ? 'Thinking…' : esc(m.text || '');
-    return '<li class="' + cls + '" id="msg-' + m.id + '"><span class="who">' + (m.role === 'user' ? 'You' : 'Serasi') + '</span>' +
-      (body ? '<span class="txt">' + body + '</span>' : '') + (m.note ? '<span class="note">' + esc(m.note) + '</span>' : '') + '</li>';
-  }
-
-  function askBusyUI() {
-    document.querySelectorAll('#ask .ask-chip, #ask-send, [data-action="ask-role"]').forEach(x => { x.disabled = ask.busy; });
-    const stop = document.getElementById('ask-stop'); if (stop) stop.hidden = !ask.busy;
+    return '<li class="msg ' + (m.role === 'user' ? 'user' : 'bot') + '" id="msg-' + m.id + '"><span class="who">' + (m.role === 'user' ? 'You' : 'Serasi') + '</span><span class="txt">' + esc(m.text) + '</span></li>';
   }
 
   function renderAskLog() {
     const log = document.getElementById('ask-log'); if (log) log.innerHTML = ask.msgs.map(askMsgHTML).join('');
     const inp = document.getElementById('ask-input'); if (inp) inp.value = ask.draft;
-    askBusyUI();
   }
 
   function renderAsk() {
-    const sec = document.getElementById('ask');
-    if (!sec) return;
-    if (ask.key !== askKey()) { if (ask.ctl) ask.ctl.abort(); ask.msgs = []; ask.since = 0; ask.key = askKey(); }
-    sec.hidden = askAvail !== true;
+    if (!document.getElementById('ask')) return;
+    if (ask.key !== askKey()) { ask.msgs = []; ask.key = askKey(); }
     document.getElementById('ask-chips').innerHTML = askSuggestions().map(q => '<button class="ask-chip" type="button" data-action="ask-suggest" data-q="' + esc(q) + '">' + esc(q) + '</button>').join('');
     renderAskLog();
   }
 
-  function updateMsg(m) {
-    const li = document.getElementById('msg-' + m.id);
-    if (li) li.outerHTML = askMsgHTML(m);
-  }
-
-  async function askSend(raw) {
-    const q = String(raw || '').trim().slice(0, 600);
-    if (!q || ask.busy || askAvail !== true) return;
-    const history = ask.msgs.slice(ask.since).filter(m => m.role === 'user' || (m.ok && m.text)).slice(-8)
-      .map(m => ({ role: m.role === 'user' ? 'user' : 'assistant', content: m.text }));
-    const user = { id: ++ask.seq, role: 'user', text: q };
-    const bot = { id: ++ask.seq, role: 'bot', text: '', ok: false, thinking: true };
-    ask.msgs.push(user, bot);
+  function askSend(raw) {
+    const q = String(raw || '').trim().slice(0, 300);
+    if (!q) return;
+    ask.msgs.push({ id: ++ask.seq, role: 'user', text: q }, { id: ++ask.seq, role: 'bot', text: askAnswer(q) });
+    ask.msgs = ask.msgs.slice(-20);
     ask.draft = '';
-    ask.busy = true;
-    const ctl = new AbortController();
-    ask.ctl = ctl;
     renderAskLog();
-    const li = document.getElementById('msg-' + bot.id);
-    if (li) li.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
-    try {
-      const r = await streamAI('ask', { context: askContext(), history, question: q }, ctl.signal, text => { bot.text = text; bot.thinking = false; updateMsg(bot); });
-      bot.text = r.text; bot.ok = true;
-      if (r.truncated) bot.note = 'Cut short. Try asking for less at once.';
-    } catch (e) {
-      const code = e && e.code;
-      bot.text = (e && e.text) || '';
-      if (code === 'cancelled') bot.note = 'Stopped.';
-      else if (code === 'unavailable') askAvail = false;
-      else if (code === 'rate_limited') bot.note = 'Too many questions right now. Try again in a minute.';
-      else if (code === 'daily_limit') bot.note = 'Ask Serasi has answered as many questions as it can today. Try again tomorrow.';
-      else if (code === 'busy') bot.note = 'Serasi is busy right now. Try again in a minute.';
-      else if (code === 'refused') { bot.text = ''; bot.note = 'Serasi can’t answer that one. Try asking about your results or a job.'; }
-      else if (code === 'empty_completion') bot.note = 'No answer came back. Try rephrasing your question.';
-      else if (code === 'too_large') { bot.note = 'This chat got too long. Your next question starts fresh.'; ask.since = ask.msgs.length; }
-      else bot.note = 'The answer was interrupted. Try again.';
-    } finally {
-      bot.thinking = false;
-      if (ask.ctl === ctl) ask.ctl = null;
-      ask.busy = false;
-      if (askAvail === false) {
-        const sec = document.getElementById('ask'); if (sec) sec.hidden = true;
-        renderLists();
-      } else {
-        updateMsg(bot); askBusyUI();
-      }
-    }
+    const last = document.getElementById('msg-' + ask.seq);
+    if (last) last.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
   }
 
 
@@ -1092,14 +1211,14 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   function freshMeta() { return { age: '', area: '', consent: false, share: false }; }
   let state = {
     view: 'welcome', step: 0, done: false, example: false,
-    answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', device: '',
+    answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '',
     weights: Object.assign({}, DEFAULT_W), hideFlagged: false, open: ['__first__'], codeError: '',
-    shared: '', pendingShare: false, confirmDelete: false, startError: '', notice: '',
-    dash: { age: 'all', path: 'all', area: 'all', example: false }
+    confirmDelete: false, startError: '', notice: '',
+    dash: { age: 'all', path: 'all', area: 'all', by: 'age' }
   };
 
   function save() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: state.answers, done: state.done, meta: state.meta, tasters: state.tasters, completedAt: state.completedAt, device: state.device })); } catch (e) { /* storage unavailable */ }
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: state.answers, done: state.done, meta: state.meta, tasters: state.tasters, completedAt: state.completedAt })); } catch (e) { /* storage unavailable */ }
   }
   function load() {
     try {
@@ -1112,7 +1231,6 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         state.meta = Object.assign(freshMeta(), d.meta || {});
         state.tasters = !!d.tasters;
         state.completedAt = d.completedAt || '';
-        state.device = typeof d.device === 'string' ? d.device : '';
         if (state.done) state.view = 'results';
       }
     } catch (e) { /* ignore */ }
@@ -1124,107 +1242,11 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     return { p: profileFromAnswers(state.answers), who: null };
   }
 
-  /* ---------- Serasi server ---------- */
-  // The Serasi server (server/ in the repo) adds sharing with MENDAKI, the staff dashboard and Ask Serasi.
-  // Without it, for example on GitHub Pages, api/config is missing and the app works on this device only.
-  const caps = { share: false, ask: false, staff: false, admin: false, ready: false };
-  const canShare = () => caps.share;
-  const noShare = () => caps.ready && !canShare();
-  const PENDING_DELETE_KEY = 'serasi-pending-delete';
+  /* ---------- Sharing (demo) ---------- */
+  // Sharing adds the youth's anonymised record to the mock MENDAKI database in this browser,
+  // where the dashboard counts it alongside the made-up youths. Nothing is sent anywhere.
+  const isShared = () => state.done && state.meta.share;
 
-  function apiError(status, code, text) { const e = new Error(code); e.api = true; e.status = status; e.code = code; e.text = text || ''; return e; }
-
-  async function api(path, o) {
-    o = o || {};
-    const headers = {};
-    if (o.body !== undefined) headers['Content-Type'] = 'application/json';
-    if (o.token) headers.Authorization = 'Bearer ' + o.token;
-    let res;
-    try {
-      res = await fetch('api/' + path, { method: o.method || 'GET', headers, body: o.body === undefined ? undefined : JSON.stringify(o.body), credentials: 'same-origin', cache: 'no-store', signal: o.signal });
-    } catch (e) { throw apiError(0, e && e.name === 'AbortError' ? 'cancelled' : 'network'); }
-    if (res.ok && o.stream) return res;
-    const data = (res.headers.get('Content-Type') || '').includes('application/json') ? await res.json().catch(() => null) : null;
-    if (!res.ok) throw apiError(res.status, (data && data.error) || 'http_' + res.status);
-    return data || {};
-  }
-
-  // Reads a streamed AI answer: one JSON object per line, {"t": text} chunks then {"done": true} or {"error": code}.
-  async function streamAI(path, body, signal, onText) {
-    const res = await api(path, { method: 'POST', body, signal, stream: true });
-    const reader = res.body.getReader(), dec = new TextDecoder();
-    let buf = '', text = '', end = null;
-    try {
-      for (;;) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        buf += dec.decode(value, { stream: true });
-        let i;
-        while ((i = buf.indexOf('\n')) >= 0) {
-          const line = buf.slice(0, i).trim();
-          buf = buf.slice(i + 1);
-          if (!line) continue;
-          const m = JSON.parse(line);
-          if (typeof m.t === 'string') { text += m.t; onText(text); }
-          else if (m.error) throw apiError(200, m.error, text);
-          else if (m.done) end = m;
-        }
-      }
-    } catch (e) {
-      if (e && e.api) throw e;
-      throw apiError(0, e && e.name === 'AbortError' ? 'cancelled' : 'interrupted', text);
-    }
-    if (!end) throw apiError(0, 'interrupted', text);
-    if (!text.trim()) throw apiError(200, 'empty_completion');
-    return { text, truncated: !!end.truncated };
-  }
-
-  // A random code that identifies this device's shared results. Only its hash is stored on the server.
-  function deviceToken() {
-    if (!state.device) {
-      const b = new Uint8Array(32);
-      crypto.getRandomValues(b);
-      state.device = btoa(String.fromCharCode.apply(null, b)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-      save();
-    }
-    return state.device;
-  }
-
-  async function initCaps() {
-    try {
-      const cfg = await api('config');
-      if (cfg.app === 'serasi') Object.assign(caps, { share: !!cfg.share, ask: !!cfg.ask, staff: !!cfg.staff, admin: !!cfg.signedIn });
-    } catch (e) { /* no server here: this device only */ }
-    askAvail = caps.ask;
-    caps.ready = true;
-    if (caps.share) await retryPendingDelete();
-    if (state.done && state.meta.share) {
-      if (!caps.share) state.shared = 'unavailable';
-      else if (state.pendingShare) { state.pendingShare = false; shareResults(); }
-      else if (!state.device) state.shared = '';
-      else {
-        try { await api('results/me', { token: state.device }); state.shared = 'saved'; } catch (e) { if (e.status === 404) state.shared = ''; }
-      }
-    }
-    afterCaps();
-  }
-
-  // Finishes a "Delete my data" that couldn't reach the server last time.
-  async function retryPendingDelete() {
-    let token = '';
-    try { token = localStorage.getItem(PENDING_DELETE_KEY) || ''; } catch (e) { return; }
-    if (!token) return;
-    try { await api('results/me', { method: 'DELETE', token }); localStorage.removeItem(PENDING_DELETE_KEY); } catch (e) { /* try again next time */ }
-  }
-  function afterCaps() {
-    refreshChrome();
-    const sw = document.getElementById('share-wrap'); if (sw) sw.hidden = noShare();
-    if (state.view === 'results') { renderLists(); renderAsk(); renderShareStatus(); renderTasterCard(); }
-    if (state.view === 'about') renderAbout();
-    if (state.view === 'dashboard') renderDashboard();
-  }
-
-  /* ---------- Sharing anonymised results ---------- */
   function sharedDoc() {
     const p = profileFromAnswers(state.answers);
     const res = rank(p, DEFAULT_W, false);
@@ -1238,30 +1260,16 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
       tasters: !!state.tasters
     };
   }
-  async function shareResults() {
-    if (!caps.ready) { state.pendingShare = true; return; }
-    if (!caps.share) { state.shared = 'unavailable'; renderShareStatus(); renderTasterCard(); return; }
-    state.shared = 'saving'; renderShareStatus();
-    try { await api('results/me', { method: 'PUT', token: deviceToken(), body: sharedDoc() }); state.shared = 'saved'; }
-    catch (e) { state.shared = e.status === 507 ? 'full' : 'error'; }
-    renderShareStatus(); renderTasterCard();
-  }
-  async function unshareResults() {
-    if (!state.device) { state.shared = ''; return true; }
-    try { await api('results/me', { method: 'DELETE', token: state.device }); state.shared = ''; return true; } catch (e) { return false; }
-  }
-  async function stopSharing() {
-    state.shared = 'stopping'; renderShareStatus();
-    if (await unshareResults()) { state.meta.share = false; state.tasters = false; }
-    else state.shared = 'stop-error';
+
+  function setSharing(on) {
+    state.meta.share = on;
+    if (!on) state.tasters = false;
     save(); renderShareStatus(); renderTasterCard();
   }
-  async function setTasters(on) {
-    state.tasters = on; save();
-    if (state.shared === 'saved' && caps.share) {
-      try { await api('results/me', { method: 'PUT', token: deviceToken(), body: sharedDoc() }); } catch (e) { state.shared = 'error'; }
-    }
-    renderTasterCard(); renderShareStatus();
+  function setTasters(on) {
+    state.tasters = on;
+    if (on) state.meta.share = true;
+    save(); renderShareStatus(); renderTasterCard();
   }
 
   function renderShareStatus() {
@@ -1269,31 +1277,19 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     if (!el) return;
     if (state.example) { el.hidden = true; return; }
     el.hidden = false;
-    if (noShare()) { el.innerHTML = '<span>Your results are saved on this device only.</span>'; return; }
-    let html;
-    if (!caps.ready) html = '<span>Checking sharing…</span>';
-    else if (!state.meta.share) html = '<span>Not shared. Your results stay on this device.</span><button class="btn link" type="button" data-action="share-on">Share anonymously with MENDAKI</button>';
-    else if (state.shared === 'saving') html = '<span>Sharing…</span>';
-    else if (state.shared === 'stopping') html = '<span>Stopping sharing…</span>';
-    else if (state.shared === 'stop-error') html = '<span>Your shared results couldn’t be removed just now, so they’re still shared.</span><button class="btn link" type="button" data-action="share-off">Try again</button>';
-    else if (state.shared === 'saved') html = '<span class="pill good">Shared anonymously</span><span>MENDAKI sees grouped counts only, never your name.</span><button class="btn link" type="button" data-action="share-off">Stop sharing</button>';
-    else if (state.shared === 'full') html = '<span>MENDAKI’s data store is full, so your results weren’t shared. They’re still saved on this device.</span>';
-    else if (state.shared === 'unavailable') html = '<span>Sharing isn’t available here. Your results stay on this device.</span>';
-    else if (state.shared === 'error') html = '<span>Your results couldn’t be shared just now.</span><button class="btn link" type="button" data-action="share-on">Try again</button>';
-    else html = '<span>Not shared yet.</span><button class="btn link" type="button" data-action="share-on">Share anonymously with MENDAKI</button>';
-    el.innerHTML = html;
+    el.innerHTML = state.meta.share
+      ? '<span class="pill good">Shared anonymously</span><span>Demo: your anonymised record is in the mock MENDAKI database on this device.</span><button class="btn link" type="button" data-action="dashboard">See it on the dashboard</button><button class="btn link" type="button" data-action="share-off">Stop sharing</button>'
+      : '<span>Not shared. Your results stay on this device.</span><button class="btn link" type="button" data-action="share-on">Share anonymously with MENDAKI</button>';
   }
 
   function renderTasterCard() {
     const el = document.getElementById('taster');
     if (!el) return;
-    if (state.example || noShare()) { el.hidden = true; return; }
+    if (state.example) { el.hidden = true; return; }
     el.hidden = false;
-    const shared = state.meta.share && state.shared === 'saved';
-    let action;
-    if (state.tasters && shared) action = '<div class="taster-act"><span class="pill good">You’re on the list</span><button class="btn link" type="button" data-action="tasters-off">Remove me</button></div>';
-    else if (state.shared === 'unavailable' || state.shared === 'full') action = '<p class="small muted">This needs sharing, which isn’t available right now.</p>';
-    else action = '<div class="taster-act"><button class="btn primary" type="button" data-action="tasters-on">I’m interested</button>' + (shared ? '' : '<span class="small muted">This shares your anonymised results with MENDAKI.</span>') + '</div>';
+    const action = state.tasters && state.meta.share
+      ? '<div class="taster-act"><span class="pill good">You’re on the list</span><button class="btn link" type="button" data-action="tasters-off">Remove me</button></div>'
+      : '<div class="taster-act"><button class="btn primary" type="button" data-action="tasters-on">I’m interested</button>' + (state.meta.share ? '' : '<span class="small muted">This shares your anonymised results with MENDAKI.</span>') + '</div>';
     el.innerHTML = '<div><p class="eyebrow">Try it first</p><h2>Job tasters and internships</h2>' +
       '<p class="small">Want to spend a day in one of your top jobs before you choose? Tell MENDAKI you’re interested. No contact details are collected: MENDAKI uses the total to plan job tasters and internships in the fields youths pick most, and announces them through its programmes.</p></div>' + action;
   }
@@ -1323,7 +1319,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
           '<div class="field"><label for="age">Your age</label><select id="age"><option value="">Choose one</option>' + options(AGES, m.age) + '</select></div>' +
           '<div class="field"><label for="area">Where you live</label><select id="area"><option value="">Choose one</option>' + options(AREAS, m.area) + '</select></div>' +
           '<label class="check" for="consent"><input type="checkbox" id="consent"' + (m.consent ? ' checked' : '') + '><span>I understand Serasi suggests jobs from my answers. The results are a guide, not a decision.</span></label>' +
-          '<label class="check" for="share" id="share-wrap"' + (noShare() ? ' hidden' : '') + '><input type="checkbox" id="share"' + (m.share ? ' checked' : '') + '><span><b>Optional:</b> share my anonymised results with MENDAKI to help plan youth events. No name or contact details are shared, and I can delete them at any time.</span></label>' +
+          '<label class="check" for="share" id="share-wrap"><input type="checkbox" id="share"' + (m.share ? ' checked' : '') + '><span><b>Optional:</b> share my anonymised results with MENDAKI to help plan youth events. No name or contact details are shared, and I can delete them at any time.</span></label>' +
           (state.startError ? '<p class="form-error" role="alert">' + esc(state.startError) + '</p>' : '') +
           '<button class="btn primary" type="submit">Start the quiz</button>' +
           '<p class="small muted">Not sure yet? <button class="btn link" type="button" data-action="example">See example results</button> or read <button class="btn link" type="button" data-action="about">how we use your data</button>.</p>' +
@@ -1336,7 +1332,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     const age = document.getElementById('age').value;
     const area = document.getElementById('area').value;
     const consent = document.getElementById('consent').checked;
-    const share = canShare() && document.getElementById('share').checked;
+    const share = document.getElementById('share').checked;
     const missing = [];
     if (!age) missing.push('your age');
     if (!area) missing.push('where you live');
@@ -1368,7 +1364,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     const actions = who ? '' :
       '<button class="btn ghost" type="button" data-action="edit">Retake quiz</button><button class="btn ghost" type="button" data-action="delete-ask">Delete my data</button>';
     const confirm = (!who && state.confirmDelete)
-      ? '<div class="confirm" role="alert"><span>Delete your answers from this device' + (state.meta.share ? ' and your shared results' : '') + '? This can’t be undone.</span><button class="btn danger" type="button" data-action="delete-yes">Delete</button><button class="btn ghost" type="button" data-action="delete-cancel">Cancel</button></div>'
+      ? '<div class="confirm" role="alert"><span>Delete your answers' + (state.meta.share ? ' and your shared record' : '') + ' from this device? This can’t be undone.</span><button class="btn danger" type="button" data-action="delete-yes">Delete</button><button class="btn ghost" type="button" data-action="delete-cancel">Cancel</button></div>'
       : '';
 
     document.getElementById('app').innerHTML =
@@ -1394,7 +1390,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
           '<div><p class="small muted" style="margin-bottom:6px">Values you chose</p><div class="chip-list">' + values + '</div></div>' +
           (filters ? '<div><p class="small muted" style="margin-bottom:6px">Personal preferences that flag roles</p><div class="chip-list">' + filters + '</div></div>' : '') +
           (asks ? '<div><p class="small muted" style="margin-bottom:6px">Questions to ask employers</p><ul class="qa">' + asks + '</ul></div>' : '') +
-          '<p class="small muted">Personal preferences are never scored or shared with MENDAKI.</p></div>' +
+          '<p class="small muted">Personal preferences stay on this device and are never scored or shared.</p></div>' +
       '</section>' +
 
       '<section style="display:flex;flex-direction:column;gap:12px" aria-labelledby="sl">' +
@@ -1403,13 +1399,13 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         '<ol class="roles" id="shortlist"></ol>' +
       '</section>' +
 
-      '<section class="card ask" id="ask" aria-labelledby="ask-h"' + (askAvail === true ? '' : ' hidden') + '>' +
-        '<div class="ask-head"><div><p class="eyebrow">AI explainer</p><h2 id="ask-h">Ask Serasi</h2></div><span class="pill good">English or Bahasa Melayu</span></div>' +
-        '<p class="small muted ask-intro">Ask about your profile or any job on your list. Answers use only your scores and the job data in this app.</p>' +
+      '<section class="card ask" id="ask" aria-labelledby="ask-h">' +
+        '<div class="ask-head"><div><p class="eyebrow">Quick answers</p><h2 id="ask-h">Ask Serasi</h2></div></div>' +
+        '<p class="small muted ask-intro">Tap a question or type your own. Serasi answers simple questions about your profile and the jobs on your list, using your scores and the job data in this app.</p>' +
         '<div class="ask-chips" id="ask-chips"></div>' +
         '<ol class="ask-log" id="ask-log" aria-live="polite"></ol>' +
-        '<form class="ask-form" id="ask-form" autocomplete="off"><label class="sr-only" for="ask-input">Your question</label><input id="ask-input" maxlength="600" placeholder="Ask anything about your results"><button class="btn primary" type="submit" id="ask-send">Ask</button><button class="btn ghost" type="button" id="ask-stop" data-action="ask-stop" hidden>Stop</button></form>' +
-        '<p class="small muted">AI answers can be wrong. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+. Each question sends your scores, choices (including personal preferences) and shortlist to Claude, Anthropic’s AI service, but never your name. Serasi doesn’t keep your questions.</p>' +
+        '<form class="ask-form" id="ask-form" autocomplete="off"><label class="sr-only" for="ask-input">Your question</label><input id="ask-input" maxlength="300" placeholder="For example: What does a nurse do?"><button class="btn primary" type="submit" id="ask-send">Ask</button></form>' +
+        '<p class="small muted">Answers follow fixed rules, not AI, and nothing you type leaves this device. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+.</p>' +
       '</section>' +
 
       '<section class="card taster" id="taster" aria-label="Job tasters and internships"></section>' +
@@ -1432,7 +1428,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
           '<li>This pilot covers ' + ROLES.length + ' hand-coded roles. The full build will draw on O*NET, linked to SSOC codes and the SSG Skills Framework.</li></ul></div>' +
       '</div></details>' +
 
-      '<footer class="foot"><p>Serasi pilot version. Scores are a guide, not a decision, and have not yet been validated with Singapore youths.</p><p>Value percentages come from the NYC Survey on Malay/Muslim Youth (2026, n=1,000). Job links open live searches on third-party sites. Ask Serasi runs on Claude and can make mistakes.</p></footer>';
+      '<footer class="foot"><p>Serasi pilot version. Scores are a guide, not a decision, and have not yet been validated with Singapore youths.</p><p>Value percentages come from the NYC Survey on Malay/Muslim Youth (2026, n=1,000). Job links open live searches on third-party sites.</p></footer>';
 
     renderLists();
     renderAsk();
@@ -1441,25 +1437,19 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     refreshChrome();
   }
 
-  async function deleteAll() {
-    const token = state.device;
-    const ok = await unshareResults();
+  function deleteAll() {
     clearLocal();
-    // Keep the code so the next visit can finish removing the shared results.
-    if (!ok) { try { localStorage.setItem(PENDING_DELETE_KEY, token); } catch (e) { /* ignore */ } }
-    if (ask.ctl) ask.ctl.abort();
-    ask.msgs = []; ask.since = 0; ask.draft = '';
-    Object.assign(state, { view: 'welcome', step: 0, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', device: '', shared: '', pendingShare: false, confirmDelete: false, startError: '' });
-    state.notice = ok ? 'Your data has been deleted.' : 'Your answers were deleted from this device, but your shared results couldn’t be removed just now. Serasi will remove them the next time you open it on this device.';
+    ask.msgs = []; ask.draft = '';
+    Object.assign(state, { view: 'welcome', step: 0, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', confirmDelete: false, startError: '' });
+    state.notice = 'Your data has been deleted.';
     render();
   }
 
   function finishQuiz() {
     state.done = true; state.example = false; state.completedAt = new Date().toISOString().slice(0, 10);
-    state.view = 'results'; state.open = ['__first__']; state.confirmDelete = false; state.shared = '';
+    state.view = 'results'; state.open = ['__first__']; state.confirmDelete = false;
     save();
     render();
-    if (state.meta.share) shareResults();
   }
 
   /* ---------- About and privacy ---------- */
@@ -1469,21 +1459,19 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         '<p class="eyebrow">About and privacy</p><h1>How Serasi works and what happens to your data</h1>' +
         '<h2>What Serasi is</h2>' +
         '<p>Serasi is a career-fit app for Malay youths aged 18 to 25 in Singapore. It matches your interests (Holland RIASEC, 50% of the fit score), work style (the Big Five plus honesty, 30%) and work values (20%) to jobs, and links you to openings, coaches, job tasters and internships. Results are a guide, not a decision.</p>' +
-        (canShare()
-          ? ''
-          : '<h2>This public demo</h2>' +
-            '<p>On this site, answers and results stay in this browser. AI chat, shared results, partner insights and job-taster registration are unavailable. The sharing features described below apply only when Serasi runs on its own server.</p>') +
-        '<h2>What is stored</h2>' +
-        '<ul><li><b>On this device:</b> your answers and results, so you can come back to them.</li>' +
-        '<li><b>Shared with MENDAKI, only if you opt in:</b> your age band, area, qualification, interest code, chosen values, the skills you rated low, your top jobs, whether you want job tasters, and the month you finished. They are stored on the Serasi server under a random code that only your device knows.</li>' +
-        '<li><b>Never collected:</b> your name or contact details. Individual quiz answers and personal preferences are never shared with MENDAKI.</li></ul>' +
-        '<h2>Who can see shared results</h2>' +
-        '<p>Only signed-in Serasi and MENDAKI staff, and only as grouped counts. Groups with fewer than 10 youths are never shown.</p>' +
+        '<h2>This demo</h2>' +
+        '<p>Everything runs in your browser, and your answers and results are saved on this device. Sharing with MENDAKI and the job-taster sign-up are demonstrations: your anonymised record joins a mock database on this device, next to ' + MOCK_SIZE + ' made-up youths, so the MENDAKI dashboard can show how shared results would be counted and used. Nothing is sent to MENDAKI or anyone else.</p>' +
+        '<h2>What the pilot would store</h2>' +
+        '<ul><li><b>On your device:</b> your answers and results, so you can come back to them.</li>' +
+        '<li><b>Shared with MENDAKI, only if you opt in:</b> your age band, area, qualification, interest code, chosen values, the skills you rated low, your top jobs, whether you want job tasters, and the month you finished.</li>' +
+        '<li><b>Never collected:</b> your name or contact details. Individual quiz answers and personal preferences are never shared.</li></ul>' +
+        '<h2>Who could see shared results</h2>' +
+        '<p>In the pilot, only MENDAKI staff, and only as grouped counts. Groups with fewer than 10 youths are hidden. In this demo the dashboard is open to everyone, because it shows made-up data.</p>' +
         '<h2>Delete your data</h2>' +
         '<p>You can delete everything at any time with <b>Delete my data</b> on your results page.</p>' +
         (state.done ? '<div><button class="btn ghost" type="button" data-action="mine">Go to my results</button></div>' : '') +
         '<h2>Ask Serasi</h2>' +
-        '<p>When you ask a question, Serasi sends it with your scores, choices (including personal preferences) and shortlist to Claude, an AI service from Anthropic, to write the answer. Your name is never sent, and Serasi doesn’t keep your questions or the answers. AI answers can be wrong.</p>' +
+        '<p>Ask Serasi answers a set of simple questions, such as why a job fits you or which skill to build first. It follows fixed rules using your scores and the job data in this app. It doesn’t use AI, and nothing you type leaves your device.</p>' +
         '<h2>The questions</h2>' +
         '<p>The work-style statements adapt the public-domain Mini-IPIP (Donnellan and colleagues, 2006), plus four honesty statements written for Serasi. The 30 interest activities were written for Serasi using Holland’s six RIASEC types. The ' + ROLES.length + ' jobs are hand-coded for this pilot; the full build will draw on O*NET, linked to Singapore’s SSOC codes and the SSG Skills Framework.</p>' +
         '<h2>Limits</h2>' +
@@ -1492,117 +1480,66 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     refreshChrome();
   }
 
-  /* ---------- MENDAKI dashboard ---------- */
-  // Staff sign in with a password. The server groups the results (api/admin/stats) and never
-  // sends counts for groups under 10 youths. Example data is made up and grouped here instead.
-  let dashStats = null;
-  let dashKey = '';
-  let dashState = 'idle';
-  let dashSeq = 0;
-  let exampleCache = null;
-  let staffError = '';
+  /* ---------- MENDAKI dashboard (mock database) ---------- */
+  // A mock database stands in for MENDAKI's: made-up youths, plus this youth's own anonymised record
+  // if they chose to share. The dashboard shows how shared results are counted, cross-tabulated and used.
+  const MOCK_SIZE = 240;
+  const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const AGE_LABEL = Object.fromEntries(AGES);
+  const AREA_LABEL = Object.fromEntries(AREAS);
+  const PATH_SHORT = { ITE: 'ITE', Poly: 'Polytechnic', Uni: 'University', Work: 'Working' };
+  const BREAKDOWNS = {
+    age: { label: 'Age', cols: AGES.slice(0, 3) },
+    path: { label: 'Qualification', cols: PATHWAYS.map(x => [x.k, PATH_SHORT[x.k]]) },
+    area: { label: 'Area', cols: AREAS.slice(0, 5) }
+  };
+  let mockCache = null;
 
-  function dashQuery() {
-    const f = state.dash;
-    return 'age=' + encodeURIComponent(f.age) + '&path=' + encodeURIComponent(f.path) + '&area=' + encodeURIComponent(f.area);
-  }
-
-  async function loadStats() {
-    const key = dashQuery();
-    if (key !== dashKey) dashStats = null;
-    dashKey = key; dashState = 'loading';
-    const seq = ++dashSeq;
-    try {
-      const s = await api('admin/stats?' + key);
-      if (seq !== dashSeq) return;
-      dashStats = s; dashState = 'ready';
-    } catch (e) {
-      if (seq !== dashSeq) return;
-      if (e.status === 401) { signedOut(); return; }
-      dashState = 'error';
-    }
-    if (state.view === 'dashboard') renderDashBody();
-  }
-
-  function signedOut() {
-    caps.admin = false; dashStats = null; dashKey = ''; dashState = 'idle'; dashSeq++;
-    refreshChrome();
-    if (state.view === 'dashboard') renderDashboard();
-  }
-
-  function renderStaffSignIn() {
-    const app = document.getElementById('app');
-    if (!caps.staff) {
-      app.innerHTML = '<section class="card about"><p class="eyebrow">MENDAKI insights</p><h1>Staff dashboard</h1><p>' +
-        (canShare() ? 'Staff sign-in isn’t turned on for this server.' : 'The dashboard needs the Serasi server. This copy of the app works on your device only.') + '</p></section>';
-    } else {
-      app.innerHTML = '<section class="card about"><p class="eyebrow">MENDAKI insights</p><h1>Staff sign-in</h1>' +
-        '<p>The dashboard shows grouped, anonymised results for Serasi and MENDAKI staff.</p>' +
-        '<form class="staff-form" id="staff-form" novalidate><div class="field"><label for="staff-pw">Staff password</label><input type="password" id="staff-pw" autocomplete="current-password" required' + (staffError ? ' aria-describedby="staff-err" aria-invalid="true"' : '') + '></div>' +
-        (staffError ? '<p class="form-error" id="staff-err" role="alert">' + esc(staffError) + '</p>' : '') +
-        '<button class="btn primary" type="submit" id="staff-btn">Sign in</button></form></section>';
-    }
-    refreshChrome();
-  }
-
-  async function staffSignIn() {
-    const input = document.getElementById('staff-pw'), btn = document.getElementById('staff-btn');
-    const password = input ? input.value : '';
-    const retry = msg => { staffError = msg; renderStaffSignIn(); const i = document.getElementById('staff-pw'); if (i) i.focus(); };
-    if (!password) { retry('Enter the staff password.'); return; }
-    if (btn) btn.disabled = true;
-    try {
-      await api('admin/login', { method: 'POST', body: { password } });
-      staffError = ''; caps.admin = true;
-      renderDashboard();
-    } catch (e) {
-      retry(e.status === 401 ? 'That password isn’t right.' : e.status === 429 ? 'Too many tries. Wait 15 minutes, then try again.' : 'Couldn’t sign in just now. Try again.');
-    }
-  }
-
-  async function staffSignOut() {
-    try { await api('admin/logout', { method: 'POST', body: {} }); } catch (e) { /* the session expires on its own */ }
-    signedOut();
-  }
-
-  function zeroFill(m, keys) { const o = {}; keys.forEach(k => { o[k] = (m && Number(m[k])) || 0; }); return o; }
-
-  // The grouped counts for the current view: example data, or the server's counts. Null when the group is hidden.
-  function dashAggregate() {
-    if (state.dash.example) return aggregate(exampleData());
-    const s = dashStats;
-    if (!s || s.suppressed) return null;
-    return {
-      n: s.n, tasters: s.tasters,
-      types: zeroFill(s.types, TYPES), values: zeroFill(s.values, VALUES.map(v => v.k)), skills: zeroFill(s.skills, SKILLS.map(x => x.k)),
-      jobs: zeroFill(s.jobs, ROLES.map(r => r.id)), tasterTypes: zeroFill(s.tasterTypes, TYPES)
-    };
-  }
-
-  function exampleData() {
-    if (exampleCache) return exampleCache;
+  function mockRecords() {
+    if (mockCache) return mockCache;
     let seed = 7;
     const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
     const pick = (arr, wts) => { const tot = wts.reduce((a, b) => a + b, 0); let x = rnd() * tot; for (let i = 0; i < arr.length; i++) { x -= wts.at(i); if (x <= 0) return arr.at(i); } return arr.at(-1); };
     const rows = [];
-    for (let n = 0; n < 240; n++) {
+    for (let n = 0; n < MOCK_SIZE; n++) {
       const t1 = pick(TYPES, [10, 22, 16, 24, 18, 10]);
       let t2 = pick(TYPES, [10, 18, 14, 20, 20, 18]);
       if (t2 === t1) t2 = TYPES.at((TYPES.indexOf(t1) + 1) % 6);
+      const rest = TYPES.filter(t => t !== t1 && t !== t2);
+      const t3 = rest[Math.floor(rnd() * rest.length)];
       const vals = [];
       while (vals.length < 3) { const v = pick(VALUES.map(x => x.k), [68, 67, 56, 53, 45, 30, 25, 20]); if (!vals.includes(v)) vals.push(v); }
-      const interest = {}; TYPES.forEach(t => { interest[t] = t === t1 ? .9 : t === t2 ? .72 : .3 + rnd() * .2; });
+      const interest = {}; TYPES.forEach(t => { interest[t] = t === t1 ? .9 : t === t2 ? .72 : t === t3 ? .55 : .3 + rnd() * .2; });
       const prof = { interest, traits: { O: .4 + rnd() * .4, C: .4 + rnd() * .4, E: .3 + rnd() * .5, A: .4 + rnd() * .4, S: .4 + rnd() * .4, H: .5 + rnd() * .4 }, values: vals, faith: [], skills: { num: 3, comm: 3, people: 3, tech: 3, hands: 3, create: 3 }, pathway: pick(['ITE', 'Poly', 'Uni', 'Work'], [25, 35, 25, 15]) };
       const res = rank(prof, DEFAULT_W, false);
-      rows.push({ age: pick(['18-20', '21-23', '24-25'], [40, 38, 22]), area: pick(['north', 'north-east', 'east', 'west', 'central'], [18, 24, 22, 24, 12]), path: prof.pathway, code: t1 + t2, top2: [t1, t2], values: vals, skillsLow: SKILLS.filter(() => rnd() < .3).map(s => s.k), topJobs: res.main.map(s => s.role.id), tasters: rnd() < .42 });
+      rows.push({
+        id: 'Y' + String(n + 1).padStart(3, '0'), month: pick(['2027-04', '2027-05', '2027-06'], [30, 40, 30]),
+        age: pick(['18-20', '21-23', '24-25'], [40, 38, 22]), area: pick(['north', 'north-east', 'east', 'west', 'central'], [18, 24, 22, 24, 12]), path: prof.pathway,
+        code: t1 + t2 + t3, top2: [t1, t2], values: vals, skillsLow: SKILLS.filter(() => rnd() < .3).map(s => s.k),
+        topJobs: res.main.map(s => s.role.id), stretchJobs: res.stretch.map(s => s.role.id), tasters: rnd() < .42
+      });
     }
-    exampleCache = rows;
+    mockCache = rows;
     return rows;
   }
 
-  function aggregate(rows) {
+  // The youth's own shared record comes first, so it leads the records table.
+  function dashRecords() {
+    const rows = mockRecords();
+    return isShared() ? [Object.assign(sharedDoc(), { id: 'You', you: true })].concat(rows) : rows;
+  }
+
+  function filterRows(rows) {
     const f = state.dash;
-    const rs = rows.filter(r => (f.age === 'all' || r.age === f.age) && (f.path === 'all' || r.path === f.path) && (f.area === 'all' || r.area === f.area));
+    return rows.filter(r => (f.age === 'all' || r.age === f.age) && (f.path === 'all' || r.path === f.path) && (f.area === 'all' || r.area === f.area));
+  }
+
+  function filterText() {
+    const f = state.dash;
+    return [f.age === 'all' ? 'all ages' : 'aged ' + AGE_LABEL[f.age], f.path === 'all' ? 'all qualifications' : PATH[f.path].label, f.area === 'all' ? 'all areas' : AREA_LABEL[f.area]].join(', ');
+  }
+
+  function aggregate(rs) {
     const count = (getter, keys) => { const m = {}; keys.forEach(k => { m[k] = 0; }); rs.forEach(r => (getter(r) || []).forEach(k => { if (Object.prototype.hasOwnProperty.call(m, k)) m[k]++; })); return m; };
     return {
       n: rs.length,
@@ -1612,6 +1549,17 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
       skills: count(r => r.skillsLow, SKILLS.map(s => s.k)),
       jobs: count(r => r.topJobs, ROLES.map(r => r.id)),
       tasterTypes: count(r => (r.tasters ? r.top2 : []), TYPES)
+    };
+  }
+
+  // Each measure as a list of {label, value}, most common first.
+  function dashEntries(a) {
+    const desc = (x, y) => y.value - x.value;
+    return {
+      types: TYPES.map(t => ({ label: TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ')', value: a.types[t], t })).sort(desc),
+      jobs: ROLES.map(r => ({ label: r.title, value: a.jobs[r.id] })).sort(desc),
+      values: VALUES.map(v => ({ label: upperFirst(v.short), value: a.values[v.k] })).sort(desc),
+      skills: SKILLS.map(s => ({ label: s.label, value: a.skills[s.k] })).sort(desc)
     };
   }
 
@@ -1630,21 +1578,68 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     return '<div class="card tile"><p class="tile-label">' + esc(label) + '</p><p class="tile-value">' + esc(value) + '</p>' + (sub ? '<p class="small muted">' + esc(sub) + '</p>' : '') + '</div>';
   }
 
+  // Interest types (rows) by age, qualification or area (columns). Columns under 10 youths are hidden.
+  function crossTab(rs) {
+    const by = state.dash.by, B = BREAKDOWNS[by];
+    const groups = B.cols.map(([k, label]) => ({ label, rows: rs.filter(r => r[by] === k) })).concat([{ label: 'All', rows: rs }]);
+    const lines = TYPES.map(t => ({ label: TYPE_INFO[t].name, test: r => r.top2.includes(t) })).concat([{ label: 'Want job tasters', test: r => r.tasters, extra: true }]);
+    const counts = lines.map(l => groups.map(g => g.rows.filter(l.test).length));
+    const best = groups.map((g, j) => Math.max(...TYPES.map((_, i) => counts[i][j])));
+    const head = '<tr><th scope="col">Interest type</th>' + groups.map(g => '<th scope="col">' + esc(g.label) + '<span class="n">' + g.rows.length + ' youths</span></th>').join('') + '</tr>';
+    const body = lines.map((l, i) => '<tr' + (l.extra ? ' class="extra"' : '') + '><th scope="row">' + esc(l.label) + '</th>' + groups.map((g, j) => {
+      if (g.rows.length < 10) return '<td class="muted" title="Fewer than 10 youths">–</td>';
+      const c = counts[i][j];
+      return '<td' + (!l.extra && c === best[j] && c > 0 ? ' class="hi"' : '') + ' title="' + c + ' of ' + g.rows.length + ' youths">' + Math.round(100 * c / g.rows.length) + '%</td>';
+    }).join('') + '</tr>').join('');
+    return '<figure class="card dash-card xtab-card" aria-labelledby="dx-t"><figcaption><h3 id="dx-t">Interest types by ' + B.label.toLowerCase() + '</h3>' +
+        '<p class="small muted">Share of youths in each group with the type in their top two. The most common type in each column is highlighted. Groups of fewer than 10 youths show “–”.</p></figcaption>' +
+      '<div class="field by-field"><label for="d-by">Break down by</label><select id="d-by" data-dash="by">' + Object.entries(BREAKDOWNS).map(([k, b]) => '<option value="' + k + '"' + (k === by ? ' selected' : '') + '>' + b.label + '</option>').join('') + '</select></div>' +
+      '<div class="table-wrap"><table class="tbl xtab">' + '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div></figure>';
+  }
+
+  function planningNote(a, e) {
+    const share = v => Math.round(100 * v / a.n) + '%';
+    const [t1, t2] = e.types;
+    const jobs = e.jobs.filter(x => x.value > 0).slice(0, 3).map(x => lowerTitle(x.label));
+    const skill = e.skills[0];
+    return [
+      'Planning note: ' + a.n + ' youths (' + filterText() + '), mock data.',
+      '- ' + TYPE_INFO[t1.t].name + ' is the most common interest type (' + share(t1.value) + ' have it in their top two), followed by ' + TYPE_INFO[t2.t].name + ' (' + share(t2.value) + ').',
+      '- Most shortlisted jobs: ' + joinList(jobs) + '.',
+      '- Top values: ' + joinList(e.values.slice(0, 2).map(x => x.label.toLowerCase() + ' (' + share(x.value) + ')')) + '.',
+      skill.value ? '- Skill most often rated low: ' + skill.label.toLowerCase() + ' (' + share(skill.value) + ').' : '',
+      '- ' + a.tasters + ' youths (' + share(a.tasters) + ') want job tasters or internships.',
+      'Suggested next steps:',
+      '1. ' + EVENT_IDEAS[t1.t] + '.',
+      '2. ' + EVENT_IDEAS[t2.t] + '.',
+      '3. ' + (skill.value ? 'A short ' + skill.label.toLowerCase() + ' workshop before the job tasters.' : 'Invite the youths who want job tasters through MENDAKI programmes.')
+    ].filter(Boolean).join('\n');
+  }
+
+  function recordsTable(rs) {
+    const shown = rs.slice(0, 12);
+    const month = m => MONTH_NAMES[Number(m.slice(5, 7)) - 1] + ' ' + m.slice(0, 4);
+    const jobs = ids => esc(ids.slice(0, 3).map(id => ROLE[id] ? ROLE[id].title : id).join('; ')) + (ids.length > 3 ? ' <span class="muted">+' + (ids.length - 3) + ' more</span>' : '');
+    const who = r => [AGE_LABEL[r.age] || 'Age not given', AREA_LABEL[r.area] || 'Area not given', PATH_SHORT[r.path]].join(' · ');
+    const rows = shown.map(r => '<tr' + (r.you ? ' class="you"' : '') + '>' +
+      '<td>' + (r.you ? '<span class="pill good">You</span>' : esc(r.id)) + '</td><td class="nw">' + month(r.month) + '</td><td class="grp">' + esc(who(r)) + '</td>' +
+      '<td><span class="pill code">' + esc(r.code) + '</span></td><td class="vals">' + esc(r.values.map(v => VALUE[v].short).join(', ') || '–') + '</td><td class="skl">' + esc(r.skillsLow.map(k => SKILL[k].label).join(', ') || '–') + '</td>' +
+      '<td class="jobs">' + jobs(r.topJobs) + '</td><td>' + (r.tasters ? 'Yes' : 'No') + '</td></tr>').join('');
+    return '<details class="card records"><summary>See the records behind these numbers</summary><div class="records-body">' +
+      '<p class="small muted">The first ' + shown.length + ' of ' + rs.length + ' records in this group. Each shared result is one row like these, with no name, contact details, quiz answers or personal preferences. In the pilot, staff would see only the grouped counts above; this preview is part of the demo, to show what is stored.</p>' +
+      '<div class="table-wrap"><table class="tbl rec"><thead><tr><th scope="col">Record</th><th scope="col">Month</th><th scope="col">Age · area · qualification</th><th scope="col">Code</th><th scope="col">Values</th><th scope="col">Skills to build</th><th scope="col">Top jobs</th><th scope="col">Job tasters</th></tr></thead><tbody>' + rows + '</tbody></table></div></div></details>';
+  }
+
   function renderDashboard() {
-    const app = document.getElementById('app');
-    if (!caps.ready) { app.innerHTML = '<p class="muted">Loading…</p>'; refreshChrome(); return; }
-    if (!caps.admin) { renderStaffSignIn(); return; }
-    if (!state.dash.example) loadStats();
     const f = state.dash;
     const sel = (key, label, list, v) => '<div class="field"><label for="d-' + key + '">' + label + '</label><select id="d-' + key + '" data-dash="' + key + '"><option value="all">All</option>' + options(list, v) + '</select></div>';
-    app.innerHTML =
-      '<section class="dash-head"><p class="eyebrow">MENDAKI insights</p><h1>What youths are telling us</h1><p class="lede">Anonymised results from youths who chose to share them. Groups with fewer than 10 youths are hidden so no one can be identified.</p>' +
-        '<div class="dash-actions"><button class="btn ghost" type="button" data-action="dash-refresh">Refresh</button><button class="btn link" type="button" data-action="staff-signout">Sign out</button></div></section>' +
+    document.getElementById('app').innerHTML =
+      '<section class="dash-head"><p class="eyebrow">MENDAKI insights · demo</p><h1>What youths are telling us</h1>' +
+        '<p class="lede">This dashboard runs on a mock database of ' + MOCK_SIZE + ' made-up youths, to show how shared results are tabulated and used to plan events. In the pilot, only MENDAKI staff would see it, and groups with fewer than 10 youths are hidden so no one can be identified.</p></section>' +
       '<div class="dash-filters">' +
         sel('age', 'Age', AGES.slice(0, 3), f.age) +
         sel('path', 'Qualification or stage', PATHWAYS.map(x => [x.k, x.label]), f.path) +
         sel('area', 'Area', AREAS.slice(0, 5), f.area) +
-        '<label class="toggle"><input type="checkbox" id="d-example"' + (f.example ? ' checked' : '') + '> Preview with example data</label>' +
       '</div>' +
       '<div id="dash-body" class="dash-body"></div>' +
       '<div class="tip" id="tip" role="tooltip" hidden></div>';
@@ -1655,82 +1650,62 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   function renderDashBody() {
     const body = document.getElementById('dash-body');
     if (!body) return;
-    const f = state.dash;
-    if (!f.example) {
-      if (dashState === 'error') { body.innerHTML = '<div class="card empty"><h2>Responses couldn’t load</h2><p>Check your connection, then try again.</p><button class="btn primary" type="button" data-action="dash-refresh">Try again</button></div>'; return; }
-      if (!dashStats) { body.innerHTML = '<p class="muted">Loading responses…</p>'; return; }
-      if (!dashStats.total) {
-        body.innerHTML = '<div class="card empty"><h2>No responses yet</h2><p>Results appear here once youths who opted in finish the quiz. Until then, you can preview the dashboard with example data.</p><button class="btn primary" type="button" data-action="dash-example">Preview with example data</button></div>';
-        return;
-      }
-    }
-    const a = dashAggregate();
-    const banner = f.example ? '<div class="banner"><p><b>Example data.</b> These are 240 made-up responses that show how the dashboard will look. They are not real youths.</p></div>' : '';
-    if (!a || a.n < 10) {
+    const rs = filterRows(dashRecords());
+    const banner = '<div class="banner"><p><b>Mock data.</b> ' + MOCK_SIZE + ' made-up youths stand in for real results' +
+      (isShared() ? ', plus your own shared record, marked “You” in the records at the end' : '') + '. Nothing here is sent anywhere.</p></div>';
+    if (rs.length < 10) {
       body.innerHTML = banner + '<div class="card empty"><h2>Not enough responses in this group</h2><p>This group has fewer than 10 youths, so it is hidden to protect privacy. Widen the filters to see results.</p></div>';
       return;
     }
-    const typeEntries = TYPES.map(t => ({ label: TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ')', value: a.types[t], t })).sort((x, y) => y.value - x.value);
-    const jobEntries = ROLES.map(r => ({ label: r.title, value: a.jobs[r.id] })).sort((x, y) => y.value - x.value);
-    const valEntries = VALUES.map(v => ({ label: v.short.charAt(0).toUpperCase() + v.short.slice(1), value: a.values[v.k] })).sort((x, y) => y.value - x.value);
-    const skillEntries = SKILLS.map(s => ({ label: s.label, value: a.skills[s.k] })).sort((x, y) => y.value - x.value);
-    const top = typeEntries.at(0);
-    const ideas = typeEntries.slice(0, 3).map(e => '<li><b>' + esc(EVENT_IDEAS[e.t]) + '</b><span class="small muted">' + e.value + ' youths have ' + TYPE_INFO[e.t].name + ' in their top two; ' + a.tasterTypes[e.t] + ' of them want job tasters.</span></li>').join('');
+    const a = aggregate(rs), e = dashEntries(a);
+    const top = e.types[0];
+    const ideas = e.types.slice(0, 3).map(x => '<li><b>' + esc(EVENT_IDEAS[x.t]) + '</b><span class="small muted">' + x.value + ' youths have ' + TYPE_INFO[x.t].name + ' in their top two; ' + a.tasterTypes[x.t] + ' of them want job tasters.</span></li>').join('');
     body.innerHTML = banner +
       '<div class="tiles">' +
-        tile('Youths who shared results', a.n.toLocaleString('en-SG'), '') +
+        tile('Youths in this group', a.n.toLocaleString('en-SG'), filterText()) +
         tile('Want job tasters or internships', a.tasters.toLocaleString('en-SG'), Math.round(100 * a.tasters / a.n) + '% of these youths') +
         tile('Most common interest type', TYPE_INFO[top.t].name, Math.round(100 * top.value / a.n) + '% have it in their top two') +
       '</div>' +
       '<div class="dash-grid">' +
-        barList('dt', 'Interest types', 'Share of youths with each type in their top two', typeEntries, a.n) +
-        barList('dj', 'Most shortlisted jobs', 'Share of youths with the job in their top 10', jobEntries, a.n, 10) +
-        barList('dv', 'Values chosen', 'Share of youths who picked each value (up to 3 each)', valEntries, a.n) +
-        barList('ds', 'Skills to build', 'Share of youths who rated the skill 1 or 2 out of 5', skillEntries, a.n) +
+        barList('dt', 'Interest types', 'Share of youths with each type in their top two', e.types, a.n) +
+        barList('dj', 'Most shortlisted jobs', 'Share of youths with the job in their top 10', e.jobs, a.n, 10) +
+        barList('dv', 'Values chosen', 'Share of youths who picked each value (up to 3 each)', e.values, a.n) +
+        barList('ds', 'Skills to build', 'Share of youths who rated the skill 1 or 2 out of 5', e.skills, a.n) +
       '</div>' +
-      '<section class="card ideas"><div><p class="eyebrow">Event ideas</p><h2>Job tasters to plan first</h2><p class="small muted">Based on the three most common interest types in this group.</p></div>' +
+      crossTab(rs) +
+      '<section class="card ideas"><div><p class="eyebrow">Using the data</p><h2>Job tasters to plan first</h2><p class="small muted">Based on the three most common interest types in this group.</p></div>' +
         '<ol class="idea-list">' + ideas + '</ol>' +
-        (askAvail === true ? '<div class="ai-sum"><button class="btn ghost" type="button" data-action="dash-summary" id="dash-sum-btn">Summarise for planning (AI)</button><div id="dash-sum" class="msg bot" hidden></div></div>' : '') +
-      '</section>';
+        '<div class="plan"><h3>Planning note</h3><p class="small muted">Written from the counts above, ready to paste into an email or report.</p>' +
+          '<p class="plan-text" id="plan-note">' + esc(planningNote(a, e)) + '</p>' +
+          '<div class="plan-actions"><button class="btn ghost" type="button" data-action="copy-note">Copy note</button><button class="btn ghost" type="button" data-action="dash-csv">Download counts (CSV)</button></div></div>' +
+      '</section>' +
+      recordsTable(rs);
   }
 
-  async function dashSummary() {
-    const out = document.getElementById('dash-sum'), btn = document.getElementById('dash-sum-btn');
-    if (!out || !btn || askAvail !== true) return;
-    const a = dashAggregate();
-    if (!a || a.n < 10) return;
-    const f = state.dash;
-    const top = (m, lab) => Object.entries(m).filter(([, v]) => v > 0).sort((x, y) => y[1] - x[1]).slice(0, 10).map(([k, v]) => ({ label: lab(k), value: v }));
-    const named = (list, v) => v === 'all' ? 'all' : ((list.find(x => x[0] === v) || [])[1] || v);
-    const body = {
-      example: !!f.example, n: a.n, tasters: a.tasters,
-      filters: { age: named(AGES, f.age), path: named(PATHWAYS.map(x => [x.k, x.label]), f.path), area: named(AREAS, f.area) },
-      lists: { types: top(a.types, k => TYPE_INFO[k].name), jobs: top(a.jobs, k => ROLE[k].title), values: top(a.values, k => VALUE[k].short), skills: top(a.skills, k => SKILL[k].label) }
-    };
-    btn.disabled = true; out.hidden = false;
-    out.innerHTML = '<span class="who">Serasi</span><span class="txt">Thinking…</span>';
-    try {
-      const r = await streamAI('admin/summary', body, undefined, text => { out.innerHTML = '<span class="who">Serasi</span><span class="txt">' + esc(text) + '</span>'; });
-      out.innerHTML = '<span class="who">Serasi</span><span class="txt">' + esc(r.text) + '</span><span class="small muted">AI summary of the counts above. Check it before acting on it.</span>';
-    } catch (e) {
-      if (e.status === 401) { signedOut(); return; }
-      if (e.code === 'unavailable') { askAvail = false; out.hidden = true; btn.hidden = true; }
-      else out.innerHTML = '<span class="note">' + ({ rate_limited: 'Too many requests right now. Try again in a minute.', daily_limit: 'The AI has reached today’s limit. Try again tomorrow.', busy: 'The AI is busy right now. Try again in a minute.' }[e.code] || 'The summary didn’t finish. Try again.') + '</span>';
-    } finally { btn.disabled = false; }
+  // Grouped counts for the current filters as a spreadsheet file.
+  function downloadCSV() {
+    const rs = filterRows(dashRecords());
+    if (rs.length < 10) return;
+    const a = aggregate(rs), e = dashEntries(a);
+    const rows = [['Group', filterText()], ['Youths', a.n], [], ['Measure', 'Item', 'Youths', 'Share of group (%)']];
+    const add = (measure, list) => list.forEach(x => rows.push([measure, x.label, x.value, Math.round(100 * x.value / a.n)]));
+    add('Interest type in top two', e.types);
+    add('Job in top 10', e.jobs.filter(x => x.value > 0));
+    add('Value chosen', e.values);
+    add('Skill rated 1 or 2', e.skills);
+    rows.push(['Job tasters', 'Want job tasters or internships', a.tasters, Math.round(100 * a.tasters / a.n)]);
+    const csv = rows.map(r => r.map(c => { const s = String(c); return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }).join(',')).join('\r\n');
+    const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url; link.download = 'serasi-mock-counts.csv';
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
   }
 
   /* ---------- App shell ---------- */
   function refreshChrome() {
-    const mine = document.getElementById('nav-mine'), dash = document.getElementById('nav-dash');
+    const mine = document.getElementById('nav-mine');
     if (mine) mine.hidden = !state.done;
-    if (dash) dash.hidden = !caps.admin;
-    const staff = document.getElementById('foot-staff');
-    if (staff) staff.hidden = !caps.staff || caps.admin;
-    const mode = document.getElementById('foot-mode');
-    if (mode && caps.ready && canShare()) {
-      mode.textContent = 'Quiz answers are saved on your device. Sharing anonymised results with MENDAKI is optional, and you can delete them at any time.' +
-        (caps.ask ? ' Ask Serasi uses Claude, an AI service from Anthropic.' : '');
-    }
     const cur = { mine: state.view === 'results' && !state.example, example: state.view === 'results' && state.example, about: state.view === 'about', dashboard: state.view === 'dashboard' };
     document.querySelectorAll('.topnav [data-action]').forEach(b => { if (b.dataset.action in cur) b.setAttribute('aria-pressed', String(cur[b.dataset.action])); });
   }
@@ -1748,6 +1723,8 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     Object.assign(state, { view, confirmDelete: false }, extra || {});
     render();
   }
+
+  function flash(el, text, back) { el.textContent = text; setTimeout(() => { el.textContent = back; }, 1600); }
 
   document.addEventListener('click', ev => {
     const el = ev.target.closest('[data-action]');
@@ -1790,39 +1767,34 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     }
     if (act === 'copy') {
       const text = el.dataset.text;
-      const done = () => { el.textContent = 'Copied'; setTimeout(() => { el.textContent = 'Copy search'; }, 1600); };
-      try { navigator.clipboard.writeText(text).then(done, () => { el.textContent = text; }); } catch (e) { el.textContent = text; }
+      try { navigator.clipboard.writeText(text).then(() => flash(el, 'Copied', 'Copy search'), () => { el.textContent = text; }); } catch (e) { el.textContent = text; }
     }
-    if (act === 'share-on') { state.meta.share = true; save(); shareResults(); }
-    if (act === 'share-off') stopSharing();
-    if (act === 'tasters-on') {
-      if (state.meta.share && state.shared === 'saved') setTasters(true);
-      else { state.tasters = true; state.meta.share = true; save(); renderTasterCard(); shareResults(); }
-    }
+    if (act === 'share-on') setSharing(true);
+    if (act === 'share-off') setSharing(false);
+    if (act === 'tasters-on') setTasters(true);
     if (act === 'tasters-off') setTasters(false);
     if (act === 'delete-ask') { state.confirmDelete = true; renderResults(); const b = document.querySelector('[data-action="delete-yes"]'); if (b) b.focus(); }
     if (act === 'delete-cancel') { state.confirmDelete = false; renderResults(); }
-    if (act === 'delete-yes') { el.disabled = true; deleteAll(); }
+    if (act === 'delete-yes') deleteAll();
     if (act === 'ask-suggest') askSend(el.dataset.q);
-    if (act === 'ask-stop') { if (ask.ctl) ask.ctl.abort(); }
     if (act === 'ask-role') {
       const r = ROLE[el.dataset.id];
       if (!r) return;
       const sec = document.getElementById('ask');
       if (sec) sec.scrollIntoView({ block: 'start', behavior: reduceMotion() ? 'auto' : 'smooth' });
-      askSend('Tell me about the ' + r.title + ' role: why does it fit me, and what is the work like day to day?');
+      askSend('Why does ' + lowerTitle(r.title) + ' fit me?');
     }
-    if (act === 'dash-example') { state.dash.example = true; renderDashboard(); }
-    if (act === 'dash-refresh') { if (state.dash.example) renderDashBody(); else { loadStats(); renderDashBody(); } }
-    if (act === 'dash-summary') dashSummary();
-    if (act === 'staff-signout') staffSignOut();
+    if (act === 'copy-note') {
+      const note = document.getElementById('plan-note');
+      try { navigator.clipboard.writeText(note.textContent).then(() => flash(el, 'Copied', 'Copy note'), () => flash(el, 'Couldn’t copy', 'Copy note')); } catch (e) { flash(el, 'Couldn’t copy', 'Copy note'); }
+    }
+    if (act === 'dash-csv') downloadCSV();
   });
 
   document.addEventListener('submit', ev => {
     const id = ev.target && ev.target.id;
     if (id === 'ask-form') { ev.preventDefault(); const inp = document.getElementById('ask-input'); askSend(inp ? inp.value : ''); }
     if (id === 'start-form') { ev.preventDefault(); submitStart(); }
-    if (id === 'staff-form') { ev.preventDefault(); staffSignIn(); }
   });
 
   document.addEventListener('change', ev => {
@@ -1843,8 +1815,11 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     if (t.id === 'pathway') { a.pathway = t.value; save(); }
     if (t.id === 'grit') { a.grit = t.checked; save(); }
     if (t.id === 'hide-flagged') { state.hideFlagged = t.checked; renderLists(); }
-    if (t.dataset.dash) { state.dash[t.dataset.dash] = t.value; if (!state.dash.example) loadStats(); renderDashBody(); }
-    if (t.id === 'd-example') { state.dash.example = t.checked; if (!t.checked) loadStats(); renderDashBody(); }
+    if (t.dataset.dash) {
+      state.dash[t.dataset.dash] = t.value;
+      renderDashBody();
+      if (t.id === 'd-by') { const s = document.getElementById('d-by'); if (s) s.focus(); }
+    }
   });
 
   document.addEventListener('input', ev => {
@@ -1870,13 +1845,12 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     tip.style.top = (ev.clientY + 16) + 'px';
   });
 
-  // Staff can bookmark the dashboard at #staff.
-  window.addEventListener('hashchange', () => { if (location.hash === '#staff') go('dashboard'); });
+  // The dashboard has its own link for demos: index.html#dashboard
+  window.addEventListener('hashchange', () => { if (location.hash === '#dashboard') go('dashboard'); });
 
   load();
-  if (location.hash === '#staff') state.view = 'dashboard';
+  if (location.hash === '#dashboard') state.view = 'dashboard';
   render();
-  initCaps();
 })();
 </script>
 </body>

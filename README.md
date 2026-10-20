@@ -1,96 +1,38 @@
 # Serasi
 
-A career-fit app for Malay youths aged 18–25 in Singapore. Youths take a five-part quiz (about 15 minutes), see their top 10 jobs with reasons, and get job searches, career coaches and job-taster sign-up. MENDAKI staff see grouped, anonymised results to plan events.
+A career-fit demo for Malay youths aged 18–25 in Singapore. Youths take a five-part quiz (about 15 minutes), see their top 10 jobs with reasons, and get job searches, career coaches and a job-taster sign-up. A MENDAKI dashboard shows how shared results would be tabulated and used to plan events.
 
-Public demo (device only): https://havochadi.github.io/serasi/
-
-## Two ways it runs
-
-| | Static copy (GitHub Pages) | With the Serasi server |
-|---|---|---|
-| Quiz, results, job links, coaches, example results, About and privacy | Yes | Yes |
-| Results saved in the browser, "Delete my data" | Yes | Yes |
-| Share anonymised results with MENDAKI (optional tick) | – | Yes |
-| "I'm interested" job-taster and internship sign-up | – | Yes |
-| MENDAKI insights dashboard (staff sign-in) | – | Yes |
-| Ask Serasi and the dashboard's AI summary | – | Yes, with an Anthropic API key |
-
-The app detects the server by itself. Without one it hides the server features and says results are saved on this device only.
+Public site: https://havochadi.github.io/serasi/ (dashboard: https://havochadi.github.io/serasi/#dashboard)
 
 ## Files
 
-- `Serasi app.html`: the app (one HTML file). `index.html` is an identical copy; keep them in sync.
-- `server/app.js`: the API for sharing, staff sign-in, dashboard counts and the AI features.
-- `server/node.js`: runs the app and API on Node with a local SQLite file.
-- `server/worker.js` and `wrangler.toml`: run the same API on Cloudflare Workers with a D1 database.
-- `server/app.test.mjs`: API tests (`npm test`). They use a stand-in for the Claude API, so they cost nothing.
-- `.env.example`: the settings, with defaults.
-- `Serasi overview.pdf` and `Serasi pitch deck.pdf`: proposal and presentation.
+- `index.html`: the whole app in one file. GitHub Pages serves it as the home page.
+- `Serasi overview.pdf`: detailed proposal and limitations.
+- `Serasi pitch deck.pdf`: presentation.
+- `.github/workflows/pages.yml`: publishes `index.html` and the two PDFs whenever `main` changes.
 
-## Run it on your computer
+Open `index.html` in a browser to preview it. There is no build step and no server.
 
-Needs Node 22.13 or later.
+## What the demo does
 
-```sh
-npm install
-cp .env.example .env     # then fill in ANTHROPIC_API_KEY and ADMIN_PASSWORD
-npm start
-```
+- **Quiz and results:** answers and results are saved in the browser, so a youth can close the page and come back. **Delete my data** removes them.
+- **Ask Serasi:** answers simple questions with fixed rules, using the youth's scores and the job data in the app. It does not use AI, and nothing typed leaves the device. It can answer:
+  - why a job is a match, or what a job involves (name any of the 43 jobs)
+  - what the interest code means
+  - which skill to build first
+  - how the youth likes to work, and what their values point to
+  - what their stretch roles need
+  - how to find openings, where pay information is, and who to talk to
 
-Open http://localhost:8787. Staff sign in at http://localhost:8787/#staff, or with **MENDAKI staff sign-in** at the foot of any page. Results are saved in `data/serasi.db`.
+  Any other question gets the list of questions it can answer.
+- **Sharing and job tasters (demo):** ticking the sharing box, or tapping **I'm interested**, adds the youth's anonymised record to a mock database in their browser. Nothing is sent anywhere.
+- **MENDAKI dashboard:** runs on a mock database of 240 made-up youths, plus the visitor's own record if they shared. It shows:
+  - filters by age, qualification and area; groups under 10 youths are hidden
+  - headline counts and bar charts of interest types, top jobs, values and skills to build
+  - a cross-tab of interest types by age, qualification or area
+  - job-taster ideas and a planning note written from the counts, with **Copy note** and **Download counts (CSV)**
+  - a preview of the records behind the numbers, showing exactly what each shared result contains
 
-## Put it online
+## For a real pilot
 
-### Option A: Cloudflare Workers (free tier, data stored in Asia-Pacific)
-
-1. Sign in: `npx wrangler login`
-2. Create the database: `npx wrangler d1 create serasi --location apac`, then paste the `database_id` it prints into `wrangler.toml`.
-3. Add the secrets (each command asks for the value):
-   `npx wrangler secret put ANTHROPIC_API_KEY`
-   `npx wrangler secret put ADMIN_PASSWORD`
-4. Deploy: `npx wrangler deploy`. It prints the address, such as `https://serasi.<your-account>.workers.dev`. Use that link in the poster QR codes.
-
-The tables are created on first use. The free plan limits processing time per request. If Ask Serasi answers get cut off, the Workers Paid plan raises the limit.
-
-### Option B: any Node host
-
-Any host that runs Node 22.13+ and keeps files between restarts works, such as a small cloud server. Run `npm ci --omit=dev`, then `npm start`. Set `HOST=0.0.0.0`, `PORT`, and `DATABASE_PATH` on a persistent disk. Set `TRUST_PROXY=1` when the host sits behind a proxy or load balancer. Back up the database file.
-
-Either way, serve the app over HTTPS. Cloudflare does this automatically.
-
-## Settings
-
-| Setting | What it does |
-|---|---|
-| `ANTHROPIC_API_KEY` | Turns on Ask Serasi and the AI summary. Without it, both are hidden. |
-| `ADMIN_PASSWORD` | Staff dashboard password, at least 12 characters. Without it, the dashboard is off. |
-| `CLAUDE_MODEL` | Default `claude-opus-5-5`. |
-| `ASK_LIMIT_PER_IP` | Ask Serasi questions per IP address per 10 minutes (default 60). |
-| `WRITE_LIMIT_PER_IP` | Shares, updates and deletions per IP address per 10 minutes (default 120). |
-| `AI_DAILY_LIMIT` | AI requests per day across everyone (default 2000). Caps spending. |
-| `MAX_RESULTS` | Shared results the database accepts (default 20000). |
-
-At events, many youths share one Wi-Fi connection and so one IP address. Raise `ASK_LIMIT_PER_IP` and `WRITE_LIMIT_PER_IP` for events with more than about 50 youths at once.
-
-## Data and privacy
-
-- **On the youth's device:** quiz answers and results, until they use **Delete my data**.
-- **On the server, only if the youth ticks the sharing box or taps "I'm interested":** age band, area, qualification, interest code, chosen values, skills rated 1 or 2, top 10 jobs, up to 2 stretch jobs, job-taster interest and the month they finished. Each record is keyed by a hash of a random code that only the youth's device holds. The server rejects any other field. Names, contact details, individual answers, personal preferences (such as prayer time or halal food), timestamps and IP addresses are never stored.
-- **Deleting:** "Stop sharing" and "Delete my data" remove the shared record. If the server can't be reached, the app retries the next time the youth opens it on that device.
-- **Staff access:** one shared password. Sessions last 8 hours, and sign-in allows 10 tries per 15 minutes. The server groups the results itself and never sends counts for groups of fewer than 10 youths.
-- **Ask Serasi:** each question goes to Anthropic's Claude API with the youth's scores, choices (including personal preferences) and shortlist, but never a name. The answer rules are held on the server. Serasi doesn't store questions or answers; it logs only token counts for cost tracking. Refusal fallbacks are switched on (`fallbacks: "default"`), so a request the main model declines is retried on Anthropic's recommended model. Ask Serasi answers use low effort; the staff summary uses medium.
-
-## Cost of the AI features
-
-Claude Opus 5.5 costs US$4 per million input tokens and US$20 per million output tokens. A rough estimate is US$0.02–0.04 per Ask Serasi question, so a 300-youth pilot asking about 5 questions each would cost about US$30–60. Check real usage in the Claude Console. `AI_DAILY_LIMIT` puts a ceiling on daily spending.
-
-## Before a real pilot
-
-- Have the consent wording, the About and privacy page, and a retention period reviewed under the PDPA. Add a contact for data requests.
-- Agree on Anthropic's commercial terms for the API account that runs Ask Serasi.
-- Choose a strong staff password and share it only with the people who need the dashboard.
-- Partners, funding, job tasters and internships are proposals. Scores and the hand-coded role data still need validation. See the PDFs for the full plan.
-
-## Tests
-
-`npm test` runs the API tests on Node.
+A real pilot would need hosting with a database for the shared results, a staff sign-in for the dashboard, and consent wording and a retention period reviewed under the PDPA. In the pilot, staff would see only grouped counts, never individual records. Partners, funding, job tasters and internships are proposals. Scores and the hand-coded role data still need validation. See the PDFs for the full plan.
