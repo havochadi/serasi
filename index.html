@@ -364,6 +364,10 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 .ai-sum .msg { max-width: min(76ch, 100%); }
 .empty { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .empty p { color: var(--ink-2); max-width: 62ch; }
+.dash-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.field input { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); max-width: 360px; width: 100%; }
+.staff-form { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.staff-form .btn.primary { align-self: flex-start; }
 
 @media (max-width: 900px) {
   .welcome { grid-template-columns: minmax(0, 1fr); }
@@ -406,7 +410,8 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   <p><b>Explore the proposal:</b> <a href="Serasi%20overview.pdf">Read the overview (PDF)</a> · <a href="Serasi%20pitch%20deck.pdf">View the pitch deck (PDF)</a></p>
   <p>Proposed pilot: 300 youths · Draft budget: S$22,000 · Preparation November 2026–March 2027 · Pilot April–June 2027 · Follow-up and decision by June 2028.</p>
   <p>Partnerships, funding, job tasters and internships are proposals. No partner has been approached. Scores and role data are illustrative and have not been validated.</p>
-  <p>This public demo saves quiz answers on your device. AI chat, sharing results with MENDAKI and live partner insights require connected services and are unavailable on GitHub Pages.</p>
+  <p id="foot-mode">This public demo saves quiz answers on your device. AI chat, sharing results with MENDAKI and live partner insights require connected services and are unavailable on GitHub Pages.</p>
+  <p id="foot-staff" hidden><button class="btn link" type="button" data-action="dashboard">MENDAKI staff sign-in</button></p>
 </footer>
 
 <script>
@@ -895,7 +900,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
       body = '<div class="step-intro"><p class="eyebrow">Step 3 of 5 · Values</p><h1>What has to be true about a job?</h1><p>Choose up to three values. The percentages show how many Malay/Muslim youths picked each one in a 2026 NYC survey.</p></div>' +
         '<div class="group"><h3>Your top values</h3><p class="small muted" id="values-hint">' + a.values.length + ' of 3 chosen</p><div class="option-grid">' +
         VALUES.map(v => '<label class="opt"><input type="checkbox" data-group="values" value="' + v.k + '" id="v-' + v.k + '"' + (a.values.includes(v.k) ? ' checked' : '') + '><span class="o-text"><span>' + esc(v.label) + '</span>' + (v.pct ? '<span class="o-sub">Chosen by ' + v.pct + '% of youths surveyed</span>' : '') + '</span></label>').join('') + '</div></div>' +
-        '<div class="group"><h3>Personal preferences (optional)</h3><p class="small muted">These are never scored and stay on this device. Some flag roles; others become questions to ask employers.</p><div class="option-grid">' +
+        '<div class="group"><h3>Personal preferences (optional)</h3><p class="small muted">These are never scored or shared with MENDAKI. Some flag roles; others become questions to ask employers.</p><div class="option-grid">' +
         FAITH.map(f => '<label class="opt"><input type="checkbox" data-group="faith" value="' + f.k + '" id="f-' + f.k + '"' + (a.faith.includes(f.k) ? ' checked' : '') + '><span class="o-text"><span>' + esc(f.label) + '</span><span class="o-sub">' + (f.kind === 'filter' ? 'Flags matching roles' : 'Added to your interview questions') + '</span></span></label>').join('') + '</div></div>';
     } else if (st === 3) {
       body = '<div class="step-intro"><p class="eyebrow">Step 4 of 5 · Work scenarios</p><h1>What would you most likely do?</h1><p>Pick the response closest to what you would really do. These check your self-ratings against choices in realistic Singapore workplaces.</p></div>' +
@@ -936,21 +941,9 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 
 
   /* ---------- Ask Serasi (AI explainer) ---------- */
+  // Questions go to the Serasi server (api/ask), which holds the answer rules and calls Claude.
   const ask = { msgs: [], busy: false, ctl: null, key: '', draft: '', seq: 0, since: 0 };
-  let sampleFn = null;
   let askAvail = null; // null: not known yet; true: can ask; false: hidden for this view
-
-  const ASK_RULES = [
-    'You are Ask Serasi, the explainer inside Serasi, a career-fit tool for Malay youths aged 18 to 25 in Singapore.',
-    'Your job: help the youth understand their results and the jobs on their shortlist, using the PROFILE and ROLES data below.',
-    'Rules:',
-    '- Base every answer on the data below. You may add widely known facts about what a job involves in Singapore; say so when you are not sure.',
-    '- Never state salaries, pay ranges, vacancy numbers or company names. For pay and live openings, point to MyCareersFuture.',
-    '- Scores are self-reported and only indicative. Do not label the youth or claim more than the scores show.',
-    '- Results guide; they never decide. If the youth sounds unsure or worried, or wants personal advice, suggest a career coach at NTUC e2i or M3+.',
-    '- Reply in the language of the question (English or Malay). Keep answers under 120 words, in plain text: no headings, no bold, no tables. Short lines starting with "- " are fine.',
-    '- If a question has nothing to do with careers, study or these results, say briefly that you can only help with career questions.'
-  ].join('\n');
 
   function askKey() { return state.example ? 'example' : 'mine'; }
   function reduceMotion() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
@@ -1032,7 +1025,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 
   async function askSend(raw) {
     const q = String(raw || '').trim().slice(0, 600);
-    if (!q || ask.busy || !sampleFn) return;
+    if (!q || ask.busy || askAvail !== true) return;
     const history = ask.msgs.slice(ask.since).filter(m => m.role === 'user' || (m.ok && m.text)).slice(-8)
       .map(m => ({ role: m.role === 'user' ? 'user' : 'assistant', content: m.text }));
     const user = { id: ++ask.seq, role: 'user', text: q };
@@ -1045,24 +1038,21 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     renderAskLog();
     const li = document.getElementById('msg-' + bot.id);
     if (li) li.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
-    const turns = [{ role: 'user', content: ASK_RULES + '\n\n' + askContext() }].concat(history, [{ role: 'user', content: q }]);
     try {
-      const r = await sampleFn(turns, {
-        cache: false, modelTier: 'quick', signal: ctl.signal,
-        onText: ({ text }) => { bot.text = text; bot.thinking = false; updateMsg(bot); }
-      });
+      const r = await streamAI('ask', { context: askContext(), history, question: q }, ctl.signal, text => { bot.text = text; bot.thinking = false; updateMsg(bot); });
       bot.text = r.text; bot.ok = true;
       if (r.truncated) bot.note = 'Cut short. Try asking for less at once.';
     } catch (e) {
       const code = e && e.code;
       bot.text = (e && e.text) || '';
       if (code === 'cancelled') bot.note = 'Stopped.';
-      else if (HIDE.includes(code)) askAvail = false;
+      else if (code === 'unavailable') askAvail = false;
       else if (code === 'rate_limited') bot.note = 'Too many questions right now. Try again in a minute.';
-      else if (code === 'session_expired') bot.note = 'Sign in to Claude again to keep asking.';
+      else if (code === 'daily_limit') bot.note = 'Ask Serasi has answered as many questions as it can today. Try again tomorrow.';
+      else if (code === 'busy') bot.note = 'Serasi is busy right now. Try again in a minute.';
       else if (code === 'refused') { bot.text = ''; bot.note = 'Serasi can’t answer that one. Try asking about your results or a job.'; }
       else if (code === 'empty_completion') bot.note = 'No answer came back. Try rephrasing your question.';
-      else if (code === 'prompt_too_large') { bot.note = 'This chat got too long. Your next question starts fresh.'; ask.since = ask.msgs.length; }
+      else if (code === 'too_large') { bot.note = 'This chat got too long. Your next question starts fresh.'; ask.since = ask.msgs.length; }
       else bot.note = 'The answer was interrupted. Try again.';
     } finally {
       bot.thinking = false;
@@ -1096,21 +1086,20 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     E: 'Sales, marketing and business development taster with local firms',
     C: 'Finance and operations office visit, from accounts to logistics'
   };
-  const HIDE = ['not_granted', 'sampling_disabled', 'not_declared', 'capability_disabled', 'capability_removed'];
 
   /* ---------- State ---------- */
   const STORE_KEY = 'serasi-app-v1';
   function freshMeta() { return { age: '', area: '', consent: false, share: false }; }
   let state = {
     view: 'welcome', step: 0, done: false, example: false,
-    answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '',
+    answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', device: '',
     weights: Object.assign({}, DEFAULT_W), hideFlagged: false, open: ['__first__'], codeError: '',
     shared: '', pendingShare: false, confirmDelete: false, startError: '', notice: '',
     dash: { age: 'all', path: 'all', area: 'all', example: false }
   };
 
   function save() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: state.answers, done: state.done, meta: state.meta, tasters: state.tasters, completedAt: state.completedAt })); } catch (e) { /* storage unavailable */ }
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: state.answers, done: state.done, meta: state.meta, tasters: state.tasters, completedAt: state.completedAt, device: state.device })); } catch (e) { /* storage unavailable */ }
   }
   function load() {
     try {
@@ -1123,6 +1112,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         state.meta = Object.assign(freshMeta(), d.meta || {});
         state.tasters = !!d.tasters;
         state.completedAt = d.completedAt || '';
+        state.device = typeof d.device === 'string' ? d.device : '';
         if (state.done) state.view = 'results';
       }
     } catch (e) { /* ignore */ }
@@ -1134,35 +1124,103 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     return { p: profileFromAnswers(state.answers), who: null };
   }
 
-  /* ---------- Platform capabilities ---------- */
-  const caps = { db: null, user: null, uid: null, admin: false, ready: false };
-  const canShare = () => !!(caps.db && caps.uid);
+  /* ---------- Serasi server ---------- */
+  // The Serasi server (server/ in the repo) adds sharing with MENDAKI, the staff dashboard and Ask Serasi.
+  // Without it, for example on GitHub Pages, api/config is missing and the app works on this device only.
+  const caps = { share: false, ask: false, staff: false, admin: false, ready: false };
+  const canShare = () => caps.share;
   const noShare = () => caps.ready && !canShare();
+  const PENDING_DELETE_KEY = 'serasi-pending-delete';
+
+  function apiError(status, code, text) { const e = new Error(code); e.api = true; e.status = status; e.code = code; e.text = text || ''; return e; }
+
+  async function api(path, o) {
+    o = o || {};
+    const headers = {};
+    if (o.body !== undefined) headers['Content-Type'] = 'application/json';
+    if (o.token) headers.Authorization = 'Bearer ' + o.token;
+    let res;
+    try {
+      res = await fetch('api/' + path, { method: o.method || 'GET', headers, body: o.body === undefined ? undefined : JSON.stringify(o.body), credentials: 'same-origin', cache: 'no-store', signal: o.signal });
+    } catch (e) { throw apiError(0, e && e.name === 'AbortError' ? 'cancelled' : 'network'); }
+    if (res.ok && o.stream) return res;
+    const data = (res.headers.get('Content-Type') || '').includes('application/json') ? await res.json().catch(() => null) : null;
+    if (!res.ok) throw apiError(res.status, (data && data.error) || 'http_' + res.status);
+    return data || {};
+  }
+
+  // Reads a streamed AI answer: one JSON object per line, {"t": text} chunks then {"done": true} or {"error": code}.
+  async function streamAI(path, body, signal, onText) {
+    const res = await api(path, { method: 'POST', body, signal, stream: true });
+    const reader = res.body.getReader(), dec = new TextDecoder();
+    let buf = '', text = '', end = null;
+    try {
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        let i;
+        while ((i = buf.indexOf('\n')) >= 0) {
+          const line = buf.slice(0, i).trim();
+          buf = buf.slice(i + 1);
+          if (!line) continue;
+          const m = JSON.parse(line);
+          if (typeof m.t === 'string') { text += m.t; onText(text); }
+          else if (m.error) throw apiError(200, m.error, text);
+          else if (m.done) end = m;
+        }
+      }
+    } catch (e) {
+      if (e && e.api) throw e;
+      throw apiError(0, e && e.name === 'AbortError' ? 'cancelled' : 'interrupted', text);
+    }
+    if (!end) throw apiError(0, 'interrupted', text);
+    if (!text.trim()) throw apiError(200, 'empty_completion');
+    return { text, truncated: !!end.truncated };
+  }
+
+  // A random code that identifies this device's shared results. Only its hash is stored on the server.
+  function deviceToken() {
+    if (!state.device) {
+      const b = new Uint8Array(32);
+      crypto.getRandomValues(b);
+      state.device = btoa(String.fromCharCode.apply(null, b)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      save();
+    }
+    return state.device;
+  }
 
   async function initCaps() {
-    const c = window.claude;
-    if (!c || typeof c.use !== 'function') { askAvail = false; caps.ready = true; afterCaps(); return; }
-    const safe = n => c.use(n).catch(() => null);
-    const [dbNs, userNs, s] = await Promise.all([safe('db'), safe('user'), safe('sample')]);
-    caps.db = dbNs; caps.user = userNs; sampleFn = s; askAvail = !!s;
-    if (userNs) {
-      try { caps.uid = await userNs.id(); } catch (e) { caps.uid = null; }
-      try { caps.admin = await userNs.canEdit(); } catch (e) { caps.admin = false; }
-    }
+    try {
+      const cfg = await api('config');
+      if (cfg.app === 'serasi') Object.assign(caps, { share: !!cfg.share, ask: !!cfg.ask, staff: !!cfg.staff, admin: !!cfg.signedIn });
+    } catch (e) { /* no server here: this device only */ }
+    askAvail = caps.ask;
     caps.ready = true;
+    if (caps.share) await retryPendingDelete();
     if (state.done && state.meta.share) {
-      if (!caps.db || !caps.uid) state.shared = 'unavailable';
+      if (!caps.share) state.shared = 'unavailable';
       else if (state.pendingShare) { state.pendingShare = false; shareResults(); }
+      else if (!state.device) state.shared = '';
       else {
-        try { const snap = await caps.db.doc('results/' + caps.uid).get(); state.shared = snap.exists ? 'saved' : ''; } catch (e) { /* leave as is */ }
+        try { await api('results/me', { token: state.device }); state.shared = 'saved'; } catch (e) { if (e.status === 404) state.shared = ''; }
       }
     }
     afterCaps();
+  }
+
+  // Finishes a "Delete my data" that couldn't reach the server last time.
+  async function retryPendingDelete() {
+    let token = '';
+    try { token = localStorage.getItem(PENDING_DELETE_KEY) || ''; } catch (e) { return; }
+    if (!token) return;
+    try { await api('results/me', { method: 'DELETE', token }); localStorage.removeItem(PENDING_DELETE_KEY); } catch (e) { /* try again next time */ }
   }
   function afterCaps() {
     refreshChrome();
     const sw = document.getElementById('share-wrap'); if (sw) sw.hidden = noShare();
     if (state.view === 'results') { renderLists(); renderAsk(); renderShareStatus(); renderTasterCard(); }
+    if (state.view === 'about') renderAbout();
     if (state.view === 'dashboard') renderDashboard();
   }
 
@@ -1182,20 +1240,26 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   }
   async function shareResults() {
     if (!caps.ready) { state.pendingShare = true; return; }
-    if (!caps.db || !caps.uid) { state.shared = 'unavailable'; renderShareStatus(); renderTasterCard(); return; }
+    if (!caps.share) { state.shared = 'unavailable'; renderShareStatus(); renderTasterCard(); return; }
     state.shared = 'saving'; renderShareStatus();
-    try { await caps.db.doc('results/' + caps.uid).set(sharedDoc()); state.shared = 'saved'; }
-    catch (e) { state.shared = e && e.code === 'quota_exceeded' ? 'full' : 'error'; }
+    try { await api('results/me', { method: 'PUT', token: deviceToken(), body: sharedDoc() }); state.shared = 'saved'; }
+    catch (e) { state.shared = e.status === 507 ? 'full' : 'error'; }
     renderShareStatus(); renderTasterCard();
   }
   async function unshareResults() {
-    if (!caps.db || !caps.uid) return true;
-    try { await caps.db.doc('results/' + caps.uid).delete(); state.shared = ''; return true; } catch (e) { return false; }
+    if (!state.device) { state.shared = ''; return true; }
+    try { await api('results/me', { method: 'DELETE', token: state.device }); state.shared = ''; return true; } catch (e) { return false; }
+  }
+  async function stopSharing() {
+    state.shared = 'stopping'; renderShareStatus();
+    if (await unshareResults()) { state.meta.share = false; state.tasters = false; }
+    else state.shared = 'stop-error';
+    save(); renderShareStatus(); renderTasterCard();
   }
   async function setTasters(on) {
     state.tasters = on; save();
-    if (state.shared === 'saved' && caps.db && caps.uid) {
-      try { await caps.db.doc('results/' + caps.uid).update({ tasters: on }); } catch (e) { state.shared = 'error'; }
+    if (state.shared === 'saved' && caps.share) {
+      try { await api('results/me', { method: 'PUT', token: deviceToken(), body: sharedDoc() }); } catch (e) { state.shared = 'error'; }
     }
     renderTasterCard(); renderShareStatus();
   }
@@ -1210,6 +1274,8 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     if (!caps.ready) html = '<span>Checking sharing…</span>';
     else if (!state.meta.share) html = '<span>Not shared. Your results stay on this device.</span><button class="btn link" type="button" data-action="share-on">Share anonymously with MENDAKI</button>';
     else if (state.shared === 'saving') html = '<span>Sharing…</span>';
+    else if (state.shared === 'stopping') html = '<span>Stopping sharing…</span>';
+    else if (state.shared === 'stop-error') html = '<span>Your shared results couldn’t be removed just now, so they’re still shared.</span><button class="btn link" type="button" data-action="share-off">Try again</button>';
     else if (state.shared === 'saved') html = '<span class="pill good">Shared anonymously</span><span>MENDAKI sees grouped counts only, never your name.</span><button class="btn link" type="button" data-action="share-off">Stop sharing</button>';
     else if (state.shared === 'full') html = '<span>MENDAKI’s data store is full, so your results weren’t shared. They’re still saved on this device.</span>';
     else if (state.shared === 'unavailable') html = '<span>Sharing isn’t available here. Your results stay on this device.</span>';
@@ -1328,7 +1394,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
           '<div><p class="small muted" style="margin-bottom:6px">Values you chose</p><div class="chip-list">' + values + '</div></div>' +
           (filters ? '<div><p class="small muted" style="margin-bottom:6px">Personal preferences that flag roles</p><div class="chip-list">' + filters + '</div></div>' : '') +
           (asks ? '<div><p class="small muted" style="margin-bottom:6px">Questions to ask employers</p><ul class="qa">' + asks + '</ul></div>' : '') +
-          '<p class="small muted">Personal preferences stay on this device and are never scored.</p></div>' +
+          '<p class="small muted">Personal preferences are never scored or shared with MENDAKI.</p></div>' +
       '</section>' +
 
       '<section style="display:flex;flex-direction:column;gap:12px" aria-labelledby="sl">' +
@@ -1343,7 +1409,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         '<div class="ask-chips" id="ask-chips"></div>' +
         '<ol class="ask-log" id="ask-log" aria-live="polite"></ol>' +
         '<form class="ask-form" id="ask-form" autocomplete="off"><label class="sr-only" for="ask-input">Your question</label><input id="ask-input" maxlength="600" placeholder="Ask anything about your results"><button class="btn primary" type="submit" id="ask-send">Ask</button><button class="btn ghost" type="button" id="ask-stop" data-action="ask-stop" hidden>Stop</button></form>' +
-        '<p class="small muted">AI answers can be wrong. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+. Only your scores and shortlist are sent, never your name.</p>' +
+        '<p class="small muted">AI answers can be wrong. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+. Each question sends your scores, choices (including personal preferences) and shortlist to Claude, Anthropic’s AI service, but never your name. Serasi doesn’t keep your questions.</p>' +
       '</section>' +
 
       '<section class="card taster" id="taster" aria-label="Job tasters and internships"></section>' +
@@ -1376,12 +1442,15 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   }
 
   async function deleteAll() {
+    const token = state.device;
     const ok = await unshareResults();
     clearLocal();
+    // Keep the code so the next visit can finish removing the shared results.
+    if (!ok) { try { localStorage.setItem(PENDING_DELETE_KEY, token); } catch (e) { /* ignore */ } }
     if (ask.ctl) ask.ctl.abort();
     ask.msgs = []; ask.since = 0; ask.draft = '';
-    Object.assign(state, { view: 'welcome', step: 0, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', shared: '', pendingShare: false, confirmDelete: false, startError: '' });
-    state.notice = ok ? 'Your data has been deleted.' : 'Your answers were deleted from this device, but your shared results couldn’t be removed just now. Open the app again later and use Delete my data once more.';
+    Object.assign(state, { view: 'welcome', step: 0, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', device: '', shared: '', pendingShare: false, confirmDelete: false, startError: '' });
+    state.notice = ok ? 'Your data has been deleted.' : 'Your answers were deleted from this device, but your shared results couldn’t be removed just now. Serasi will remove them the next time you open it on this device.';
     render();
   }
 
@@ -1400,19 +1469,21 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         '<p class="eyebrow">About and privacy</p><h1>How Serasi works and what happens to your data</h1>' +
         '<h2>What Serasi is</h2>' +
         '<p>Serasi is a career-fit app for Malay youths aged 18 to 25 in Singapore. It matches your interests (Holland RIASEC, 50% of the fit score), work style (the Big Five plus honesty, 30%) and work values (20%) to jobs, and links you to openings, coaches, job tasters and internships. Results are a guide, not a decision.</p>' +
-        '<h2>This public demo</h2>' +
-        '<p>On GitHub Pages, answers and results stay in this browser. AI chat, shared results, partner insights and job-taster registration are unavailable. The sharing features described below apply only in a connected version.</p>' +
+        (canShare()
+          ? ''
+          : '<h2>This public demo</h2>' +
+            '<p>On this site, answers and results stay in this browser. AI chat, shared results, partner insights and job-taster registration are unavailable. The sharing features described below apply only when Serasi runs on its own server.</p>') +
         '<h2>What is stored</h2>' +
         '<ul><li><b>On this device:</b> your answers and results, so you can come back to them.</li>' +
-        '<li><b>Shared with MENDAKI, only if you opt in:</b> your age band, area, qualification, interest code, chosen values, the skills you rated low, your top jobs, whether you want job tasters, and the month you finished. They are stored under an anonymous ID.</li>' +
-        '<li><b>Never collected:</b> your name or contact details. Individual quiz answers and personal preferences stay on your device and are never shared.</li></ul>' +
+        '<li><b>Shared with MENDAKI, only if you opt in:</b> your age band, area, qualification, interest code, chosen values, the skills you rated low, your top jobs, whether you want job tasters, and the month you finished. They are stored on the Serasi server under a random code that only your device knows.</li>' +
+        '<li><b>Never collected:</b> your name or contact details. Individual quiz answers and personal preferences are never shared with MENDAKI.</li></ul>' +
         '<h2>Who can see shared results</h2>' +
-        '<p>Only the people who manage this app (for the pilot, the Serasi team and MENDAKI staff), and only as grouped counts. Groups with fewer than 10 youths are hidden.</p>' +
+        '<p>Only signed-in Serasi and MENDAKI staff, and only as grouped counts. Groups with fewer than 10 youths are never shown.</p>' +
         '<h2>Delete your data</h2>' +
         '<p>You can delete everything at any time with <b>Delete my data</b> on your results page.</p>' +
         (state.done ? '<div><button class="btn ghost" type="button" data-action="mine">Go to my results</button></div>' : '') +
         '<h2>Ask Serasi</h2>' +
-        '<p>The AI explainer sees only your scores and shortlist, never your name. It runs on Claude, asks your permission before the first question, and can make mistakes.</p>' +
+        '<p>When you ask a question, Serasi sends it with your scores, choices (including personal preferences) and shortlist to Claude, an AI service from Anthropic, to write the answer. Your name is never sent, and Serasi doesn’t keep your questions or the answers. AI answers can be wrong.</p>' +
         '<h2>The questions</h2>' +
         '<p>The work-style statements adapt the public-domain Mini-IPIP (Donnellan and colleagues, 2006), plus four honesty statements written for Serasi. The 30 interest activities were written for Serasi using Holland’s six RIASEC types. The ' + ROLES.length + ' jobs are hand-coded for this pilot; the full build will draw on O*NET, linked to Singapore’s SSOC codes and the SSG Skills Framework.</p>' +
         '<h2>Limits</h2>' +
@@ -1422,22 +1493,90 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   }
 
   /* ---------- MENDAKI dashboard ---------- */
-  let dashRows = [];
-  let dashUnsub = null;
+  // Staff sign in with a password. The server groups the results (api/admin/stats) and never
+  // sends counts for groups under 10 youths. Example data is made up and grouped here instead.
+  let dashStats = null;
+  let dashKey = '';
   let dashState = 'idle';
+  let dashSeq = 0;
   let exampleCache = null;
+  let staffError = '';
 
-  function subscribeDash() {
-    if (dashUnsub || !caps.db || !caps.admin) return;
-    dashState = 'loading';
-    dashUnsub = caps.db.collection('results').limit(1000).onSnapshot(snap => {
-      dashRows = snap.docs.map(d => d.data()).filter(Boolean);
-      dashState = 'ready';
-      if (state.view === 'dashboard') renderDashBody();
-    }, () => {
-      dashState = 'error'; dashUnsub = null;
-      if (state.view === 'dashboard') renderDashBody();
-    });
+  function dashQuery() {
+    const f = state.dash;
+    return 'age=' + encodeURIComponent(f.age) + '&path=' + encodeURIComponent(f.path) + '&area=' + encodeURIComponent(f.area);
+  }
+
+  async function loadStats() {
+    const key = dashQuery();
+    if (key !== dashKey) dashStats = null;
+    dashKey = key; dashState = 'loading';
+    const seq = ++dashSeq;
+    try {
+      const s = await api('admin/stats?' + key);
+      if (seq !== dashSeq) return;
+      dashStats = s; dashState = 'ready';
+    } catch (e) {
+      if (seq !== dashSeq) return;
+      if (e.status === 401) { signedOut(); return; }
+      dashState = 'error';
+    }
+    if (state.view === 'dashboard') renderDashBody();
+  }
+
+  function signedOut() {
+    caps.admin = false; dashStats = null; dashKey = ''; dashState = 'idle'; dashSeq++;
+    refreshChrome();
+    if (state.view === 'dashboard') renderDashboard();
+  }
+
+  function renderStaffSignIn() {
+    const app = document.getElementById('app');
+    if (!caps.staff) {
+      app.innerHTML = '<section class="card about"><p class="eyebrow">MENDAKI insights</p><h1>Staff dashboard</h1><p>' +
+        (canShare() ? 'Staff sign-in isn’t turned on for this server.' : 'The dashboard needs the Serasi server. This copy of the app works on your device only.') + '</p></section>';
+    } else {
+      app.innerHTML = '<section class="card about"><p class="eyebrow">MENDAKI insights</p><h1>Staff sign-in</h1>' +
+        '<p>The dashboard shows grouped, anonymised results for Serasi and MENDAKI staff.</p>' +
+        '<form class="staff-form" id="staff-form" novalidate><div class="field"><label for="staff-pw">Staff password</label><input type="password" id="staff-pw" autocomplete="current-password" required' + (staffError ? ' aria-describedby="staff-err" aria-invalid="true"' : '') + '></div>' +
+        (staffError ? '<p class="form-error" id="staff-err" role="alert">' + esc(staffError) + '</p>' : '') +
+        '<button class="btn primary" type="submit" id="staff-btn">Sign in</button></form></section>';
+    }
+    refreshChrome();
+  }
+
+  async function staffSignIn() {
+    const input = document.getElementById('staff-pw'), btn = document.getElementById('staff-btn');
+    const password = input ? input.value : '';
+    const retry = msg => { staffError = msg; renderStaffSignIn(); const i = document.getElementById('staff-pw'); if (i) i.focus(); };
+    if (!password) { retry('Enter the staff password.'); return; }
+    if (btn) btn.disabled = true;
+    try {
+      await api('admin/login', { method: 'POST', body: { password } });
+      staffError = ''; caps.admin = true;
+      renderDashboard();
+    } catch (e) {
+      retry(e.status === 401 ? 'That password isn’t right.' : e.status === 429 ? 'Too many tries. Wait 15 minutes, then try again.' : 'Couldn’t sign in just now. Try again.');
+    }
+  }
+
+  async function staffSignOut() {
+    try { await api('admin/logout', { method: 'POST', body: {} }); } catch (e) { /* the session expires on its own */ }
+    signedOut();
+  }
+
+  function zeroFill(m, keys) { const o = {}; keys.forEach(k => { o[k] = (m && Number(m[k])) || 0; }); return o; }
+
+  // The grouped counts for the current view: example data, or the server's counts. Null when the group is hidden.
+  function dashAggregate() {
+    if (state.dash.example) return aggregate(exampleData());
+    const s = dashStats;
+    if (!s || s.suppressed) return null;
+    return {
+      n: s.n, tasters: s.tasters,
+      types: zeroFill(s.types, TYPES), values: zeroFill(s.values, VALUES.map(v => v.k)), skills: zeroFill(s.skills, SKILLS.map(x => x.k)),
+      jobs: zeroFill(s.jobs, ROLES.map(r => r.id)), tasterTypes: zeroFill(s.tasterTypes, TYPES)
+    };
   }
 
   function exampleData() {
@@ -1494,15 +1633,13 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
   function renderDashboard() {
     const app = document.getElementById('app');
     if (!caps.ready) { app.innerHTML = '<p class="muted">Loading…</p>'; refreshChrome(); return; }
-    if (!caps.admin) {
-      app.innerHTML = '<section class="card about"><p class="eyebrow">MENDAKI insights</p><h1>Dashboard</h1><p>Only the people who manage this app can see the dashboard.</p></section>';
-      refreshChrome(); return;
-    }
-    subscribeDash();
+    if (!caps.admin) { renderStaffSignIn(); return; }
+    if (!state.dash.example) loadStats();
     const f = state.dash;
     const sel = (key, label, list, v) => '<div class="field"><label for="d-' + key + '">' + label + '</label><select id="d-' + key + '" data-dash="' + key + '"><option value="all">All</option>' + options(list, v) + '</select></div>';
     app.innerHTML =
-      '<section class="dash-head"><p class="eyebrow">MENDAKI insights</p><h1>What youths are telling us</h1><p class="lede">Anonymised results from youths who chose to share them. Groups with fewer than 10 youths are hidden so no one can be identified.</p></section>' +
+      '<section class="dash-head"><p class="eyebrow">MENDAKI insights</p><h1>What youths are telling us</h1><p class="lede">Anonymised results from youths who chose to share them. Groups with fewer than 10 youths are hidden so no one can be identified.</p>' +
+        '<div class="dash-actions"><button class="btn ghost" type="button" data-action="dash-refresh">Refresh</button><button class="btn link" type="button" data-action="staff-signout">Sign out</button></div></section>' +
       '<div class="dash-filters">' +
         sel('age', 'Age', AGES.slice(0, 3), f.age) +
         sel('path', 'Qualification or stage', PATHWAYS.map(x => [x.k, x.label]), f.path) +
@@ -1519,16 +1656,17 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     const body = document.getElementById('dash-body');
     if (!body) return;
     const f = state.dash;
-    if (!f.example && dashState === 'loading' && !dashRows.length) { body.innerHTML = '<p class="muted">Loading responses…</p>'; return; }
-    if (!f.example && dashState === 'error') { body.innerHTML = '<div class="card empty"><h2>Responses couldn’t load</h2><p>Reload the page to try again.</p></div>'; return; }
-    const rows = f.example ? exampleData() : dashRows;
-    if (!f.example && !rows.length) {
-      body.innerHTML = '<div class="card empty"><h2>No responses yet</h2><p>Results appear here once youths who opted in finish the quiz. Until then, you can preview the dashboard with example data.</p><button class="btn primary" type="button" data-action="dash-example">Preview with example data</button></div>';
-      return;
+    if (!f.example) {
+      if (dashState === 'error') { body.innerHTML = '<div class="card empty"><h2>Responses couldn’t load</h2><p>Check your connection, then try again.</p><button class="btn primary" type="button" data-action="dash-refresh">Try again</button></div>'; return; }
+      if (!dashStats) { body.innerHTML = '<p class="muted">Loading responses…</p>'; return; }
+      if (!dashStats.total) {
+        body.innerHTML = '<div class="card empty"><h2>No responses yet</h2><p>Results appear here once youths who opted in finish the quiz. Until then, you can preview the dashboard with example data.</p><button class="btn primary" type="button" data-action="dash-example">Preview with example data</button></div>';
+        return;
+      }
     }
-    const a = aggregate(rows);
+    const a = dashAggregate();
     const banner = f.example ? '<div class="banner"><p><b>Example data.</b> These are 240 made-up responses that show how the dashboard will look. They are not real youths.</p></div>' : '';
-    if (a.n < 10) {
+    if (!a || a.n < 10) {
       body.innerHTML = banner + '<div class="card empty"><h2>Not enough responses in this group</h2><p>This group has fewer than 10 youths, so it is hidden to protect privacy. Widen the filters to see results.</p></div>';
       return;
     }
@@ -1558,25 +1696,26 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 
   async function dashSummary() {
     const out = document.getElementById('dash-sum'), btn = document.getElementById('dash-sum-btn');
-    if (!out || !btn || !sampleFn) return;
-    const a = aggregate(state.dash.example ? exampleData() : dashRows);
-    if (a.n < 10) return;
-    const fmt = (m, lab) => Object.entries(m).filter(([, v]) => v > 0).sort((x, y) => y[1] - x[1]).slice(0, 10).map(([k, v]) => lab(k) + ' ' + v).join('; ');
-    const prompt = 'You help MENDAKI, a Malay/Muslim community organisation in Singapore, plan youth career events. Below are anonymised counts from ' + a.n + ' youths who took the Serasi career-fit quiz' + (state.dash.example ? ' (EXAMPLE data, not real youths; say so)' : '') + '. Filters: age ' + state.dash.age + ', qualification ' + state.dash.path + ', area ' + state.dash.area + '.\n' +
-      'Interest types in their top two: ' + fmt(a.types, k => TYPE_INFO[k].name) + '.\n' +
-      'Most shortlisted jobs: ' + fmt(a.jobs, k => ROLE[k].title) + '.\n' +
-      'Values chosen: ' + fmt(a.values, k => VALUE[k].short) + '.\n' +
-      'Skills rated 1 or 2 out of 5: ' + fmt(a.skills, k => SKILL[k].label) + '.\n' +
-      'Want job tasters or internships: ' + a.tasters + '.\n\n' +
-      'Write a short planning note in plain text, under 150 words, with no headings, bold or tables: the two or three clearest patterns, then three concrete event or job-taster ideas tied to them. Use only these numbers and do not invent others. Short lines starting with "- " are fine.';
+    if (!out || !btn || askAvail !== true) return;
+    const a = dashAggregate();
+    if (!a || a.n < 10) return;
+    const f = state.dash;
+    const top = (m, lab) => Object.entries(m).filter(([, v]) => v > 0).sort((x, y) => y[1] - x[1]).slice(0, 10).map(([k, v]) => ({ label: lab(k), value: v }));
+    const named = (list, v) => v === 'all' ? 'all' : ((list.find(x => x[0] === v) || [])[1] || v);
+    const body = {
+      example: !!f.example, n: a.n, tasters: a.tasters,
+      filters: { age: named(AGES, f.age), path: named(PATHWAYS.map(x => [x.k, x.label]), f.path), area: named(AREAS, f.area) },
+      lists: { types: top(a.types, k => TYPE_INFO[k].name), jobs: top(a.jobs, k => ROLE[k].title), values: top(a.values, k => VALUE[k].short), skills: top(a.skills, k => SKILL[k].label) }
+    };
     btn.disabled = true; out.hidden = false;
     out.innerHTML = '<span class="who">Serasi</span><span class="txt">Thinking…</span>';
     try {
-      const r = await sampleFn(prompt, { modelTier: 'default', cache: { gcTime: 600000 }, onText: ({ text }) => { out.innerHTML = '<span class="who">Serasi</span><span class="txt">' + esc(text) + '</span>'; } });
+      const r = await streamAI('admin/summary', body, undefined, text => { out.innerHTML = '<span class="who">Serasi</span><span class="txt">' + esc(text) + '</span>'; });
       out.innerHTML = '<span class="who">Serasi</span><span class="txt">' + esc(r.text) + '</span><span class="small muted">AI summary of the counts above. Check it before acting on it.</span>';
     } catch (e) {
-      if (HIDE.includes(e && e.code)) { askAvail = false; out.hidden = true; btn.hidden = true; }
-      else out.innerHTML = '<span class="note">' + (e && e.code === 'rate_limited' ? 'Too many requests right now. Try again in a minute.' : 'The summary didn’t finish. Try again.') + '</span>';
+      if (e.status === 401) { signedOut(); return; }
+      if (e.code === 'unavailable') { askAvail = false; out.hidden = true; btn.hidden = true; }
+      else out.innerHTML = '<span class="note">' + ({ rate_limited: 'Too many requests right now. Try again in a minute.', daily_limit: 'The AI has reached today’s limit. Try again tomorrow.', busy: 'The AI is busy right now. Try again in a minute.' }[e.code] || 'The summary didn’t finish. Try again.') + '</span>';
     } finally { btn.disabled = false; }
   }
 
@@ -1585,6 +1724,13 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     const mine = document.getElementById('nav-mine'), dash = document.getElementById('nav-dash');
     if (mine) mine.hidden = !state.done;
     if (dash) dash.hidden = !caps.admin;
+    const staff = document.getElementById('foot-staff');
+    if (staff) staff.hidden = !caps.staff || caps.admin;
+    const mode = document.getElementById('foot-mode');
+    if (mode && caps.ready && canShare()) {
+      mode.textContent = 'Quiz answers are saved on your device. Sharing anonymised results with MENDAKI is optional, and you can delete them at any time.' +
+        (caps.ask ? ' Ask Serasi uses Claude, an AI service from Anthropic.' : '');
+    }
     const cur = { mine: state.view === 'results' && !state.example, example: state.view === 'results' && state.example, about: state.view === 'about', dashboard: state.view === 'dashboard' };
     document.querySelectorAll('.topnav [data-action]').forEach(b => { if (b.dataset.action in cur) b.setAttribute('aria-pressed', String(cur[b.dataset.action])); });
   }
@@ -1648,7 +1794,7 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
       try { navigator.clipboard.writeText(text).then(done, () => { el.textContent = text; }); } catch (e) { el.textContent = text; }
     }
     if (act === 'share-on') { state.meta.share = true; save(); shareResults(); }
-    if (act === 'share-off') { state.meta.share = false; state.tasters = false; save(); unshareResults().then(() => { renderShareStatus(); renderTasterCard(); }); }
+    if (act === 'share-off') stopSharing();
     if (act === 'tasters-on') {
       if (state.meta.share && state.shared === 'saved') setTasters(true);
       else { state.tasters = true; state.meta.share = true; save(); renderTasterCard(); shareResults(); }
@@ -1667,13 +1813,16 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
       askSend('Tell me about the ' + r.title + ' role: why does it fit me, and what is the work like day to day?');
     }
     if (act === 'dash-example') { state.dash.example = true; renderDashboard(); }
+    if (act === 'dash-refresh') { if (state.dash.example) renderDashBody(); else { loadStats(); renderDashBody(); } }
     if (act === 'dash-summary') dashSummary();
+    if (act === 'staff-signout') staffSignOut();
   });
 
   document.addEventListener('submit', ev => {
     const id = ev.target && ev.target.id;
     if (id === 'ask-form') { ev.preventDefault(); const inp = document.getElementById('ask-input'); askSend(inp ? inp.value : ''); }
     if (id === 'start-form') { ev.preventDefault(); submitStart(); }
+    if (id === 'staff-form') { ev.preventDefault(); staffSignIn(); }
   });
 
   document.addEventListener('change', ev => {
@@ -1694,8 +1843,8 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     if (t.id === 'pathway') { a.pathway = t.value; save(); }
     if (t.id === 'grit') { a.grit = t.checked; save(); }
     if (t.id === 'hide-flagged') { state.hideFlagged = t.checked; renderLists(); }
-    if (t.dataset.dash) { state.dash[t.dataset.dash] = t.value; renderDashBody(); }
-    if (t.id === 'd-example') { state.dash.example = t.checked; renderDashBody(); }
+    if (t.dataset.dash) { state.dash[t.dataset.dash] = t.value; if (!state.dash.example) loadStats(); renderDashBody(); }
+    if (t.id === 'd-example') { state.dash.example = t.checked; if (!t.checked) loadStats(); renderDashBody(); }
   });
 
   document.addEventListener('input', ev => {
@@ -1721,27 +1870,13 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
     tip.style.top = (ev.clientY + 16) + 'px';
   });
 
-  function start(data) {
-    load();
-    if (data && data.state) state = Object.assign(state, data.state);
-    if (data && Array.isArray(data.askMsgs)) {
-      ask.msgs = data.askMsgs.map(m => Object.assign({}, m, { thinking: false }));
-      ask.key = data.askKey || '';
-      ask.seq = data.askSeq || ask.msgs.length;
-    }
-    render();
-    initCaps();
-  }
+  // Staff can bookmark the dashboard at #staff.
+  window.addEventListener('hashchange', () => { if (location.hash === '#staff') go('dashboard'); });
 
-  if (window.claude && window.claude.hot && typeof window.claude.hot.snapshot === 'function') {
-    window.claude.hot.snapshot(() => ({
-      state,
-      askMsgs: ask.msgs.map(m => ({ id: m.id, role: m.role, text: m.text, ok: m.ok, note: m.note })),
-      askKey: ask.key, askSeq: ask.seq
-    }));
-  }
-  if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
-  else start((window.claude && window.claude.hot && window.claude.hot.data) || {});
+  load();
+  if (location.hash === '#staff') state.view = 'dashboard';
+  render();
+  initCaps();
 })();
 </script>
 </body>

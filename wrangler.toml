@@ -1,0 +1,26 @@
+# Cloudflare Workers deployment. Setup steps are in README.md.
+name = "serasi"
+main = "server/worker.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+[build]
+command = "node server/build-site.mjs"
+
+[assets]
+directory = "./_site"
+binding = "ASSETS"
+# Send every request through the worker so pages get the same security headers as on Node.
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "serasi"
+# Replace with the id printed by: npx wrangler d1 create serasi --location apac
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[vars]
+CLAUDE_MODEL = "claude-opus-5-5"
+# Secrets are set with `npx wrangler secret put NAME`, never here:
+#   ANTHROPIC_API_KEY  turns on Ask Serasi and the AI summary
+#   ADMIN_PASSWORD     staff dashboard password, at least 12 characters

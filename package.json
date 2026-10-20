@@ -1,0 +1,18 @@
+{
+  "name": "serasi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serasi career-fit app with anonymised sharing for MENDAKI, a staff dashboard and Ask Serasi.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning server/node.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"server/*.test.mjs\"",
+    "build:site": "node server/build-site.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.136.0"
+  }
+}
