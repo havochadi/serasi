@@ -1,0 +1,1748 @@
+<!doctype html>
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html, body { margin: 0; padding: 0; }</style>
+<title>Serasi | Find work that fits who you are</title>
+<meta name="description" content="Explore your interests, work style and values with Serasi, a free career-fit demo for Malay youths aged 18–25 in Singapore.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..700&family=Fraunces:wght@400..700&display=swap">
+<style>
+/* Layout: dark brand bar over a single 1120px column. Welcome = intro beside a start form. Quiz = one narrow step at a time.
+   Results = profile header, a three-up summary (interests, work style, values), a ranked role list, Ask Serasi and job tasters.
+   Dashboard (editors only) = filters, stat tiles, four single-series bar lists and event ideas. */
+:root {
+  --bg: #F4EFE4;
+  --surface: #FFFCF6;
+  --surface-2: #EFE8D9;
+  --ink: #14231F;
+  --ink-2: #3E4F4A;
+  --muted: #5D6B66;
+  --line: #E0D6C2;
+  --brand: #10302B;
+  --on-brand: #F3EDE0;
+  --on-brand-2: #BFD3CC;
+  --accent: #276B60;
+  --accent-ink: #FFFCF6;
+  --accent-soft: #DCEBE5;
+  --track: #E6DFD0;
+  --gold: #8F5814;
+  --gold-fill: #E3A43B;
+  --flag: #9A3B1E;
+  --flag-soft: #F7E4DA;
+  --note: #5B4A12;
+  --note-soft: #F3EACB;
+  --focus: #1F6FA8;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1F1C; --surface: #13302B; --surface-2: #183A34; --ink: #EEE7D7; --ink-2: #C3D2CC; --muted: #93A8A1;
+    --line: #2A4B45; --brand: #071815; --on-brand: #F3EDE0; --on-brand-2: #A9C2BA; --accent: #74BFAF; --accent-ink: #0C1F1C;
+    --accent-soft: #1D4640; --track: #244640; --gold: #E3A43B; --gold-fill: #E3A43B; --flag: #F2A585; --flag-soft: #3B2219;
+    --note: #EBCB7A; --note-soft: #332B12; --focus: #7CC4F0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1F1C; --surface: #13302B; --surface-2: #183A34; --ink: #EEE7D7; --ink-2: #C3D2CC; --muted: #93A8A1;
+  --line: #2A4B45; --brand: #071815; --on-brand: #F3EDE0; --on-brand-2: #A9C2BA; --accent: #74BFAF; --accent-ink: #0C1F1C;
+  --accent-soft: #1D4640; --track: #244640; --gold: #E3A43B; --gold-fill: #E3A43B; --flag: #F2A585; --flag-soft: #3B2219;
+  --note: #EBCB7A; --note-soft: #332B12; --focus: #7CC4F0;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { background: var(--bg); }
+body { color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; margin: 0; text-wrap: balance; color: var(--ink); }
+h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 500; }
+h2 { font-size: 1.5rem; font-weight: 500; }
+h3 { font-size: 1.15rem; }
+p { margin: 0; }
+a { color: var(--accent); }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.num { font-variant-numeric: tabular-nums; }
+.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.muted { color: var(--muted); }
+.small { font-size: .875rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Top bar */
+.topbar { background: var(--brand); color: var(--on-brand); }
+.topbar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; background: none; border: 0; padding: 0; cursor: pointer; color: var(--on-brand); }
+.brand-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; letter-spacing: .01em; }
+.brand svg { width: 28px; height: 28px; }
+.demo-tag { font-size: .75rem; font-weight: 600; color: var(--brand); background: var(--gold-fill); border-radius: 999px; padding: 3px 10px; }
+.topnav { margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.topnav .label { font-size: .8125rem; color: var(--on-brand-2); margin-right: 2px; }
+.chip-btn { background: transparent; color: var(--on-brand); border: 1px solid rgba(243, 237, 224, .35); border-radius: 999px; padding: 5px 12px; font-size: .875rem; cursor: pointer; }
+.chip-btn[aria-pressed="true"] { background: var(--on-brand); color: var(--brand); border-color: var(--on-brand); }
+.chip-btn.solid { background: var(--gold-fill); color: var(--brand); border-color: var(--gold-fill); font-weight: 600; }
+
+main.wrap { padding-block: 28px 64px; display: flex; flex-direction: column; gap: 24px; }
+
+/* Shared surfaces */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 10px; padding: 10px 18px; font-weight: 600; cursor: pointer; border: 1px solid transparent; text-decoration: none; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.primary[disabled] { opacity: .45; cursor: not-allowed; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.link { background: none; border: 0; padding: 4px 2px; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 10px; font-size: .8125rem; font-weight: 600; background: var(--surface-2); color: var(--ink-2); }
+.pill.code { font-family: var(--font-body); letter-spacing: .08em; background: var(--brand); color: var(--on-brand); }
+.pill.flag { background: var(--flag-soft); color: var(--flag); }
+.pill.note { background: var(--note-soft); color: var(--note); }
+.pill.good { background: var(--accent-soft); color: var(--accent); }
+
+/* Sample banner */
+.banner { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; background: var(--note-soft); color: var(--ink); border-radius: var(--radius); padding: 14px 18px; }
+.banner p { flex: 1 1 320px; min-width: 0; }
+.banner .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Profile header */
+.profile-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: end; }
+.profile-head .codes { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.profile-head .lede { margin-top: 12px; color: var(--ink-2); max-width: 62ch; }
+.head-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+/* Summary row */
+.summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.summary .card { display: flex; flex-direction: column; gap: 14px; }
+.hex svg { width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto; }
+.hex-grid { fill: none; stroke: var(--line); stroke-width: 1; }
+.hex-axis { stroke: var(--line); stroke-width: 1; }
+.hex-shape { fill: var(--accent); fill-opacity: .18; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; }
+.hex-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+.hex-label { fill: var(--ink-2); font: 600 13px var(--font-body); }
+.hex-label.top { fill: var(--ink); font-weight: 700; }
+.hex-score { fill: var(--muted); font: 500 12px var(--font-body); }
+.type-list { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: .875rem; margin: 0; padding: 0; list-style: none; }
+.type-list li { display: flex; justify-content: space-between; gap: 8px; color: var(--ink-2); }
+.type-list li.top { color: var(--ink); font-weight: 700; }
+
+.traits { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.trait-row { display: grid; grid-template-columns: minmax(0, 1fr) 2.2em; gap: 4px 10px; align-items: center; }
+.trait-name { font-weight: 600; font-size: .9375rem; }
+.trait-val { text-align: right; font-size: .875rem; color: var(--ink-2); }
+.track { grid-column: 1 / -1; position: relative; height: 8px; border-radius: 4px; background: var(--track); }
+.track .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--accent); }
+.track .need { position: absolute; top: -4px; width: 3px; height: 16px; border-radius: 2px; background: var(--gold-fill); transform: translateX(-1.5px); }
+.trait-ends { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); }
+
+.chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.qa { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; color: var(--ink-2); font-size: .9375rem; }
+
+/* Shortlist */
+.list-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; }
+.toggle { display: inline-flex; align-items: center; gap: 8px; font-size: .9375rem; cursor: pointer; }
+.toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
+.roles { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.role { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.role-head { width: 100%; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr) auto; gap: 14px; align-items: center; background: none; border: 0; padding: 16px 18px; text-align: left; cursor: pointer; }
+.rank { font-family: var(--font-display); font-size: 1.5rem; color: var(--gold); text-align: center; }
+.role-title { font-weight: 700; font-size: 1.0625rem; color: var(--ink); }
+.role-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-top: 4px; font-size: .875rem; color: var(--muted); }
+.score { text-align: right; }
+.score b { font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; color: var(--ink); line-height: 1; }
+.score span { display: block; font-size: .75rem; color: var(--muted); }
+.chev { display: inline-block; margin-left: 6px; transition: transform .15s; }
+.role-head[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.role-body { border-top: 1px solid var(--line); padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+.role-body h4 { margin: 0 0 8px; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.reasons { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.reasons li { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); gap: 8px; color: var(--ink-2); font-size: .9375rem; }
+.reasons .mk { font-weight: 700; text-align: center; }
+.reasons .good .mk { color: var(--accent); }
+.reasons .gap .mk { color: var(--flag); }
+.reasons .info .mk { color: var(--gold); }
+.breakdown { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.breakdown li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 2.2em; gap: 10px; align-items: center; font-size: .875rem; color: var(--ink-2); }
+.breakdown .bar { height: 8px; border-radius: 4px; background: var(--track); position: relative; }
+.breakdown .bar i { position: absolute; inset: 0 auto 0 0; border-radius: 4px; background: var(--accent); }
+.breakdown .v { text-align: right; }
+.legend { font-size: .8125rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.legend .sw { display: inline-block; width: 14px; height: 8px; border-radius: 3px; background: var(--accent); margin-right: 6px; vertical-align: middle; }
+.legend .sw.need { width: 3px; height: 14px; background: var(--gold-fill); }
+.flag-box { border-radius: 10px; padding: 10px 12px; font-size: .9375rem; }
+.flag-box.strong { background: var(--flag-soft); color: var(--ink); }
+.flag-box.soft { background: var(--note-soft); color: var(--ink); }
+.flag-box b { color: var(--flag); }
+.flag-box.soft b { color: var(--note); }
+
+.portals { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.portal { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); text-decoration: none; background: var(--surface); }
+a.portal:hover { border-color: var(--accent); }
+.portal.primary { background: var(--accent-soft); border-color: transparent; }
+.portal .p-name { font-weight: 700; }
+.portal .p-why { grid-column: 1 / 2; font-size: .8125rem; color: var(--muted); }
+.portal .p-go { grid-row: 1 / span 2; grid-column: 2; font-size: .875rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
+.portal .p-q { font-size: .8125rem; color: var(--ink-2); }
+.copy-btn { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.copy-btn button { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; font-size: .8125rem; cursor: pointer; }
+.copy-btn a { font-size: .8125rem; font-weight: 600; }
+.subtle-links { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .875rem; }
+
+.stretch-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.stretch-grid .card { display: flex; flex-direction: column; gap: 10px; }
+
+/* How it works */
+details.how { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+details.how > summary { cursor: pointer; padding: 18px 22px; font-family: var(--font-display); font-size: 1.2rem; list-style-position: inside; }
+.how-body { padding: 0 22px 22px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.how-body p, .how-body li { color: var(--ink-2); font-size: .9375rem; }
+.how-body ul { margin: 6px 0 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+.weights { display: flex; flex-direction: column; gap: 12px; }
+.weight-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 3em; gap: 10px; align-items: center; font-size: .9375rem; }
+.weight-row input { width: 100%; accent-color: var(--accent); }
+.formula { font-family: var(--font-display); font-size: 1.15rem; color: var(--ink); }
+
+/* Quiz */
+.quiz { max-width: 780px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.steps li { display: flex; flex-direction: column; gap: 6px; font-size: .8125rem; color: var(--muted); }
+.steps li::before { content: ""; height: 5px; border-radius: 3px; background: var(--track); }
+.steps li.done::before { background: var(--accent); }
+.steps li.current { color: var(--ink); font-weight: 700; }
+.steps li.current::before { background: var(--gold-fill); }
+.step-intro { display: flex; flex-direction: column; gap: 8px; }
+.step-intro p { color: var(--ink-2); max-width: 62ch; }
+.items { display: flex; flex-direction: column; }
+fieldset.item { border: 0; border-top: 1px solid var(--line); margin: 0; padding: 16px 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 20px; align-items: center; min-width: 0; }
+fieldset.item legend { float: left; padding: 0; font-size: 1rem; color: var(--ink); max-width: 46ch; }
+.scale { display: flex; gap: 6px; }
+.scale label { position: relative; }
+.scale input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.scale span { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-variant-numeric: tabular-nums; }
+.scale input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.scale input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
+.scale-key { display: flex; justify-content: flex-end; gap: 16px; font-size: .8125rem; color: var(--muted); }
+.code-box { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: var(--surface-2); border-radius: 12px; padding: 14px 16px; }
+.code-box label { flex: 1 1 260px; min-width: 0; font-size: .9375rem; }
+.code-box input { width: 6.5em; text-transform: uppercase; letter-spacing: .15em; font-weight: 700; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); }
+.form-error { color: var(--flag); font-size: .875rem; flex-basis: 100%; }
+.option-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.opt { position: relative; display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); cursor: pointer; min-width: 0; }
+.opt input { margin-top: 3px; accent-color: var(--accent); width: 18px; height: 18px; flex: none; }
+.opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.opt .o-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.opt .o-sub { font-size: .8125rem; color: var(--muted); }
+.group { display: flex; flex-direction: column; gap: 10px; }
+.group h3 { font-size: 1.05rem; }
+fieldset.scenario { border: 0; border-top: 1px solid var(--line); margin: 0; padding: 18px 0 4px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+fieldset.scenario legend { padding: 0; font-weight: 600; font-size: 1.0625rem; float: left; width: 100%; margin-bottom: 4px; }
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; }
+.skill { display: grid; grid-template-columns: minmax(0, 1fr) 2em; gap: 4px 10px; align-items: center; }
+.skill input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); }
+.skill output { text-align: right; font-weight: 700; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field select { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); max-width: 360px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .9375rem; }
+.check input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--accent); flex: none; }
+.quiz-foot { position: sticky; bottom: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; background: var(--bg); border-top: 1px solid var(--line); padding-block: 14px calc(14px + env(safe-area-inset-bottom, 0px)); }
+.quiz-foot .status { flex: 1 1 200px; font-size: .9375rem; color: var(--muted); min-width: 0; }
+.notice { background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; color: var(--ink); font-size: .9375rem; }
+
+footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .875rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+
+/* Ask Serasi (AI explainer) */
+[hidden] { display: none !important; }
+.ask { display: flex; flex-direction: column; gap: 14px; }
+.ask-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 12px; }
+.ask-intro { max-width: 62ch; }
+.ask-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ask-chip { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .875rem; cursor: pointer; text-align: left; }
+.ask-chip:hover:not(:disabled) { border-color: var(--accent); }
+.ask-chip:disabled, .ask-role:disabled, #ask-send:disabled { opacity: .5; cursor: not-allowed; }
+.ask-log { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ask-log:empty { display: none; }
+.msg { max-width: min(68ch, 92%); display: flex; flex-direction: column; gap: 4px; padding: 10px 14px; border-radius: 12px; font-size: .9375rem; line-height: 1.55; overflow-wrap: anywhere; min-width: 0; }
+.msg .who { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.msg .txt { white-space: pre-wrap; color: var(--ink); }
+.msg.user { align-self: flex-end; background: var(--accent-soft); }
+.msg.bot { align-self: flex-start; background: var(--surface-2); }
+.msg.thinking .txt { color: var(--muted); font-style: italic; }
+.msg .note { font-size: .8125rem; color: var(--flag); }
+.ask-form { display: flex; flex-wrap: wrap; gap: 8px; }
+.ask-form input { flex: 1 1 240px; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
+.ask-role { margin-top: 8px; padding-left: 0; }
+
+@media (max-width: 900px) {
+  .summary { grid-template-columns: 1fr 1fr; }
+  .summary .card:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .role-body, .how-body, .stretch-grid { grid-template-columns: minmax(0, 1fr); }
+  .profile-head { grid-template-columns: minmax(0, 1fr); }
+  .head-actions { justify-content: flex-start; }
+  fieldset.item { grid-template-columns: minmax(0, 1fr); }
+  .scale-key { justify-content: flex-start; }
+  .option-grid, .skills { grid-template-columns: minmax(0, 1fr); }
+  .steps li span { display: none; }
+  .steps li.current span { display: inline; }
+}
+@media (max-width: 600px) {
+  .summary { grid-template-columns: minmax(0, 1fr); }
+  .role-head { grid-template-columns: 1.75rem minmax(0, 1fr) auto; gap: 10px; padding: 14px; }
+  .quiz-foot { position: static; }
+  .topnav { margin-left: 0; }
+  .card { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
+
+/* ---------- App additions: welcome, sharing, about, dashboard ---------- */
+.lede { color: var(--ink-2); max-width: 62ch; font-size: 1.0625rem; }
+.btn.danger { background: var(--flag); color: var(--surface); }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+.welcome { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px; align-items: start; padding-top: 8px; }
+.welcome-copy { display: flex; flex-direction: column; gap: 18px; }
+.welcome-copy h1 { font-size: clamp(2.1rem, 5vw, 3.2rem); }
+.how-steps { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; counter-reset: s; }
+.how-steps li { counter-increment: s; display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); column-gap: 12px; }
+.how-steps li::before { content: counter(s); grid-row: 1 / span 2; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--brand); color: var(--gold-fill); display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; }
+.how-steps b { color: var(--ink); }
+.how-steps span { color: var(--muted); font-size: .9375rem; }
+.start { display: flex; flex-direction: column; gap: 16px; }
+.start .field select { max-width: none; width: 100%; }
+.start .btn.primary { align-self: flex-start; }
+
+.notice { background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; color: var(--ink); font-size: .9375rem; }
+.confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; background: var(--flag-soft); border-radius: var(--radius); padding: 14px 18px; color: var(--ink); }
+.confirm span { flex: 1 1 280px; min-width: 0; }
+.share-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 14px; font-size: .9375rem; color: var(--ink-2); }
+.share-status:empty { display: none; }
+
+.taster { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 24px; align-items: center; border-left: 4px solid var(--gold-fill); }
+.taster > div:first-child { display: flex; flex-direction: column; gap: 8px; }
+.taster p.small { color: var(--ink-2); max-width: 70ch; }
+.taster-act { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; justify-content: flex-end; }
+
+.about { display: flex; flex-direction: column; gap: 12px; max-width: 780px; width: 100%; margin: 0 auto; }
+.about h1 { margin-bottom: 4px; }
+.about h2 { font-size: 1.25rem; margin-top: 12px; }
+.about p, .about li { color: var(--ink-2); }
+.about ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+
+/* Dashboard: a filter row, three stat tiles, then four single-series bar lists */
+.dash-head { display: flex; flex-direction: column; gap: 8px; }
+.dash-filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; }
+.dash-filters .field { min-width: 160px; flex: 0 1 220px; }
+.dash-filters .field select { max-width: none; width: 100%; }
+.dash-filters .toggle { padding-bottom: 10px; }
+.dash-body { display: flex; flex-direction: column; gap: 16px; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.tile { display: flex; flex-direction: column; gap: 4px; }
+.tile-label { font-size: .875rem; font-weight: 600; color: var(--ink-2); }
+.tile-value { font-family: var(--font-display); font-size: 2.25rem; font-weight: 600; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.dash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.dash-card { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.dash-card figcaption { display: flex; flex-direction: column; gap: 4px; }
+.dash-card h3 { font-size: 1.1rem; }
+.bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.bar-row { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) 3em; gap: 10px; align-items: center; padding: 5px 4px; border-radius: 6px; font-size: .875rem; color: var(--ink-2); cursor: default; }
+.bar-row:hover { background: var(--surface-2); }
+.bar-label { line-height: 1.3; overflow-wrap: anywhere; }
+.bar-track { height: 14px; position: relative; }
+.bar-track i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar-val { text-align: right; color: var(--ink); font-weight: 600; }
+.tip { position: fixed; z-index: 20; pointer-events: none; max-width: 260px; background: var(--ink); color: var(--bg); font-size: .8125rem; line-height: 1.4; padding: 6px 10px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, .18); }
+.ideas { display: flex; flex-direction: column; gap: 14px; }
+.idea-list { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 10px; }
+.idea-list li { color: var(--ink); }
+.idea-list li b { display: block; font-weight: 600; }
+.ai-sum { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.ai-sum .msg { max-width: min(76ch, 100%); }
+.empty { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.empty p { color: var(--ink-2); max-width: 62ch; }
+
+@media (max-width: 900px) {
+  .welcome { grid-template-columns: minmax(0, 1fr); }
+  .dash-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .taster { grid-template-columns: minmax(0, 1fr); }
+  .taster-act { justify-content: flex-start; }
+  .tiles { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .bar-row { grid-template-columns: minmax(0, 1fr) 3em; row-gap: 4px; padding: 6px 4px; }
+  .bar-label { grid-column: 1 / -1; }
+  .dash-filters .field { flex: 1 1 100%; }
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <button class="brand" type="button" data-action="home" aria-label="Serasi home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><polygon points="16,2 28,9 28,23 16,30 4,23 4,9" fill="none" stroke="#E3A43B" stroke-width="2.5"/><circle cx="16" cy="16" r="4.5" fill="#E3A43B"/></svg>
+      <span class="brand-name">Serasi</span>
+    </button>
+    <span class="demo-tag">Pilot</span>
+    <nav class="topnav" aria-label="Main">
+      <button class="chip-btn" type="button" data-action="mine" id="nav-mine" hidden>My results</button>
+      <button class="chip-btn" type="button" data-action="example">Example</button>
+      <button class="chip-btn" type="button" data-action="about">About and privacy</button>
+      <button class="chip-btn" type="button" data-action="dashboard" id="nav-dash" hidden>MENDAKI insights</button>
+      <button class="chip-btn solid" type="button" data-action="start-quiz">Take the quiz</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app" aria-live="polite"></main>
+<noscript><div class="wrap card"><h1>Serasi needs JavaScript</h1><p>Enable JavaScript to take the quiz, or read the <a href="Serasi%20overview.pdf">Serasi overview</a> and <a href="Serasi%20pitch%20deck.pdf">pitch deck</a>.</p></div></noscript>
+<footer class="wrap foot" style="padding-bottom:24px" aria-label="Project documents">
+  <p><b>Explore the proposal:</b> <a href="Serasi%20overview.pdf">Read the overview (PDF)</a> · <a href="Serasi%20pitch%20deck.pdf">View the pitch deck (PDF)</a></p>
+  <p>Proposed pilot: 300 youths · Draft budget: S$22,000 · Preparation November 2026–March 2027 · Pilot April–June 2027 · Follow-up and decision by June 2028.</p>
+  <p>Partnerships, funding, job tasters and internships are proposals. No partner has been approached. Scores and role data are illustrative and have not been validated.</p>
+  <p>This public demo saves quiz answers on your device. AI chat, sharing results with MENDAKI and live partner insights require connected services and are unavailable on GitHub Pages.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Reference data ---------- */
+  const TYPES = ['R', 'I', 'A', 'S', 'E', 'C'];
+  const TYPE_INFO = {
+    R: { name: 'Realistic', profile: 'Builder', blurb: 'Hands-on and practical; likes visible results.' },
+    I: { name: 'Investigative', profile: 'Analyst', blurb: 'Curious and logical; enjoys hard problems.' },
+    A: { name: 'Artistic', profile: 'Creator', blurb: 'Expressive and original; needs room to make things.' },
+    S: { name: 'Social', profile: 'Carer', blurb: 'Warm and supportive; energised by helping others grow.' },
+    E: { name: 'Enterprising', profile: 'Persuader', blurb: 'Driven and outgoing; likes to lead and win people over.' },
+    C: { name: 'Conventional', profile: 'Organiser', blurb: 'Precise and dependable; likes clear systems.' }
+  };
+  const TRAITS = [
+    { k: 'O', name: 'Curiosity', low: 'Proven methods', high: 'New problems', need: 'new, unsolved problems' },
+    { k: 'C', name: 'Structure', low: 'Open-ended work', high: 'Set processes', need: 'process-heavy work' },
+    { k: 'E', name: 'People energy', low: 'Deep focus', high: 'People-facing', need: 'people-facing work' },
+    { k: 'A', name: 'Collaboration', low: 'Independent', high: 'Team-first', need: 'close teamwork' },
+    { k: 'S', name: 'Steadiness', low: 'Calmer settings', high: 'Handles pressure', need: 'pressure and pace' },
+    { k: 'H', name: 'Integrity', low: 'Pragmatic', high: 'Principled', need: 'trust and sensitive information' }
+  ];
+  const TRAIT = Object.fromEntries(TRAITS.map(t => [t.k, t]));
+  const VALUES = [
+    { k: 'stability', label: 'Financial stability to support my family', short: 'financial stability', pct: 68 },
+    { k: 'balance', label: 'Good work–life balance', short: 'work–life balance', pct: 67 },
+    { k: 'learning', label: 'Continuous learning and growth', short: 'room to learn', pct: 56 },
+    { k: 'security', label: 'Job security', short: 'job security', pct: 53 },
+    { k: 'aligned', label: 'Work that fits my values and beliefs', short: 'values-aligned work', pct: 45 },
+    { k: 'helping', label: 'Helping people directly', short: 'helping people directly' },
+    { k: 'freedom', label: 'Freedom in how I work', short: 'freedom in how you work' },
+    { k: 'creating', label: 'Making or building things', short: 'making things' }
+  ];
+  const VALUE = Object.fromEntries(VALUES.map(v => [v.k, v]));
+  const FAITH = [
+    { k: 'pray', label: 'Time and space to pray during work', kind: 'ask', ask: 'Is there a quiet space and time to pray during the workday?' },
+    { k: 'friday', label: 'Able to attend Friday prayers', kind: 'ask', ask: 'Can I take a longer lunch break for Friday prayers?' },
+    { k: 'halal', label: 'Halal food options at work', kind: 'ask', ask: 'Are halal food options available at work and at team events?' },
+    { k: 'tudung', label: 'Able to wear the tudung at work', kind: 'ask', ask: 'Does the dress code or uniform allow the tudung?' },
+    { k: 'riba', label: 'Avoid roles built on interest (riba)', kind: 'filter' },
+    { k: 'alcohol', label: 'Avoid roles serving alcohol or in gambling', kind: 'filter' }
+  ];
+  const FAITH_ITEM = Object.fromEntries(FAITH.map(f => [f.k, f]));
+  const SKILLS = [
+    { k: 'num', label: 'Numbers and data' },
+    { k: 'comm', label: 'Writing and speaking' },
+    { k: 'people', label: 'Working with people' },
+    { k: 'tech', label: 'Digital and tech' },
+    { k: 'hands', label: 'Hands-on and technical' },
+    { k: 'create', label: 'Creative and design' }
+  ];
+  const SKILL = Object.fromEntries(SKILLS.map(s => [s.k, s]));
+  const PATHWAYS = [
+    { k: 'ITE', label: 'ITE (Nitec or Higher Nitec)', rank: 1, name: 'ITE' },
+    { k: 'Poly', label: 'Polytechnic diploma', rank: 2, name: 'polytechnic' },
+    { k: 'Uni', label: 'University degree', rank: 3, name: 'university' },
+    { k: 'Work', label: 'Already working', rank: 3, name: 'working' }
+  ];
+  const PATH = Object.fromEntries(PATHWAYS.map(p => [p.k, p]));
+  const EDU_LABEL = { 1: 'Nitec or Higher Nitec', 2: 'a diploma', 3: 'a degree' };
+
+  /* Interest activities: 30 items, 5 per Holland type, written for Serasi (not the official O*NET Mini-IP text). */
+  const INTEREST_ITEMS = [
+    { id: 'i1', t: 'I', text: 'Finding the pattern in a messy dataset' },
+    { id: 'i2', t: 'E', text: 'Pitching an idea to win a new client' },
+    { id: 'i3', t: 'R', text: 'Fixing a machine that has stopped working' },
+    { id: 'i4', t: 'S', text: 'Coaching a junior through a hard topic' },
+    { id: 'i5', t: 'C', text: 'Keeping a budget accurate to the cent' },
+    { id: 'i6', t: 'A', text: 'Designing how an app screen looks' },
+    { id: 'i7', t: 'R', text: 'Building or assembling something with tools' },
+    { id: 'i8', t: 'A', text: 'Writing, filming or editing a short video' },
+    { id: 'i9', t: 'I', text: 'Working out why an experiment gave a strange result' },
+    { id: 'i10', t: 'C', text: 'Setting up a clear system for files and records' },
+    { id: 'i11', t: 'S', text: 'Helping someone through a difficult day' },
+    { id: 'i12', t: 'E', text: 'Leading a team to hit a target' },
+    { id: 'i13', t: 'R', text: 'Repairing wiring or electrical appliances' },
+    { id: 'i14', t: 'I', text: 'Studying how the human body or diseases work' },
+    { id: 'i15', t: 'A', text: 'Drawing, painting or making digital art' },
+    { id: 'i16', t: 'S', text: 'Caring for patients or older people' },
+    { id: 'i17', t: 'E', text: 'Starting your own small business' },
+    { id: 'i18', t: 'C', text: 'Checking documents carefully for errors' },
+    { id: 'i19', t: 'I', text: 'Writing code to solve a tricky problem' },
+    { id: 'i20', t: 'R', text: 'Working outdoors on a building or landscaping project' },
+    { id: 'i21', t: 'S', text: 'Volunteering at a community programme' },
+    { id: 'i22', t: 'C', text: 'Tracking stock, orders or schedules in a spreadsheet' },
+    { id: 'i23', t: 'A', text: 'Writing stories, scripts or song lyrics' },
+    { id: 'i24', t: 'E', text: 'Negotiating a deal or a better price' },
+    { id: 'i25', t: 'I', text: 'Researching a question until you fully understand it' },
+    { id: 'i26', t: 'R', text: 'Operating machinery or vehicles' },
+    { id: 'i27', t: 'A', text: 'Planning the look and feel of an event or space' },
+    { id: 'i28', t: 'S', text: 'Teaching a group of children or teens' },
+    { id: 'i29', t: 'C', text: 'Following a set procedure to process applications' },
+    { id: 'i30', t: 'E', text: 'Persuading people to sign up for something' }
+  ];
+  /* Work style: the 20 public-domain Mini-IPIP items (Donnellan et al., 2006), lightly reworded to start with "I",
+     plus 4 honesty items written for Serasi. Steadiness (S) is the reverse of the Mini-IPIP neuroticism scale. */
+  const PERS_ITEMS = [
+    { id: 'p1', t: 'E', rev: false, text: 'I am the life of the party.' },
+    { id: 'p2', t: 'A', rev: false, text: 'I sympathise with others’ feelings.' },
+    { id: 'p3', t: 'C', rev: false, text: 'I get chores done right away.' },
+    { id: 'p4', t: 'S', rev: true, text: 'I have frequent mood swings.' },
+    { id: 'p5', t: 'O', rev: false, text: 'I have a vivid imagination.' },
+    { id: 'p6', t: 'H', rev: false, text: 'I wouldn’t bend the rules to get ahead, even if no one would know.' },
+    { id: 'p7', t: 'E', rev: true, text: 'I don’t talk a lot.' },
+    { id: 'p8', t: 'A', rev: true, text: 'I am not interested in other people’s problems.' },
+    { id: 'p9', t: 'C', rev: true, text: 'I often forget to put things back in their proper place.' },
+    { id: 'p10', t: 'S', rev: false, text: 'I am relaxed most of the time.' },
+    { id: 'p11', t: 'O', rev: true, text: 'I am not interested in abstract ideas.' },
+    { id: 'p12', t: 'H', rev: true, text: 'I’d flatter someone if it helped me get what I want.' },
+    { id: 'p13', t: 'E', rev: false, text: 'I talk to a lot of different people at parties.' },
+    { id: 'p14', t: 'A', rev: false, text: 'I feel others’ emotions.' },
+    { id: 'p15', t: 'C', rev: false, text: 'I like order.' },
+    { id: 'p16', t: 'S', rev: true, text: 'I get upset easily.' },
+    { id: 'p17', t: 'O', rev: true, text: 'I have difficulty understanding abstract ideas.' },
+    { id: 'p18', t: 'H', rev: false, text: 'I’d return extra change a cashier gave me by mistake.' },
+    { id: 'p19', t: 'E', rev: true, text: 'I keep in the background.' },
+    { id: 'p20', t: 'A', rev: true, text: 'I am not really interested in others.' },
+    { id: 'p21', t: 'C', rev: true, text: 'I make a mess of things.' },
+    { id: 'p22', t: 'S', rev: false, text: 'I seldom feel blue.' },
+    { id: 'p23', t: 'O', rev: true, text: 'I do not have a good imagination.' },
+    { id: 'p24', t: 'H', rev: true, text: 'Having expensive things matters a lot to me.' }
+  ];
+  const SCENARIOS = [
+    { id: 's1', text: 'A colleague is ill, and your boss asks you to present to a client tomorrow.', options: [
+      { k: 'A', text: 'Accept and prepare late into the night', adj: { C: .06, S: .04 } },
+      { k: 'B', text: 'Ask to co-present with someone who knows the client', adj: { A: .06 } },
+      { k: 'C', text: 'Suggest postponing the meeting', adj: { S: -.05 } },
+      { k: 'D', text: 'Accept and reuse the existing slides', adj: { E: .04, C: -.04 } }
+    ] },
+    { id: 's2', text: 'Your team lead asks for ideas to speed up a slow weekly report.', options: [
+      { k: 'A', text: 'Build a small automation and test it', adj: { O: .06, C: .02 } },
+      { k: 'B', text: 'Ask teammates what slows them down first', adj: { A: .05, E: .03 } },
+      { k: 'C', text: 'Write down the current steps, then trim them', adj: { C: .06 } },
+      { k: 'D', text: 'Pitch a new tool to the manager', adj: { E: .06 } }
+    ] },
+    { id: 's3', text: 'Just before a report goes out, you notice a teammate’s figures don’t add up.', options: [
+      { k: 'A', text: 'Tell them privately and help fix it', adj: { H: .05, A: .04 } },
+      { k: 'B', text: 'Fix it quietly yourself', adj: { C: .04 } },
+      { k: 'C', text: 'Flag it to the team lead', adj: { H: .06 } },
+      { k: 'D', text: 'Let it go; it isn’t your section', adj: { H: -.06 } }
+    ] }
+  ];
+
+  /* Portals. Link formats checked for MyCareersFuture, Jobstreet and Careers@Gov; FastJobs search needs a form post, so it opens the browse page. */
+  const PORTALS = {
+    mcf: { name: 'MyCareersFuture', why: 'National jobs portal; ads show a salary range', url: q => 'https://www.mycareersfuture.gov.sg/search?search=' + encodeURIComponent(q) + '&sortBy=relevancy&page=0' },
+    jobstreet: { name: 'Jobstreet', why: 'Can attach verified Careers & Skills Passport records', url: q => 'https://sg.jobstreet.com/' + slug(q) + '-jobs' },
+    linkedin: { name: 'LinkedIn', why: 'Entry-level and intern roles, plus alumni to reach out to', url: q => 'https://www.linkedin.com/jobs/search/?keywords=' + encodeURIComponent(q) + '&location=Singapore&f_E=1%2C2' },
+    fastjobs: { name: 'FastJobs', why: 'Non-executive roles with quick mobile applications', url: () => 'https://www.fastjobs.sg/singapore-jobs/all-categories-jobs/', manual: true },
+    glints: { name: 'Glints', why: 'Start-up and internship listings', url: q => 'https://glints.com/sg/opportunities/jobs/explore?keyword=' + encodeURIComponent(q) + '&country=SG' },
+    careersgov: { name: 'Careers@Gov', why: 'Public service jobs', url: q => 'https://jobs.careers.gov.sg/?s=' + encodeURIComponent(q) }
+  };
+  const SF_URL = s => 'https://www.skillsfuture.gov.sg/skills-framework/' + s;
+  const LINKS = {
+    e2i: 'https://www.e2i.com.sg/',
+    m3: 'https://www.m3plus.gov.sg/focus-areas/employment-and-employability/',
+    grit: 'https://www.wsg.gov.sg/home/individuals/attachment-placement-programmes/graduate-industry-traineeships',
+    gritGov: 'https://jobs.careers.gov.sg/?s=grit%40gov'
+  };
+
+  /* Roles: hand-coded for illustration. The full build would take interest and work-style profiles from O*NET, linked to SSOC and the Skills Framework. */
+  const ROLES = [
+    { id: 'eng-tech', title: 'Engineering technician', sector: 'Manufacturing', code: 'RIC', ws: { C: .7, S: .6 }, values: ['security', 'stability', 'creating'], skills: { hands: 4, tech: 3 }, edu: 1, q: 'engineering technician', portals: ['mcf', 'jobstreet', 'fastjobs'] },
+    { id: 'aircraft-tech', title: 'Aircraft maintenance technician', sector: 'Aerospace', code: 'RCI', ws: { C: .85, S: .7, H: .7 }, values: ['security', 'learning', 'creating'], skills: { hands: 4, tech: 3 }, edu: 1, q: 'aircraft technician', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'facilities-tech', title: 'Building facilities technician', sector: 'Built environment', code: 'RCE', ws: { C: .6, S: .6, A: .5 }, values: ['security', 'stability', 'balance'], skills: { hands: 4 }, edu: 1, q: 'facilities technician', portals: ['mcf', 'fastjobs', 'jobstreet'], sf: 'built-environment' },
+    { id: 'lab-tech', title: 'Medical laboratory technologist', sector: 'Healthcare', code: 'IRC', ws: { C: .8, O: .6 }, values: ['helping', 'security', 'learning'], skills: { num: 3, hands: 3, tech: 3 }, edu: 2, q: 'medical laboratory technologist', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'data-analyst', title: 'Data analyst', sector: 'Infocomm and finance', code: 'ICE', ws: { O: .7, C: .7 }, values: ['learning', 'stability', 'freedom'], skills: { num: 4, tech: 3 }, edu: 2, q: 'data analyst', portals: ['mcf', 'linkedin', 'jobstreet', 'glints'], sf: 'ict' },
+    { id: 'software-eng', title: 'Software engineer', sector: 'Infocomm', code: 'IRC', ws: { O: .7, C: .6, S: .5 }, values: ['learning', 'creating', 'freedom'], skills: { tech: 4, num: 3 }, edu: 2, q: 'software engineer', portals: ['mcf', 'linkedin', 'glints', 'jobstreet'], sf: 'ict' },
+    { id: 'backend-eng', title: 'Back-end engineer', sector: 'Infocomm', code: 'ICR', ws: { C: .75, E: .3, O: .6 }, values: ['learning', 'security', 'creating'], skills: { tech: 4, num: 3 }, edu: 2, q: 'backend engineer', portals: ['mcf', 'linkedin', 'glints'], sf: 'ict' },
+    { id: 'cyber', title: 'Cybersecurity analyst', sector: 'Infocomm', code: 'ICR', ws: { C: .75, H: .85, S: .7 }, values: ['security', 'learning', 'aligned'], skills: { tech: 4 }, edu: 2, q: 'cybersecurity analyst', portals: ['mcf', 'linkedin', 'careersgov', 'jobstreet'], sf: 'ict' },
+    { id: 'product-analyst', title: 'Product analyst', sector: 'Tech start-ups', code: 'IEC', ws: { E: .65, O: .75, A: .6 }, values: ['learning', 'freedom', 'creating'], skills: { num: 3, comm: 3, tech: 3 }, edu: 3, q: 'product analyst', portals: ['mcf', 'linkedin', 'glints'] },
+    { id: 'data-consultant', title: 'Data consultant', sector: 'Professional services', code: 'IEC', ws: { E: .75, O: .7, S: .6 }, values: ['learning', 'stability'], skills: { num: 4, comm: 4, people: 3 }, edu: 3, q: 'data consultant', portals: ['mcf', 'linkedin', 'jobstreet'] },
+    { id: 'risk-analyst', title: 'Risk analyst (conventional bank)', sector: 'Finance', code: 'CIE', ws: { C: .8, S: .6, H: .75 }, values: ['stability', 'security', 'learning'], skills: { num: 4, comm: 3 }, edu: 3, q: 'risk analyst', portals: ['mcf', 'linkedin', 'jobstreet'], flags: ['riba'], alt: ['islamic-banking', 'takaful'] },
+    { id: 'bank-ops', title: 'Bank operations executive', sector: 'Finance', code: 'CEI', ws: { C: .8, H: .8, S: .6 }, values: ['stability', 'security'], skills: { num: 3, comm: 3 }, edu: 2, q: 'bank operations executive', portals: ['mcf', 'jobstreet', 'linkedin'], flags: ['riba'], alt: ['islamic-banking', 'takaful'] },
+    { id: 'islamic-banking', title: 'Islamic banking officer', sector: 'Finance', code: 'CEI', ws: { C: .75, H: .8, A: .55 }, values: ['stability', 'aligned', 'security'], skills: { num: 3, comm: 3 }, edu: 2, q: 'islamic banking', portals: ['mcf', 'linkedin', 'jobstreet'] },
+    { id: 'takaful', title: 'Takaful executive', sector: 'Insurance', code: 'ECS', ws: { E: .6, A: .6, H: .8 }, values: ['aligned', 'stability', 'helping'], skills: { people: 3, num: 3, comm: 3 }, edu: 2, q: 'takaful', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'accounts-exec', title: 'Accounts executive', sector: 'Finance', code: 'CEI', ws: { C: .85, H: .8, S: .6 }, values: ['stability', 'security'], skills: { num: 4 }, edu: 2, q: 'accounts executive', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'ops-exec', title: 'Operations executive', sector: 'Logistics and services', code: 'CER', ws: { C: .75, A: .6, S: .65 }, values: ['stability', 'security', 'balance'], skills: { num: 3, people: 3, comm: 3 }, edu: 2, q: 'operations executive', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'compliance', title: 'Compliance officer', sector: 'Finance and regulation', code: 'CEI', ws: { C: .8, H: .9 }, values: ['security', 'aligned', 'stability'], skills: { comm: 3, num: 3 }, edu: 3, q: 'compliance officer', portals: ['mcf', 'linkedin', 'jobstreet'] },
+    { id: 'logistics', title: 'Logistics coordinator', sector: 'Logistics', code: 'CRE', ws: { C: .7, S: .65, A: .55 }, values: ['stability', 'security'], skills: { num: 3, people: 3 }, edu: 1, q: 'logistics coordinator', portals: ['mcf', 'jobstreet', 'fastjobs'] },
+    { id: 'pharm-tech', title: 'Pharmacy technician', sector: 'Healthcare', code: 'CRS', ws: { C: .8, H: .8, A: .6 }, values: ['helping', 'security', 'stability'], skills: { num: 3, people: 3 }, edu: 2, q: 'pharmacy technician', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'ux', title: 'UX/UI designer', sector: 'Design and infocomm', code: 'AIE', ws: { O: .85, A: .6, E: .5 }, values: ['creating', 'freedom', 'learning'], skills: { create: 4, tech: 3, comm: 3 }, edu: 2, q: 'ux designer', portals: ['mcf', 'glints', 'linkedin'], sf: 'design' },
+    { id: 'content', title: 'Content producer', sector: 'Media', code: 'AES', ws: { O: .8, E: .65 }, values: ['creating', 'freedom'], skills: { create: 4, comm: 4 }, edu: 2, q: 'content producer', portals: ['mcf', 'glints', 'linkedin'] },
+    { id: 'graphic', title: 'Graphic designer', sector: 'Design', code: 'AER', ws: { O: .8, C: .5 }, values: ['creating', 'freedom'], skills: { create: 4, tech: 3 }, edu: 2, q: 'graphic designer', portals: ['mcf', 'glints', 'jobstreet'], sf: 'design' },
+    { id: 'arch', title: 'Architectural designer', sector: 'Built environment', code: 'AIR', ws: { O: .75, C: .65 }, values: ['creating', 'learning'], skills: { create: 4, num: 3, tech: 3 }, edu: 3, q: 'architectural designer', portals: ['mcf', 'jobstreet', 'linkedin'], sf: 'built-environment' },
+    { id: 'video', title: 'Video editor', sector: 'Media', code: 'ARE', ws: { O: .75, C: .6, E: .35 }, values: ['creating', 'freedom'], skills: { create: 4, tech: 3 }, edu: 1, q: 'video editor', portals: ['mcf', 'glints', 'jobstreet'] },
+    { id: 'events', title: 'Events executive', sector: 'Hospitality and events', code: 'EAS', ws: { E: .8, C: .6, S: .65 }, values: ['creating', 'learning', 'freedom'], skills: { people: 4, comm: 3, create: 3 }, edu: 2, q: 'events executive', portals: ['mcf', 'jobstreet', 'glints'] },
+    { id: 'nurse', title: 'Registered nurse', sector: 'Healthcare', code: 'SIR', ws: { A: .8, S: .75, C: .7, H: .75 }, values: ['helping', 'security', 'stability'], skills: { people: 4, hands: 3 }, edu: 2, q: 'staff nurse', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'physio', title: 'Physiotherapist', sector: 'Healthcare', code: 'SIR', ws: { A: .75, E: .6, S: .65 }, values: ['helping', 'learning', 'security'], skills: { people: 4, hands: 3 }, edu: 3, q: 'physiotherapist', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'teacher', title: 'Teacher (MOE)', sector: 'Education', code: 'SAE', ws: { E: .7, A: .75, S: .7, C: .6 }, values: ['helping', 'aligned', 'security'], skills: { people: 4, comm: 4 }, edu: 3, q: 'teacher', portals: ['mcf', 'careersgov'] },
+    { id: 'preschool', title: 'Preschool educator', sector: 'Early childhood', code: 'SAE', ws: { A: .85, E: .6, S: .7 }, values: ['helping', 'aligned', 'balance'], skills: { people: 4, create: 3 }, edu: 1, q: 'preschool teacher', portals: ['mcf', 'jobstreet', 'fastjobs'], sf: 'earlychildhood' },
+    { id: 'social-worker', title: 'Social worker', sector: 'Social service', code: 'SEA', ws: { A: .85, S: .75, H: .8 }, values: ['helping', 'aligned'], skills: { people: 4, comm: 4 }, edu: 3, q: 'social worker', portals: ['mcf', 'careersgov', 'linkedin'], sf: 'social-service' },
+    { id: 'youth-worker', title: 'Youth worker', sector: 'Social service', code: 'SEA', ws: { E: .75, A: .8, O: .6 }, values: ['helping', 'aligned', 'freedom'], skills: { people: 4, comm: 3 }, edu: 2, q: 'youth worker', portals: ['mcf', 'linkedin', 'jobstreet'], sf: 'social-service' },
+    { id: 'hr', title: 'HR executive', sector: 'Professional services', code: 'ESC', ws: { A: .7, C: .65, H: .8 }, values: ['helping', 'stability', 'balance'], skills: { people: 4, comm: 3 }, edu: 2, q: 'hr executive', portals: ['mcf', 'jobstreet', 'linkedin'] },
+    { id: 'bizdev', title: 'Business development executive', sector: 'Cross-industry', code: 'ECS', ws: { E: .85, S: .65, O: .6 }, values: ['stability', 'freedom', 'learning'], skills: { people: 4, comm: 4 }, edu: 2, q: 'business development executive', portals: ['mcf', 'linkedin', 'jobstreet'] },
+    { id: 'marketing', title: 'Marketing executive', sector: 'Cross-industry', code: 'EAC', ws: { E: .7, O: .75 }, values: ['creating', 'learning', 'freedom'], skills: { comm: 4, create: 3 }, edu: 2, q: 'marketing executive', portals: ['mcf', 'linkedin', 'glints'] },
+    { id: 'sales', title: 'Sales executive', sector: 'Retail and trade', code: 'ECS', ws: { E: .85, S: .7 }, values: ['stability', 'freedom'], skills: { people: 4, comm: 3 }, edu: 1, q: 'sales executive', portals: ['mcf', 'jobstreet', 'fastjobs'] },
+    { id: 'fnb', title: 'Restaurant supervisor', sector: 'Food services', code: 'ECR', ws: { E: .7, S: .75, C: .6 }, values: ['stability', 'security'], skills: { people: 4, hands: 3 }, edu: 1, q: 'restaurant supervisor', portals: ['mcf', 'fastjobs', 'jobstreet'], flags: ['alcohol'] },
+    { id: 'enrolled-nurse', title: 'Enrolled nurse', sector: 'Healthcare', code: 'SRC', ws: { A: .8, S: .7, C: .7 }, values: ['helping', 'security', 'stability'], skills: { people: 4, hands: 3 }, edu: 1, q: 'enrolled nurse', portals: ['mcf', 'jobstreet', 'fastjobs'] },
+    { id: 'customer-service', title: 'Customer service officer', sector: 'Cross-industry', code: 'SEC', ws: { E: .7, A: .7, S: .7 }, values: ['stability', 'balance', 'helping'], skills: { people: 4, comm: 3 }, edu: 1, q: 'customer service officer', portals: ['mcf', 'jobstreet', 'fastjobs'] },
+    { id: 'community-care', title: 'Community care associate', sector: 'Social service', code: 'SAR', ws: { A: .85, E: .6, S: .65 }, values: ['helping', 'aligned', 'balance'], skills: { people: 4 }, edu: 1, q: 'community care associate', portals: ['mcf', 'jobstreet', 'fastjobs'], sf: 'social-service' },
+    { id: 'multimedia', title: 'Multimedia designer (junior)', sector: 'Media and design', code: 'AER', ws: { O: .75, C: .55 }, values: ['creating', 'freedom', 'learning'], skills: { create: 4, tech: 3 }, edu: 1, q: 'multimedia designer', portals: ['mcf', 'glints', 'jobstreet'] },
+    { id: 'retail', title: 'Retail store supervisor', sector: 'Retail', code: 'ECS', ws: { E: .75, C: .6, S: .7 }, values: ['stability', 'security'], skills: { people: 4, num: 2 }, edu: 1, q: 'retail supervisor', portals: ['mcf', 'fastjobs', 'jobstreet'], sf: 'retail' },
+    { id: 'public-officer', title: 'Public service officer (management support)', sector: 'Public sector', code: 'CES', ws: { C: .75, H: .85, A: .6 }, values: ['security', 'balance', 'aligned'], skills: { comm: 3, num: 3 }, edu: 2, q: 'management support officer', portals: ['mcf', 'careersgov'] },
+    { id: 'policy', title: 'Policy executive (public service)', sector: 'Public sector', code: 'EIS', ws: { O: .7, C: .65, H: .85 }, values: ['aligned', 'learning', 'security'], skills: { comm: 4, num: 3 }, edu: 3, q: 'policy executive', portals: ['mcf', 'careersgov', 'linkedin'] }
+  ];
+  const ROLE = Object.fromEntries(ROLES.map(r => [r.id, r]));
+
+
+  /* ---------- Helpers ---------- */
+  const avg = a => a.reduce((s, x) => s + x, 0) / a.length;
+  const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
+  const pct = x => Math.round(clamp(x, 0, 1) * 100);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function slug(q) { return q.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+  function joinList(arr) {
+    if (arr.length <= 1) return arr.join('');
+    return arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1];
+  }
+  function blankAnswers() {
+    return { interests: {}, code: '', personality: {}, values: [], faith: [], scenarios: {}, skills: { num: 3, comm: 3, people: 3, tech: 3, hands: 3, create: 3 }, pathway: 'Poly', grit: false };
+  }
+
+
+  /* ---------- Scoring ---------- */
+  function profileFromAnswers(a) {
+    const interest = {};
+    if (/^[RIASEC]{3}$/.test(a.code || '')) {
+      TYPES.forEach(t => { interest[t] = .15; });
+      [...a.code].forEach((t, i) => { interest[t] = [1, .75, .5][i]; });
+    } else {
+      TYPES.forEach(t => {
+        const vals = INTEREST_ITEMS.filter(x => x.t === t).map(x => a.interests[x.id]).filter(Boolean);
+        interest[t] = vals.length ? (avg(vals) - 1) / 4 : .5;
+      });
+    }
+    const traits = {}, nudges = {};
+    TRAITS.forEach(({ k }) => {
+      const vals = PERS_ITEMS.filter(x => x.t === k).map(x => { const v = a.personality[x.id]; return v ? (x.rev ? 6 - v : v) : null; }).filter(v => v != null);
+      traits[k] = vals.length ? (avg(vals) - 1) / 4 : .5;
+    });
+    SCENARIOS.forEach(s => {
+      const o = s.options.find(o => o.k === a.scenarios[s.id]);
+      if (o) Object.entries(o.adj).forEach(([k, d]) => { traits[k] += d; nudges[k] = (nudges[k] || 0) + d; });
+    });
+    TRAITS.forEach(({ k }) => { traits[k] = clamp(traits[k], 0, 1); });
+    return { interest, traits, nudges, values: a.values.slice(), faith: a.faith.slice(), skills: Object.assign({}, a.skills), pathway: a.pathway, grit: a.grit, codeImported: /^[RIASEC]{3}$/.test(a.code || '') };
+  }
+
+  function codeOf(interest) {
+    return TYPES.map((t, i) => ({ t, v: interest[t], i })).sort((a, b) => (b.v - a.v) || (a.i - b.i)).slice(0, 3).map(x => x.t).join('');
+  }
+
+  function scoreRole(role, p, w) {
+    const maxI = Math.max(...TYPES.map(t => p.interest[t]), .01);
+    const rv = {}; TYPES.forEach(t => { rv[t] = .1; });
+    [...role.code].forEach((t, i) => { rv[t] = [1, .7, .45][i]; });
+    const mad = avg(TYPES.map(t => Math.abs(p.interest[t] / maxI - rv[t])));
+    const interest = clamp(1 - 1.3 * mad, 0, 1);
+
+    const pens = Object.entries(role.ws).map(([k, need]) => { const d = need - p.traits[k]; return d > 0 ? d : -d * .4; });
+    const work = clamp(1 - 1.6 * avg(pens), 0, 1);
+
+    const matched = role.values.filter(v => p.values.includes(v));
+    const values = p.values.length ? .25 + .75 * (matched.length / p.values.length) : .6;
+
+    const W = w.i + w.w + w.v || 1;
+    const total = Math.round(100 * (w.i * interest + w.w * work + w.v * values) / W);
+
+    const reasons = [];
+    const top3 = codeOf(p.interest);
+    const overlap = [...role.code].filter(t => top3.includes(t));
+    if (overlap.length) reasons.push({ tone: 'good', text: 'Matches your top interests: ' + joinList(overlap.map(t => TYPE_INFO[t].name)) + '.' });
+    else reasons.push({ tone: 'gap', text: 'Sits outside your top three interests (' + top3 + ').' });
+
+    const [tk, need] = Object.entries(role.ws).sort((a, b) => b[1] - a[1])[0];
+    const you = p.traits[tk];
+    if (you >= need - .12) reasons.push({ tone: 'good', text: 'Your ' + TRAIT[tk].name.toLowerCase() + ' score (' + pct(you) + ') suits ' + TRAIT[tk].need + '.' });
+    else reasons.push({ tone: 'gap', text: 'Asks for more ' + TRAIT[tk].name.toLowerCase() + ' than you showed (' + pct(you) + ' against about ' + pct(need) + ').' });
+
+    if (matched.length) reasons.push({ tone: 'good', text: 'Offers ' + joinList(matched.map(v => VALUE[v].short)) + ', which you chose.' });
+    else if (p.values.length) reasons.push({ tone: 'info', text: 'Doesn’t stand out on the values you chose.' });
+
+    const gaps = [];
+    Object.entries(role.skills).forEach(([k, needLvl]) => {
+      const g = needLvl - (p.skills[k] || 0);
+      if (g >= 2) { gaps.push(k); reasons.push({ tone: 'gap', text: 'Build first: ' + SKILL[k].label.toLowerCase() + ' (you rated ' + p.skills[k] + '; this role usually needs ' + needLvl + ').' }); }
+      else if (g === 1) reasons.push({ tone: 'info', text: 'Worth building: ' + SKILL[k].label.toLowerCase() + '.' });
+    });
+    const eduGap = role.edu > PATH[p.pathway].rank;
+    if (eduGap) reasons.push({ tone: 'gap', text: 'Usually needs ' + EDU_LABEL[role.edu] + '. Your pathway: ' + PATH[p.pathway].name + '.' });
+
+    let flag = null, query = role.q;
+    const fl = role.flags || [];
+    if (fl.includes('riba') && p.faith.includes('riba')) flag = { level: 'strong', text: 'Built on interest-based (riba) products. Flagged because of your preference and moved down the list.' };
+    if (fl.includes('alcohol') && (p.faith.includes('alcohol') || p.faith.includes('halal'))) {
+      flag = { level: 'soft', text: 'Some outlets serve alcohol. Your job searches look for halal outlets.' };
+      query = 'halal ' + role.q;
+    }
+    return { role, interest, work, values, total, reasons, gaps, eduGap, stretch: eduGap || gaps.length > 0, flag, query };
+  }
+
+  function rank(p, w, hide) {
+    const scored = ROLES.map(r => scoreRole(r, p, w || state.weights)).filter(s => s.total >= 50).sort((a, b) => b.total - a.total);
+    const strong = s => !!(s.flag && s.flag.level === 'strong');
+    const pick = list => {
+      const nonStretch = list.filter(s => !s.stretch).slice(0, 10);
+      return { main: nonStretch.filter(s => !strong(s)).concat(nonStretch.filter(strong)), stretch: list.filter(s => s.stretch).slice(0, 2) };
+    };
+    const all = pick(scored);
+    const flaggedTotal = all.main.concat(all.stretch).filter(strong).length;
+    const shown = (hide === undefined ? state.hideFlagged : hide) ? pick(scored.filter(s => !strong(s))) : all;
+    return { main: shown.main, stretch: shown.stretch, flaggedTotal };
+  }
+
+
+  /* ---------- Rendering: results ---------- */
+  function hexSVG(interest, top3) {
+    const cx = 160, cy = 150, R = 100;
+    const ang = i => (-90 + i * 60) * Math.PI / 180;
+    const pt = (i, r) => [cx + r * Math.cos(ang(i)), cy + r * Math.sin(ang(i))];
+    const ring = f => TYPES.map((_, i) => pt(i, R * f).map(n => n.toFixed(1)).join(',')).join(' ');
+    let s = '<svg viewBox="0 0 320 300" role="img" aria-label="Interest shape: ' + TYPES.map(t => TYPE_INFO[t].name + ' ' + pct(interest[t])).join(', ') + '">';
+    [.25, .5, .75, 1].forEach(f => { s += '<polygon class="hex-grid" points="' + ring(f) + '"/>'; });
+    TYPES.forEach((_, i) => { const [x, y] = pt(i, R); s += '<line class="hex-axis" x1="' + cx + '" y1="' + cy + '" x2="' + x.toFixed(1) + '" y2="' + y.toFixed(1) + '"/>'; });
+    const shape = TYPES.map((t, i) => pt(i, R * clamp(interest[t], .04, 1)).map(n => n.toFixed(1)).join(',')).join(' ');
+    s += '<polygon class="hex-shape" points="' + shape + '"/>';
+    TYPES.forEach((t, i) => {
+      const [x, y] = pt(i, R * clamp(interest[t], .04, 1));
+      s += '<circle class="hex-dot" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="4.5"><title>' + TYPE_INFO[t].name + ': ' + pct(interest[t]) + '</title></circle>';
+      const [lx, ly] = pt(i, R + 22);
+      const top = top3.includes(t);
+      s += '<text class="hex-label' + (top ? ' top' : '') + '" x="' + lx.toFixed(1) + '" y="' + (ly + 4).toFixed(1) + '" text-anchor="middle">' + t + '</text>';
+      s += '<text class="hex-score" x="' + lx.toFixed(1) + '" y="' + (ly + 18).toFixed(1) + '" text-anchor="middle">' + pct(interest[t]) + '</text>';
+    });
+    return s + '</svg>';
+  }
+
+  function traitRows(traits, needs) {
+    return TRAITS.map(t => {
+      const v = traits[t.k];
+      const need = needs && needs[t.k] != null ? '<i class="need" style="left:' + pct(needs[t.k]) + '%" title="This role tends to need about ' + pct(needs[t.k]) + '"></i>' : '';
+      return '<li class="trait-row"><span class="trait-name">' + t.name + '</span><span class="trait-val num">' + pct(v) + '</span>' +
+        '<span class="track" title="' + t.name + ': ' + pct(v) + '"><i class="fill" style="width:' + pct(v) + '%"></i>' + need + '</span>' +
+        '<span class="trait-ends"><span>' + t.low + '</span><span>' + t.high + '</span></span></li>';
+    }).join('');
+  }
+
+  function workSummary(traits) {
+    const lean = TRAITS.map(t => ({ t, d: traits[t.k] - .5 })).sort((a, b) => Math.abs(b.d) - Math.abs(a.d)).slice(0, 2)
+      .map(x => (x.d >= 0 ? x.t.high : x.t.low).toLowerCase());
+    return 'Leans towards ' + joinList(lean) + '.';
+  }
+
+  function portalItem(key, query, primary) {
+    const P = PORTALS[key];
+    if (P.manual) {
+      return '<li class="portal' + (primary ? ' primary' : '') + '"><span class="p-name">' + P.name + '</span>' +
+        '<span class="copy-btn"><button type="button" data-action="copy" data-text="' + esc(query) + '">Copy search</button><a href="' + P.url(query) + '" target="_blank" rel="noopener">Open ↗</a></span>' +
+        '<span class="p-why">' + P.why + '. Search for “' + esc(query) + '”.</span></li>';
+    }
+    return '<li><a class="portal' + (primary ? ' primary' : '') + '" href="' + esc(P.url(query)) + '" target="_blank" rel="noopener">' +
+      '<span class="p-name">' + P.name + '</span><span class="p-go">Search ↗</span>' +
+      '<span class="p-why">' + P.why + ' · “' + esc(query) + '”</span></a></li>';
+  }
+
+  function roleBody(s, p) {
+    const r = s.role;
+    const reasons = s.reasons.map(x => '<li class="' + x.tone + '"><span class="mk" aria-hidden="true">' + (x.tone === 'good' ? '✓' : x.tone === 'gap' ? '!' : '•') + '</span><span>' + esc(x.text) + '</span></li>').join('');
+    const W = state.weights, Wt = W.i + W.w + W.v || 1;
+    const bd = [['Interests', s.interest, W.i], ['Work style', s.work, W.w], ['Values', s.values, W.v]]
+      .map(([n, v, wt]) => '<li><span>' + n + ' <span class="muted">· ' + Math.round(100 * wt / Wt) + '%</span></span><span class="bar" title="' + n + ': ' + pct(v) + '"><i style="width:' + pct(v) + '%"></i></span><span class="v num">' + pct(v) + '</span></li>').join('');
+    const needTraits = {}; Object.keys(r.ws).forEach(k => { needTraits[k] = r.ws[k]; });
+    const subset = TRAITS.filter(t => r.ws[t.k] != null);
+    const wsRows = subset.map(t => {
+      const v = p.traits[t.k];
+      return '<li class="trait-row"><span class="trait-name">' + t.name + '</span><span class="trait-val num">' + pct(v) + '</span>' +
+        '<span class="track"><i class="fill" style="width:' + pct(v) + '%"></i><i class="need" style="left:' + pct(r.ws[t.k]) + '%" title="Role tends to need about ' + pct(r.ws[t.k]) + '"></i></span></li>';
+    }).join('');
+    let flag = '';
+    if (s.flag) {
+      const alts = s.flag.level === 'strong' && r.alt ? ' Try instead: ' + joinList(r.alt.map(a => ROLE[a].title)) + '.' : '';
+      flag = '<div class="flag-box ' + s.flag.level + '"><b>' + (s.flag.level === 'strong' ? 'Flagged.' : 'Note.') + '</b> ' + esc(s.flag.text) + esc(alts) + '</div>';
+    }
+    const portals = r.portals.map((k, i) => portalItem(k, s.query, i === 0)).join('');
+    const extras = [];
+    if (p.grit) {
+      extras.push('<a href="' + LINKS.grit + '" target="_blank" rel="noopener">GRIT traineeships ↗</a>');
+      if (r.portals.includes('careersgov')) extras.push('<a href="' + LINKS.gritGov + '" target="_blank" rel="noopener">GRIT@Gov traineeships ↗</a>');
+    }
+    if (r.sf) extras.push('<a href="' + SF_URL(r.sf) + '" target="_blank" rel="noopener">Skills Framework for this sector ↗</a>');
+    return '<div class="role-body" id="body-' + r.id + '">' +
+      '<div class="col">' +
+        (flag ? '<div>' + flag + '</div>' : '') +
+        '<div><h4>Why it fits</h4><ul class="reasons">' + reasons + '</ul>' + (askAvail === true ? '<button class="btn link ask-role" type="button" data-action="ask-role" data-id="' + r.id + '">Ask Serasi about this job</button>' : '') + '</div>' +
+        '<div><h4>Fit score</h4><ul class="breakdown">' + bd + '</ul></div>' +
+        '<div><h4>Work style match</h4><ul class="traits">' + wsRows + '</ul><p class="legend" style="margin-top:8px"><span><span class="sw"></span>You</span><span><span class="sw need"></span>What this role tends to need</span></p></div>' +
+      '</div>' +
+      '<div class="col">' +
+        '<div><h4>Find openings</h4><ul class="portals">' + portals + '</ul></div>' +
+        '<div><h4>Prefer to talk to someone?</h4><p class="small muted">Career coaches can match you to employers directly.</p><p class="subtle-links" style="margin-top:6px"><a href="' + LINKS.e2i + '" target="_blank" rel="noopener">NTUC e2i career coaching ↗</a><a href="' + LINKS.m3 + '" target="_blank" rel="noopener">M³+ job matching ↗</a></p></div>' +
+        (extras.length ? '<div><h4>Try it first</h4><p class="subtle-links">' + extras.join('') + '</p>' + (p.grit ? '<p class="small muted" style="margin-top:6px">GRIT runs 3–6 months with an allowance of $1,800–$2,400 a month, for 2024–25 graduates without a full-time job yet.</p>' : '') + '</div>' : '') +
+      '</div></div>';
+  }
+
+  function roleItem(s, i, p, stretch) {
+    const r = s.role;
+    const open = state.open.includes(r.id);
+    const flagPill = s.flag ? '<span class="pill ' + (s.flag.level === 'strong' ? 'flag' : 'note') + '">' + (s.flag.level === 'strong' ? 'Flagged' : 'Halal search') + '</span>' : '';
+    const stretchPill = stretch ? '<span class="pill note">Stretch</span>' : '';
+    return '<li class="role">' +
+      '<button class="role-head" type="button" data-action="toggle-role" data-id="' + r.id + '" aria-expanded="' + open + '" aria-controls="body-' + r.id + '">' +
+        '<span class="rank num">' + (stretch ? '↗' : i + 1) + '</span>' +
+        '<span style="min-width:0"><span class="role-title">' + esc(r.title) + '</span>' +
+          '<span class="role-meta"><span>' + esc(r.sector) + '</span><span class="pill code">' + r.code + '</span>' + flagPill + stretchPill + '</span></span>' +
+        '<span class="score"><b class="num">' + s.total + '</b><span>fit <span class="chev" aria-hidden="true">▾</span></span></span>' +
+      '</button>' + (open ? roleBody(s, p) : '') + '</li>';
+  }
+
+  function renderLists() {
+    const { p } = currentProfile();
+    const res = rank(p);
+    if (state.open.includes('__first__')) state.open = res.main.length ? [res.main[0].role.id] : [];
+    const list = document.getElementById('shortlist');
+    const str = document.getElementById('stretch');
+    const meta = document.getElementById('list-meta');
+    if (!list) return;
+    list.innerHTML = res.main.map((s, i) => roleItem(s, i, p, false)).join('') || '<li class="card">No roles to show with these settings.</li>';
+    const who = state.example ? 'this example' : 'you';
+    document.getElementById('sl').textContent = (res.main.length === 1 ? 'Top role for ' : 'Top ' + res.main.length + ' roles for ') + who;
+    str.innerHTML = res.stretch.length ? res.stretch.map(s => roleItem(s, 0, p, true)).join('') : '<li class="card muted">No stretch roles for this profile.</li>';
+    const flagged = res.flaggedTotal;
+    meta.textContent = flagged ? flagged + ' role' + (flagged > 1 ? 's' : '') + ' flagged by your personal preferences ' + (flagged > 1 ? 'are' : 'is') + (state.hideFlagged ? ' hidden.' : ' moved to the end, not removed.') : 'No roles are flagged by your preferences.';
+    document.getElementById('flag-toggle-wrap').hidden = !flagged;
+  }
+
+  function weightText() {
+    const W = state.weights, T = W.i + W.w + W.v || 1;
+    return Math.round(100 * W.i / T) + '% interests + ' + Math.round(100 * W.w / T) + '% work style + ' + Math.round(100 * W.v / T) + '% values';
+  }
+  function weightRow(k, label) {
+    return '<label class="weight-row" for="w-' + k + '"><span>' + label + '</span><input type="range" id="w-' + k + '" min="0" max="100" step="5" value="' + state.weights[k] + '" data-weight="' + k + '"><span class="num" id="wv-' + k + '">' + state.weights[k] + '</span></label>';
+  }
+
+
+  /* ---------- Rendering: quiz ---------- */
+  function likert(item, val, ends) {
+    const opts = [1, 2, 3, 4, 5].map(n => '<label><input type="radio" name="' + item.id + '" id="' + item.id + '-' + n + '" value="' + n + '"' + (val === n ? ' checked' : '') + '><span>' + n + '</span></label>').join('');
+    return '<fieldset class="item"><legend>' + esc(item.text) + '</legend><div class="scale" role="presentation">' + opts + '</div><span class="sr-only">1 means ' + ends[0] + ', 5 means ' + ends[1] + '</span></fieldset>';
+  }
+
+  function stepStatus() {
+    const a = state.answers;
+    switch (state.step) {
+      case 0: {
+        if (/^[RIASEC]{3}$/.test(a.code)) return { ok: true, text: 'Using your MySkillsFuture code ' + a.code + '.' };
+        const n = INTEREST_ITEMS.filter(x => a.interests[x.id]).length;
+        return { ok: n === INTEREST_ITEMS.length, text: n + ' of ' + INTEREST_ITEMS.length + ' answered' };
+      }
+      case 1: { const n = PERS_ITEMS.filter(x => a.personality[x.id]).length; return { ok: n === PERS_ITEMS.length, text: n + ' of ' + PERS_ITEMS.length + ' answered' }; }
+      case 2: { const n = a.values.length; return { ok: n >= 1, text: n ? n + ' of 3 values chosen' : 'Choose up to 3 values' }; }
+      case 3: { const n = SCENARIOS.filter(s => a.scenarios[s.id]).length; return { ok: n === SCENARIOS.length, text: n + ' of ' + SCENARIOS.length + ' answered' }; }
+      default: return { ok: true, text: 'Last step' };
+    }
+  }
+
+  function renderQuiz() {
+    const a = state.answers, st = state.step;
+    const steps = STEP_NAMES.map((n, i) => '<li class="' + (i < st ? 'done' : i === st ? 'current' : '') + '"' + (i === st ? ' aria-current="step"' : '') + '><span>' + (i + 1) + ' · ' + n + '</span></li>').join('');
+    let body = '';
+    if (st === 0) {
+      const usingCode = /^[RIASEC]{3}$/.test(a.code);
+      body = '<div class="step-intro"><p class="eyebrow">Step 1 of 5 · Interests</p><h1>What would you enjoy doing?</h1><p>Rate each of these 30 activities from 1 (wouldn’t enjoy) to 5 (would really enjoy). Think about the activity itself, not whether you’re good at it yet. Go with your first reaction.</p></div>' +
+        '<div class="code-box"><label for="code-input">Already have a RIASEC code from MySkillsFuture’s Career Interests tool? Enter your three letters to skip this step.</label>' +
+        '<input id="code-input" maxlength="3" autocomplete="off" value="' + esc(a.code) + '" aria-describedby="code-err"><button class="btn ghost" type="button" data-action="use-code">Use code</button>' +
+        (state.codeError ? '<span class="form-error" id="code-err">' + esc(state.codeError) + '</span>' : '<span id="code-err" class="sr-only"></span>') + '</div>' +
+        (usingCode
+          ? '<div class="notice">Using code <b>' + a.code + '</b> (' + [...a.code].map(t => TYPE_INFO[t].name).join(', ') + '). <button class="btn link" type="button" data-action="clear-code">Answer the questions instead</button></div>'
+          : '<div><p class="scale-key"><span>1 · Wouldn’t enjoy</span><span>5 · Would really enjoy</span></p><div class="items">' + INTEREST_ITEMS.map(it => likert(it, a.interests[it.id], ['wouldn’t enjoy', 'would really enjoy'])).join('') + '</div></div>');
+    } else if (st === 1) {
+      body = '<div class="step-intro"><p class="eyebrow">Step 2 of 5 · Work style</p><h1>How do you usually work?</h1><p>Rate how well each statement describes you, from 1 (not like me) to 5 (very like me). Describe yourself as you are now, not as you wish to be. There are no right answers.</p></div>' +
+        '<div><p class="scale-key"><span>1 · Not like me</span><span>5 · Very like me</span></p><div class="items">' + PERS_ITEMS.map(it => likert(it, a.personality[it.id], ['not like me', 'very like me'])).join('') + '</div></div>';
+    } else if (st === 2) {
+      body = '<div class="step-intro"><p class="eyebrow">Step 3 of 5 · Values</p><h1>What has to be true about a job?</h1><p>Choose up to three values. The percentages show how many Malay/Muslim youths picked each one in a 2026 NYC survey.</p></div>' +
+        '<div class="group"><h3>Your top values</h3><p class="small muted" id="values-hint">' + a.values.length + ' of 3 chosen</p><div class="option-grid">' +
+        VALUES.map(v => '<label class="opt"><input type="checkbox" data-group="values" value="' + v.k + '" id="v-' + v.k + '"' + (a.values.includes(v.k) ? ' checked' : '') + '><span class="o-text"><span>' + esc(v.label) + '</span>' + (v.pct ? '<span class="o-sub">Chosen by ' + v.pct + '% of youths surveyed</span>' : '') + '</span></label>').join('') + '</div></div>' +
+        '<div class="group"><h3>Personal preferences (optional)</h3><p class="small muted">These are never scored and stay on this device. Some flag roles; others become questions to ask employers.</p><div class="option-grid">' +
+        FAITH.map(f => '<label class="opt"><input type="checkbox" data-group="faith" value="' + f.k + '" id="f-' + f.k + '"' + (a.faith.includes(f.k) ? ' checked' : '') + '><span class="o-text"><span>' + esc(f.label) + '</span><span class="o-sub">' + (f.kind === 'filter' ? 'Flags matching roles' : 'Added to your interview questions') + '</span></span></label>').join('') + '</div></div>';
+    } else if (st === 3) {
+      body = '<div class="step-intro"><p class="eyebrow">Step 4 of 5 · Work scenarios</p><h1>What would you most likely do?</h1><p>Pick the response closest to what you would really do. These check your self-ratings against choices in realistic Singapore workplaces.</p></div>' +
+        SCENARIOS.map(s => '<fieldset class="scenario"><legend>' + esc(s.text) + '</legend><div class="option-grid">' +
+          s.options.map(o => '<label class="opt"><input type="radio" name="' + s.id + '" id="' + s.id + '-' + o.k + '" value="' + o.k + '"' + (a.scenarios[s.id] === o.k ? ' checked' : '') + '><span class="o-text">' + esc(o.text) + '</span></label>').join('') +
+        '</div></fieldset>').join('');
+    } else {
+      body = '<div class="step-intro"><p class="eyebrow">Step 5 of 5 · Skills</p><h1>Where are you starting from?</h1><p>Rate your skills today from 1 to 5. Roles that need much more move to a separate “stretch” list, so they aren’t lost.</p></div>' +
+        '<div class="skills">' + SKILLS.map(s => '<div class="skill"><label for="sk-' + s.k + '">' + s.label + '</label><output id="sko-' + s.k + '" for="sk-' + s.k + '">' + a.skills[s.k] + '</output><input type="range" id="sk-' + s.k + '" min="1" max="5" step="1" value="' + a.skills[s.k] + '" data-skill="' + s.k + '"></div>').join('') + '</div>' +
+        '<div class="field"><label for="pathway">Your highest qualification or current stage</label><select id="pathway">' + PATHWAYS.map(p => '<option value="' + p.k + '"' + (a.pathway === p.k ? ' selected' : '') + '>' + p.label + '</option>').join('') + '</select></div>' +
+        '<label class="check" for="grit"><input type="checkbox" id="grit"' + (a.grit ? ' checked' : '') + '><span>I graduated (or finished National Service) in 2024 or 2025 and haven’t had a full-time job since. <span class="muted">This shows GRIT traineeships.</span></span></label>';
+    }
+    const status = stepStatus();
+    document.getElementById('app').innerHTML =
+      '<div class="quiz"><ol class="steps" aria-label="Assessment progress">' + steps + '</ol>' + body +
+      '<div class="quiz-foot"><button class="btn ghost" type="button" data-action="back">' + (st === 0 ? 'Cancel' : 'Back') + '</button>' +
+      '<span class="status" id="step-status">' + esc(status.text) + '</span>' +
+      (st < 4 ? '<button class="btn link" type="button" data-action="autofill">Fill with example answers</button>' : '') +
+      '<button class="btn primary" type="button" data-action="next" id="next-btn"' + (status.ok ? '' : ' disabled') + '>' + (st === 4 ? 'See my results' : 'Next') + '</button></div></div>';
+    refreshChrome();
+  }
+
+  function refreshStatus() {
+    const s = stepStatus();
+    const el = document.getElementById('step-status'); if (el) el.textContent = s.text;
+    const nb = document.getElementById('next-btn'); if (nb) nb.disabled = !s.ok;
+  }
+
+  function autofill() {
+    const a = state.answers;
+    const ex = { I: [5, 4, 5, 4, 5], C: [4, 4, 5, 4, 4], E: [3, 3, 2, 3, 3], R: [3, 2, 3, 3, 2], A: [2, 3, 2, 2, 3], S: [3, 2, 3, 2, 3] };
+    if (state.step === 0) { a.code = ''; const used = {}; INTEREST_ITEMS.forEach(it => { used[it.t] = (used[it.t] || 0); a.interests[it.id] = ex[it.t][used[it.t]++]; }); }
+    if (state.step === 1) { const exP = { E: [2, 4, 2, 4], A: [4, 2, 4, 2], C: [5, 2, 5, 1], S: [2, 4, 2, 4], O: [4, 2, 2, 2], H: [5, 1, 5, 2] }; const used = {}; PERS_ITEMS.forEach(it => { used[it.t] = used[it.t] || 0; a.personality[it.id] = exP[it.t][used[it.t]++]; }); }
+    if (state.step === 2) { a.values = ['security', 'learning', 'stability']; a.faith = ['pray', 'friday', 'riba']; }
+    if (state.step === 3) { a.scenarios = { s1: 'B', s2: 'A', s3: 'A' }; }
+    save(); renderQuiz();
+  }
+
+
+  /* ---------- Ask Serasi (AI explainer) ---------- */
+  const ask = { msgs: [], busy: false, ctl: null, key: '', draft: '', seq: 0, since: 0 };
+  let sampleFn = null;
+  let askAvail = null; // null: not known yet; true: can ask; false: hidden for this view
+
+  const ASK_RULES = [
+    'You are Ask Serasi, the explainer inside Serasi, a career-fit tool for Malay youths aged 18 to 25 in Singapore.',
+    'Your job: help the youth understand their results and the jobs on their shortlist, using the PROFILE and ROLES data below.',
+    'Rules:',
+    '- Base every answer on the data below. You may add widely known facts about what a job involves in Singapore; say so when you are not sure.',
+    '- Never state salaries, pay ranges, vacancy numbers or company names. For pay and live openings, point to MyCareersFuture.',
+    '- Scores are self-reported and only indicative. Do not label the youth or claim more than the scores show.',
+    '- Results guide; they never decide. If the youth sounds unsure or worried, or wants personal advice, suggest a career coach at NTUC e2i or M3+.',
+    '- Reply in the language of the question (English or Malay). Keep answers under 120 words, in plain text: no headings, no bold, no tables. Short lines starting with "- " are fine.',
+    '- If a question has nothing to do with careers, study or these results, say briefly that you can only help with career questions.'
+  ].join('\n');
+
+  function askKey() { return state.example ? 'example' : 'mine'; }
+  function reduceMotion() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+  function lowerTitle(t) { return /^[A-Z][A-Z]/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1); }
+
+  function askContext() {
+    const { p, who } = currentProfile();
+    const res = rank(p);
+    const code = codeOf(p.interest);
+    const lines = ['PROFILE'];
+    lines.push('Who: ' + (who ? 'a made-up example profile' : 'the youth using the app') + '. Stage: ' + PATH[p.pathway].label + '.');
+    lines.push('Interest scores (0-100, Holland RIASEC): ' + TYPES.map(t => t + ' ' + TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ') ' + pct(p.interest[t])).join('; ') + '. Top three code: ' + code + '. Profile: ' + TYPE_INFO[code[0]].profile + '-' + TYPE_INFO[code[1]].profile + '.');
+    lines.push('Work-style traits (0-100): ' + TRAITS.map(t => t.name + ' ' + pct(p.traits[t.k]) + ' (low = ' + t.low.toLowerCase() + ', high = ' + t.high.toLowerCase() + ')').join('; ') + '.');
+    lines.push('Values chosen: ' + (p.values.map(v => VALUE[v].label).join('; ') || 'none') + '.');
+    lines.push('Personal preferences the youth set (never scored): ' + (p.faith.map(f => FAITH_ITEM[f].label).join('; ') || 'none') + '.');
+    lines.push('Skills, self-rated 1-5: ' + SKILLS.map(s => s.label + ' ' + p.skills[s.k]).join('; ') + '.');
+    lines.push('Fit score weights: ' + weightText() + '.');
+    lines.push('');
+    lines.push('ROLES (shortlist, best first, then stretch roles)');
+    const roleLine = (s, label) => {
+      const r = s.role;
+      const needs = Object.entries(r.skills).map(([k, v]) => SKILL[k].label + ' ' + v + '/5').join(', ');
+      const traits = Object.entries(r.ws).map(([k, v]) => TRAIT[k].name + ' ' + pct(v)).join(', ');
+      return label + ' ' + r.title + ' (' + r.sector + '). Holland code ' + r.code + '. Fit ' + s.total + '/100: interests ' + pct(s.interest) + ', work style ' + pct(s.work) + ', values ' + pct(s.values) +
+        '. Usually needs ' + EDU_LABEL[r.edu] + '; skills ' + needs + '; traits ' + traits + '. Offers: ' + r.values.map(v => VALUE[v].short).join(', ') +
+        '. Notes: ' + s.reasons.map(x => x.text).join(' ') + (s.flag ? ' ' + s.flag.text : '');
+    };
+    res.main.forEach((s, i) => lines.push(roleLine(s, (i + 1) + '.')));
+    res.stretch.forEach(s => lines.push(roleLine(s, 'Stretch:')));
+    return lines.join('\n');
+  }
+
+  function askSuggestions() {
+    const { p } = currentProfile();
+    const top = rank(p).main[0];
+    const list = [];
+    if (top) {
+      const t = lowerTitle(top.role.title);
+      const art = /^[aeiou]/i.test(t) && !/^U[A-Z]/.test(t) ? 'an' : 'a';
+      list.push('Why is ' + t + ' my top match?');
+      list.push('What does ' + art + ' ' + t + ' do day to day?');
+    }
+    list.push('Which skill should I build first?');
+    list.push('Terangkan profil saya dalam Bahasa Melayu');
+    return list;
+  }
+
+  function askMsgHTML(m) {
+    const cls = 'msg ' + (m.role === 'user' ? 'user' : 'bot') + (m.thinking ? ' thinking' : '');
+    const body = m.thinking ? 'Thinking…' : esc(m.text || '');
+    return '<li class="' + cls + '" id="msg-' + m.id + '"><span class="who">' + (m.role === 'user' ? 'You' : 'Serasi') + '</span>' +
+      (body ? '<span class="txt">' + body + '</span>' : '') + (m.note ? '<span class="note">' + esc(m.note) + '</span>' : '') + '</li>';
+  }
+
+  function askBusyUI() {
+    document.querySelectorAll('#ask .ask-chip, #ask-send, [data-action="ask-role"]').forEach(x => { x.disabled = ask.busy; });
+    const stop = document.getElementById('ask-stop'); if (stop) stop.hidden = !ask.busy;
+  }
+
+  function renderAskLog() {
+    const log = document.getElementById('ask-log'); if (log) log.innerHTML = ask.msgs.map(askMsgHTML).join('');
+    const inp = document.getElementById('ask-input'); if (inp) inp.value = ask.draft;
+    askBusyUI();
+  }
+
+  function renderAsk() {
+    const sec = document.getElementById('ask');
+    if (!sec) return;
+    if (ask.key !== askKey()) { if (ask.ctl) ask.ctl.abort(); ask.msgs = []; ask.since = 0; ask.key = askKey(); }
+    sec.hidden = askAvail !== true;
+    document.getElementById('ask-chips').innerHTML = askSuggestions().map(q => '<button class="ask-chip" type="button" data-action="ask-suggest" data-q="' + esc(q) + '">' + esc(q) + '</button>').join('');
+    renderAskLog();
+  }
+
+  function updateMsg(m) {
+    const li = document.getElementById('msg-' + m.id);
+    if (li) li.outerHTML = askMsgHTML(m);
+  }
+
+  async function askSend(raw) {
+    const q = String(raw || '').trim().slice(0, 600);
+    if (!q || ask.busy || !sampleFn) return;
+    const history = ask.msgs.slice(ask.since).filter(m => m.role === 'user' || (m.ok && m.text)).slice(-8)
+      .map(m => ({ role: m.role === 'user' ? 'user' : 'assistant', content: m.text }));
+    const user = { id: ++ask.seq, role: 'user', text: q };
+    const bot = { id: ++ask.seq, role: 'bot', text: '', ok: false, thinking: true };
+    ask.msgs.push(user, bot);
+    ask.draft = '';
+    ask.busy = true;
+    const ctl = new AbortController();
+    ask.ctl = ctl;
+    renderAskLog();
+    const li = document.getElementById('msg-' + bot.id);
+    if (li) li.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
+    const turns = [{ role: 'user', content: ASK_RULES + '\n\n' + askContext() }].concat(history, [{ role: 'user', content: q }]);
+    try {
+      const r = await sampleFn(turns, {
+        cache: false, modelTier: 'quick', signal: ctl.signal,
+        onText: ({ text }) => { bot.text = text; bot.thinking = false; updateMsg(bot); }
+      });
+      bot.text = r.text; bot.ok = true;
+      if (r.truncated) bot.note = 'Cut short. Try asking for less at once.';
+    } catch (e) {
+      const code = e && e.code;
+      bot.text = (e && e.text) || '';
+      if (code === 'cancelled') bot.note = 'Stopped.';
+      else if (HIDE.includes(code)) askAvail = false;
+      else if (code === 'rate_limited') bot.note = 'Too many questions right now. Try again in a minute.';
+      else if (code === 'session_expired') bot.note = 'Sign in to Claude again to keep asking.';
+      else if (code === 'refused') { bot.text = ''; bot.note = 'Serasi can’t answer that one. Try asking about your results or a job.'; }
+      else if (code === 'empty_completion') bot.note = 'No answer came back. Try rephrasing your question.';
+      else if (code === 'prompt_too_large') { bot.note = 'This chat got too long. Your next question starts fresh.'; ask.since = ask.msgs.length; }
+      else bot.note = 'The answer was interrupted. Try again.';
+    } finally {
+      bot.thinking = false;
+      if (ask.ctl === ctl) ask.ctl = null;
+      ask.busy = false;
+      if (askAvail === false) {
+        const sec = document.getElementById('ask'); if (sec) sec.hidden = true;
+        renderLists();
+      } else {
+        updateMsg(bot); askBusyUI();
+      }
+    }
+  }
+
+
+  /* ---------- App data ---------- */
+  const SAMPLE = {
+    about: 'This is a made-up profile of a final-year university student who is outgoing and curious.',
+    p: { interest: { R: .25, I: .85, A: .5, S: .45, E: .72, C: .55 }, traits: { O: .8, C: .6, E: .8, A: .65, S: .6, H: .7 },
+      values: ['learning', 'stability', 'balance'], faith: [], skills: { num: 4, comm: 4, people: 4, tech: 3, hands: 2, create: 3 }, pathway: 'Uni', grit: true }
+  };
+  const STEP_NAMES = ['Interests', 'Work style', 'Values', 'Work scenarios', 'Skills'];
+  const AGES = [['18-20', '18 to 20'], ['21-23', '21 to 23'], ['24-25', '24 to 25'], ['other', 'Under 18 or over 25']];
+  const AREAS = [['north', 'North'], ['north-east', 'North-East'], ['east', 'East'], ['west', 'West'], ['central', 'Central'], ['na', 'Prefer not to say']];
+  const DEFAULT_W = { i: 50, w: 30, v: 20 };
+  const EVENT_IDEAS = {
+    R: 'Hands-on job taster at an engineering, aerospace or facilities workshop',
+    I: 'Data and research job taster with a tech or healthcare lab team',
+    A: 'Design and media day with a studio, agency or newsroom',
+    S: 'Healthcare and social-service attachment day',
+    E: 'Sales, marketing and business development taster with local firms',
+    C: 'Finance and operations office visit, from accounts to logistics'
+  };
+  const HIDE = ['not_granted', 'sampling_disabled', 'not_declared', 'capability_disabled', 'capability_removed'];
+
+  /* ---------- State ---------- */
+  const STORE_KEY = 'serasi-app-v1';
+  function freshMeta() { return { age: '', area: '', consent: false, share: false }; }
+  let state = {
+    view: 'welcome', step: 0, done: false, example: false,
+    answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '',
+    weights: Object.assign({}, DEFAULT_W), hideFlagged: false, open: ['__first__'], codeError: '',
+    shared: '', pendingShare: false, confirmDelete: false, startError: '', notice: '',
+    dash: { age: 'all', path: 'all', area: 'all', example: false }
+  };
+
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: state.answers, done: state.done, meta: state.meta, tasters: state.tasters, completedAt: state.completedAt })); } catch (e) { /* storage unavailable */ }
+  }
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return;
+      const d = JSON.parse(raw);
+      if (d && d.answers) {
+        state.answers = Object.assign(blankAnswers(), d.answers);
+        state.done = !!d.done;
+        state.meta = Object.assign(freshMeta(), d.meta || {});
+        state.tasters = !!d.tasters;
+        state.completedAt = d.completedAt || '';
+        if (state.done) state.view = 'results';
+      }
+    } catch (e) { /* ignore */ }
+  }
+  function clearLocal() { try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ } }
+
+  function currentProfile() {
+    if (state.example) return { p: SAMPLE.p, who: SAMPLE };
+    return { p: profileFromAnswers(state.answers), who: null };
+  }
+
+  /* ---------- Platform capabilities ---------- */
+  const caps = { db: null, user: null, uid: null, admin: false, ready: false };
+  const canShare = () => !!(caps.db && caps.uid);
+  const noShare = () => caps.ready && !canShare();
+
+  async function initCaps() {
+    const c = window.claude;
+    if (!c || typeof c.use !== 'function') { askAvail = false; caps.ready = true; afterCaps(); return; }
+    const safe = n => c.use(n).catch(() => null);
+    const [dbNs, userNs, s] = await Promise.all([safe('db'), safe('user'), safe('sample')]);
+    caps.db = dbNs; caps.user = userNs; sampleFn = s; askAvail = !!s;
+    if (userNs) {
+      try { caps.uid = await userNs.id(); } catch (e) { caps.uid = null; }
+      try { caps.admin = await userNs.canEdit(); } catch (e) { caps.admin = false; }
+    }
+    caps.ready = true;
+    if (state.done && state.meta.share) {
+      if (!caps.db || !caps.uid) state.shared = 'unavailable';
+      else if (state.pendingShare) { state.pendingShare = false; shareResults(); }
+      else {
+        try { const snap = await caps.db.doc('results/' + caps.uid).get(); state.shared = snap.exists ? 'saved' : ''; } catch (e) { /* leave as is */ }
+      }
+    }
+    afterCaps();
+  }
+  function afterCaps() {
+    refreshChrome();
+    const sw = document.getElementById('share-wrap'); if (sw) sw.hidden = noShare();
+    if (state.view === 'results') { renderLists(); renderAsk(); renderShareStatus(); renderTasterCard(); }
+    if (state.view === 'dashboard') renderDashboard();
+  }
+
+  /* ---------- Sharing anonymised results ---------- */
+  function sharedDoc() {
+    const p = profileFromAnswers(state.answers);
+    const res = rank(p, DEFAULT_W, false);
+    const code = codeOf(p.interest);
+    return {
+      v: 1, month: (state.completedAt || new Date().toISOString()).slice(0, 7),
+      age: state.meta.age || 'na', area: state.meta.area || 'na', path: p.pathway,
+      code, top2: [code[0], code[1]], values: p.values.slice(),
+      skillsLow: SKILLS.filter(s => (p.skills[s.k] || 0) <= 2).map(s => s.k),
+      topJobs: res.main.map(s => s.role.id), stretchJobs: res.stretch.map(s => s.role.id),
+      tasters: !!state.tasters
+    };
+  }
+  async function shareResults() {
+    if (!caps.ready) { state.pendingShare = true; return; }
+    if (!caps.db || !caps.uid) { state.shared = 'unavailable'; renderShareStatus(); renderTasterCard(); return; }
+    state.shared = 'saving'; renderShareStatus();
+    try { await caps.db.doc('results/' + caps.uid).set(sharedDoc()); state.shared = 'saved'; }
+    catch (e) { state.shared = e && e.code === 'quota_exceeded' ? 'full' : 'error'; }
+    renderShareStatus(); renderTasterCard();
+  }
+  async function unshareResults() {
+    if (!caps.db || !caps.uid) return true;
+    try { await caps.db.doc('results/' + caps.uid).delete(); state.shared = ''; return true; } catch (e) { return false; }
+  }
+  async function setTasters(on) {
+    state.tasters = on; save();
+    if (state.shared === 'saved' && caps.db && caps.uid) {
+      try { await caps.db.doc('results/' + caps.uid).update({ tasters: on }); } catch (e) { state.shared = 'error'; }
+    }
+    renderTasterCard(); renderShareStatus();
+  }
+
+  function renderShareStatus() {
+    const el = document.getElementById('share-status');
+    if (!el) return;
+    if (state.example) { el.hidden = true; return; }
+    el.hidden = false;
+    if (noShare()) { el.innerHTML = '<span>Your results are saved on this device only.</span>'; return; }
+    let html;
+    if (!caps.ready) html = '<span>Checking sharing…</span>';
+    else if (!state.meta.share) html = '<span>Not shared. Your results stay on this device.</span><button class="btn link" type="button" data-action="share-on">Share anonymously with MENDAKI</button>';
+    else if (state.shared === 'saving') html = '<span>Sharing…</span>';
+    else if (state.shared === 'saved') html = '<span class="pill good">Shared anonymously</span><span>MENDAKI sees grouped counts only, never your name.</span><button class="btn link" type="button" data-action="share-off">Stop sharing</button>';
+    else if (state.shared === 'full') html = '<span>MENDAKI’s data store is full, so your results weren’t shared. They’re still saved on this device.</span>';
+    else if (state.shared === 'unavailable') html = '<span>Sharing isn’t available here. Your results stay on this device.</span>';
+    else if (state.shared === 'error') html = '<span>Your results couldn’t be shared just now.</span><button class="btn link" type="button" data-action="share-on">Try again</button>';
+    else html = '<span>Not shared yet.</span><button class="btn link" type="button" data-action="share-on">Share anonymously with MENDAKI</button>';
+    el.innerHTML = html;
+  }
+
+  function renderTasterCard() {
+    const el = document.getElementById('taster');
+    if (!el) return;
+    if (state.example || noShare()) { el.hidden = true; return; }
+    el.hidden = false;
+    const shared = state.meta.share && state.shared === 'saved';
+    let action;
+    if (state.tasters && shared) action = '<div class="taster-act"><span class="pill good">You’re on the list</span><button class="btn link" type="button" data-action="tasters-off">Remove me</button></div>';
+    else if (state.shared === 'unavailable' || state.shared === 'full') action = '<p class="small muted">This needs sharing, which isn’t available right now.</p>';
+    else action = '<div class="taster-act"><button class="btn primary" type="button" data-action="tasters-on">I’m interested</button>' + (shared ? '' : '<span class="small muted">This shares your anonymised results with MENDAKI.</span>') + '</div>';
+    el.innerHTML = '<div><p class="eyebrow">Try it first</p><h2>Job tasters and internships</h2>' +
+      '<p class="small">Want to spend a day in one of your top jobs before you choose? Tell MENDAKI you’re interested. No contact details are collected: MENDAKI uses the total to plan job tasters and internships in the fields youths pick most, and announces them through its programmes.</p></div>' + action;
+  }
+
+  /* ---------- Welcome ---------- */
+  function options(list, v) { return list.map(([k, l]) => '<option value="' + k + '"' + (v === k ? ' selected' : '') + '>' + l + '</option>').join(''); }
+
+  function renderWelcome() {
+    const m = state.meta;
+    const notice = state.notice; state.notice = '';
+    document.getElementById('app').innerHTML =
+      (notice ? '<div class="notice" role="status">' + esc(notice) + '</div>' : '') +
+      '<section class="welcome">' +
+        '<div class="welcome-copy">' +
+          '<p class="eyebrow">Kerjaya serasi, masa depan berseri</p>' +
+          '<h1>Find work that fits who you are</h1>' +
+          '<p class="lede">Five short parts, about 15 minutes. Serasi matches your interests, work style and values to jobs in Singapore, explains why each one fits, and links you to job searches and career coaches. Job tasters and internships are proposed for the pilot.</p>' +
+          '<ol class="how-steps">' +
+            '<li><b>Take the quiz</b><span>Interests, work style, values, three work scenarios and a skills check</span></li>' +
+            '<li><b>See your matches</b><span>Your profile and top 10 jobs, each with reasons</span></li>' +
+            '<li><b>Take the next step</b><span>Live job searches and career coaches; proposed job tasters and internships</span></li>' +
+          '</ol>' +
+          (state.done ? '<div><button class="btn ghost" type="button" data-action="mine">See my last results</button></div>' : '') +
+        '</div>' +
+        '<form class="card start" id="start-form" novalidate>' +
+          '<h2>Before you start</h2>' +
+          '<div class="field"><label for="age">Your age</label><select id="age"><option value="">Choose one</option>' + options(AGES, m.age) + '</select></div>' +
+          '<div class="field"><label for="area">Where you live</label><select id="area"><option value="">Choose one</option>' + options(AREAS, m.area) + '</select></div>' +
+          '<label class="check" for="consent"><input type="checkbox" id="consent"' + (m.consent ? ' checked' : '') + '><span>I understand Serasi suggests jobs from my answers. The results are a guide, not a decision.</span></label>' +
+          '<label class="check" for="share" id="share-wrap"' + (noShare() ? ' hidden' : '') + '><input type="checkbox" id="share"' + (m.share ? ' checked' : '') + '><span><b>Optional:</b> share my anonymised results with MENDAKI to help plan youth events. No name or contact details are shared, and I can delete them at any time.</span></label>' +
+          (state.startError ? '<p class="form-error" role="alert">' + esc(state.startError) + '</p>' : '') +
+          '<button class="btn primary" type="submit">Start the quiz</button>' +
+          '<p class="small muted">Not sure yet? <button class="btn link" type="button" data-action="example">See example results</button> or read <button class="btn link" type="button" data-action="about">how we use your data</button>.</p>' +
+        '</form>' +
+      '</section>';
+    refreshChrome();
+  }
+
+  function submitStart() {
+    const age = document.getElementById('age').value;
+    const area = document.getElementById('area').value;
+    const consent = document.getElementById('consent').checked;
+    const share = canShare() && document.getElementById('share').checked;
+    const missing = [];
+    if (!age) missing.push('your age');
+    if (!area) missing.push('where you live');
+    if (!consent) missing.push('the first tick box');
+    if (missing.length) { state.meta = Object.assign(state.meta, { age, area, consent, share }); state.startError = 'Please choose ' + joinList(missing) + ' to start.'; renderWelcome(); return; }
+    state.startError = '';
+    state.meta = { age, area, consent, share };
+    save();
+    state.view = 'quiz'; state.step = 0; state.example = false;
+    render();
+  }
+
+  /* ---------- Results ---------- */
+  function renderResults() {
+    const { p, who } = currentProfile();
+    const code = codeOf(p.interest);
+    const title = TYPE_INFO[code[0]].name + '–' + TYPE_INFO[code[1]].name;
+    const nick = TYPE_INFO[code[0]].profile + '–' + TYPE_INFO[code[1]].profile;
+    const ranked = TYPES.map(t => ({ t, v: p.interest[t] })).sort((a, b) => b.v - a.v);
+    const close = ranked.at(1).v - ranked.at(2).v < 0.06;
+    const values = p.values.map(v => '<span class="pill good">' + esc(VALUE[v].label) + '</span>').join('') || '<span class="muted small">No values chosen.</span>';
+    const filters = p.faith.filter(f => FAITH_ITEM[f].kind === 'filter').map(f => '<span class="pill note">' + esc(FAITH_ITEM[f].label) + '</span>').join('');
+    const asks = p.faith.filter(f => FAITH_ITEM[f].kind === 'ask').map(f => '<li>' + esc(FAITH_ITEM[f].ask) + '</li>').join('');
+    const nudges = p.nudges ? Object.entries(p.nudges).filter(([, d]) => Math.abs(d) >= .04).map(([k, d]) => TRAIT[k].name.toLowerCase() + (d > 0 ? ' up' : ' down')) : [];
+
+    const banner = who
+      ? '<div class="banner"><p><b>Example results.</b> ' + esc(who.about) + ' Take the quiz to see your own.</p><div class="actions"><button class="btn primary" type="button" data-action="start-quiz">Take the 15-minute quiz</button></div></div>'
+      : '';
+    const actions = who ? '' :
+      '<button class="btn ghost" type="button" data-action="edit">Retake quiz</button><button class="btn ghost" type="button" data-action="delete-ask">Delete my data</button>';
+    const confirm = (!who && state.confirmDelete)
+      ? '<div class="confirm" role="alert"><span>Delete your answers from this device' + (state.meta.share ? ' and your shared results' : '') + '? This can’t be undone.</span><button class="btn danger" type="button" data-action="delete-yes">Delete</button><button class="btn ghost" type="button" data-action="delete-cancel">Cancel</button></div>'
+      : '';
+
+    document.getElementById('app').innerHTML =
+      banner +
+      '<section class="card profile-head" aria-labelledby="ph">' +
+        '<div><p class="eyebrow">' + (who ? 'Example profile' : 'Your profile') + '</p>' +
+          '<h1 id="ph">' + title + '</h1>' +
+          '<div class="codes"><span class="pill code">' + code + '</span><span class="pill">' + nick + '</span>' + (p.codeImported ? '<span class="pill">From MySkillsFuture code</span>' : '') + '<span class="pill">' + esc(PATH[p.pathway].label) + '</span></div>' +
+          '<p class="lede">' + TYPE_INFO[code[0]].blurb + ' ' + TYPE_INFO[code[1]].blurb + ' ' + workSummary(p.traits) + '</p>' +
+          (close ? '<p class="notice" style="margin-top:12px">Your second and third interest types, ' + TYPE_INFO[ranked.at(1).t].name + ' and ' + TYPE_INFO[ranked.at(2).t].name + ', are close. Jobs that suit either are worth exploring.</p>' : '') +
+          '<p class="share-status" id="share-status"></p>' +
+        '</div>' +
+        '<div class="head-actions">' + actions + '</div>' +
+      '</section>' +
+      confirm +
+
+      '<section class="summary" aria-label="Profile summary">' +
+        '<div class="card hex"><div><p class="eyebrow">Interests · 50% of the fit score</p><h2>Interest shape</h2></div>' + hexSVG(p.interest, code) +
+          '<ul class="type-list">' + TYPES.map(t => '<li class="' + (code.includes(t) ? 'top' : '') + '"><span>' + t + ' · ' + TYPE_INFO[t].name + '</span><span class="num">' + pct(p.interest[t]) + '</span></li>').join('') + '</ul></div>' +
+        '<div class="card"><div><p class="eyebrow">Work style · 30%</p><h2>How you like to work</h2></div><ul class="traits">' + traitRows(p.traits) + '</ul>' +
+          '<p class="small muted">Scores run 0–100.' + (nudges.length ? ' Your scenario answers nudged ' + joinList(nudges) + '.' : '') + '</p></div>' +
+        '<div class="card"><div><p class="eyebrow">Values · 20%</p><h2>What matters to you</h2></div>' +
+          '<div><p class="small muted" style="margin-bottom:6px">Values you chose</p><div class="chip-list">' + values + '</div></div>' +
+          (filters ? '<div><p class="small muted" style="margin-bottom:6px">Personal preferences that flag roles</p><div class="chip-list">' + filters + '</div></div>' : '') +
+          (asks ? '<div><p class="small muted" style="margin-bottom:6px">Questions to ask employers</p><ul class="qa">' + asks + '</ul></div>' : '') +
+          '<p class="small muted">Personal preferences stay on this device and are never scored.</p></div>' +
+      '</section>' +
+
+      '<section style="display:flex;flex-direction:column;gap:12px" aria-labelledby="sl">' +
+        '<div class="list-head"><div><p class="eyebrow">Shortlist</p><h2 id="sl">Top roles</h2><p class="small muted" id="list-meta" style="margin-top:4px"></p></div>' +
+          '<label class="toggle" id="flag-toggle-wrap"><input type="checkbox" id="hide-flagged"' + (state.hideFlagged ? ' checked' : '') + '> Hide flagged roles</label></div>' +
+        '<ol class="roles" id="shortlist"></ol>' +
+      '</section>' +
+
+      '<section class="card ask" id="ask" aria-labelledby="ask-h"' + (askAvail === true ? '' : ' hidden') + '>' +
+        '<div class="ask-head"><div><p class="eyebrow">AI explainer</p><h2 id="ask-h">Ask Serasi</h2></div><span class="pill good">English or Bahasa Melayu</span></div>' +
+        '<p class="small muted ask-intro">Ask about your profile or any job on your list. Answers use only your scores and the job data in this app.</p>' +
+        '<div class="ask-chips" id="ask-chips"></div>' +
+        '<ol class="ask-log" id="ask-log" aria-live="polite"></ol>' +
+        '<form class="ask-form" id="ask-form" autocomplete="off"><label class="sr-only" for="ask-input">Your question</label><input id="ask-input" maxlength="600" placeholder="Ask anything about your results"><button class="btn primary" type="submit" id="ask-send">Ask</button><button class="btn ghost" type="button" id="ask-stop" data-action="ask-stop" hidden>Stop</button></form>' +
+        '<p class="small muted">AI answers can be wrong. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+. Only your scores and shortlist are sent, never your name.</p>' +
+      '</section>' +
+
+      '<section class="card taster" id="taster" aria-label="Job tasters and internships"></section>' +
+
+      '<section style="display:flex;flex-direction:column;gap:12px" aria-labelledby="st">' +
+        '<div><p class="eyebrow">Stretch roles</p><h2 id="st">Good fits that need more first</h2><p class="small muted" style="margin-top:4px">These score well but need a skill or qualification you don’t have yet.</p></div>' +
+        '<ul class="roles" id="stretch"></ul>' +
+      '</section>' +
+
+      '<details class="how"><summary>How the ranking works</summary><div class="how-body">' +
+        '<div class="weights"><p class="formula">Fit = <span id="wf">' + weightText() + '</span></p>' +
+          weightRow('i', 'Interests') + weightRow('w', 'Work style') + weightRow('v', 'Values') +
+          '<p class="small muted">Starting weights. The pilot will recalibrate them against job satisfaction and staying at 6 and 12 months. Changing them here only changes what you see.</p>' +
+          '<div><button class="btn link" type="button" data-action="reset-weights">Reset to 50 / 30 / 20</button></div></div>' +
+        '<div><p><b>Three measures.</b> Interests use Holland’s six RIASEC types, the same language as MySkillsFuture. Work style uses the Big Five plus honesty. Values come from what you choose.</p>' +
+          '<ul><li>Roles you lack a skill or qualification for move to “stretch”, so the main list stays within reach.</li>' +
+          '<li>Personal preferences flag roles and move them down; nothing is hidden unless you choose to hide it.</li>' +
+          '<li>Every role links to live searches on local job portals, starting with MyCareersFuture.</li>' +
+          '<li>Ask Serasi answers questions using only your scores and the role data here. It never changes your results.</li>' +
+          '<li>This pilot covers ' + ROLES.length + ' hand-coded roles. The full build will draw on O*NET, linked to SSOC codes and the SSG Skills Framework.</li></ul></div>' +
+      '</div></details>' +
+
+      '<footer class="foot"><p>Serasi pilot version. Scores are a guide, not a decision, and have not yet been validated with Singapore youths.</p><p>Value percentages come from the NYC Survey on Malay/Muslim Youth (2026, n=1,000). Job links open live searches on third-party sites. Ask Serasi runs on Claude and can make mistakes.</p></footer>';
+
+    renderLists();
+    renderAsk();
+    renderShareStatus();
+    renderTasterCard();
+    refreshChrome();
+  }
+
+  async function deleteAll() {
+    const ok = await unshareResults();
+    clearLocal();
+    if (ask.ctl) ask.ctl.abort();
+    ask.msgs = []; ask.since = 0; ask.draft = '';
+    Object.assign(state, { view: 'welcome', step: 0, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', shared: '', pendingShare: false, confirmDelete: false, startError: '' });
+    state.notice = ok ? 'Your data has been deleted.' : 'Your answers were deleted from this device, but your shared results couldn’t be removed just now. Open the app again later and use Delete my data once more.';
+    render();
+  }
+
+  function finishQuiz() {
+    state.done = true; state.example = false; state.completedAt = new Date().toISOString().slice(0, 10);
+    state.view = 'results'; state.open = ['__first__']; state.confirmDelete = false; state.shared = '';
+    save();
+    render();
+    if (state.meta.share) shareResults();
+  }
+
+  /* ---------- About and privacy ---------- */
+  function renderAbout() {
+    document.getElementById('app').innerHTML =
+      '<article class="card about">' +
+        '<p class="eyebrow">About and privacy</p><h1>How Serasi works and what happens to your data</h1>' +
+        '<h2>What Serasi is</h2>' +
+        '<p>Serasi is a career-fit app for Malay youths aged 18 to 25 in Singapore. It matches your interests (Holland RIASEC, 50% of the fit score), work style (the Big Five plus honesty, 30%) and work values (20%) to jobs, and links you to openings, coaches, job tasters and internships. Results are a guide, not a decision.</p>' +
+        '<h2>This public demo</h2>' +
+        '<p>On GitHub Pages, answers and results stay in this browser. AI chat, shared results, partner insights and job-taster registration are unavailable. The sharing features described below apply only in a connected version.</p>' +
+        '<h2>What is stored</h2>' +
+        '<ul><li><b>On this device:</b> your answers and results, so you can come back to them.</li>' +
+        '<li><b>Shared with MENDAKI, only if you opt in:</b> your age band, area, qualification, interest code, chosen values, the skills you rated low, your top jobs, whether you want job tasters, and the month you finished. They are stored under an anonymous ID.</li>' +
+        '<li><b>Never collected:</b> your name or contact details. Individual quiz answers and personal preferences stay on your device and are never shared.</li></ul>' +
+        '<h2>Who can see shared results</h2>' +
+        '<p>Only the people who manage this app (for the pilot, the Serasi team and MENDAKI staff), and only as grouped counts. Groups with fewer than 10 youths are hidden.</p>' +
+        '<h2>Delete your data</h2>' +
+        '<p>You can delete everything at any time with <b>Delete my data</b> on your results page.</p>' +
+        (state.done ? '<div><button class="btn ghost" type="button" data-action="mine">Go to my results</button></div>' : '') +
+        '<h2>Ask Serasi</h2>' +
+        '<p>The AI explainer sees only your scores and shortlist, never your name. It runs on Claude, asks your permission before the first question, and can make mistakes.</p>' +
+        '<h2>The questions</h2>' +
+        '<p>The work-style statements adapt the public-domain Mini-IPIP (Donnellan and colleagues, 2006), plus four honesty statements written for Serasi. The 30 interest activities were written for Serasi using Holland’s six RIASEC types. The ' + ROLES.length + ' jobs are hand-coded for this pilot; the full build will draw on O*NET, linked to Singapore’s SSOC codes and the SSG Skills Framework.</p>' +
+        '<h2>Limits</h2>' +
+        '<p>This is a pilot version. Scores have not yet been validated with Singapore youths, and the 50/30/20 weights are a starting point the pilot will test.</p>' +
+      '</article>';
+    refreshChrome();
+  }
+
+  /* ---------- MENDAKI dashboard ---------- */
+  let dashRows = [];
+  let dashUnsub = null;
+  let dashState = 'idle';
+  let exampleCache = null;
+
+  function subscribeDash() {
+    if (dashUnsub || !caps.db || !caps.admin) return;
+    dashState = 'loading';
+    dashUnsub = caps.db.collection('results').limit(1000).onSnapshot(snap => {
+      dashRows = snap.docs.map(d => d.data()).filter(Boolean);
+      dashState = 'ready';
+      if (state.view === 'dashboard') renderDashBody();
+    }, () => {
+      dashState = 'error'; dashUnsub = null;
+      if (state.view === 'dashboard') renderDashBody();
+    });
+  }
+
+  function exampleData() {
+    if (exampleCache) return exampleCache;
+    let seed = 7;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const pick = (arr, wts) => { const tot = wts.reduce((a, b) => a + b, 0); let x = rnd() * tot; for (let i = 0; i < arr.length; i++) { x -= wts.at(i); if (x <= 0) return arr.at(i); } return arr.at(-1); };
+    const rows = [];
+    for (let n = 0; n < 240; n++) {
+      const t1 = pick(TYPES, [10, 22, 16, 24, 18, 10]);
+      let t2 = pick(TYPES, [10, 18, 14, 20, 20, 18]);
+      if (t2 === t1) t2 = TYPES.at((TYPES.indexOf(t1) + 1) % 6);
+      const vals = [];
+      while (vals.length < 3) { const v = pick(VALUES.map(x => x.k), [68, 67, 56, 53, 45, 30, 25, 20]); if (!vals.includes(v)) vals.push(v); }
+      const interest = {}; TYPES.forEach(t => { interest[t] = t === t1 ? .9 : t === t2 ? .72 : .3 + rnd() * .2; });
+      const prof = { interest, traits: { O: .4 + rnd() * .4, C: .4 + rnd() * .4, E: .3 + rnd() * .5, A: .4 + rnd() * .4, S: .4 + rnd() * .4, H: .5 + rnd() * .4 }, values: vals, faith: [], skills: { num: 3, comm: 3, people: 3, tech: 3, hands: 3, create: 3 }, pathway: pick(['ITE', 'Poly', 'Uni', 'Work'], [25, 35, 25, 15]) };
+      const res = rank(prof, DEFAULT_W, false);
+      rows.push({ age: pick(['18-20', '21-23', '24-25'], [40, 38, 22]), area: pick(['north', 'north-east', 'east', 'west', 'central'], [18, 24, 22, 24, 12]), path: prof.pathway, code: t1 + t2, top2: [t1, t2], values: vals, skillsLow: SKILLS.filter(() => rnd() < .3).map(s => s.k), topJobs: res.main.map(s => s.role.id), tasters: rnd() < .42 });
+    }
+    exampleCache = rows;
+    return rows;
+  }
+
+  function aggregate(rows) {
+    const f = state.dash;
+    const rs = rows.filter(r => (f.age === 'all' || r.age === f.age) && (f.path === 'all' || r.path === f.path) && (f.area === 'all' || r.area === f.area));
+    const count = (getter, keys) => { const m = {}; keys.forEach(k => { m[k] = 0; }); rs.forEach(r => (getter(r) || []).forEach(k => { if (Object.prototype.hasOwnProperty.call(m, k)) m[k]++; })); return m; };
+    return {
+      n: rs.length,
+      tasters: rs.filter(r => r.tasters).length,
+      types: count(r => r.top2, TYPES),
+      values: count(r => r.values, VALUES.map(v => v.k)),
+      skills: count(r => r.skillsLow, SKILLS.map(s => s.k)),
+      jobs: count(r => r.topJobs, ROLES.map(r => r.id)),
+      tasterTypes: count(r => (r.tasters ? r.top2 : []), TYPES)
+    };
+  }
+
+  function barList(id, title, sub, entries, n, limit) {
+    const rows = entries.filter(e => e.value > 0).slice(0, limit || entries.length);
+    const max = Math.max(1, ...rows.map(e => e.value));
+    const body = rows.length
+      ? '<ul class="bars">' + rows.map(e => {
+          const share = Math.round(100 * e.value / n);
+          return '<li class="bar-row" data-tip="' + esc(e.label + ': ' + e.value + ' of ' + n + ' youths (' + share + '%)') + '"><span class="bar-label">' + esc(e.label) + '</span><span class="bar-track"><i style="width:' + (100 * e.value / max).toFixed(1) + '%"></i></span><span class="bar-val num">' + share + '%</span></li>';
+        }).join('') + '</ul>'
+      : '<p class="muted small">No answers yet in this group.</p>';
+    return '<figure class="card dash-card" aria-labelledby="' + id + '-t"><figcaption><h3 id="' + id + '-t">' + esc(title) + '</h3><p class="small muted">' + esc(sub) + '</p></figcaption>' + body + '</figure>';
+  }
+  function tile(label, value, sub) {
+    return '<div class="card tile"><p class="tile-label">' + esc(label) + '</p><p class="tile-value">' + esc(value) + '</p>' + (sub ? '<p class="small muted">' + esc(sub) + '</p>' : '') + '</div>';
+  }
+
+  function renderDashboard() {
+    const app = document.getElementById('app');
+    if (!caps.ready) { app.innerHTML = '<p class="muted">Loading…</p>'; refreshChrome(); return; }
+    if (!caps.admin) {
+      app.innerHTML = '<section class="card about"><p class="eyebrow">MENDAKI insights</p><h1>Dashboard</h1><p>Only the people who manage this app can see the dashboard.</p></section>';
+      refreshChrome(); return;
+    }
+    subscribeDash();
+    const f = state.dash;
+    const sel = (key, label, list, v) => '<div class="field"><label for="d-' + key + '">' + label + '</label><select id="d-' + key + '" data-dash="' + key + '"><option value="all">All</option>' + options(list, v) + '</select></div>';
+    app.innerHTML =
+      '<section class="dash-head"><p class="eyebrow">MENDAKI insights</p><h1>What youths are telling us</h1><p class="lede">Anonymised results from youths who chose to share them. Groups with fewer than 10 youths are hidden so no one can be identified.</p></section>' +
+      '<div class="dash-filters">' +
+        sel('age', 'Age', AGES.slice(0, 3), f.age) +
+        sel('path', 'Qualification or stage', PATHWAYS.map(x => [x.k, x.label]), f.path) +
+        sel('area', 'Area', AREAS.slice(0, 5), f.area) +
+        '<label class="toggle"><input type="checkbox" id="d-example"' + (f.example ? ' checked' : '') + '> Preview with example data</label>' +
+      '</div>' +
+      '<div id="dash-body" class="dash-body"></div>' +
+      '<div class="tip" id="tip" role="tooltip" hidden></div>';
+    renderDashBody();
+    refreshChrome();
+  }
+
+  function renderDashBody() {
+    const body = document.getElementById('dash-body');
+    if (!body) return;
+    const f = state.dash;
+    if (!f.example && dashState === 'loading' && !dashRows.length) { body.innerHTML = '<p class="muted">Loading responses…</p>'; return; }
+    if (!f.example && dashState === 'error') { body.innerHTML = '<div class="card empty"><h2>Responses couldn’t load</h2><p>Reload the page to try again.</p></div>'; return; }
+    const rows = f.example ? exampleData() : dashRows;
+    if (!f.example && !rows.length) {
+      body.innerHTML = '<div class="card empty"><h2>No responses yet</h2><p>Results appear here once youths who opted in finish the quiz. Until then, you can preview the dashboard with example data.</p><button class="btn primary" type="button" data-action="dash-example">Preview with example data</button></div>';
+      return;
+    }
+    const a = aggregate(rows);
+    const banner = f.example ? '<div class="banner"><p><b>Example data.</b> These are 240 made-up responses that show how the dashboard will look. They are not real youths.</p></div>' : '';
+    if (a.n < 10) {
+      body.innerHTML = banner + '<div class="card empty"><h2>Not enough responses in this group</h2><p>This group has fewer than 10 youths, so it is hidden to protect privacy. Widen the filters to see results.</p></div>';
+      return;
+    }
+    const typeEntries = TYPES.map(t => ({ label: TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ')', value: a.types[t], t })).sort((x, y) => y.value - x.value);
+    const jobEntries = ROLES.map(r => ({ label: r.title, value: a.jobs[r.id] })).sort((x, y) => y.value - x.value);
+    const valEntries = VALUES.map(v => ({ label: v.short.charAt(0).toUpperCase() + v.short.slice(1), value: a.values[v.k] })).sort((x, y) => y.value - x.value);
+    const skillEntries = SKILLS.map(s => ({ label: s.label, value: a.skills[s.k] })).sort((x, y) => y.value - x.value);
+    const top = typeEntries.at(0);
+    const ideas = typeEntries.slice(0, 3).map(e => '<li><b>' + esc(EVENT_IDEAS[e.t]) + '</b><span class="small muted">' + e.value + ' youths have ' + TYPE_INFO[e.t].name + ' in their top two; ' + a.tasterTypes[e.t] + ' of them want job tasters.</span></li>').join('');
+    body.innerHTML = banner +
+      '<div class="tiles">' +
+        tile('Youths who shared results', a.n.toLocaleString('en-SG'), '') +
+        tile('Want job tasters or internships', a.tasters.toLocaleString('en-SG'), Math.round(100 * a.tasters / a.n) + '% of these youths') +
+        tile('Most common interest type', TYPE_INFO[top.t].name, Math.round(100 * top.value / a.n) + '% have it in their top two') +
+      '</div>' +
+      '<div class="dash-grid">' +
+        barList('dt', 'Interest types', 'Share of youths with each type in their top two', typeEntries, a.n) +
+        barList('dj', 'Most shortlisted jobs', 'Share of youths with the job in their top 10', jobEntries, a.n, 10) +
+        barList('dv', 'Values chosen', 'Share of youths who picked each value (up to 3 each)', valEntries, a.n) +
+        barList('ds', 'Skills to build', 'Share of youths who rated the skill 1 or 2 out of 5', skillEntries, a.n) +
+      '</div>' +
+      '<section class="card ideas"><div><p class="eyebrow">Event ideas</p><h2>Job tasters to plan first</h2><p class="small muted">Based on the three most common interest types in this group.</p></div>' +
+        '<ol class="idea-list">' + ideas + '</ol>' +
+        (askAvail === true ? '<div class="ai-sum"><button class="btn ghost" type="button" data-action="dash-summary" id="dash-sum-btn">Summarise for planning (AI)</button><div id="dash-sum" class="msg bot" hidden></div></div>' : '') +
+      '</section>';
+  }
+
+  async function dashSummary() {
+    const out = document.getElementById('dash-sum'), btn = document.getElementById('dash-sum-btn');
+    if (!out || !btn || !sampleFn) return;
+    const a = aggregate(state.dash.example ? exampleData() : dashRows);
+    if (a.n < 10) return;
+    const fmt = (m, lab) => Object.entries(m).filter(([, v]) => v > 0).sort((x, y) => y[1] - x[1]).slice(0, 10).map(([k, v]) => lab(k) + ' ' + v).join('; ');
+    const prompt = 'You help MENDAKI, a Malay/Muslim community organisation in Singapore, plan youth career events. Below are anonymised counts from ' + a.n + ' youths who took the Serasi career-fit quiz' + (state.dash.example ? ' (EXAMPLE data, not real youths; say so)' : '') + '. Filters: age ' + state.dash.age + ', qualification ' + state.dash.path + ', area ' + state.dash.area + '.\n' +
+      'Interest types in their top two: ' + fmt(a.types, k => TYPE_INFO[k].name) + '.\n' +
+      'Most shortlisted jobs: ' + fmt(a.jobs, k => ROLE[k].title) + '.\n' +
+      'Values chosen: ' + fmt(a.values, k => VALUE[k].short) + '.\n' +
+      'Skills rated 1 or 2 out of 5: ' + fmt(a.skills, k => SKILL[k].label) + '.\n' +
+      'Want job tasters or internships: ' + a.tasters + '.\n\n' +
+      'Write a short planning note in plain text, under 150 words, with no headings, bold or tables: the two or three clearest patterns, then three concrete event or job-taster ideas tied to them. Use only these numbers and do not invent others. Short lines starting with "- " are fine.';
+    btn.disabled = true; out.hidden = false;
+    out.innerHTML = '<span class="who">Serasi</span><span class="txt">Thinking…</span>';
+    try {
+      const r = await sampleFn(prompt, { modelTier: 'default', cache: { gcTime: 600000 }, onText: ({ text }) => { out.innerHTML = '<span class="who">Serasi</span><span class="txt">' + esc(text) + '</span>'; } });
+      out.innerHTML = '<span class="who">Serasi</span><span class="txt">' + esc(r.text) + '</span><span class="small muted">AI summary of the counts above. Check it before acting on it.</span>';
+    } catch (e) {
+      if (HIDE.includes(e && e.code)) { askAvail = false; out.hidden = true; btn.hidden = true; }
+      else out.innerHTML = '<span class="note">' + (e && e.code === 'rate_limited' ? 'Too many requests right now. Try again in a minute.' : 'The summary didn’t finish. Try again.') + '</span>';
+    } finally { btn.disabled = false; }
+  }
+
+  /* ---------- App shell ---------- */
+  function refreshChrome() {
+    const mine = document.getElementById('nav-mine'), dash = document.getElementById('nav-dash');
+    if (mine) mine.hidden = !state.done;
+    if (dash) dash.hidden = !caps.admin;
+    const cur = { mine: state.view === 'results' && !state.example, example: state.view === 'results' && state.example, about: state.view === 'about', dashboard: state.view === 'dashboard' };
+    document.querySelectorAll('.topnav [data-action]').forEach(b => { if (b.dataset.action in cur) b.setAttribute('aria-pressed', String(cur[b.dataset.action])); });
+  }
+
+  function render() {
+    if (state.view === 'quiz') renderQuiz();
+    else if (state.view === 'results') renderResults();
+    else if (state.view === 'about') renderAbout();
+    else if (state.view === 'dashboard') renderDashboard();
+    else renderWelcome();
+    try { window.scrollTo({ top: 0 }); } catch (e) { /* ignore */ }
+  }
+
+  function go(view, extra) {
+    Object.assign(state, { view, confirmDelete: false }, extra || {});
+    render();
+  }
+
+  document.addEventListener('click', ev => {
+    const el = ev.target.closest('[data-action]');
+    if (!el) return;
+    const act = el.dataset.action;
+    if (act === 'home') go(state.done ? 'results' : 'welcome', { example: false, open: ['__first__'] });
+    if (act === 'mine') go('results', { example: false, open: ['__first__'] });
+    if (act === 'example') go('results', { example: true, open: ['__first__'] });
+    if (act === 'about') go('about');
+    if (act === 'dashboard') go('dashboard');
+    if (act === 'start-quiz') go(state.meta.consent ? 'quiz' : 'welcome', { step: 0, example: false, codeError: '' });
+    if (act === 'edit') go('quiz', { step: 0, example: false });
+    if (act === 'back') {
+      if (state.step === 0) go(state.done ? 'results' : 'welcome', { example: false });
+      else { state.step--; render(); }
+    }
+    if (act === 'next') {
+      if (!stepStatus().ok) return;
+      if (state.step < 4) { state.step++; render(); }
+      else finishQuiz();
+    }
+    if (act === 'autofill') autofill();
+    if (act === 'use-code') {
+      const v = (document.getElementById('code-input').value || '').toUpperCase().replace(/[^A-Z]/g, '');
+      if (!/^[RIASEC]{3}$/.test(v) || new Set(v).size !== 3) state.codeError = 'Enter three different letters from R, I, A, S, E and C, for example ICE.';
+      else { state.answers.code = v; state.codeError = ''; save(); }
+      renderQuiz();
+    }
+    if (act === 'clear-code') { state.answers.code = ''; save(); renderQuiz(); }
+    if (act === 'toggle-role') {
+      const id = el.dataset.id;
+      state.open = state.open.includes(id) ? state.open.filter(x => x !== id) : state.open.concat(id);
+      renderLists();
+      const btn = document.querySelector('[data-action="toggle-role"][data-id="' + id + '"]'); if (btn) btn.focus();
+    }
+    if (act === 'reset-weights') {
+      state.weights = Object.assign({}, DEFAULT_W);
+      ['i', 'w', 'v'].forEach(k => { document.getElementById('w-' + k).value = state.weights[k]; document.getElementById('wv-' + k).textContent = state.weights[k]; });
+      document.getElementById('wf').textContent = weightText(); renderLists();
+    }
+    if (act === 'copy') {
+      const text = el.dataset.text;
+      const done = () => { el.textContent = 'Copied'; setTimeout(() => { el.textContent = 'Copy search'; }, 1600); };
+      try { navigator.clipboard.writeText(text).then(done, () => { el.textContent = text; }); } catch (e) { el.textContent = text; }
+    }
+    if (act === 'share-on') { state.meta.share = true; save(); shareResults(); }
+    if (act === 'share-off') { state.meta.share = false; state.tasters = false; save(); unshareResults().then(() => { renderShareStatus(); renderTasterCard(); }); }
+    if (act === 'tasters-on') {
+      if (state.meta.share && state.shared === 'saved') setTasters(true);
+      else { state.tasters = true; state.meta.share = true; save(); renderTasterCard(); shareResults(); }
+    }
+    if (act === 'tasters-off') setTasters(false);
+    if (act === 'delete-ask') { state.confirmDelete = true; renderResults(); const b = document.querySelector('[data-action="delete-yes"]'); if (b) b.focus(); }
+    if (act === 'delete-cancel') { state.confirmDelete = false; renderResults(); }
+    if (act === 'delete-yes') { el.disabled = true; deleteAll(); }
+    if (act === 'ask-suggest') askSend(el.dataset.q);
+    if (act === 'ask-stop') { if (ask.ctl) ask.ctl.abort(); }
+    if (act === 'ask-role') {
+      const r = ROLE[el.dataset.id];
+      if (!r) return;
+      const sec = document.getElementById('ask');
+      if (sec) sec.scrollIntoView({ block: 'start', behavior: reduceMotion() ? 'auto' : 'smooth' });
+      askSend('Tell me about the ' + r.title + ' role: why does it fit me, and what is the work like day to day?');
+    }
+    if (act === 'dash-example') { state.dash.example = true; renderDashboard(); }
+    if (act === 'dash-summary') dashSummary();
+  });
+
+  document.addEventListener('submit', ev => {
+    const id = ev.target && ev.target.id;
+    if (id === 'ask-form') { ev.preventDefault(); const inp = document.getElementById('ask-input'); askSend(inp ? inp.value : ''); }
+    if (id === 'start-form') { ev.preventDefault(); submitStart(); }
+  });
+
+  document.addEventListener('change', ev => {
+    const t = ev.target, a = state.answers;
+    if (t.type === 'radio') {
+      if (INTEREST_ITEMS.some(x => x.id === t.name)) a.interests[t.name] = Number(t.value);
+      else if (PERS_ITEMS.some(x => x.id === t.name)) a.personality[t.name] = Number(t.value);
+      else if (SCENARIOS.some(x => x.id === t.name)) a.scenarios[t.name] = t.value;
+      save(); refreshStatus();
+    }
+    if (t.dataset.group === 'values') {
+      if (t.checked && a.values.length >= 3) { t.checked = false; const h = document.getElementById('values-hint'); if (h) h.textContent = 'You can choose up to 3. Untick one to swap.'; return; }
+      a.values = t.checked ? a.values.concat(t.value) : a.values.filter(v => v !== t.value);
+      const h = document.getElementById('values-hint'); if (h) h.textContent = a.values.length + ' of 3 chosen';
+      save(); refreshStatus();
+    }
+    if (t.dataset.group === 'faith') { a.faith = t.checked ? a.faith.concat(t.value) : a.faith.filter(v => v !== t.value); save(); }
+    if (t.id === 'pathway') { a.pathway = t.value; save(); }
+    if (t.id === 'grit') { a.grit = t.checked; save(); }
+    if (t.id === 'hide-flagged') { state.hideFlagged = t.checked; renderLists(); }
+    if (t.dataset.dash) { state.dash[t.dataset.dash] = t.value; renderDashBody(); }
+    if (t.id === 'd-example') { state.dash.example = t.checked; renderDashBody(); }
+  });
+
+  document.addEventListener('input', ev => {
+    const t = ev.target;
+    if (t.dataset.skill) { state.answers.skills[t.dataset.skill] = Number(t.value); document.getElementById('sko-' + t.dataset.skill).textContent = t.value; save(); }
+    if (t.dataset.weight) { state.weights[t.dataset.weight] = Number(t.value); document.getElementById('wv-' + t.dataset.weight).textContent = t.value; document.getElementById('wf').textContent = weightText(); renderLists(); }
+    if (t.id === 'code-input') t.value = t.value.toUpperCase();
+    if (t.id === 'ask-input') ask.draft = t.value;
+  });
+
+  document.addEventListener('pointerover', ev => {
+    const tip = document.getElementById('tip');
+    if (!tip) return;
+    const row = ev.target.closest && ev.target.closest('.bar-row');
+    if (!row) { tip.hidden = true; return; }
+    tip.textContent = row.dataset.tip;
+    tip.hidden = false;
+  });
+  document.addEventListener('pointermove', ev => {
+    const tip = document.getElementById('tip');
+    if (!tip || tip.hidden) return;
+    tip.style.left = Math.max(8, Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8)) + 'px';
+    tip.style.top = (ev.clientY + 16) + 'px';
+  });
+
+  function start(data) {
+    load();
+    if (data && data.state) state = Object.assign(state, data.state);
+    if (data && Array.isArray(data.askMsgs)) {
+      ask.msgs = data.askMsgs.map(m => Object.assign({}, m, { thinking: false }));
+      ask.key = data.askKey || '';
+      ask.seq = data.askSeq || ask.msgs.length;
+    }
+    render();
+    initCaps();
+  }
+
+  if (window.claude && window.claude.hot && typeof window.claude.hot.snapshot === 'function') {
+    window.claude.hot.snapshot(() => ({
+      state,
+      askMsgs: ask.msgs.map(m => ({ id: m.id, role: m.role, text: m.text, ok: m.ok, note: m.note })),
+      askKey: ask.key, askSeq: ask.seq
+    }));
+  }
+  if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
+  else start((window.claude && window.claude.hot && window.claude.hot.data) || {});
+})();
+</script>
+</body>
+</html>

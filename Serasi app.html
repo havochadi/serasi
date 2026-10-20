@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>html, body { margin: 0; padding: 0; }</style>
-<title>Serasi Pilot</title>
+<title>Serasi | Find work that fits who you are</title>
+<meta name="description" content="Explore your interests, work style and values with Serasi, a free career-fit demo for Malay youths aged 18–25 in Singapore.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..700&family=Fraunces:wght@400..700&display=swap">
@@ -400,6 +401,13 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 </header>
 
 <main class="wrap" id="app" aria-live="polite"></main>
+<noscript><div class="wrap card"><h1>Serasi needs JavaScript</h1><p>Enable JavaScript to take the quiz, or read the <a href="Serasi%20overview.pdf">Serasi overview</a> and <a href="Serasi%20pitch%20deck.pdf">pitch deck</a>.</p></div></noscript>
+<footer class="wrap foot" style="padding-bottom:24px" aria-label="Project documents">
+  <p><b>Explore the proposal:</b> <a href="Serasi%20overview.pdf">Read the overview (PDF)</a> · <a href="Serasi%20pitch%20deck.pdf">View the pitch deck (PDF)</a></p>
+  <p>Proposed pilot: 300 youths · Draft budget: S$22,000 · Preparation November 2026–March 2027 · Pilot April–June 2027 · Follow-up and decision by June 2028.</p>
+  <p>Partnerships, funding, job tasters and internships are proposals. No partner has been approached. Scores and role data are illustrative and have not been validated.</p>
+  <p>This public demo saves quiz answers on your device. AI chat, sharing results with MENDAKI and live partner insights require connected services and are unavailable on GitHub Pages.</p>
+</footer>
 
 <script>
 (function () {
@@ -1236,11 +1244,11 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         '<div class="welcome-copy">' +
           '<p class="eyebrow">Kerjaya serasi, masa depan berseri</p>' +
           '<h1>Find work that fits who you are</h1>' +
-          '<p class="lede">Five short parts, about 15 minutes. Serasi matches your interests, work style and values to jobs in Singapore, explains why each one fits, and links you to openings, coaches and job tasters.</p>' +
+          '<p class="lede">Five short parts, about 15 minutes. Serasi matches your interests, work style and values to jobs in Singapore, explains why each one fits, and links you to job searches and career coaches. Job tasters and internships are proposed for the pilot.</p>' +
           '<ol class="how-steps">' +
             '<li><b>Take the quiz</b><span>Interests, work style, values, three work scenarios and a skills check</span></li>' +
             '<li><b>See your matches</b><span>Your profile and top 10 jobs, each with reasons</span></li>' +
-            '<li><b>Take the next step</b><span>Live job searches, career coaches, job tasters and internships</span></li>' +
+            '<li><b>Take the next step</b><span>Live job searches and career coaches; proposed job tasters and internships</span></li>' +
           '</ol>' +
           (state.done ? '<div><button class="btn ghost" type="button" data-action="mine">See my last results</button></div>' : '') +
         '</div>' +
@@ -1392,10 +1400,12 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
         '<p class="eyebrow">About and privacy</p><h1>How Serasi works and what happens to your data</h1>' +
         '<h2>What Serasi is</h2>' +
         '<p>Serasi is a career-fit app for Malay youths aged 18 to 25 in Singapore. It matches your interests (Holland RIASEC, 50% of the fit score), work style (the Big Five plus honesty, 30%) and work values (20%) to jobs, and links you to openings, coaches, job tasters and internships. Results are a guide, not a decision.</p>' +
+        '<h2>This public demo</h2>' +
+        '<p>On GitHub Pages, answers and results stay in this browser. AI chat, shared results, partner insights and job-taster registration are unavailable. The sharing features described below apply only in a connected version.</p>' +
         '<h2>What is stored</h2>' +
         '<ul><li><b>On this device:</b> your answers and results, so you can come back to them.</li>' +
         '<li><b>Shared with MENDAKI, only if you opt in:</b> your age band, area, qualification, interest code, chosen values, the skills you rated low, your top jobs, whether you want job tasters, and the month you finished. They are stored under an anonymous ID.</li>' +
-        '<li><b>Never stored or shared:</b> your name, contact details, your individual answers, or the personal preferences you set.</li></ul>' +
+        '<li><b>Never collected:</b> your name or contact details. Individual quiz answers and personal preferences stay on your device and are never shared.</li></ul>' +
         '<h2>Who can see shared results</h2>' +
         '<p>Only the people who manage this app (for the pilot, the Serasi team and MENDAKI staff), and only as grouped counts. Groups with fewer than 10 youths are hidden.</p>' +
         '<h2>Delete your data</h2>' +
