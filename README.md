@@ -17,15 +17,14 @@ Open `index.html` in a browser to preview it. There is no build step. Opened thi
 ## What the demo does
 
 - **Quiz and results:** answers and results are saved in the browser, so a youth can close the page and come back. **Delete my data** removes them.
-- **Ask Serasi:** answers simple questions with fixed rules, using the youth's scores and the job data in the app. It does not use AI, and nothing typed leaves the device. It can answer:
-  - why a job is a match, or what a job involves (name any of the 43 jobs)
-  - what the interest code means
-  - which skill to build first
-  - how the youth likes to work, and what their values point to
-  - what their stretch roles need
-  - how to find openings, where pay information is, and who to talk to
+- **Ask Serasi:** an AI career guide powered by Google Gemini. It answers questions about careers and jobs only, using a summary of the youth's results, and turns down anything else. It can:
+  - explain why a job is a match, or what any job involves
+  - suggest which skills to build, and courses on SkillsFuture
+  - help with finding openings, resumes and interviews
+  - answer questions about faith at work, such as prayer time or the tudung
+  - point to career coaches at NTUC e2i and M³+
 
-  Any other question gets the list of questions it can answer.
+  Questions go through a small Cloudflare Worker (`worker/`), which holds the Gemini key and keeps the bot to careers. With each question, the page sends the youth's scores, values, skill ratings, pathway and job list. It never sends their name, age, area or personal preferences. On Gemini's free tier, Google may use what is sent to improve its products. If the AI can't be reached, the page answers with fixed rules on the device instead.
 - **Sharing and job tasters (demo):** ticking the sharing box, or tapping **I'm interested**, adds the youth's anonymised record to a mock database in their browser. Nothing is sent anywhere.
 - **MENDAKI dashboard:** runs on a mock database of 240 made-up youths, plus the visitor's own record if they shared. It shows:
   - filters by age, qualification and area; groups under 10 youths are hidden
@@ -63,4 +62,4 @@ Run the Worker's tests with `cd worker && node --test`.
 
 ## For a real pilot
 
-A real pilot would need hosting with a database for the shared results, a staff sign-in for the dashboard, and consent wording and a retention period reviewed under the PDPA. In the pilot, staff would see only grouped counts, never individual records. Partners, funding, job tasters and internships are proposals. Scores and the hand-coded role data still need validation. See the PDFs for the full plan.
+A real pilot would need hosting with a database for the shared results, a staff sign-in for the dashboard, and consent wording and a retention period reviewed under the PDPA. Ask Serasi would need a paid Gemini tier, so youths' questions aren't used to improve Google's products. In the pilot, staff would see only grouped counts, never individual records. Partners, funding, job tasters and internships are proposals. Scores and the hand-coded role data still need validation. See the PDFs for the full plan.

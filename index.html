@@ -254,7 +254,7 @@ fieldset.scenario legend { padding: 0; font-weight: 600; font-size: 1.0625rem; f
 
 footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .875rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
 
-/* Ask Serasi (rule-based answers) */
+/* Ask Serasi (AI career guide, with a fixed-rule fallback) */
 [hidden] { display: none !important; }
 .ask { display: flex; flex-direction: column; gap: 14px; }
 .ask-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 12px; }
@@ -272,6 +272,9 @@ footer.foot { border-top: 1px solid var(--line); padding-top: 18px; font-size: .
 .ask-form { display: flex; flex-wrap: wrap; gap: 8px; }
 .ask-form input { flex: 1 1 240px; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
 .ask-role { margin-top: 8px; padding-left: 0; }
+.ask-chip[disabled] { opacity: .5; cursor: not-allowed; }
+.msg.pending .txt { color: var(--muted); font-style: italic; }
+.msg .note { font-size: .75rem; color: var(--muted); }
 
 @media (max-width: 900px) {
   .summary { grid-template-columns: 1fr 1fr; }
@@ -429,7 +432,7 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
   <p><b>Explore the proposal:</b> <a href="Serasi%20overview.pdf">Read the overview (PDF)</a> · <a href="Serasi%20pitch%20deck.pdf">View the pitch deck (PDF)</a></p>
   <p>Proposed pilot: 300 youths · Draft budget: S$22,000 · Preparation November 2026–March 2027 · Pilot April–June 2027 · Follow-up and decision by June 2028.</p>
   <p>Partnerships, funding, job tasters and internships are proposals. No partner has been approached. Scores and role data are illustrative and have not been validated.</p>
-  <p>This demo runs in your browser and saves quiz answers on your device. Ask Serasi answers simple questions with fixed rules, and the MENDAKI dashboard uses a mock database of made-up youths.</p>
+  <p>This demo runs in your browser and saves quiz answers on your device. Ask Serasi sends your questions and a summary of your results to Google’s Gemini AI, and the MENDAKI dashboard uses a mock database of made-up youths.</p>
 </footer>
 
 <script>
@@ -958,10 +961,13 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
   }
 
 
-  /* ---------- Ask Serasi (rule-based answers) ---------- */
-  // Ask Serasi matches a question to one of a few simple topics and answers from the profile and job data.
-  // It runs in the browser and uses no AI, so nothing typed leaves the device.
-  const ask = { msgs: [], key: '', draft: '', seq: 0 };
+  /* ---------- Ask Serasi (AI career guide) ---------- */
+  // Questions go to the Serasi Worker (worker/), which asks Google Gemini and keeps answers to careers and jobs.
+  // If the Worker can't be reached, the fixed rules below answer instead, on the device.
+  // ASK_WORKER is the deployed Worker's /ask address; empty means fixed rules only. On localhost the page uses `wrangler dev`.
+  const ASK_WORKER = '';
+  const ASK_API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:8787/ask' : ASK_WORKER;
+  const ask = { msgs: [], key: '', draft: '', seq: 0, busy: false, chat: 0 };
 
   function askKey() { return state.example ? 'example' : 'mine'; }
   function reduceMotion() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
@@ -1031,7 +1037,7 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
   const askMenu = () => askSuggestions().map(x => '- ' + x).join('\n');
   const askFallback = () => 'Sorry, I can only answer a few simple questions about your results. Try one of these:\n' + askMenu();
 
-  // Topics are checked in order, and the first match answers.
+  // The fixed-rule fallback. Topics are checked in order, and the first match answers.
   function askAnswer(question) {
     const { p } = currentProfile();
     const res = rank(p);
@@ -1160,30 +1166,101 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
   }
 
   function askMsgHTML(m) {
-    return '<li class="msg ' + (m.role === 'user' ? 'user' : 'bot') + '" id="msg-' + m.id + '"><span class="who">' + (m.role === 'user' ? 'You' : 'Serasi') + '</span><span class="txt">' + esc(m.text) + '</span></li>';
+    return '<li class="msg ' + (m.role === 'user' ? 'user' : 'bot') + (m.pending ? ' pending' : '') + '" id="msg-' + m.id + '"><span class="who">' + (m.role === 'user' ? 'You' : 'Serasi') + '</span><span class="txt">' + esc(m.text) + '</span>' +
+      (m.fallback ? '<span class="note">Quick answer · AI unavailable right now</span>' : '') + '</li>';
   }
 
   function renderAskLog() {
     const log = document.getElementById('ask-log'); if (log) log.innerHTML = ask.msgs.map(askMsgHTML).join('');
     const inp = document.getElementById('ask-input'); if (inp) inp.value = ask.draft;
+    document.querySelectorAll('#ask-send, .ask-chip').forEach(b => { b.disabled = ask.busy; });
   }
+
+  // Clears the conversation. A reply still on its way belongs to the old chat and is dropped when it arrives.
+  function askReset() { ask.msgs = []; ask.busy = false; ask.chat++; }
 
   function renderAsk() {
     if (!document.getElementById('ask')) return;
-    if (ask.key !== askKey()) { ask.msgs = []; ask.key = askKey(); }
+    if (ask.key !== askKey()) { askReset(); ask.key = askKey(); }
     document.getElementById('ask-chips').innerHTML = askSuggestions().map(q => '<button class="ask-chip" type="button" data-action="ask-suggest" data-q="' + esc(q) + '">' + esc(q) + '</button>').join('');
     renderAskLog();
   }
 
-  function askSend(raw) {
+  function askScroll(id) {
+    const el = document.getElementById('msg-' + id);
+    if (el) el.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
+  }
+
+  // What the AI sees about the youth: scores and the job list, nothing that identifies them.
+  // Age, area and personal (faith) preferences stay on the device, so role flags and the personalised
+  // job search (which can add "halal") are left out too.
+  function askProfile() {
+    const { p } = currentProfile();
+    const res = rank(p);
+    const role = s => ({
+      title: s.role.title,
+      sector: s.role.sector,
+      usually_needs: EDU_LABEL[s.role.edu],
+      fit: s.total,
+      fit_parts: { interests: pct(s.interest), work_style: pct(s.work), values: pct(s.values) },
+      reasons: s.reasons.map(x => x.text),
+      what_it_involves: ROLE_DOES[s.role.id],
+      search_for: s.role.q,
+      portals: s.role.portals.map(k => PORTALS[k].name)
+    });
+    return {
+      interest_code: codeOf(p.interest),
+      interests: Object.fromEntries(TYPES.map(t => [TYPE_INFO[t].name, pct(p.interest[t])])),
+      work_style: Object.fromEntries(TRAITS.map(t => [t.name, pct(p.traits[t.k])])),
+      values: p.values.map(v => VALUE[v].short),
+      skills_out_of_5: Object.fromEntries(SKILLS.map(s => [s.label, p.skills[s.k] || 0])),
+      pathway: PATH[p.pathway] ? PATH[p.pathway].name : '',
+      grit_eligible: !!p.grit,
+      top_roles: res.main.map(role),
+      stretch_roles: res.stretch.map(s => Object.assign(role(s), {
+        needs_first: (s.eduGap ? [EDU_LABEL[s.role.edu]] : []).concat(s.gaps.map(k => 'more ' + SKILL[k].label.toLowerCase()))
+      }))
+    };
+  }
+
+  // Returns the AI's reply, or null if the Worker can't be reached, refuses, or takes over 20 seconds.
+  async function askAI(question, history) {
+    try {
+      const res = await fetch(ASK_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, history, profile: askProfile() }),
+        signal: AbortSignal.timeout(20000)
+      });
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data && typeof data.reply === 'string' && data.reply.trim() ? data.reply : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Shows the question and a "thinking" message, then fills in the AI's reply, or a fixed-rule answer if the AI is unavailable.
+  async function askSend(raw) {
     const q = String(raw || '').trim().slice(0, 300);
-    if (!q) return;
-    ask.msgs.push({ id: ++ask.seq, role: 'user', text: q }, { id: ++ask.seq, role: 'bot', text: askAnswer(q) });
-    ask.msgs = ask.msgs.slice(-20);
+    if (!q || ask.busy) return;
+    const history = ask.msgs.filter(m => !m.pending).slice(-6).map(m => ({ role: m.role, text: m.text.slice(0, 1200) }));
+    const user = { id: ++ask.seq, role: 'user', text: q };
+    const reply = { id: ++ask.seq, role: 'bot', text: 'Serasi is thinking…', pending: true };
+    const chat = ask.chat;
+    ask.msgs = ask.msgs.concat(user, reply).slice(-20);
     ask.draft = '';
+    ask.busy = true;
     renderAskLog();
-    const last = document.getElementById('msg-' + ask.seq);
-    if (last) last.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
+    askScroll(reply.id);
+    const text = ASK_API ? await askAI(q, history) : null;
+    if (chat !== ask.chat) return;
+    ask.busy = false;
+    reply.pending = false;
+    reply.text = text || askAnswer(q);
+    reply.fallback = !text;
+    renderAskLog();
+    askScroll(reply.id);
   }
 
 
@@ -1400,12 +1477,12 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
       '</section>' +
 
       '<section class="card ask" id="ask" aria-labelledby="ask-h">' +
-        '<div class="ask-head"><div><p class="eyebrow">Quick answers</p><h2 id="ask-h">Ask Serasi</h2></div></div>' +
-        '<p class="small muted ask-intro">Tap a question or type your own. Serasi answers simple questions about your profile and the jobs on your list, using your scores and the job data in this app.</p>' +
+        '<div class="ask-head"><div><p class="eyebrow">AI career guide</p><h2 id="ask-h">Ask Serasi</h2></div></div>' +
+        '<p class="small muted ask-intro">Tap a question or type your own. Serasi’s AI guide answers questions about careers and jobs, using your results. It can’t help with other topics.</p>' +
         '<div class="ask-chips" id="ask-chips"></div>' +
         '<ol class="ask-log" id="ask-log" aria-live="polite"></ol>' +
         '<form class="ask-form" id="ask-form" autocomplete="off"><label class="sr-only" for="ask-input">Your question</label><input id="ask-input" maxlength="300" placeholder="For example: What does a nurse do?"><button class="btn primary" type="submit" id="ask-send">Ask</button></form>' +
-        '<p class="small muted">Answers follow fixed rules, not AI, and nothing you type leaves this device. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+.</p>' +
+        '<p class="small muted">Answers are written by AI (Google Gemini) and can be wrong. Your question and a summary of your results, without your name, age, area or personal preferences, are sent to Google, which may use them to improve its products. Don’t type personal details. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+.</p>' +
       '</section>' +
 
       '<section class="card taster" id="taster" aria-label="Job tasters and internships"></section>' +
@@ -1424,7 +1501,7 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
           '<ul><li>Roles you lack a skill or qualification for move to “stretch”, so the main list stays within reach.</li>' +
           '<li>Personal preferences flag roles and move them down; nothing is hidden unless you choose to hide it.</li>' +
           '<li>Every role links to live searches on local job portals, starting with MyCareersFuture.</li>' +
-          '<li>Ask Serasi answers questions using only your scores and the role data here. It never changes your results.</li>' +
+          '<li>Ask Serasi’s AI answers using your scores and the role data here. It never changes your results.</li>' +
           '<li>This pilot covers ' + ROLES.length + ' hand-coded roles. The full build will draw on O*NET, linked to SSOC codes and the SSG Skills Framework.</li></ul></div>' +
       '</div></details>' +
 
@@ -1439,7 +1516,7 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
 
   function deleteAll() {
     clearLocal();
-    ask.msgs = []; ask.draft = '';
+    askReset(); ask.draft = '';
     Object.assign(state, { view: 'welcome', step: 0, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', confirmDelete: false, startError: '' });
     state.notice = 'Your data has been deleted.';
     render();
@@ -1471,7 +1548,7 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
         '<p>You can delete everything at any time with <b>Delete my data</b> on your results page.</p>' +
         (state.done ? '<div><button class="btn ghost" type="button" data-action="mine">Go to my results</button></div>' : '') +
         '<h2>Ask Serasi</h2>' +
-        '<p>Ask Serasi answers a set of simple questions, such as why a job fits you or which skill to build first. It follows fixed rules using your scores and the job data in this app. It doesn’t use AI, and nothing you type leaves your device.</p>' +
+        '<p>Ask Serasi is an AI career guide powered by Google Gemini. It answers questions about careers and jobs only. With each question it sends a summary of your results: your scores, values, skill ratings, pathway and job list. Your name, age, area and personal preferences are never sent. Google may use what is sent to improve its products, so don’t type personal details, and remember that AI answers can be wrong. If the AI can’t be reached, Serasi answers with fixed rules on your device instead.</p>' +
         '<h2>The questions</h2>' +
         '<p>The work-style statements adapt the public-domain Mini-IPIP (Donnellan and colleagues, 2006), plus four honesty statements written for Serasi. The 30 interest activities were written for Serasi using Holland’s six RIASEC types. The ' + ROLES.length + ' jobs are hand-coded for this pilot; the full build will draw on O*NET, linked to Singapore’s SSOC codes and the SSG Skills Framework.</p>' +
         '<h2>Limits</h2>' +
