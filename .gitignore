@@ -1,2 +1,5 @@
 .codex-tmp/
 .app-review.txt
+worker/.dev.vars
+.wrangler/
+node_modules/

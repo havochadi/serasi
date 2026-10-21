@@ -245,3 +245,16 @@ The chips, the "Ask Serasi about this job" button, the 20-message cap and the ch
 - A paid tier.
 - A second classifier call.
 - Changes to scoring, ranking, the dashboard or sharing.
+
+## Changes made while planning
+
+These refine the design above after checking the Gemini API and the app's data. Where they differ, these win.
+
+- **History goes to Gemini as a labelled transcript inside one user turn**, not as alternating turns. Gemini's JSON mode is more reliable with a single turn, and it keeps all text from the youth inside the data block.
+- **Maximum output is 1,024 tokens**, not 600, because newer Gemini models can count thinking tokens towards the limit. Replies are still cut to 1,200 characters.
+- **If Google's own safety filter blocks a message**, the Worker answers with the distress text rather than an error, so a youth in crisis still sees the helplines.
+- **The results summary may be up to 16 KB**, and the whole request body up to 32 KB. A full list of 12 roles with reasons is about 9 KB.
+- **A missing `GEMINI_API_KEY` returns 500 `{ "error": "not_configured" }`.**
+- **Each role's search query is sent in its plain form** (`role.q`), because the personalised query adds "halal" for youths who chose that preference.
+- **The question box stays usable while waiting.** Only the Ask button and the suggestion chips are disabled, and any further question is ignored until the reply arrives.
+- **On localhost, the page talks to `wrangler dev` at `http://localhost:8787/ask`.** Elsewhere it uses `ASK_WORKER`. Opened as a file, it either has no Worker URL or the Worker refuses the `null` origin, so it answers with the fixed rules.
