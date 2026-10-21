@@ -1,0 +1,18 @@
+# Ask Serasi's Worker. The Gemini key is a secret: `npx wrangler@4 secret put GEMINI_API_KEY`
+# (production) or GEMINI_API_KEY=... in worker/.dev.vars (local, git-ignored). Never put it here.
+name = "serasi-ask"
+main = "src/index.js"
+compatibility_date = "2025-10-01"
+
+[vars]
+GEMINI_MODEL = "gemini-2.5-flash"
+ALLOWED_ORIGINS = "https://havochadi.github.io,http://localhost:8000,http://127.0.0.1:8000"
+
+# 8 questions a minute per visitor (keyed on their IP in src/index.js).
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 8
+  period = 60

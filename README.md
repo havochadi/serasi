@@ -10,8 +10,9 @@ Public site: https://havochadi.github.io/serasi/ (dashboard: https://havochadi.g
 - `Serasi overview.pdf`: detailed proposal and limitations.
 - `Serasi pitch deck.pdf`: presentation.
 - `.github/workflows/pages.yml`: publishes `index.html` and the two PDFs whenever `main` changes.
+- `worker/`: the Cloudflare Worker that connects Ask Serasi to Google Gemini. See **Set up the AI bot**.
 
-Open `index.html` in a browser to preview it. There is no build step and no server.
+Open `index.html` in a browser to preview it. There is no build step. Opened this way, Ask Serasi answers with fixed rules; see **Set up the AI bot** to run it with AI.
 
 ## What the demo does
 
@@ -32,6 +33,33 @@ Open `index.html` in a browser to preview it. There is no build step and no serv
   - a cross-tab of interest types by age, qualification or area
   - job-taster ideas and a planning note written from the counts, with **Copy note** and **Download counts (CSV)**
   - a preview of the records behind the numbers, showing exactly what each shared result contains
+
+## Set up the AI bot
+
+Ask Serasi's AI runs through a Cloudflare Worker, so the Gemini key never appears in the page. Both services are free.
+
+1. Create a Gemini API key at https://aistudio.google.com (**Get API key**, then **Create API key**). Don't turn on billing for its project.
+2. Install Node.js 20 or later.
+3. Sign in to Cloudflare, deploy the Worker, then give it the key:
+
+   ```
+   cd worker
+   npx wrangler@4 login
+   npx wrangler@4 deploy
+   npx wrangler@4 secret put GEMINI_API_KEY
+   ```
+
+4. Copy the Worker's address from the deploy output, add `/ask`, and set `ASK_WORKER` in `index.html` to it.
+5. If the site moves to a new address, add it to `ALLOWED_ORIGINS` in `worker/wrangler.toml` and deploy again.
+
+To try it on your computer:
+
+1. Put `GEMINI_API_KEY=your-key` in `worker/.dev.vars`. Git ignores this file.
+2. Run `npx wrangler@4 dev` in `worker/`.
+3. In another terminal, serve the site from the repo folder with `python3 -m http.server 8000`.
+4. Open http://localhost:8000. On localhost, the page uses the local Worker.
+
+Run the Worker's tests with `cd worker && node --test`.
 
 ## For a real pilot
 
