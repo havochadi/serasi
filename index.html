@@ -411,6 +411,9 @@ h3 { letter-spacing: -.015em; }
 .topnav { display: flex; flex-direction: column; align-items: stretch; flex-wrap: nowrap; margin: 0; gap: 5px; }
 .nav-label { padding: 0 16px 9px; font-size: .61rem; color: var(--muted); text-transform: uppercase; letter-spacing: .15em; font-weight: 600; }
 .nav-label.community { margin-top: 30px; }
+.nav-more { margin-top: 26px; }
+.nav-more > summary { cursor: pointer; padding: 10px 15px; font-size: .76rem; color: var(--muted); }
+.nav-more nav { display: flex; flex-direction: column; gap: 5px; margin-top: 6px; }
 .chip-btn { display: flex; align-items: center; gap: 12px; color: var(--muted); border: 0; border-radius: 9px; padding: 12px 15px; font-size: .84rem; text-align: left; min-height: 46px; }
 .chip-btn:hover { background: var(--bg); color: var(--ink); }
 .chip-btn[aria-pressed=true] { color: var(--brand); background: var(--accent-soft); font-weight: 600; border-color: transparent; }
@@ -551,7 +554,21 @@ fieldset.item:first-child { border-top: 0; }
 fieldset.item legend { font-size: .87rem; max-width: 34ch; line-height: 1.6; }
 fieldset.item:has(input:checked) legend { color: #4D6743; }
 .scale { gap: 8px; }
-.scale span { width: 40px; height: 42px; background: #FAFBF8; border-color: #E0E6D9; font-size: .87rem; }
+.scale span { width: 64px; height: 66px; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 5px 3px; background: #FAFBF8; border-color: #E0E6D9; font-size: .87rem; }
+.scale small { font-size: .63rem; line-height: 1.25; font-weight: 500; text-align: center; }
+.scale b { font-weight: 600; }
+.score .role-open-label { color: var(--accent); white-space: nowrap; font-weight: 600; font-size: .73rem; margin-top: 6px; }
+.role-fit-details > summary { cursor: pointer; color: var(--accent); font-size: .8rem; }
+.role-fit-details > div { margin-top: 18px; }
+.quiz-meta .btn { min-height: 36px; padding: 7px 12px; font-size: .75rem; }
+.quiz-status { display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: 3px; }
+.quiz-status .status { flex: none; }
+.quiz-status .btn.link { min-height: 24px; padding: 0; }
+.quiz-demo { color: var(--muted); font-size: .76rem; }
+.quiz-demo summary { cursor: pointer; }
+.quiz-demo p { margin-block: 8px; }
+.quiz-demo .btn { font-size: .76rem; }
+fieldset.item legend { max-width: 30ch; }
 .scale input:hover + span { border-color: #8CA077; background: var(--accent-soft); }
 .scale input:checked + span { background: var(--accent); color: white; box-shadow: 0 2px 5px #426b4020; }
 .scale-key { font-size: .7rem; padding-bottom: 6px; justify-content: space-between; }
@@ -607,7 +624,11 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   .topbar .wrap { padding: 14px 24px 0; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 0; }
   .brand { padding: 0; } .brand-name { font-size: 1.6rem; } .brand svg { width: 28px; height: 28px; }
   .brand-caption { margin-left: auto; padding: 0; font-size: .65rem; }
-  .topnav { flex-direction: row; overflow-x: auto; width: 100%; margin-top: 14px; padding-bottom: 12px; gap: 4px; }
+  .topnav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; width: 100%; margin-top: 14px; padding-bottom: 8px; gap: 4px; }
+  .topnav .chip-btn { flex-direction: column; gap: 5px; justify-content: center; white-space: normal; text-align: center; }
+  .nav-more { width: 100%; margin: 0 0 6px; }
+  .nav-more > summary { font-size: .68rem; padding: 7px 0; }
+  .nav-more nav { display: flex; flex-direction: row; flex-wrap: wrap; margin-top: 0; }
   .chip-btn { white-space: nowrap; padding: 8px 12px; min-height: 39px; font-size: .74rem; gap: 7px; }
   .chip-btn .icon { width: 16px; height: 16px; } .nav-label, .nav-bottom { display: none; }
   .workspacebar { min-height: 58px; } .workspace-meta .desktop-only { display: none; }
@@ -630,7 +651,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   .welcome-reassurance { font-size: .65rem; justify-content: flex-start; }
   .start { padding: 24px; } .start-fields { grid-template-columns: 1fr; }
   .profile-head { padding: 23px; } .profile-head h1 { font-size: 2rem; }
-  .result-tabs { gap: 23px; } .result-tab { font-size: .78rem; } .result-tab .icon { display: none; }
+  .result-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; overflow: visible; } .result-tab { justify-content: center; font-size: .76rem; white-space: normal; text-align: center; min-height: 48px; } .result-tab .icon { display: none; }
   .summary { grid-template-columns: 1fr; } .summary .card:last-child { grid-column: auto; }
   .role-head { padding: 19px 52px 19px 13px; gap: 10px; grid-template-columns: 30px minmax(0,1fr) auto; }
   .rank { width: 30px; height: 34px; font-size: .77rem; border-radius: 8px; }
@@ -639,11 +660,11 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   .role-tools select { flex: 1; max-width: none; min-width: 0; } .search-field { flex-basis: 100%; }
   .role-tools .btn { font-size: .76rem; } .role-body { padding: 18px; }
   fieldset.item { grid-template-columns: 1fr; padding: 20px 0; } .quiz-surface { padding: 18px 20px; }
-  .scale { gap: 10px; width: 100%; } .scale label { flex: 1; } .scale span { width: 100%; height: 44px; }
+  .scale { gap: 6px; width: 100%; } .scale label { flex: 1; min-width: 0; } .scale span { width: 100%; height: 66px; }
   .step-intro h1 { font-size: 1.9rem; } .quiz-foot { position: sticky; gap: 8px; padding: 10px; }
-  .quiz-foot .status { order: -1; flex-basis: 100%; text-align: center; font-size: .7rem; }
+  .quiz-foot .quiz-status { order: -1; flex-basis: 100%; align-items: center; } .quiz-foot .status { flex: none; text-align: center; font-size: .73rem; }
   .quiz-foot .btn.primary { margin-left: auto; } .quiz-foot .btn { font-size: .78rem; padding-inline: 13px; }
-  .quiz-foot .btn.link { order: 3; flex-basis: 100%; min-height: 26px; font-size: .68rem; padding: 3px; }
+  .quiz-foot .btn.link { min-height: 28px; font-size: .73rem; padding: 3px; }
   .steps li span { display: none; } .steps li.current span { display: inline; }
   .ask { padding: 22px; } .ask-chips { grid-template-columns: 1fr; } .ask-form input { padding: 10px 5px; }
   .ask-form .btn { padding-inline: 13px; } .ask-form { gap: 3px; }
@@ -669,11 +690,9 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     </button>
     <p class="brand-caption">Your future, a little clearer.</p>
     <nav class="topnav" aria-label="Main">
-      <span class="nav-label">Your journey</span><button class="chip-btn" type="button" data-action="home" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5Z"/></svg><span>Discover</span></button><button class="chip-btn" type="button" data-action="start-quiz" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v4H9zM9 12h6m-6 4h4"/></svg><span>My career quiz</span></button><button class="chip-btn" type="button" data-action="mine" id="nav-mine" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>My results</span></button><button class="chip-btn" type="button" data-action="example" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/></svg><span>Explore an example</span></button><button class="chip-btn" type="button" data-action="guide" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2 2-6A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg><span>Ask Serasi</span></button>
-      <span class="nav-label community">Community</span>
-      <button class="chip-btn" type="button" data-action="dashboard" id="nav-dash"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3v17h17M8 16v-5m5 5V6m5 10V9"/></svg><span>MENDAKI insights</span></button>
-      <button class="chip-btn" type="button" data-action="about"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg><span>About &amp; privacy</span></button>
+      <button class="chip-btn" type="button" data-action="home" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5Z"/></svg><span>Home</span></button><button class="chip-btn" type="button" data-action="start-quiz" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v4H9zM9 12h6m-6 4h4"/></svg><span>My quiz</span></button><button class="chip-btn" type="button" data-action="matches" id="nav-mine"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Matches</span></button><button class="chip-btn" type="button" data-action="guide" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2 2-6A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg><span>Ask Serasi</span></button>
     </nav>
+    <details class="nav-more" id="nav-more"><summary>More from Serasi</summary><nav aria-label="About and community"><button class="chip-btn" type="button" data-action="dashboard" id="nav-dash"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3v17h17M8 16v-5m5 5V6m5 10V9"/></svg><span>MENDAKI insights</span></button><button class="chip-btn" type="button" data-action="about"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg><span>About &amp; privacy</span></button></nav></details>
     <div class="nav-bottom">
       <div class="sidebar-note"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3C8 2 2 7 4 15c8 8 17 0 16-12ZM4 21l11-12"/></svg><b>Grow at your own pace.</b>You don’t need it all figured out. A little curiosity is a good start.</div>
       <p class="sidebar-footer"><span class="status-dot"></span> Made for youths in Singapore</p>
@@ -1094,8 +1113,8 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       '<div class="col">' +
         (flag ? '<div>' + flag + '</div>' : '') +
         '<div><h4>Why it fits</h4><ul class="reasons">' + reasons + '</ul>' + '<button class="btn link ask-role" type="button" data-action="ask-role" data-id="' + r.id + '">Ask Serasi about this job</button>' + '</div>' +
-        '<div><h4>Fit score</h4><ul class="breakdown">' + bd + '</ul></div>' +
-        '<div><h4>Work style match</h4><ul class="traits">' + wsRows + '</ul><p class="legend" style="margin-top:8px"><span><span class="sw"></span>You</span><span><span class="sw need"></span>What this role tends to need</span></p></div>' +
+        '<details class="role-fit-details"><summary>See score breakdown</summary><div><h4>Fit score</h4><ul class="breakdown">' + bd + '</ul></div>' +
+        '<div><h4>Work style match</h4><ul class="traits">' + wsRows + '</ul><p class="legend" style="margin-top:8px"><span><span class="sw"></span>You</span><span><span class="sw need"></span>What this role tends to need</span></p></div></details>' +
       '</div>' +
       '<div class="col">' +
         '<div><h4>Find openings</h4><ul class="portals">' + portals + '</ul></div>' +
@@ -1115,7 +1134,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         '<span class="rank num">' + (stretch ? '↗' : i + 1) + '</span>' +
         '<span style="min-width:0"><span class="role-title">' + esc(r.title) + '</span>' +
           '<span class="role-meta"><span>' + esc(r.sector) + '</span><span class="pill code">' + r.code + '</span>' + flagPill + stretchPill + '</span></span>' +
-        '<span class="score"><b class="num">' + s.total + '</b><span>fit <span class="chev" aria-hidden="true">▾</span></span></span>' +
+        '<span class="score"><b class="num">' + s.total + '</b><span>fit score</span><span class="role-open-label">' + (open ? 'Close' : 'View role') + ' <i class="chev" aria-hidden="true">▾</i></span></span>' +
       '</button><button class="save-role" type="button" data-action="save-role" data-id="' + r.id + '" aria-pressed="' + saved + '" aria-label="' + (saved ? 'Unsave ' : 'Save ') + esc(r.title) + '">' + icon('bookmark') + '</button>' + roleBody(s, p).replace('id="body-' + r.id + '"', 'id="body-' + scope + r.id + '"').replace('class="role-body"', 'class="role-body"' + (open ? '' : ' hidden')) + '</li>';
   }
 
@@ -1155,7 +1174,10 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 
   /* ---------- Rendering: quiz ---------- */
   function likert(item, val, ends) {
-    const opts = [1, 2, 3, 4, 5].map(n => '<label><input type="radio" name="' + item.id + '" id="' + item.id + '-' + n + '" value="' + n + '" aria-label="' + n + ' out of 5' + (n === 1 ? ': ' + esc(ends[0]) : n === 5 ? ': ' + esc(ends[1]) : '') + '"' + (val === n ? ' checked' : '') + '><span>' + n + '</span></label>').join('');
+    const labels = state.step === 0
+      ? ['Not for me', 'A little', 'Neutral', 'Sounds good', 'Love it']
+      : ['Not like me', 'A little', 'Somewhat', 'Mostly', 'Very like me'];
+    const opts = [1, 2, 3, 4, 5].map(n => '<label><input type="radio" name="' + item.id + '" id="' + item.id + '-' + n + '" value="' + n + '" aria-label="' + esc(labels[n - 1]) + ', ' + n + ' out of 5"' + (val === n ? ' checked' : '') + '><span><b>' + n + '</b><small>' + labels[n - 1] + '</small></span></label>').join('');
     return '<fieldset class="item"><legend>' + esc(item.text) + '</legend><div class="scale" role="presentation">' + opts + '</div><span class="sr-only">1 means ' + ends[0] + ', 5 means ' + ends[1] + '</span></fieldset>';
   }
 
@@ -1183,7 +1205,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     const answers = state.step === 0 ? state.answers.interests : state.answers.personality;
     const count = page.filter(it => answers[it.id]).length;
     const pageOK = count === page.length;
-    return { ok: pageOK && (state.quizPage < quizPages() - 1 || stepStatus().ok), text: count + ' of ' + page.length + ' answered on this page' };
+    return { ok: pageOK && (state.quizPage < quizPages() - 1 || stepStatus().ok), text: pageOK ? 'All answered. Ready to continue.' : (page.length - count) + ' left on this page' };
   }
   function quizQuestions(items, answers, ends) {
     const pages = quizPages();
@@ -1205,7 +1227,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
           ? '<div class="notice">Using code <b>' + a.code + '</b> (' + [...a.code].map(t => TYPE_INFO[t].name).join(', ') + '). <button class="btn link" type="button" data-action="clear-code">Answer the questions instead</button></div>'
           : quizQuestions(INTEREST_ITEMS, a.interests, ['Wouldn’t enjoy', 'Would really enjoy']));
     } else if (st === 1) {
-      body = '<div class="step-intro"><p class="eyebrow">Step 2 of 5 · Work style</p><h1>How do you usually work?</h1><p>Rate how well each statement describes you, from 1 (not like me) to 5 (very like me). Describe yourself as you are now, not as you wish to be. There are no right answers.</p></div>' +
+      body = '<div class="step-intro"><p class="eyebrow">Step 2 of 5 · Work style</p><h1>How do you usually work?</h1><p>Rate how well each statement describes you, from 1 (not like me) to 5 (very like me). Choose the label that feels closest to you today. There are no right answers.</p></div>' +
         quizQuestions(PERS_ITEMS, a.personality, ['Not like me', 'Very like me']);
     } else if (st === 2) {
       body = '<div class="step-intro"><p class="eyebrow">Step 3 of 5 · Values</p><h1>What has to be true about a job?</h1><p>Choose up to three values. The percentages show how many Malay/Muslim youths picked each one in a 2026 NYC survey.</p></div>' +
@@ -1226,10 +1248,10 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     }
     const status = quizStatus();
     document.getElementById('app').innerHTML =
-      '<div class="quiz"><div class="quiz-meta"><span>' + icon('compass') + ' Your career discovery</span><span>' + icon('check') + ' Progress saved on this device</span></div><ol class="steps" aria-label="Assessment progress">' + steps + '</ol>' + body +
-      '<div class="quiz-foot"><button class="btn ghost" type="button" data-action="back">' + (st === 0 && state.quizPage === 0 ? 'Save & exit' : 'Back') + '</button>' +
-      '<span class="status" id="step-status" aria-live="polite">' + esc(status.text) + '</span>' +
-      (st < 4 ? '<button class="btn link" type="button" data-action="autofill">Fill with example answers</button>' : '') +
+      '<div class="quiz"><div class="quiz-meta"><span>' + icon('check') + ' Progress saved on this device</span><button class="btn ghost" type="button" data-action="save-exit">Save & exit</button></div><ol class="steps" aria-label="Assessment progress">' + steps + '</ol>' + body +
+      (st < 4 ? '<details class="quiz-demo"><summary>Just trying the demo?</summary><p>Example answers replace your answers in this section.</p><button class="btn ghost" type="button" data-action="autofill">Use example answers</button></details>' : '') +
+      '<div class="quiz-foot"><button class="btn ghost" type="button" data-action="back">Back</button>' +
+      '<div class="quiz-status"><span class="status" id="step-status" aria-live="polite">' + esc(status.text) + '</span><button class="btn link" id="find-unanswered" type="button" data-action="find-unanswered"' + (status.ok ? ' hidden' : '') + '>Go to unanswered question</button></div>' +
       '<button class="btn primary" type="button" data-action="next" id="next-btn"' + (status.ok ? '' : ' disabled') + '>' + (st === 4 ? 'Discover my matches' : 'Continue ' + icon('arrow')) + '</button></div></div>';
     refreshChrome();
   }
@@ -1238,6 +1260,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     const s = quizStatus();
     const el = document.getElementById('step-status'); if (el) el.textContent = s.text;
     const nb = document.getElementById('next-btn'); if (nb) nb.disabled = !s.ok;
+    const jump = document.getElementById('find-unanswered'); if (jump) jump.hidden = s.ok;
   }
 
   function autofill() {
@@ -1678,21 +1701,21 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   function renderWelcome() {
     const m = state.meta;
     const notice = state.notice; state.notice = '';
-    const started = m.consent && m.age && m.area;
+    const started = m.consent;
     const action = state.done ? 'mine' : 'start-quiz';
-    const primary = state.done ? 'See my matches' : started ? 'Continue my quiz' : 'Find my direction';
+    const primary = state.done ? 'See my matches' : started ? 'Continue my quiz' : 'Start my quiz';
     const form = `<form class="card start" id="start-form" novalidate>
-      <button class="btn link" type="button" data-action="home" style="align-self:flex-start">← Back to discover</button>
-      <div><p class="eyebrow">A little about you</p><h2 id="start-title" tabindex="-1">Your next chapter starts here.</h2></div>
+      <button class="btn link" type="button" data-action="home" style="align-self:flex-start">← Back to home</button>
+      <div><p class="eyebrow">A little about you</p><h2 id="start-title" tabindex="-1">Ready to find your matches?</h2></div>
       <p class="intro">About 15 minutes, at your own pace. Your answers are saved on this device, so you can take a break anytime.</p>
       <div class="start-fields">
-        <div class="field"><label for="age">Your age</label><select id="age" required><option value="">Choose your age group</option>${options(AGES, m.age)}</select></div>
-        <div class="field"><label for="area">Where you live</label><select id="area" required><option value="">Choose an area</option>${options(AREAS, m.area)}</select></div>
+        <div class="field"><label for="age">Your age <span class="muted">(optional)</span></label><select id="age"><option value="">Prefer not to say</option>${options(AGES, m.age)}</select></div>
+        <div class="field"><label for="area">Your area <span class="muted">(optional)</span></label><select id="area"><option value="">Prefer not to say</option>${options(AREAS.filter(([key]) => key !== 'na'), m.area === 'na' ? '' : m.area)}</select></div>
       </div>
-      <label class="check" for="consent"><input type="checkbox" id="consent" ${m.consent ? 'checked' : ''}><span>I understand Serasi suggests jobs from my answers. The results are a guide, not a decision.</span></label>
+      <label class="check" for="consent"><input type="checkbox" id="consent" required ${m.consent ? 'checked' : ''}><span>I understand Serasi suggests jobs from my answers. The results are a guide, not a decision.</span></label>
       <label class="check optional-share" for="share" id="share-wrap"><input type="checkbox" id="share" ${m.share ? 'checked' : ''}><span><b>Optional: help shape youth programmes.</b><br>Add my anonymised results to the MENDAKI demo dashboard on this device. No name or contact details are collected. Nothing is sent to MENDAKI.</span></label>
       ${state.startError ? '<p class="form-error" id="start-error" role="alert">' + esc(state.startError) + '</p>' : ''}
-      <button class="btn primary" type="submit">Let’s get to know you ${icon('arrow')}</button>
+      <button class="btn primary" type="submit">Start my quiz ${icon('arrow')}</button>
       <p class="small muted">Your privacy matters. <button class="btn link" type="button" data-action="about">See how your data is used</button></p>
     </form>`;
     document.getElementById('app').innerHTML = (notice ? '<div class="notice" role="status">' + esc(notice) + '</div>' : '') + (state.onboarding ? form : `
@@ -1741,11 +1764,14 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     const area = document.getElementById('area').value;
     const consent = document.getElementById('consent').checked;
     const share = document.getElementById('share').checked;
-    const missing = [];
-    if (!age) missing.push('your age');
-    if (!area) missing.push('where you live');
-    if (!consent) missing.push('the first tick box');
-    if (missing.length) { state.meta = Object.assign(state.meta, { age, area, consent, share }); state.startError = 'Please choose ' + joinList(missing) + ' to start.'; renderWelcome(); const field = document.getElementById(!age ? 'age' : !area ? 'area' : 'consent'); field.setAttribute('aria-invalid', 'true'); field.setAttribute('aria-describedby', 'start-error'); field.focus(); return; }
+    if (!consent) {
+      state.meta = Object.assign(state.meta, { age, area, consent, share });
+      state.startError = 'Please confirm that you understand your results are a guide, not a decision.';
+      renderWelcome();
+      const field = document.getElementById('consent');
+      field.setAttribute('aria-invalid', 'true'); field.setAttribute('aria-describedby', 'start-error'); field.focus();
+      return;
+    }
     state.startError = '';
     state.meta = { age, area, consent, share };
     save();
@@ -1779,10 +1805,10 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     document.getElementById('app').innerHTML =
       banner +
       '<section class="card profile-head" aria-labelledby="ph">' +
-        '<div><p class="eyebrow">' + (who ? 'Example profile' : 'Your profile') + '</p>' +
-          '<h1 id="ph">' + title + '</h1>' +
+        '<div><p class="eyebrow">' + (who ? 'Example results' : 'Your results') + '</p>' +
+          '<h1 id="ph" data-profile-title="' + esc(title) + '">' + title + '</h1>' +
           '<div class="codes"><span class="pill code">' + code + '</span><span class="pill">' + nick + '</span>' + (p.codeImported ? '<span class="pill">From MySkillsFuture code</span>' : '') + '<span class="pill">' + esc(PATH[p.pathway].label) + '</span></div>' +
-          '<p class="lede">' + TYPE_INFO[code[0]].blurb + ' ' + TYPE_INFO[code[1]].blurb + ' ' + workSummary(p.traits) + '</p>' +
+          '<p class="lede" id="profile-lede" data-profile-text="' + esc(TYPE_INFO[code[0]].blurb + ' ' + TYPE_INFO[code[1]].blurb + ' ' + workSummary(p.traits)) + '"></p>' +
           (close ? '<p class="notice" style="margin-top:12px">Your second and third interest types, ' + TYPE_INFO[ranked.at(1).t].name + ' and ' + TYPE_INFO[ranked.at(2).t].name + ', are close. Jobs that suit either are worth exploring.</p>' : '') +
           '<p class="share-status" id="share-status"></p>' +
         '</div>' +
@@ -1850,7 +1876,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   }
 
   function resultTabs() {
-    return '<nav class="result-tabs" aria-label="Your result sections">' + [['matches','briefcase','Career matches'],['profile','grid','Your profile'],['guide','chat','Ask Serasi'],['next','compass','Next steps']].map(([key, ic, label]) => '<button type="button" class="result-tab" data-action="result-panel" data-panel="' + key + '" aria-pressed="' + (state.resultPanel === key) + '">' + icon(ic) + label + '</button>').join('') + '</nav>';
+    return '<nav class="result-tabs" aria-label="Your result sections">' + [['matches','briefcase','Matches'],['profile','grid','About you'],['guide','chat','Ask Serasi'],['next','compass','Next steps']].map(([key, ic, label]) => '<button type="button" class="result-tab" data-action="result-panel" data-panel="' + key + '" aria-pressed="' + (state.resultPanel === key) + '">' + icon(ic) + label + '</button>').join('') + '</nav>';
   }
   function roleTools() {
     const sectors = [...new Set(ROLES.map(r => r.sector))].sort();
@@ -1858,6 +1884,17 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   }
   function setResultPanel(panel) {
     state.resultPanel = panel;
+    const title = document.getElementById('ph'), lede = document.getElementById('profile-lede');
+    if (title && lede) {
+      const copy = {
+        matches: ['Careers worth exploring', 'Open a role to see why it fits and find job openings. Save any you’d like to come back to.'],
+        guide: ['A little help with your next step', 'Choose a suggested question or ask about a career, skill, or interview.'],
+        next: ['Turn a match into a next step', 'Explore roles to work towards, or register interest in the proposed job tasters.']
+      };
+      title.textContent = panel === 'profile' ? title.dataset.profileTitle : copy[panel][0];
+      lede.textContent = panel === 'profile' ? lede.dataset.profileText : copy[panel][1];
+      document.querySelectorAll('.profile-head .codes, .profile-head .notice, .profile-head .share-status').forEach(el => { el.hidden = panel !== 'profile'; });
+    }
     const groups = { 'matches-panel': 'matches', 'ranking-panel': 'matches', 'profile-summary': 'profile', 'ask': 'guide', 'taster': 'next', 'stretch-panel': 'next' };
     Object.entries(groups).forEach(([id, group]) => { const el = document.getElementById(id); if (el) el.hidden = panel !== group; });
     document.querySelectorAll('.result-tab').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.panel === panel)));
@@ -2138,11 +2175,13 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   /* ---------- App shell ---------- */
   function refreshChrome() {
     const mine = document.getElementById('nav-mine');
-    if (mine) mine.hidden = !state.done;
+    if (mine) mine.querySelector('span').textContent = state.done ? 'My matches' : 'Example';
     const guide = state.view === 'results' && state.resultPanel === 'guide';
-    const cur = { home: state.view === 'welcome' && !state.onboarding, 'start-quiz': state.view === 'quiz' || (state.view === 'welcome' && state.onboarding), mine: state.view === 'results' && !state.example && !guide, example: state.view === 'results' && state.example && !guide, guide, about: state.view === 'about', dashboard: state.view === 'dashboard' };
-    document.querySelectorAll('.topnav [data-action]').forEach(b => b.setAttribute('aria-pressed', String(!!cur[b.dataset.action])));
+    const cur = { home: state.view === 'welcome' && !state.onboarding, 'start-quiz': state.view === 'quiz' || (state.view === 'welcome' && state.onboarding), matches: state.view === 'results' && !guide, mine: state.view === 'results' && !state.example && !guide, example: state.view === 'results' && state.example && !guide, guide, about: state.view === 'about', dashboard: state.view === 'dashboard' };
+    document.querySelectorAll('.topnav [data-action], .nav-more [data-action]').forEach(b => b.setAttribute('aria-pressed', String(!!cur[b.dataset.action])));
     const label = state.view === 'quiz' ? 'Career quiz' : state.view === 'results' ? (guide ? 'Ask Serasi' : state.example ? 'Example results' : 'My results') : state.view === 'dashboard' ? 'Community insights' : state.view === 'about' ? 'About & privacy' : state.onboarding ? 'Getting started' : 'Discover';
+    const more = document.getElementById('nav-more');
+    if (state.view === 'dashboard' || state.view === 'about') more.open = true;
     document.getElementById('page-context').textContent = label;
     document.title = 'Serasi | ' + label;
   }
@@ -2171,12 +2210,19 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (!el) return;
     const act = el.dataset.action;
     if (act === 'home') go('welcome', { example: false, onboarding: false });
+    if (act === 'matches') go('results', { example: !state.done, open: [], resultPanel: 'matches', search: '', sector: 'all', savedOnly: false });
+    if (act === 'save-exit') { save(); go('welcome', { onboarding: false, example: false }); toast('Progress saved. Continue your quiz whenever you’re ready.'); }
+    if (act === 'find-unanswered') {
+      const field = [...document.querySelectorAll('.item, .scenario')].find(el => !el.querySelector('input:checked'));
+      const input = field ? field.querySelector('input') : document.querySelector('[data-group=values]');
+      if (input) { input.focus({ preventScroll: true }); (field || input.closest('.group')).scrollIntoView({ block: 'center', behavior: reduceMotion() ? 'auto' : 'smooth' }); }
+    }
     if (act === 'mine') go('results', { example: false, open: [], resultPanel: 'matches', search: '', sector: 'all', savedOnly: false });
     if (act === 'example') go('results', { example: true, open: [], resultPanel: 'matches', search: '', sector: 'all', savedOnly: false });
     if (act === 'guide') go('results', { example: !state.done, resultPanel: 'guide' });
     if (act === 'about') go('about');
     if (act === 'dashboard') go('dashboard');
-    if (act === 'start-quiz') go(state.meta.consent && state.meta.age && state.meta.area ? 'quiz' : 'welcome', Object.assign({ onboarding: true, example: false, codeError: '' }, state.done ? { step: 0, quizPage: 0 } : {}));
+    if (act === 'start-quiz') go(state.meta.consent ? 'quiz' : 'welcome', Object.assign({ onboarding: true, example: false, codeError: '' }, state.done ? { step: 0, quizPage: 0 } : {}));
     if (act === 'edit') go('quiz', { step: 0, quizPage: 0, example: false });
     if (act === 'back') {
       if (state.quizPage > 0) { state.quizPage--; save(); render(); }

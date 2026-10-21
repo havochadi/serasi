@@ -16,9 +16,9 @@ Open `index.html` in a browser to preview it. There is no build step. Opened thi
 
 ## What the demo does
 
-- **Discovery interface:** a responsive navigation rail, an interactive explorer of the six interest types, and a short onboarding form revealed when a youth starts. Results are organised into Career matches, Your profile, Ask Serasi, and Next steps.
+- **Discovery interface:** four primary navigation choices, an interactive explorer of the six interest types, and a short onboarding form with optional age and area. Community tools and privacy information sit under “More from Serasi”. Results are organised into Matches, About you, Ask Serasi, and Next steps. All four sections remain visible on small screens.
 - **Explore and save careers:** search matches by name or sector, filter by sector, and bookmark roles. Saved careers include stretch roles and remain available after retaking the quiz. Personal bookmarks stay on this device; example bookmarks last only for the session.
-- **Quiz and results:** interests and work-style questions appear six at a time. Answers, the current quiz page, and results are saved in the browser, so a youth can close the page and continue where they left off. **Delete my data** removes them.
+- **Quiz and results:** interests and work-style questions appear six at a time with labelled answers, an unanswered-question shortcut, and Save & exit on every step. Example answers are tucked into a separate demo option. Answers, the current quiz page, and results are saved in the browser, so a youth can close the page and continue where they left off. **Delete my data** removes them.
 - **Ask Serasi:** an AI career guide powered by Google Gemini. It answers questions about careers and jobs only, using a summary of the youth's results, and turns down anything else. It can:
   - explain why a job is a match, or what any job involves
   - suggest which skills to build, and courses on SkillsFuture
