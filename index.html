@@ -1036,6 +1036,9 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
   }
   const askMenu = () => askSuggestions().map(x => '- ' + x).join('\n');
   const askFallback = () => 'Sorry, I can only answer a few simple questions about your results. Try one of these:\n' + askMenu();
+  // The same helplines as DISTRESS_TEXT in worker/src/prompt.js, so a youth in crisis gets them even when the AI is down.
+  const ASK_DISTRESS = 'It sounds like a lot is going on. You don’t have to handle it alone. National Mindline 1771 (call, or WhatsApp 6669 1771) and Samaritans of Singapore 1767 are free and open 24 hours. If you’re in danger right now, call 995.';
+  const ASK_DISTRESS_RE = /suicid|kill myself|want to die|end my life|dont want to live|self[- ]?harm|hurt myself|bunuh diri|nak mati|tak nak hidup/;
 
   // The fixed-rule fallback. Topics are checked in order, and the first match answers.
   function askAnswer(question) {
@@ -1043,6 +1046,7 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
     const res = rank(p);
     const q = ' ' + question.toLowerCase().replace(/[’']/g, '') + ' ';
     const has = re => re.test(q);
+    if (has(ASK_DISTRESS_RE)) return ASK_DISTRESS;
     const s = askRole(q, res, p);
     if (s) return has(/\b(do|does|day|daily|involve|involves)\b/) && !has(/\bwhy\b|\bfits?\b/) ? roleDoes(s, res) : roleFit(s, res);
     if (has(/\b(pay|salary|salaries|wages?|earn|income|gaji)\b/)) return askPay(res);
@@ -1216,7 +1220,8 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
       skills_out_of_5: Object.fromEntries(SKILLS.map(s => [s.label, p.skills[s.k] || 0])),
       pathway: PATH[p.pathway] ? PATH[p.pathway].name : '',
       grit_eligible: !!p.grit,
-      top_roles: res.main.map(role),
+      // In fit order: the on-screen order moves flagged roles down, which would hint at a faith preference.
+      top_roles: res.main.slice().sort((a, b) => b.total - a.total).map(role),
       stretch_roles: res.stretch.map(s => Object.assign(role(s), {
         needs_first: (s.eduGap ? [EDU_LABEL[s.role.edu]] : []).concat(s.gaps.map(k => 'more ' + SKILL[k].label.toLowerCase()))
       }))
@@ -1244,7 +1249,8 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
   async function askSend(raw) {
     const q = String(raw || '').trim().slice(0, 300);
     if (!q || ask.busy) return;
-    const history = ask.msgs.filter(m => !m.pending).slice(-6).map(m => ({ role: m.role, text: m.text.slice(0, 1200) }));
+    // Fixed-rule answers stay out of the history: they are written on the device and can mention faith preferences.
+    const history = ask.msgs.filter(m => !m.pending && !m.fallback).slice(-6).map(m => ({ role: m.role, text: m.text.slice(0, 1200) }));
     const user = { id: ++ask.seq, role: 'user', text: q };
     const reply = { id: ++ask.seq, role: 'bot', text: 'Serasi is thinking…', pending: true };
     const chat = ask.chat;
