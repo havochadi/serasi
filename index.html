@@ -965,7 +965,7 @@ details.records > summary { cursor: pointer; font-family: var(--font-display); f
   // Questions go to the Serasi Worker (worker/), which asks Google Gemini and keeps answers to careers and jobs.
   // If the Worker can't be reached, the fixed rules below answer instead, on the device.
   // ASK_WORKER is the deployed Worker's /ask address; empty means fixed rules only. On localhost the page uses `wrangler dev`.
-  const ASK_WORKER = '';
+  const ASK_WORKER = 'https://serasi-ask.serasi-ask.workers.dev/ask';
   const ASK_API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:8787/ask' : ASK_WORKER;
   const ask = { msgs: [], key: '', draft: '', seq: 0, busy: false, chat: 0 };
 
