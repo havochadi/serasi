@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Serasi for MENDAKI | What youths are telling us</title>
+<meta name="description" content="Demo of the Serasi insights page for MENDAKI staff: grouped counts from shared results, built on made-up data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..700&family=Fraunces:wght@400..700&display=swap">
+<style>
+/* Serasi for MENDAKI staff: a working page for planners. It shares the brand and the data layer
+   with the youth app (serasi-core.js) but is laid out as a console: a header band, a sticky
+   filter toolbar and dense, scannable counts. */
+:root {
+  color-scheme: light;
+  --bg: #F4F6F1; --surface: #FFFFFF; --surface-2: #EEF2E9;
+  --ink: #263D33; --ink-2: #4E5D54; --muted: #68756D; --line: #DFE5DA;
+  --brand: #284D3B; --on-brand: #FAF9F2; --on-brand-2: #CBD8C7;
+  --accent: #426B40; --accent-ink: #FFFFFF; --accent-soft: #E6EFE0;
+  --bar: #7C986A; --gold: #8B5B30; --gold-fill: #E7AC78;
+  --note: #795B26; --note-soft: #F8F2E5; --flag: #9A4939;
+  --focus: #367A9B;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius: 16px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); }
+body { color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; margin: 0; text-wrap: balance; color: var(--ink); }
+h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.num { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: .875rem; }
+.eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: max(20px, env(safe-area-inset-left, 0px)); }
+.skip-link { position: absolute; left: -999px; top: 8px; background: var(--surface); color: var(--ink); padding: 8px 14px; border-radius: 8px; z-index: 30; }
+.skip-link:focus { left: 12px; }
+
+/* Header band */
+.site-head { background: var(--brand); color: var(--on-brand); }
+.site-head .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: inherit; text-decoration: none; }
+.brand svg { width: 30px; height: 30px; flex: none; }
+.brand-name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 500; letter-spacing: -.01em; }
+.brand-for { margin-left: 4px; padding-left: 14px; border-left: 1px solid #ffffff3d; font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--on-brand-2); }
+.head-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.demo-tag { font-size: .75rem; font-weight: 600; color: var(--brand); background: var(--gold-fill); border-radius: 999px; padding: 3px 11px; }
+.head-link { color: var(--on-brand); font-size: .875rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+main.wrap { padding-block: 28px 56px; display: flex; flex-direction: column; gap: 20px; min-height: calc(100vh - 220px); }
+
+/* Surfaces and controls */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; box-shadow: 0 3px 12px #263d3304; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 8px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: .875rem; font-weight: 600; cursor: pointer; text-decoration: none; }
+.btn:hover:not(:disabled) { filter: brightness(.97); }
+.btn.link { background: none; border: 0; min-height: 32px; padding: 4px 2px; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 10px; font-size: .75rem; font-weight: 600; background: var(--surface-2); color: var(--ink-2); }
+.pill.good { background: var(--accent-soft); color: var(--accent); }
+.pill.code { background: var(--brand); color: var(--on-brand); letter-spacing: .08em; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: .8rem; font-weight: 600; color: var(--ink-2); }
+.field select { min-height: 42px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: .9rem; }
+
+/* Intro */
+.intro { display: flex; flex-direction: column; gap: 10px; }
+.intro .lede { color: var(--ink-2); max-width: 78ch; font-size: 1rem; }
+.rules { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.rules li { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 12px 4px 9px; font-size: .8125rem; font-weight: 600; color: var(--ink-2); }
+.rules li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+/* Data source strip */
+.source { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; background: var(--note-soft); border-radius: 14px; padding: 12px 16px; font-size: .875rem; }
+.source p { flex: 1 1 320px; min-width: 0; }
+.live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 6px; vertical-align: 1px; }
+
+/* Sticky filter toolbar */
+.toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; z-index: 5; }
+.toolbar .field { flex: 1 1 170px; min-width: 150px; max-width: 240px; }
+.toolbar .field select { width: 100%; }
+.toolbar .count { margin-left: auto; text-align: right; font-size: .875rem; color: var(--ink-2); padding-bottom: 10px; }
+.toolbar .count b { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--ink); }
+@media (min-width: 900px) {
+  .toolbar { position: sticky; top: 8px; box-shadow: 0 8px 18px -12px #263d3355; }
+}
+
+/* Counts */
+.dash-body { display: flex; flex-direction: column; gap: 16px; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.tile { display: flex; flex-direction: column; gap: 6px; min-height: 124px; }
+.tile-label { font-size: .78rem; font-weight: 600; color: var(--ink-2); }
+.tile-value { font-family: var(--font-display); font-size: 2rem; font-weight: 600; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tile-value.text { font-size: 1.45rem; line-height: 1.2; }
+.dash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.dash-card { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.dash-card figcaption { display: flex; flex-direction: column; gap: 4px; }
+.bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.bar-row { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) 3em; gap: 10px; align-items: center; padding: 5px 4px; border-radius: 6px; font-size: .875rem; color: var(--ink-2); cursor: default; }
+.bar-row:hover { background: var(--surface-2); }
+.bar-label { line-height: 1.3; overflow-wrap: anywhere; }
+.bar-track { height: 14px; position: relative; }
+.bar-track i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bar); border-radius: 4px; min-width: 2px; }
+.bar-val { text-align: right; color: var(--ink); font-weight: 600; }
+.tip { position: fixed; z-index: 20; pointer-events: none; max-width: 260px; background: var(--ink); color: var(--bg); font-size: .8125rem; line-height: 1.4; padding: 6px 10px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, .18); }
+.empty { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.empty p { color: var(--ink-2); max-width: 62ch; }
+
+/* Tables */
+.by-field { max-width: 240px; }
+.table-wrap { overflow-x: auto; }
+.tbl { width: 100%; border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
+.tbl th, .tbl td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; color: var(--ink-2); }
+.tbl th:first-child, .tbl td:first-child { text-align: left; }
+.tbl thead th { color: var(--ink); font-weight: 700; vertical-align: bottom; }
+.tbl tbody th { color: var(--ink); font-weight: 600; }
+.tbl .n { display: block; font-size: .75rem; font-weight: 400; color: var(--muted); }
+.tbl td.hi { color: var(--accent); font-weight: 700; }
+.tbl tr.extra th, .tbl tr.extra td { border-top: 2px solid var(--line); }
+.rec th, .rec td { text-align: left; }
+.rec th { white-space: normal; }
+.rec td { white-space: normal; vertical-align: top; }
+.rec td.nw { white-space: nowrap; }
+.rec td.grp { min-width: 9rem; }
+.rec td.vals { min-width: 11rem; }
+.rec td.skl { min-width: 10rem; }
+.rec td.jobs { min-width: 15rem; }
+.rec tr.mine td { background: var(--accent-soft); }
+details.records > summary { cursor: pointer; font-family: var(--font-display); font-size: 1.2rem; }
+.records-body { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+
+/* Planning */
+.ideas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px 32px; align-items: start; }
+.ideas h2 { margin-top: 4px; }
+.idea-list { margin: 12px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 10px; }
+.idea-list li { color: var(--ink); }
+.idea-list li b { display: block; font-weight: 600; }
+.plan { display: flex; flex-direction: column; gap: 8px; }
+.plan-text { white-space: pre-wrap; background: var(--surface-2); border-radius: 12px; padding: 12px 14px; font-size: .9375rem; line-height: 1.55; color: var(--ink); overflow-wrap: anywhere; }
+.plan-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Privacy panel and footer */
+.privacy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; }
+.privacy h2 { grid-column: 1 / -1; font-size: 1.15rem; }
+.privacy ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; color: var(--ink-2); font-size: .9rem; }
+.privacy h3 { margin-bottom: 6px; }
+footer.foot { border-top: 1px solid var(--line); padding-block: 18px 28px; font-size: .875rem; color: var(--muted); }
+footer.foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
+footer.foot a { margin-right: 16px; }
+
+@media (max-width: 1000px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .dash-grid, .ideas, .privacy { grid-template-columns: minmax(0, 1fr); }
+  .toolbar .count { margin-left: 0; text-align: left; padding-bottom: 0; flex-basis: 100%; }
+}
+@media (max-width: 600px) {
+  .wrap { padding-inline: 16px; }
+  .tiles { grid-template-columns: minmax(0, 1fr); }
+  .tile { min-height: 0; }
+  .toolbar .field { flex: 1 1 100%; max-width: none; }
+  .bar-row { grid-template-columns: minmax(0, 1fr) 3em; row-gap: 4px; padding: 6px 4px; }
+  .bar-label { grid-column: 1 / -1; }
+  .brand-for { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#app">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Serasi home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c8 0 11 5 0 13C5 8 8 3 16 3Zm13 13c0 8-5 11-13 0 8-11 13-8 13 0ZM16 29c-8 0-11-5 0-13 11 8 8 13 0 13ZM3 16C3 8 8 5 16 16 8 27 3 24 3 16Z" fill="#718258"/><circle cx="16" cy="16" r="3" fill="#DBA874"/></svg>
+      <span class="brand-name">serasi<span style="color:#A1AD7B">.</span></span>
+      <span class="brand-for">for MENDAKI staff</span>
+    </a>
+    <div class="head-meta">
+      <span class="demo-tag">Demo · made-up data</span>
+      <a class="head-link" href="youth.html">Open the youth app ↗</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app" tabindex="-1"></main>
+
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<noscript><div class="wrap card"><h1>This page needs JavaScript</h1><p>Enable JavaScript to see the counts, or read the <a href="Serasi%20overview.pdf">Serasi overview</a>.</p></div></noscript>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Demo only. In the pilot this page would sit behind MENDAKI staff sign-in. Partners, funding and job tasters are proposals; no partner has been approached.</span>
+    <span><a href="youth.html">Youth app</a><a href="Serasi%20overview.pdf">Project overview ↗</a><a href="Serasi%20pitch%20deck.pdf">Pitch deck ↗</a></span>
+  </div>
+</footer>
+
+<script src="serasi-core.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const { TYPES, TYPE_INFO, VALUES, VALUE, SKILLS, SKILL, PATHWAYS, PATH, ROLES, ROLE, AGES, AREAS, DEFAULT_W, EVENT_IDEAS,
+    rank, esc, joinList, lowerTitle, upperFirst, options, readShared, SHARED_KEY } = window.SerasiCore;
+
+  /* ---------- Labels ---------- */
+  const MOCK_SIZE = 240;
+  const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const AGE_LABEL = Object.fromEntries(AGES);
+  const AREA_LABEL = Object.fromEntries(AREAS);
+  const PATH_SHORT = { ITE: 'ITE', Poly: 'Polytechnic', Uni: 'University', Work: 'Working' };
+  const BREAKDOWNS = {
+    age: { label: 'Age', cols: AGES.slice(0, 3) },
+    path: { label: 'Qualification', cols: PATHWAYS.map(x => [x.k, PATH_SHORT[x.k]]) },
+    area: { label: 'Area', cols: AREAS.slice(0, 5) }
+  };
+  const view = { age: 'all', path: 'all', area: 'all', by: 'age' };
+
+  /* ---------- The mock database ---------- */
+  // Made-up youths stand in for MENDAKI's database. If a youth shared in the youth app on this
+  // browser, their one anonymised record is counted alongside them.
+  let mockCache = null;
+
+  function mockRecords() {
+    if (mockCache) return mockCache;
+    let seed = 7;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const pick = (arr, wts) => { const tot = wts.reduce((a, b) => a + b, 0); let x = rnd() * tot; for (let i = 0; i < arr.length; i++) { x -= wts.at(i); if (x <= 0) return arr.at(i); } return arr.at(-1); };
+    const rows = [];
+    for (let n = 0; n < MOCK_SIZE; n++) {
+      const t1 = pick(TYPES, [10, 22, 16, 24, 18, 10]);
+      let t2 = pick(TYPES, [10, 18, 14, 20, 20, 18]);
+      if (t2 === t1) t2 = TYPES.at((TYPES.indexOf(t1) + 1) % 6);
+      const rest = TYPES.filter(t => t !== t1 && t !== t2);
+      const t3 = rest[Math.floor(rnd() * rest.length)];
+      const vals = [];
+      while (vals.length < 3) { const v = pick(VALUES.map(x => x.k), [68, 67, 56, 53, 45, 30, 25, 20]); if (!vals.includes(v)) vals.push(v); }
+      const interest = {}; TYPES.forEach(t => { interest[t] = t === t1 ? .9 : t === t2 ? .72 : t === t3 ? .55 : .3 + rnd() * .2; });
+      const prof = { interest, traits: { O: .4 + rnd() * .4, C: .4 + rnd() * .4, E: .3 + rnd() * .5, A: .4 + rnd() * .4, S: .4 + rnd() * .4, H: .5 + rnd() * .4 }, values: vals, faith: [], skills: { num: 3, comm: 3, people: 3, tech: 3, hands: 3, create: 3 }, pathway: pick(['ITE', 'Poly', 'Uni', 'Work'], [25, 35, 25, 15]) };
+      const res = rank(prof, DEFAULT_W, false);
+      rows.push({
+        id: 'Y' + String(n + 1).padStart(3, '0'), month: pick(['2027-04', '2027-05', '2027-06'], [30, 40, 30]),
+        age: pick(['18-20', '21-23', '24-25'], [40, 38, 22]), area: pick(['north', 'north-east', 'east', 'west', 'central'], [18, 24, 22, 24, 12]), path: prof.pathway,
+        code: t1 + t2 + t3, top2: [t1, t2], values: vals, skillsLow: SKILLS.filter(() => rnd() < .3).map(s => s.k),
+        topJobs: res.main.map(s => s.role.id), stretchJobs: res.stretch.map(s => s.role.id), tasters: rnd() < .42
+      });
+    }
+    mockCache = rows;
+    return rows;
+  }
+
+  // The record shared from this browser comes first, so it leads the records table.
+  function allRecords() {
+    const mine = readShared();
+    const rows = mockRecords();
+    return mine ? [Object.assign(mine, { id: 'This browser', mine: true })].concat(rows) : rows;
+  }
+
+  function filterRows(rows) {
+    return rows.filter(r => (view.age === 'all' || r.age === view.age) && (view.path === 'all' || r.path === view.path) && (view.area === 'all' || r.area === view.area));
+  }
+
+  function filterText() {
+    return [view.age === 'all' ? 'all ages' : 'aged ' + AGE_LABEL[view.age], view.path === 'all' ? 'all qualifications' : PATH[view.path].label, view.area === 'all' ? 'all areas' : AREA_LABEL[view.area]].join(', ');
+  }
+
+  /* ---------- Counting ---------- */
+  function aggregate(rs) {
+    const count = (getter, keys) => { const m = {}; keys.forEach(k => { m[k] = 0; }); rs.forEach(r => (getter(r) || []).forEach(k => { if (Object.prototype.hasOwnProperty.call(m, k)) m[k]++; })); return m; };
+    return {
+      n: rs.length,
+      tasters: rs.filter(r => r.tasters).length,
+      types: count(r => r.top2, TYPES),
+      values: count(r => r.values, VALUES.map(v => v.k)),
+      skills: count(r => r.skillsLow, SKILLS.map(s => s.k)),
+      jobs: count(r => r.topJobs, ROLES.map(r => r.id)),
+      tasterTypes: count(r => (r.tasters ? r.top2 : []), TYPES)
+    };
+  }
+
+  // Each measure as a list of {label, value}, most common first.
+  function entriesOf(a) {
+    const desc = (x, y) => y.value - x.value;
+    return {
+      types: TYPES.map(t => ({ label: TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ')', value: a.types[t], t })).sort(desc),
+      jobs: ROLES.map(r => ({ label: r.title, value: a.jobs[r.id] })).sort(desc),
+      values: VALUES.map(v => ({ label: upperFirst(v.short), value: a.values[v.k] })).sort(desc),
+      skills: SKILLS.map(s => ({ label: s.label, value: a.skills[s.k] })).sort(desc)
+    };
+  }
+
+  /* ---------- Pieces ---------- */
+  function barList(id, title, sub, entries, n, limit) {
+    const rows = entries.filter(e => e.value > 0).slice(0, limit || entries.length);
+    const max = Math.max(1, ...rows.map(e => e.value));
+    const body = rows.length
+      ? '<ul class="bars">' + rows.map(e => {
+          const share = Math.round(100 * e.value / n);
+          return '<li class="bar-row" data-tip="' + esc(e.label + ': ' + e.value + ' of ' + n + ' youths (' + share + '%)') + '"><span class="bar-label">' + esc(e.label) + '</span><span class="bar-track"><i style="width:' + (100 * e.value / max).toFixed(1) + '%"></i></span><span class="bar-val num">' + share + '%</span></li>';
+        }).join('') + '</ul>'
+      : '<p class="muted small">No answers yet in this group.</p>';
+    return '<figure class="card dash-card" aria-labelledby="' + id + '-t"><figcaption><h3 id="' + id + '-t">' + esc(title) + '</h3><p class="small muted">' + esc(sub) + '</p></figcaption>' + body + '</figure>';
+  }
+
+  function tile(label, value, sub, isText) {
+    return '<div class="card tile"><p class="tile-label">' + esc(label) + '</p><p class="tile-value' + (isText ? ' text' : '') + '">' + esc(value) + '</p>' + (sub ? '<p class="small muted">' + esc(sub) + '</p>' : '') + '</div>';
+  }
+
+  // Interest types (rows) by age, qualification or area (columns). Columns under 10 youths are hidden.
+  function crossTab(rs) {
+    const by = view.by, B = BREAKDOWNS[by];
+    const groups = B.cols.map(([k, label]) => ({ label, rows: rs.filter(r => r[by] === k) })).concat([{ label: 'All', rows: rs }]);
+    const lines = TYPES.map(t => ({ label: TYPE_INFO[t].name, test: r => r.top2.includes(t) })).concat([{ label: 'Want job tasters', test: r => r.tasters, extra: true }]);
+    const counts = lines.map(l => groups.map(g => g.rows.filter(l.test).length));
+    const best = groups.map((g, j) => Math.max(...TYPES.map((_, i) => counts[i][j])));
+    const head = '<tr><th scope="col">Interest type</th>' + groups.map(g => '<th scope="col">' + esc(g.label) + '<span class="n">' + g.rows.length + ' youths</span></th>').join('') + '</tr>';
+    const body = lines.map((l, i) => '<tr' + (l.extra ? ' class="extra"' : '') + '><th scope="row">' + esc(l.label) + '</th>' + groups.map((g, j) => {
+      if (g.rows.length < 10) return '<td class="muted" title="Fewer than 10 youths">–</td>';
+      const c = counts[i][j];
+      return '<td' + (!l.extra && c === best[j] && c > 0 ? ' class="hi"' : '') + ' title="' + c + ' of ' + g.rows.length + ' youths">' + Math.round(100 * c / g.rows.length) + '%</td>';
+    }).join('') + '</tr>').join('');
+    return '<figure class="card dash-card" aria-labelledby="dx-t"><figcaption><h3 id="dx-t">Interest types by ' + B.label.toLowerCase() + '</h3>' +
+        '<p class="small muted">Share of youths in each group with the type in their top two. The most common type in each column is highlighted. Groups of fewer than 10 youths show “–”.</p></figcaption>' +
+      '<div class="field by-field"><label for="d-by">Break down by</label><select id="d-by" data-view="by">' + Object.entries(BREAKDOWNS).map(([k, b]) => '<option value="' + k + '"' + (k === by ? ' selected' : '') + '>' + b.label + '</option>').join('') + '</select></div>' +
+      '<div class="table-wrap"><table class="tbl xtab"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div></figure>';
+  }
+
+  function planningNote(a, e) {
+    const share = v => Math.round(100 * v / a.n) + '%';
+    const [t1, t2] = e.types;
+    const jobs = e.jobs.filter(x => x.value > 0).slice(0, 3).map(x => lowerTitle(x.label));
+    const skill = e.skills[0];
+    return [
+      'Planning note: ' + a.n + ' youths (' + filterText() + '), mock data.',
+      '- ' + TYPE_INFO[t1.t].name + ' is the most common interest type (' + share(t1.value) + ' have it in their top two), followed by ' + TYPE_INFO[t2.t].name + ' (' + share(t2.value) + ').',
+      '- Most shortlisted jobs: ' + joinList(jobs) + '.',
+      '- Top values: ' + joinList(e.values.slice(0, 2).map(x => x.label.toLowerCase() + ' (' + share(x.value) + ')')) + '.',
+      skill.value ? '- Skill most often rated low: ' + skill.label.toLowerCase() + ' (' + share(skill.value) + ').' : '',
+      '- ' + a.tasters + ' youths (' + share(a.tasters) + ') want job tasters or internships.',
+      'Suggested next steps:',
+      '1. ' + EVENT_IDEAS[t1.t] + '.',
+      '2. ' + EVENT_IDEAS[t2.t] + '.',
+      '3. ' + (skill.value ? 'A short ' + skill.label.toLowerCase() + ' workshop before the job tasters.' : 'Invite the youths who want job tasters through MENDAKI programmes.')
+    ].filter(Boolean).join('\n');
+  }
+
+  function recordsTable(rs) {
+    const shown = rs.slice(0, 12);
+    const month = m => (m ? MONTH_NAMES[Number(m.slice(5, 7)) - 1] + ' ' + m.slice(0, 4) : '–');
+    const jobs = ids => esc(ids.slice(0, 3).map(id => (ROLE[id] ? ROLE[id].title : id)).join('; ')) + (ids.length > 3 ? ' <span class="muted">+' + (ids.length - 3) + ' more</span>' : '');
+    const who = r => [AGE_LABEL[r.age] || 'Age not given', AREA_LABEL[r.area] || 'Area not given', PATH_SHORT[r.path]].join(' · ');
+    const rows = shown.map(r => '<tr' + (r.mine ? ' class="mine"' : '') + '>' +
+      '<td>' + (r.mine ? '<span class="pill good">This browser</span>' : esc(r.id)) + '</td><td class="nw">' + month(r.month) + '</td><td class="grp">' + esc(who(r)) + '</td>' +
+      '<td><span class="pill code">' + esc(r.code) + '</span></td><td class="vals">' + esc(r.values.map(v => VALUE[v].short).join(', ') || '–') + '</td><td class="skl">' + esc(r.skillsLow.map(k => SKILL[k].label).join(', ') || '–') + '</td>' +
+      '<td class="jobs">' + jobs(r.topJobs) + '</td><td>' + (r.tasters ? 'Yes' : 'No') + '</td></tr>').join('');
+    return '<details class="card records"><summary>See the records behind these numbers</summary><div class="records-body">' +
+      '<p class="small muted">The first ' + shown.length + ' of ' + rs.length + ' records in this group. Each shared result is one row like these, with no name, contact details, quiz answers or personal preferences. In the pilot, staff would see only the grouped counts above; this preview is part of the demo, to show what is stored.</p>' +
+      '<div class="table-wrap"><table class="tbl rec"><thead><tr><th scope="col">Record</th><th scope="col">Month</th><th scope="col">Age · area · qualification</th><th scope="col">Code</th><th scope="col">Values</th><th scope="col">Skills to build</th><th scope="col">Top jobs</th><th scope="col">Job tasters</th></tr></thead><tbody>' + rows + '</tbody></table></div></div></details>';
+  }
+
+  /* ---------- Page ---------- */
+  function renderPage() {
+    const sel = (key, label, list) => '<div class="field"><label for="d-' + key + '">' + label + '</label><select id="d-' + key + '" data-view="' + key + '"><option value="all">All</option>' + options(list, view[key]) + '</select></div>';
+    document.getElementById('app').innerHTML =
+      '<section class="intro" aria-labelledby="page-title"><p class="eyebrow">Insights for MENDAKI staff</p><h1 id="page-title">What youths are telling us</h1>' +
+        '<p class="lede">Youths who choose to share add one anonymised record each. This page counts those records so MENDAKI can plan job tasters and events that fit what youths want. It runs on a mock database of ' + MOCK_SIZE + ' made-up youths.</p>' +
+        '<ul class="rules" aria-label="Privacy rules"><li>Grouped counts only</li><li>No names or contact details</li><li>Groups under 10 youths are hidden</li></ul></section>' +
+      '<div class="source" id="source"></div>' +
+      '<form class="toolbar" aria-label="Filters" onsubmit="return false">' +
+        sel('age', 'Age', AGES.slice(0, 3)) + sel('path', 'Qualification or stage', PATHWAYS.map(x => [x.k, x.label])) + sel('area', 'Area', AREAS.slice(0, 5)) +
+        '<button class="btn" type="button" data-action="reset">Reset filters</button>' +
+        '<p class="count" id="count" role="status"></p>' +
+      '</form>' +
+      '<div id="dash-body" class="dash-body"></div>' +
+      '<section class="card privacy" aria-labelledby="priv-t"><h2 id="priv-t">What this page can and can’t show</h2>' +
+        '<div><h3>Can show</h3><ul><li>How many youths share each interest type, value and skill gap</li><li>The jobs youths shortlist most, by age, qualification and area</li><li>How many youths want job tasters or internships</li></ul></div>' +
+        '<div><h3>Can’t show</h3><ul><li>Who anyone is: no names, contact details or quiz answers are collected</li><li>Any group smaller than 10 youths</li><li>Personal preferences, such as faith or halal options</li></ul></div></section>';
+    renderSource();
+    renderDashBody();
+  }
+
+  function renderSource() {
+    const el = document.getElementById('source');
+    if (!el) return;
+    const mine = readShared();
+    el.innerHTML = '<p><b>Mock data.</b> ' + MOCK_SIZE + ' made-up youths stand in for real results' +
+      (mine ? ', plus <b>1 record shared from this browser</b>, marked “This browser” in the records at the end.' : '. Nothing has been shared from this browser yet.') +
+      ' Open the youth app, finish the quiz and share your results to add one.</p>' +
+      '<a class="btn" href="youth.html">Open the youth app ↗</a>';
+  }
+
+  function renderDashBody() {
+    const body = document.getElementById('dash-body');
+    if (!body) return;
+    const rs = filterRows(allRecords());
+    const count = document.getElementById('count');
+    if (count) count.innerHTML = rs.length < 10 ? '<b class="num">&lt; 10</b> youths in view' : '<b class="num">' + rs.length.toLocaleString('en-SG') + '</b> youths in view';
+    if (rs.length < 10) {
+      body.innerHTML = '<div class="card empty"><h2>Not enough responses in this group</h2><p>This group has fewer than 10 youths, so it is hidden to protect privacy. Widen the filters to see results.</p></div>';
+      return;
+    }
+    const a = aggregate(rs), e = entriesOf(a);
+    const top = e.types[0], topJob = e.jobs[0];
+    const ideas = e.types.slice(0, 3).map(x => '<li><b>' + esc(EVENT_IDEAS[x.t]) + '</b><span class="small muted">' + x.value + ' youths have ' + TYPE_INFO[x.t].name + ' in their top two; ' + a.tasterTypes[x.t] + ' of them want job tasters.</span></li>').join('');
+    body.innerHTML =
+      '<div class="tiles">' +
+        tile('Youths in this group', a.n.toLocaleString('en-SG'), filterText()) +
+        tile('Want job tasters or internships', a.tasters.toLocaleString('en-SG'), Math.round(100 * a.tasters / a.n) + '% of these youths') +
+        tile('Most common interest type', TYPE_INFO[top.t].name, Math.round(100 * top.value / a.n) + '% have it in their top two', true) +
+        tile('Most shortlisted job', topJob.label, Math.round(100 * topJob.value / a.n) + '% have it in their top 10', true) +
+      '</div>' +
+      '<div class="dash-grid">' +
+        barList('dt', 'Interest types', 'Share of youths with each type in their top two', e.types, a.n) +
+        barList('dj', 'Most shortlisted jobs', 'Share of youths with the job in their top 10', e.jobs, a.n, 10) +
+        barList('dv', 'Values chosen', 'Share of youths who picked each value (up to 3 each)', e.values, a.n) +
+        barList('ds', 'Skills to build', 'Share of youths who rated the skill 1 or 2 out of 5', e.skills, a.n) +
+      '</div>' +
+      crossTab(rs) +
+      '<section class="card ideas" aria-labelledby="ideas-t"><div><p class="eyebrow">Using the data</p><h2 id="ideas-t">Job tasters to plan first</h2><p class="small muted" style="margin-top:6px">Based on the three most common interest types in this group.</p>' +
+        '<ol class="idea-list">' + ideas + '</ol></div>' +
+        '<div class="plan"><h3>Planning note</h3><p class="small muted">Written from the counts above, ready to paste into an email or report.</p>' +
+          '<p class="plan-text" id="plan-note">' + esc(planningNote(a, e)) + '</p>' +
+          '<div class="plan-actions"><button class="btn" type="button" data-action="copy-note">Copy note</button><button class="btn" type="button" data-action="csv">Download counts (CSV)</button></div></div>' +
+      '</section>' +
+      recordsTable(rs);
+  }
+
+  // Grouped counts for the current filters as a spreadsheet file.
+  function downloadCSV() {
+    const rs = filterRows(allRecords());
+    if (rs.length < 10) return;
+    const a = aggregate(rs), e = entriesOf(a);
+    const rows = [['Group', filterText()], ['Youths', a.n], [], ['Measure', 'Item', 'Youths', 'Share of group (%)']];
+    const add = (measure, list) => list.forEach(x => rows.push([measure, x.label, x.value, Math.round(100 * x.value / a.n)]));
+    add('Interest type in top two', e.types);
+    add('Job in top 10', e.jobs.filter(x => x.value > 0));
+    add('Value chosen', e.values);
+    add('Skill rated 1 or 2', e.skills);
+    rows.push(['Job tasters', 'Want job tasters or internships', a.tasters, Math.round(100 * a.tasters / a.n)]);
+    const csv = rows.map(r => r.map(c => { const s = String(c); return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }).join(',')).join('\r\n');
+    const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url; link.download = 'serasi-mock-counts.csv';
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+
+  function flash(el, text, back) { el.textContent = text; setTimeout(() => { el.textContent = back; }, 1600); }
+
+  /* ---------- Events ---------- */
+  document.addEventListener('click', ev => {
+    const el = ev.target.closest('[data-action]');
+    if (!el) return;
+    const act = el.dataset.action;
+    if (act === 'copy-note') {
+      const note = document.getElementById('plan-note');
+      try { navigator.clipboard.writeText(note.textContent).then(() => flash(el, 'Copied', 'Copy note'), () => flash(el, 'Couldn’t copy', 'Copy note')); } catch (e) { flash(el, 'Couldn’t copy', 'Copy note'); }
+    }
+    if (act === 'csv') downloadCSV();
+    if (act === 'reset') {
+      Object.assign(view, { age: 'all', path: 'all', area: 'all' });
+      ['age', 'path', 'area'].forEach(k => { document.getElementById('d-' + k).value = 'all'; });
+      renderDashBody();
+    }
+  });
+
+  document.addEventListener('change', ev => {
+    const t = ev.target;
+    if (!t.dataset || !t.dataset.view) return;
+    view[t.dataset.view] = t.value;
+    renderDashBody();
+    if (t.id === 'd-by') { const s = document.getElementById('d-by'); if (s) s.focus(); }
+  });
+
+  document.addEventListener('pointerover', ev => {
+    const tip = document.getElementById('tip');
+    if (!tip) return;
+    const row = ev.target.closest && ev.target.closest('.bar-row');
+    if (!row) { tip.hidden = true; return; }
+    tip.textContent = row.dataset.tip;
+    tip.hidden = false;
+  });
+  document.addEventListener('pointermove', ev => {
+    const tip = document.getElementById('tip');
+    if (!tip || tip.hidden) return;
+    tip.style.left = Math.max(8, Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8)) + 'px';
+    tip.style.top = (ev.clientY + 16) + 'px';
+  });
+
+  // A youth sharing or un-sharing in another tab of this browser updates the counts straight away.
+  window.addEventListener('storage', ev => {
+    if (ev.key !== null && ev.key !== SHARED_KEY) return;
+    renderSource();
+    renderDashBody();
+  });
+
+  renderPage();
+})();
+</script>
+</body>
+</html>

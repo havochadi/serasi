@@ -1,18 +1,21 @@
 # Serasi
 
-A career-fit demo for Malay youths aged 18–25 in Singapore. Youths take a five-part quiz (about 15 minutes), see their top 10 jobs with reasons, and get job searches, career coaches and a job-taster sign-up. A MENDAKI dashboard shows how shared results would be tabulated and used to plan events.
+A career-fit demo for Malay youths aged 18–25 in Singapore. Youths take a five-part quiz (about 15 minutes), see their top 10 jobs with reasons, and get job searches, career coaches and a job-taster sign-up. A separate page for MENDAKI staff shows how shared results would be tabulated and used to plan events.
 
-Public site: https://havochadi.github.io/serasi/ (dashboard: https://havochadi.github.io/serasi/#dashboard)
+Public site: https://havochadi.github.io/serasi/, which lets visitors choose between the youth app (https://havochadi.github.io/serasi/youth.html) and the MENDAKI staff page (https://havochadi.github.io/serasi/mendaki.html).
 
 ## Files
 
-- `index.html`: the whole app in one file. GitHub Pages serves it as the home page.
+- `index.html`: the landing page. GitHub Pages serves it as the home page, with one link to each of the two pages below. The old `index.html#dashboard` link redirects to the staff page.
+- `youth.html`: the youth app.
+- `mendaki.html`: the MENDAKI staff page, a separate page with its own layout.
+- `serasi-core.js`: what the two pages share: the jobs, questions and scoring, and the store for shared results.
 - `Serasi overview.pdf`: detailed proposal and limitations.
 - `Serasi pitch deck.pdf`: presentation.
-- `.github/workflows/pages.yml`: publishes `index.html` and the two PDFs whenever `main` changes.
+- `.github/workflows/pages.yml`: publishes the pages, `serasi-core.js` and the two PDFs whenever `main` changes.
 - `worker/`: the Cloudflare Worker that connects Ask Serasi to Google Gemini. See **Set up the AI bot**.
 
-Open `index.html` in a browser to preview it. There is no build step. Opened this way, Ask Serasi answers with fixed rules; see **Set up the AI bot** to run it with AI.
+Open `index.html`, `youth.html` or `mendaki.html` in a browser to preview them. There is no build step. Opened this way, Ask Serasi answers with fixed rules; see **Set up the AI bot** to run it with AI.
 
 ## What the demo does
 
@@ -27,8 +30,8 @@ Open `index.html` in a browser to preview it. There is no build step. Opened thi
   - point to career coaches at NTUC e2i and M³+
 
   Questions go through a small Cloudflare Worker (`worker/`), which holds the Gemini key and keeps the bot to careers. With each question, the page sends the youth's scores, values, skill ratings, pathway and job list. It never sends their name, age, area or personal preferences. On Gemini's free tier, Google may use what is sent to improve its products. If the AI can't be reached, the page answers with fixed rules on the device instead.
-- **Sharing and job tasters (demo):** ticking the sharing box, or tapping **I'm interested**, adds the youth's anonymised record to a mock database in their browser. Nothing is sent anywhere.
-- **MENDAKI dashboard:** runs on a mock database of 240 made-up youths, plus the visitor's own record if they shared. It shows:
+- **Sharing and job tasters (demo):** ticking the sharing box, or tapping **I'm interested**, adds the youth's anonymised record to a mock database in their browser. The youth app writes only that one record, never the quiz answers. Nothing is sent anywhere.
+- **MENDAKI staff page (`mendaki.html`):** a separate page for planners, with a header band and a filter toolbar that stays in view. It runs on a mock database of 240 made-up youths, plus the record shared from this browser, which appears or disappears straight away if the youth app is open in another tab. It shows:
   - filters by age, qualification and area; groups under 10 youths are hidden
   - headline counts and bar charts of interest types, top jobs, values and skills to build
   - a cross-tab of interest types by age, qualification or area
@@ -50,7 +53,7 @@ Ask Serasi's AI runs through a Cloudflare Worker, so the Gemini key never appear
    npx wrangler@4 secret put GEMINI_API_KEY
    ```
 
-4. Copy the Worker's address from the deploy output, add `/ask`, and set `ASK_WORKER` in `index.html` to it.
+4. Copy the Worker's address from the deploy output, add `/ask`, and set `ASK_WORKER` in `youth.html` to it.
 5. If the site moves to a new address, add it to `ALLOWED_ORIGINS` in `worker/wrangler.toml` and deploy again.
 
 To try it on your computer:
@@ -64,4 +67,4 @@ Run the Worker's tests with `cd worker && node --test`.
 
 ## For a real pilot
 
-A real pilot would need hosting with a database for the shared results, a staff sign-in for the dashboard, and consent wording and a retention period reviewed under the PDPA. Ask Serasi would need a paid Gemini tier, so youths' questions aren't used to improve Google's products. In the pilot, staff would see only grouped counts, never individual records. Partners, funding, job tasters and internships are proposals. Scores and the hand-coded role data still need validation. See the PDFs for the full plan.
+A real pilot would need hosting with a database for the shared results, a staff sign-in for the MENDAKI page, and consent wording and a retention period reviewed under the PDPA. Ask Serasi would need a paid Gemini tier, so youths' questions aren't used to improve Google's products. In the pilot, staff would see only grouped counts, never individual records. Partners, funding, job tasters and internships are proposals. Scores and the hand-coded role data still need validation. See the PDFs for the full plan.

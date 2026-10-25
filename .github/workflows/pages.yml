@@ -26,7 +26,7 @@ jobs:
       - name: Prepare public files
         run: |
           mkdir _site
-          cp index.html "Serasi overview.pdf" "Serasi pitch deck.pdf" _site/
+          cp index.html youth.html mendaki.html serasi-core.js "Serasi overview.pdf" "Serasi pitch deck.pdf" _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
