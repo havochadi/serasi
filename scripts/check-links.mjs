@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /* Serasi link checker: requests every https link in the data files and reports the ones that no longer return a page.
    Usage: node scripts/check-links.mjs [--only <substring>]
-   FAIL lines (404, 410, other 4xx/5xx, DNS failure, timeout) make the exit code 1. CHECK-BY-HAND lines (401, 403, 429, 999: the site
+   FAIL lines (404, 410, other 4xx/5xx, DNS failure, timeout) make the exit code 1. CHECK-BY-HAND lines (401, 403, 406, 429, 999: the site
    turns scripts away) need a person with a browser and do not change the exit code. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { load } = createRequire(import.meta.url)(path.join(ROOT, 'test', 'helpers', 'load.js'));
@@ -17,7 +17,7 @@ const FLAGS = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/';
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 const TIMEOUT_MS = 15000;
 const CONCURRENCY = 8;
-const BY_HAND = new Set([401, 403, 429, 999]);
+const BY_HAND = new Set([401, 403, 406, 429, 999]);
 
 // Every https URL in the data on `window`, as [{ url, where: string[] }] in first-seen order. `where` names each place the URL is used.
 export function collectUrls(window) {
@@ -124,4 +124,6 @@ async function main(argv) {
 }
 
 // Run only when started from the command line, so tests can import collectUrls without touching the network.
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) process.exitCode = await main(process.argv.slice(2));
+// Real paths are compared because import.meta.url is the real path, while argv[1] keeps any symlink it was reached through.
+const realPath = p => { try { return fs.realpathSync(p); } catch { return p; } };
+if (process.argv[1] && realPath(process.argv[1]) === realPath(fileURLToPath(import.meta.url))) process.exitCode = await main(process.argv.slice(2));

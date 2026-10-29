@@ -1,6 +1,10 @@
 'use strict';
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 
 // The link checker is an ES module; importing it must not start any request.
 const checker = import('../scripts/check-links.mjs');
@@ -48,9 +52,21 @@ test('collectUrls copes with data sets that are missing or empty', async () => {
   assert.deepEqual(collectUrls({ SerasiLocal: { COURSES: [] }, SerasiOverseas: { OPTIONS: {} } }), []);
 });
 
-test('classify passes 200-399, sends 401 403 429 999 to a person, and fails the rest', async () => {
+test('classify passes 200-399, sends 401 403 406 429 999 to a person, and fails the rest', async () => {
   const { classify } = await checker;
   for (const s of [200, 204, 301, 399]) assert.equal(classify(s), 'pass', String(s));
-  for (const s of [401, 403, 429, 999]) assert.equal(classify(s), 'by-hand', String(s));
+  for (const s of [401, 403, 406, 429, 999]) assert.equal(classify(s), 'by-hand', String(s));
   for (const s of [400, 404, 410, 500, 503]) assert.equal(classify(s), 'fail', String(s));
+});
+
+test('the script still runs when it is started through a symlink', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'check-links-'));
+  try {
+    fs.symlinkSync(path.join(__dirname, '..', 'scripts'), path.join(dir, 'linked'));
+    const run = spawnSync(process.execPath, [path.join(dir, 'linked', 'check-links.mjs'), '--bogus'], { encoding: 'utf8' });
+    assert.equal(run.status, 2);
+    assert.match(run.stderr, /^Usage: node scripts\/check-links\.mjs/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 });
