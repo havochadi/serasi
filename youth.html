@@ -626,10 +626,10 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .pill.steady { background: var(--note-soft); color: var(--note); }
 .pill.decline { background: var(--flag-soft); color: var(--flag); }
 .steps-path { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; counter-reset: ps; }
-.steps-path li { counter-increment: ps; display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); column-gap: 12px; padding-bottom: 14px; position: relative; }
-.steps-path li::before { content: counter(ps); width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 600; font-size: .78rem; grid-row: 1 / span 3; }
-.steps-path li:not(:last-child)::after { content: ""; position: absolute; left: calc(.95rem - 1px); top: 2rem; bottom: 2px; width: 2px; background: var(--line); }
-.steps-path li.done::before { content: "✓"; background: var(--accent-soft); color: var(--accent); }
+.steps-path > li { counter-increment: ps; display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); column-gap: 12px; padding-bottom: 14px; position: relative; }
+.steps-path > li::before { content: counter(ps); width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 600; font-size: .78rem; grid-row: 1 / span 3; }
+.steps-path > li:not(:last-child)::after { content: ""; position: absolute; left: calc(.95rem - 1px); top: 2rem; bottom: 2px; width: 2px; background: var(--line); }
+.steps-path > li.done::before { content: "✓"; background: var(--accent-soft); color: var(--accent); }
 .steps-path .s-t { font-weight: 600; color: var(--ink); font-size: .87rem; }
 .steps-path .s-m { font-size: .72rem; color: var(--muted); }
 .steps-path .s-n { font-size: .8rem; color: var(--ink-2); margin-top: 2px; }
@@ -650,6 +650,35 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .abroad h5 { margin: 0; font-size: .87rem; color: var(--ink); }
 .abroad .cost { font-weight: 600; color: var(--ink); }
 .abroad .watch { color: var(--flag); font-size: .76rem; }
+/* Local schools under a study step (serasi-local.js) */
+.steps-path .s-schools { grid-column: 2; min-width: 0; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.s-schools .small { font-size: .7rem; }
+.schools { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.schools li { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 8px 12px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-size: .78rem; color: var(--ink-2); min-width: 0; overflow-wrap: anywhere; }
+.schools .s-n { font-weight: 600; color: var(--ink); font-size: .8rem; margin-top: 0; }
+.schools .s-c { color: var(--ink-2); }
+.schools .s-m { font-size: .74rem; color: var(--muted); }
+.schools .pill { font-size: .68rem; padding: 1px 8px; }
+.schools a { font-size: .74rem; }
+/* Overseas: the best place to study as a highlighted card, then the alternatives as short rows (serasi-overseas.js) */
+.overseas { display: flex; flex-direction: column; gap: 10px; }
+.overseas > h4 { margin-bottom: 0; }
+.best-card { border: 2px solid #8FA17C; border-radius: 12px; background: var(--surface); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; font-size: .8rem; color: var(--ink-2); min-width: 0; overflow-wrap: anywhere; }
+.best-card h5 { margin: 0; font-size: .95rem; color: var(--ink); }
+.best-card p { margin: 0; }
+.best-card .best-course { font-weight: 600; color: var(--ink); }
+.best-card .best-standing { color: var(--accent); font-weight: 600; font-size: .76rem; }
+.best-card .watch { color: var(--flag); font-size: .76rem; }
+.best-card .src { margin-top: 0; }
+.best-badge { align-self: flex-start; background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 3px 10px; font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.best-cost { list-style: none; margin: 0; padding: 8px 10px; border-radius: 8px; background: var(--surface-2); display: flex; flex-direction: column; gap: 2px; font-variant-numeric: tabular-nums; }
+.best-cost .cost { font-weight: 600; color: var(--ink); }
+.alt-h { margin: 4px 0 0; font-size: .82rem; color: var(--ink); }
+.alt-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.alt-row { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 9px 12px; display: flex; flex-direction: column; gap: 2px; font-size: .78rem; color: var(--ink-2); min-width: 0; overflow-wrap: anywhere; }
+.alt-row .alt-n { color: var(--ink); font-size: .82rem; }
+.alt-row .alt-m { font-variant-numeric: tabular-nums; }
+.alt-row .alt-w { color: var(--muted); font-size: .74rem; }
 .contacts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
 .contacts li { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 9px 12px; display: flex; flex-direction: column; gap: 2px; font-size: .76rem; min-width: 0; overflow-wrap: anywhere; }
 .contacts .c-n { font-weight: 600; color: var(--ink); font-size: .82rem; }
@@ -748,6 +777,9 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 
 <script src="serasi-core.js"></script>
 <script src="serasi-pathways.js"></script>
+<script src="serasi-study.js"></script>
+<script src="serasi-local.js"></script>
+<script src="serasi-overseas.js"></script>
 <script>
 (function () {
   'use strict';
@@ -957,12 +989,20 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     const sum = '<p class="path-sum"><span class="pill good">' + (path.years ? 'About ' + fmtYears(path.years) + ' of study or training' : path.steps.some(x => x.done) ? 'No more study if your qualification is related' : 'No more study needed') + '</span>' +
       (cost.total ? '<span class="pill">Course fees about ' + money(cost.total) + '</span>' : '') + '<span class="small muted">Starting from: ' + esc(PATH[p.pathway].label) + '</span></p>';
     const meta = st => [st.yrs ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'paid, no fees' : st.fee === 'pt' ? 'part-time, subsidised' : st.fee === 'check' ? 'fees differ; check the school' : st.fee ? 'about ' + money(FEES[st.fee].yr) + ' a year' : ''].filter(Boolean).join(' · ');
+    // Every public school that teaches the course at this step's level; nothing when none is listed.
+    const schools = st => { const list = st.lvl ? SerasiLocal.html(r, st.lvl, { esc, money }) : ''; return list ? '<div class="s-schools">' + list + '</div>' : ''; };
     const steps = '<ol class="steps-path">' + path.steps.map(st => '<li' + (st.done ? ' class="done"' : '') + '><span class="s-t">' + esc(st.t) + '</span>' +
-      (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') + (st.n ? '<span class="s-n">' + esc(st.n) + '</span>' : '') + '</li>').join('') + '</ol>';
+      (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') + (st.n ? '<span class="s-n">' + esc(st.n) + '</span>' : '') + schools(st) + '</li>').join('') + '</ol>';
     const extras = path.alts.concat(T.later ? [T.later] : [], T.note ? [T.note] : []);
 
     let table = '';
     const feeRows = cost.rows.filter(x => x.kind === 'fee');
+    // Levels where a listed school's fee is more than $300 from the fee the table uses, and the fee sources of every listed school.
+    const listed = studySteps.map(st => ({ st, list: SerasiLocal.forRole(r, st.lvl) }));
+    const differ = listed.map(x => ({ st: x.st, sp: SerasiLocal.spread(x.list, FEES[x.st.fee].yr) })).filter(x => x.sp && x.sp.differs);
+    const differNote = differ.map(x => '<p class="small muted">Fees differ by school' + (differ.length > 1 ? ' for the ' + esc(lowerFirst(FEES[x.st.fee].label)) : '') + ': ' +
+      (x.sp.lo === x.sp.hi ? money(x.sp.lo) : money(x.sp.lo) + ' to ' + money(x.sp.hi)) + ' a year; the table uses ' + money(FEES[x.st.fee].yr) + '.</p>').join('');
+    const localSrc = listed.flatMap(x => x.list).flatMap(c => c.src || []);
     if (feeRows.length) {
       const showAfter = cost.after != null || cost.ipa;
       const row = x => '<tr><th scope="row">' + esc(FEES[x.s.fee].label) + ' · ' + fmtYears(x.s.yrs) + '</th><td class="num">' + money(x.per) + '</td><td class="num">' + money(x.total) + '</td>' + (showAfter ? '<td class="num">' + (x.after == null ? '–' : money(x.after)) + '</td>' : '') + '</tr>';
@@ -975,7 +1015,8 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         '</tbody><tfoot><tr><th scope="row">Total</th><td></td><td class="num">' + money(cost.total) + '</td>' + (showAfter ? '<td class="num">' + money(cost.after != null ? cost.after : Math.max(0, cost.total - cost.ipa)) + '</td>' : '') + '</tr></tfoot></table></div>' +
         '<p class="small muted">Fees are for Singapore Citizens after the MOE Tuition Grant, for students starting in 2025–26; they’re fixed for your whole course. ' +
           (cost.after == null && cost.local ? 'Choose your household income above to see TTFS and bursaries taken off.' : cost.after != null ? 'Estimate assumes you’re Malay and get both TTFS and the bursary for your income band; your school confirms the final amount.' : '') + '</p>' +
-        srcLinks(uniq(feeRows.map(x => FEES[x.s.fee].src)).concat(cost.local ? ['ttfs26', 'burs-poly', 'burs-uni'] : []));
+        differNote +
+        srcLinks(uniq(feeRows.map(x => FEES[x.s.fee].src)).concat(cost.local ? ['ttfs26', 'burs-poly', 'burs-uni'] : [], localSrc));
     }
 
     const helpKeys = uniq([].concat(
@@ -986,10 +1027,12 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     )).filter(k => HELP[k] && !(k === 'wsdip' && p.pathway !== 'ITE'));
     const help = helpKeys.length ? '<div><h4>Help with costs</h4><ul class="help-list">' + helpKeys.map(k => '<li><b>' + esc(HELP[k].t) + '.</b> ' + esc(HELP[k].d) + '</li>').join('') + '</ul>' + srcLinks(helpKeys.flatMap(k => HELP[k].src)) + '</div>' : '';
 
-    const abroadKeys = (T.abroad || []).filter(k => ABROAD[k]);
-    const abroad = abroadKeys.length && r.edu >= 2 ? '<div><h4>Or study overseas</h4><p class="small muted" style="margin-bottom:8px">If the course is stronger abroad or a place is hard to get here. Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas. Costs use rough exchange rates.</p><div class="abroad-grid">' + abroadKeys.map(abroadCard).join('') + '</div></div>' : '';
+    // The best place to study abroad and the alternatives (serasi-overseas.js), or an agency note; '' when overseas study doesn't apply.
+    const abroad = SerasiOverseas.html(r, { esc, srcLinks, contactList });
+    const ov = SerasiOverseas.forRole(r);
+    const abroadLinks = ov && ov.best ? [ov.best].concat(ov.alts).flatMap(o => o.links || []) : [];
 
-    const contacts = uniq((T.contacts || []).concat((r.pc || {}).org ? [ORG[r.pc.org][1]] : [], helpKeys.map(k => HELP[k].c), abroadKeys.flatMap(k => ABROAD[k].links), ['e2i']));
+    const contacts = uniq((T.contacts || []).concat((r.pc || {}).org ? [ORG[r.pc.org][1]] : [], helpKeys.map(k => HELP[k].c), abroadLinks, ['e2i']));
     return '<div class="col">' +
       '<div><h4>Your shortest path</h4>' + sum + '</div>' + steps +
       (extras.length ? '<div><h4>Other routes and tips</h4><ul class="qa">' + extras.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') +
