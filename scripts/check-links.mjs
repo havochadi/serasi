@@ -52,6 +52,7 @@ export function collectUrls(window) {
   for (const [iso, c] of Object.entries(byIso)) {
     (c.unis || []).forEach((u, i) => add(u.url, 'COUNTRY ' + iso + ' unis[' + i + ']'));
     for (const fig of [c.pop, c.gdp, c.gdppc]) if (fig) add(fig.src, 'COUNTRY ' + iso + ' figure source');
+    for (const fig of [c.pop, c.gdp, c.gdppc]) if (fig) add(fig.srcUrl, 'COUNTRY ' + iso + ' figure source link');
     if (typeof c.a2 === 'string' && c.a2) {
       add(FLAGS + c.a2.toLowerCase() + '.svg', 'COUNTRY ' + iso + ' flag');
       add('https://data.worldbank.org/country/' + c.a2.toUpperCase(), 'COUNTRY ' + iso + ' World Bank page');
