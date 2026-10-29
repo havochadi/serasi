@@ -561,7 +561,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   .topbar .wrap { padding: 14px 24px 0; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 0; }
   .brand { padding: 0; } .brand-name { font-size: 1.6rem; } .brand svg { width: 28px; height: 28px; }
   .brand-caption { margin-left: auto; padding: 0; font-size: .65rem; }
-  .topnav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; width: 100%; margin-top: 14px; padding-bottom: 8px; gap: 4px; }
+  .topnav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); overflow: visible; width: 100%; margin-top: 14px; padding-bottom: 8px; gap: 4px; }
   .topnav .chip-btn { flex-direction: column; gap: 5px; justify-content: center; white-space: normal; text-align: center; }
   .nav-more { width: 100%; margin: 0 0 6px; }
   .nav-more > summary { font-size: .68rem; padding: 7px 0; }
@@ -615,6 +615,99 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
+/* ---------- Shortest paths, the world map and locked scores ---------- */
+:root { --g-grow: #4E7D46; --g-steady: #C99A3F; --g-decline: #B5523C; --sea: #E5EEEA; --land: #ECE8DC; --land-line: #FFFFFF; }
+.role-tabs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 7px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.role-tab { display: inline-flex; align-items: center; border: 1px solid #DDE3D4; border-radius: 9px; background: transparent; padding: 8px 12px; color: var(--ink-2); font-size: .76rem; cursor: pointer; min-height: 38px; }
+.role-tab[aria-pressed="true"] { background: var(--surface); color: var(--brand); border-color: #8FA17C; box-shadow: 0 2px 4px #263d3308; font-weight: 600; }
+.role-body.one { grid-template-columns: minmax(0, 1fr); }
+.pill.path { background: var(--note-soft); color: var(--note); }
+.pill.grow { background: var(--accent-soft); color: var(--accent); }
+.pill.steady { background: var(--note-soft); color: var(--note); }
+.pill.decline { background: var(--flag-soft); color: var(--flag); }
+.steps-path { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; counter-reset: ps; }
+.steps-path li { counter-increment: ps; display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); column-gap: 12px; padding-bottom: 14px; position: relative; }
+.steps-path li::before { content: counter(ps); width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 600; font-size: .78rem; grid-row: 1 / span 3; }
+.steps-path li:not(:last-child)::after { content: ""; position: absolute; left: calc(.95rem - 1px); top: 2rem; bottom: 2px; width: 2px; background: var(--line); }
+.steps-path li.done::before { content: "✓"; background: var(--accent-soft); color: var(--accent); }
+.steps-path .s-t { font-weight: 600; color: var(--ink); font-size: .87rem; }
+.steps-path .s-m { font-size: .72rem; color: var(--muted); }
+.steps-path .s-n { font-size: .8rem; color: var(--ink-2); margin-top: 2px; }
+.path-sum { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: .8rem; }
+.cost-tbl { width: 100%; border-collapse: collapse; font-size: .78rem; font-variant-numeric: tabular-nums; }
+.cost-tbl th, .cost-tbl td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; color: var(--ink-2); }
+.cost-tbl thead th { color: var(--ink); font-weight: 600; }
+.cost-tbl td.num, .cost-tbl th.num { text-align: right; }
+.cost-tbl tfoot td, .cost-tbl tfoot th { font-weight: 600; color: var(--ink); border-top: 2px solid var(--line); }
+.table-wrap { overflow-x: auto; }
+.help-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.help-list li { border-left: 3px solid #ADB985; padding: 4px 0 4px 10px; font-size: .8rem; color: var(--ink-2); }
+.help-list b { color: var(--ink); font-weight: 600; }
+.income-field { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; font-size: .76rem; margin-bottom: 10px; }
+.income-field select { min-height: 38px; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); max-width: 100%; font-size: .78rem; }
+.abroad-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.abroad { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; font-size: .8rem; color: var(--ink-2); min-width: 0; }
+.abroad h5 { margin: 0; font-size: .87rem; color: var(--ink); }
+.abroad .cost { font-weight: 600; color: var(--ink); }
+.abroad .watch { color: var(--flag); font-size: .76rem; }
+.contacts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.contacts li { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 9px 12px; display: flex; flex-direction: column; gap: 2px; font-size: .76rem; min-width: 0; overflow-wrap: anywhere; }
+.contacts .c-n { font-weight: 600; color: var(--ink); font-size: .82rem; }
+.contacts .c-w { color: var(--muted); }
+.src { font-size: .7rem; color: var(--muted); margin-top: 4px; }
+.src a { color: var(--muted); }
+.more-wrap { display: flex; justify-content: center; }
+.lock-note { font-size: .8rem; color: var(--ink-2); background: var(--surface-2); border-radius: 10px; padding: 10px 12px; }
+.msg .txt a { color: var(--accent); overflow-wrap: anywhere; }
+.world-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; border-left: 4px solid #8FA17C; }
+.world-card > div { flex: 1 1 320px; min-width: 0; }
+
+/* World map: industry chips, the globe beside a details panel, then lists by outlook */
+.world-head { display: flex; flex-direction: column; gap: 8px; }
+.ind-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.ind-chip { border: 1px solid #DDE3D4; border-radius: 9px; background: var(--surface); padding: 8px 12px; color: var(--ink-2); font-size: .76rem; cursor: pointer; min-height: 38px; }
+.ind-chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--brand); border-color: #8FA17C; font-weight: 600; }
+.world { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.globe-card { display: flex; flex-direction: column; gap: 10px; }
+.globe-wrap { position: relative; width: 100%; max-width: 520px; margin: 0 auto; aspect-ratio: 1; touch-action: pan-y; }
+.globe-wrap svg { width: 100%; height: 100%; display: block; cursor: grab; }
+.globe-wrap svg:active { cursor: grabbing; }
+.globe-wrap .loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: .84rem; text-align: center; padding: 20px; }
+.g-sea { fill: var(--sea); stroke: var(--line); }
+.g-grat { fill: none; stroke: #D5E0DA; stroke-width: .5; }
+.g-land { fill: var(--land); stroke: var(--land-line); stroke-width: .5; cursor: pointer; }
+.g-land.grow { fill: var(--g-grow); }
+.g-land.steady { fill: var(--g-steady); }
+.g-land.decline { fill: var(--g-decline); }
+.g-land.sel { stroke: var(--ink); stroke-width: 1.5; }
+.g-city { stroke: var(--surface); stroke-width: 1.5; cursor: pointer; }
+.g-city.grow { fill: var(--g-grow); }
+.g-city.steady { fill: var(--g-steady); }
+.g-city.decline { fill: var(--g-decline); }
+.g-city.other { fill: #9AA79E; }
+.g-city.sel { stroke: var(--ink); stroke-width: 2.5; }
+.g-label { font: 600 11px var(--font-body); fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; pointer-events: none; }
+.globe-ctrl { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.globe-ctrl button { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: .74rem; cursor: pointer; min-height: 32px; }
+.g-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: .72rem; color: var(--muted); }
+.g-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.world-side { display: flex; flex-direction: column; gap: 12px; }
+.hub-detail { display: flex; flex-direction: column; gap: 10px; font-size: .84rem; }
+.hub-detail ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.hub-detail li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; color: var(--ink-2); align-items: start; }
+.hub-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.hub-col h3 { font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
+.hub-col h3 i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.hub-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.hub-btn { width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+.hub-btn:hover { border-color: #8FA17C; }
+.hub-btn b { color: var(--ink); font-size: .82rem; font-weight: 600; }
+.hub-btn span { color: var(--muted); font-size: .72rem; }
+@media (max-width: 900px) {
+  .world, .hub-cols { grid-template-columns: minmax(0, 1fr); }
+}
+
+
 </style>
 </head>
 <body>
@@ -627,7 +720,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     </button>
     <p class="brand-caption">Your future, a little clearer.</p>
     <nav class="topnav" aria-label="Main">
-      <button class="chip-btn" type="button" data-action="home" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5Z"/></svg><span>Home</span></button><button class="chip-btn" type="button" data-action="start-quiz" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v4H9zM9 12h6m-6 4h4"/></svg><span>My quiz</span></button><button class="chip-btn" type="button" data-action="matches" id="nav-mine"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Matches</span></button><button class="chip-btn" type="button" data-action="guide" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2 2-6A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg><span>Ask Serasi</span></button>
+      <button class="chip-btn" type="button" data-action="home" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5Z"/></svg><span>Home</span></button><button class="chip-btn" type="button" data-action="start-quiz" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v4H9zM9 12h6m-6 4h4"/></svg><span>My quiz</span></button><button class="chip-btn" type="button" data-action="matches" id="nav-mine"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Matches</span></button><button class="chip-btn" type="button" data-action="guide" ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2 2-6A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg><span>Ask Serasi</span></button><button class="chip-btn" type="button" data-action="world"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span>World map</span></button>
     </nav>
     <details class="nav-more" id="nav-more"><summary>More from Serasi</summary><nav aria-label="About and community"><button class="chip-btn" type="button" data-action="about"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg><span>About &amp; privacy</span></button></nav></details>
     <div class="nav-bottom">
@@ -649,18 +742,21 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     <p>Proposed pilot: 300 youths · Draft budget: S$22,000 · Preparation November 2026–March 2027 · Pilot April–June 2027 · Follow-up and decision by June 2028.</p>
     <p>Partnerships, funding, job tasters and internships are proposals. No partner has been approached. Scores and role data are illustrative and have not been validated.</p>
     <p>This demo saves quiz answers on your device. Ask Serasi sends your questions and a summary of your results to Google’s Gemini AI. The MENDAKI staff page uses made-up data.</p>
+    <p>Fees, subsidies, pay figures and world job-market notes were checked in October 2026 and change often. Confirm them with the official links.</p>
   </details>
 </footer>
 
 <script src="serasi-core.js"></script>
+<script src="serasi-pathways.js"></script>
 <script>
 (function () {
   'use strict';
 
   /* ---------- Shared data, scoring and helpers (serasi-core.js) ---------- */
-  const { TYPES, TYPE_INFO, TRAITS, TRAIT, VALUES, VALUE, FAITH, FAITH_ITEM, SKILLS, SKILL, PATHWAYS, PATH, EDU_LABEL, INTEREST_ITEMS, PERS_ITEMS, SCENARIOS, PORTALS, SF_URL, LINKS, ROLES, ROLE, icon, clamp, pct, esc, joinList, blankAnswers, profileFromAnswers, codeOf, scoreRole, AGES, AREAS, DEFAULT_W, lowerTitle, lowerFirst, upperFirst, options, writeShared, clearShared, hasShared, rank: coreRank } = window.SerasiCore;
-  // Rank with this page's weights and flagged-job setting unless the caller passes its own.
-  const rank = (p, w, hide) => coreRank(p, w || state.weights, hide === undefined ? state.hideFlagged : hide);
+  const { TYPES, TYPE_INFO, TRAITS, TRAIT, VALUES, VALUE, FAITH, FAITH_ITEM, SKILLS, SKILL, PATHWAYS, PATH, EDU_LABEL, INTEREST_ITEMS, PERS_ITEMS, SCENARIOS, PORTALS, SF_URL, LINKS, ROLES, ROLE, icon, clamp, pct, esc, joinList, blankAnswers, profileFromAnswers, codeOf, scoreRole, AGES, AREAS, W, lowerTitle, lowerFirst, upperFirst, options, writeShared, clearShared, hasShared, rank: coreRank } = window.SerasiCore;
+  const { SOURCES, INDUSTRIES, INDUSTRY, WORLD, HUB, OUTLOOK, FEES, INCOME, ttfsShare, polyBursary, uniBursary, HELP, CONTACTS, FX, ABROAD, TRACKS, PAY } = window.SerasiPathways;
+  // Rank with this page's flagged-job setting unless the caller passes its own. Weights are fixed for everyone.
+  const rank = (p, hide) => coreRank(p, hide === undefined ? state.hideFlagged : hide);
 
   /* ---------- Rendering: results ---------- */
   function hexSVG(interest, top3) {
@@ -712,15 +808,222 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       '<span class="p-why">' + P.why + ' · “' + esc(query) + '”</span></a></li>';
   }
 
-  function roleBody(s, p) {
+  /* ---------- Shortest path ---------- */
+  const money = n => '$' + Math.round(n).toLocaleString('en-SG');
+  const round100 = n => Math.round(n / 100) * 100;
+  const uniq = arr => arr.filter((x, i) => x && arr.indexOf(x) === i);
+  const EDU_SHORT = { 1: 'ITE', 2: 'a diploma', 3: 'a degree' };
+  const fmtYears = y => (y === 3.5 ? '3½' : String(y)) + (y === 1 ? ' year' : ' years');
+  const ORG = { spf: ['the Singapore Police Force', 'spf'], scdf: ['the SCDF', 'scdf'], saf: ['the SAF', 'saf'] };
+  // Tracks where the qualification must be in the job's own field (it's needed to register or practise).
+  const STRICT = ['nursing', 'allied', 'medicine', 'law', 'religious', 'earlychild'];
+
+  // Steps from the youth's current stage to the role's usual entry qualification, then any licence, then applying.
+  function pathFor(role, p) {
+    const T = TRACKS[role.trk] || TRACKS.public, pc = role.pc || {};
+    const key = lvl => ['', 'ite', 'dip', 'deg'][lvl];
+    const course = lvl => pc[key(lvl)] || T[key(lvl)];
+    const working = p.pathway === 'Work';
+    const cur = working ? 0 : PATH[p.pathway].rank;
+    const steps = [], alts = [];
+    const yrsOf = lvl => lvl === 1 ? 2 : lvl === 2 ? 3 : (T.degYrs || 4);
+    const feeOf = lvl => lvl === 1 ? 'ite' : lvl === 2 ? 'poly' : (T.degFee || 'uni');
+    const study = (lvl, n) => steps.push({ t: course(lvl) || (lvl === 2 ? 'A related diploma (3 years)' : 'A related degree'), n, yrs: yrsOf(lvl), fee: feeOf(lvl), lvl });
+    const fromHere = lvl => lvl === 2 && cur === 1 ? 'Apply with your Nitec or Higher Nitec in the polytechnic admissions for ITE graduates. Strong results in a related course can sometimes let you skip the first year.'
+      : lvl === 3 && cur === 2 ? 'Apply with your diploma. A related diploma can earn module exemptions, which may shorten the degree.'
+      : lvl === 3 && cur === 1 ? 'Apply after your diploma.' : '';
+
+    if (T.custom === 'teaching') {
+      if (working) steps.push({ t: 'Paid teacher training at NIE', n: 'With a diploma, apply to MOE for the Diploma in Education (2 years); with a degree, for the Postgraduate Diploma in Education. MOE pays you while you train.', yrs: 2, fee: 'paid' });
+      else {
+        if (cur === 1) study(2, fromHere(2) + ' Any diploma qualifies you to apply to MOE.');
+        if (cur <= 2) steps.push({ t: 'Diploma in Education at NIE (2 years, paid)', n: 'Apply to MOE as a diploma holder. MOE pays you a salary while you train, then you teach in a primary school with a 3-year bond.', yrs: 2, fee: 'paid' });
+        else steps.push({ t: 'Postgraduate Diploma in Education at NIE (paid)', n: 'Apply to MOE as a degree holder. You’re paid while you train, then serve a teaching bond.', yrs: 1, fee: 'paid' });
+      }
+      alts.push('Or take a degree first with the MOE Teaching Award, which pays your fees and an allowance (4-year bond), then train at NIE.');
+    } else if (T.custom === 'uniformed') {
+      const [org] = ORG[pc.org] || ORG.spf;
+      steps.push({ t: 'Apply to ' + org, n: 'You can join with O-levels, a Nitec, a diploma or a degree. Your qualification sets your starting rank and pay.', yrs: 0 });
+      steps.push({ t: 'Paid basic training', n: 'No course fees, and you’re paid from your first day of training.', yrs: 0, fee: 'paid' });
+      alts.push('Later, ask about sponsored study for a diploma or degree while you serve.');
+    } else if (T.custom === 'atc') {
+      if (cur === 1) study(2, fromHere(2));
+      steps.push({ t: 'Apply to CAAS as a trainee air traffic controller', n: 'CAAS trains its own controllers and pays trainees during training. Check the current entry requirements on its careers page.', yrs: 0, fee: 'paid' });
+    } else if (T.custom === 'pilot') {
+      if (cur === 1) study(2, fromHere(2) + ' Most airline cadet programmes ask for A-levels, a diploma or a degree.');
+      steps.push({ t: 'Apply for an airline cadet pilot programme', n: 'Airlines such as Singapore Airlines select cadets, pay for their flight training and bond them for some years. Selection includes aptitude tests, interviews and a medical exam.', yrs: 0, fee: 'paid' });
+      alts.push('The RSAF also trains its own pilots as SAF regular officers.');
+      alts.push('Paying for flight school yourself is possible but very expensive, so try for a sponsored cadetship first.');
+    } else if (T.custom === 'aviation') {
+      steps.push({ t: 'Apply to airlines as cabin crew', n: 'Airlines run their own paid training for new crew. Check each airline’s entry requirements before you apply.', yrs: 0, fee: 'paid' });
+    } else if (T.custom === 'property') {
+      steps.push({ t: 'Pass the CEA Real Estate Salesperson (RES) course and exam', n: 'Take the course at an approved school, then sit the exam.', yrs: 0 });
+      steps.push({ t: 'Register with a licensed estate agency', n: 'You must be registered with the Council for Estate Agencies through an agency before you can work.', yrs: 0 });
+    } else if (role.trk === 'medicine' && (working || cur === 3)) {
+      steps.push({ t: 'Graduate-entry medicine at Duke-NUS (4-year MD)', n: 'Duke-NUS takes graduates from any field. With a degree you can also apply to the NUS or NTU MBBS.', yrs: 4, fee: 'check' });
+    } else if (working) {
+      steps.push({ t: 'Check what you already have', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (STRICT.includes(role.trk) ? ' in this field' : '') + '. If you have it, skip the next step.', yrs: 0, done: true });
+      steps.push({ t: 'Study for it: ' + lowerFirst(course(role.edu) || 'a related course'), n: 'ITE, the polytechnics and SUSS run many part-time courses with SkillsFuture subsidies, so you can keep earning; some courses are full-time only.', yrs: yrsOf(role.edu), fee: 'pt' });
+    } else {
+      // A diploma or degree only counts if it's in the right field, so offer the matching course as another route.
+      if (cur >= role.edu) {
+        const strict = STRICT.includes(role.trk);
+        steps.push({ t: 'If your ' + ['', 'ITE course', 'diploma', 'degree'][cur] + ' is in ' + (strict ? 'this field' : 'a related field') + ', you already qualify', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (strict ? ' in this field.' : ' in a related field.'), yrs: 0, done: true });
+        if (role.trk === 'law' && cur === 3) alts.push('With a degree in another field: the Juris Doctor (JD) at SMU, a law degree for graduates.');
+        else if (role.trk !== 'public' && course(role.edu)) alts.push('If your qualification is in another field: ' + lowerFirst(course(role.edu)) + '. Graduates of other fields often take this route, and some employers sponsor it.');
+      }
+      for (let lvl = cur + 1; lvl <= role.edu; lvl++) study(lvl, fromHere(lvl));
+      if (cur === 1 && role.edu >= 2) alts.push('Work-Study Diploma: start work after ITE and earn the diploma while your employer pays the fees.');
+      if (cur === 2 && role.edu === 3) alts.push('Work first, then study part-time at SUSS or SIT. Some employers sponsor the degree.');
+    }
+    const licence = pc.licence || T.licence;
+    if (licence && !(T.custom === 'uniformed')) steps.push({ t: 'Get registered or licensed', n: licence, yrs: 0 });
+    steps.push({ t: 'Apply for jobs', n: 'Use the job searches on the “Why it fits” tab. Ask employers about sponsorship and in-house training.', yrs: 0 });
+    return { steps, alts, T, years: steps.reduce((a, s) => a + (s.yrs || 0), 0) };
+  }
+
+  // Fees for each study step, and an estimate after TTFS, bursaries and the ITE Progression Award.
+  function pathCost(path, p) {
+    const band = INCOME.find(b => b.k === state.income) || INCOME[0];
+    const m = band.max;
+    const rows = path.steps.filter(s => s.fee).map(s => {
+      if (s.fee === 'paid' || s.fee === 'pt' || s.fee === 'check') return { s, kind: s.fee };
+      const per = FEES[s.fee].yr, total = per * s.yrs;
+      const local = s.fee !== 'ite';
+      const after = m == null ? null : Math.max(0, per * (1 - (local ? ttfsShare(m) : 0)) - (s.fee === 'poly' ? polyBursary(m) : local ? uniBursary(m) : 0)) * s.yrs;
+      return { s, kind: 'fee', per, total, after };
+    });
+    const ipa = p.pathway === 'ITE' && path.steps.some(s => s.fee === 'poly') ? 5000 : 0;
+    const fees = rows.filter(r => r.kind === 'fee');
+    const total = fees.reduce((a, r) => a + r.total, 0);
+    const after = m == null ? null : Math.max(0, fees.reduce((a, r) => a + r.after, 0) - ipa);
+    return { rows, ipa, total, after, band, local: fees.some(r => r.s.fee !== 'ite') };
+  }
+
+  function srcLinks(keys) {
+    const list = uniq(keys || []).filter(k => SOURCES[k]);
+    return list.length ? '<p class="src">Sources: ' + list.map(k => '<a href="' + esc(SOURCES[k][1]) + '" target="_blank" rel="noopener">' + esc(SOURCES[k][0]) + '</a>').join(' · ') + '</p>' : '';
+  }
+
+  function contactList(keys) {
+    return '<ul class="contacts">' + uniq(keys).filter(k => CONTACTS[k]).map(k => {
+      const c = CONTACTS[k];
+      return '<li><span class="c-n">' + esc(c.n) + '</span>' + (c.tel ? '<a href="tel:' + c.tel.replace(/\s/g, '') + '">' + esc(c.tel) + '</a>' : '') +
+        '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(new URL(c.url).hostname.replace(/^www\./, '')) + ' ↗</a><span class="c-w">' + esc(c.w) + '</span></li>';
+    }).join('') + '</ul>';
+  }
+
+  function curFmt(n, cur) {
+    const sym = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' }[cur] || cur + ' ';
+    return sym + Math.round(n).toLocaleString('en-SG');
+  }
+  const range = (a, b, f) => a === b ? f(a) : f(a) + '–' + f(b).replace(/^[^\d]+/, '');
+
+  // What an overseas option costs in local currency and roughly in Singapore dollars, as plain sentences.
+  function abroadCalc(a) {
+    const fx = FX[a.cur];
+    if (a.total) return { fee: range(a.total[0], a.total[1], n => curFmt(n, a.cur)) + ' for the whole degree (about ' + range(round100(a.total[0] * fx), round100(a.total[1] * fx), money) + ')' };
+    if (!a.fee) return { fee: 'Fees vary by university; check before you apply' };
+    const lo = (a.fee[0] * a.yrs + (a.once || 0) + (a.living || 0) * a.yrs) * fx, hi = (a.fee[1] * a.yrs + (a.once || 0) + (a.living || 0) * a.yrs) * fx;
+    return {
+      fee: 'Fees ' + range(a.fee[0], a.fee[1], n => curFmt(n, a.cur)) + ' a year' + (a.once ? ' plus ' + curFmt(a.once, a.cur) + ' once' : '') + ' (about ' + range(round100(a.fee[0] * fx), round100(a.fee[1] * fx), money) + ')',
+      living: a.living ? 'Living costs: the student visa asks you to show ' + curFmt(a.living, a.cur) + ' a year (about ' + money(round100(a.living * fx)) + ')' : '',
+      total: 'Roughly ' + range(round100(lo), round100(hi), money) + ' for ' + fmtYears(a.yrs) + (a.living ? ', including living costs' : ', before living costs')
+    };
+  }
+
+  // One overseas option: cost, why it's worth a look and what to watch for.
+  function abroadCard(key) {
+    const a = ABROAD[key], c = abroadCalc(a);
+    return '<div class="abroad"><h5>' + esc(a.c) + ': ' + esc(a.course) + '</h5><span class="cost">' + esc(c.fee) + '</span>' +
+      (c.living ? '<span>' + esc(c.living) + '.</span>' : '') + (c.total ? '<span>' + esc(c.total) + '.</span>' : '') +
+      '<span>' + esc(a.why) + '</span><span class="watch">Watch out: ' + esc(a.watch) + '</span>' + srcLinks(a.src) + '</div>';
+  }
+
+  function payHint(role) {
+    const T = TRACKS[role.trk] || {};
+    let k = null;
+    if (role.trk === 'medicine') k = 'med';
+    else if (role.edu === 3) k = T.degKey || 'uni';
+    else if (role.edu === 2) k = role.ind === 'health' ? 'polyHealth' : ['socialwork', 'media', 'earlychild', 'teaching', 'religious'].includes(role.trk) ? 'polyHum' : 'poly';
+    if (!k) return '';
+    return '<p class="small muted">Fresh-graduate pay: the median starting salary for ' + PAY[k].t + ' was ' + money(PAY[k].v) + ' a month in 2025. Job ads on MyCareersFuture show the range for this job.</p>' + srcLinks([k.startsWith('poly') ? 'ges25p' : 'ges25']);
+  }
+
+  function pathPanel(s, p) {
+    const r = s.role, path = pathFor(r, p), cost = pathCost(path, p), T = path.T;
+    const studySteps = path.steps.filter(x => x.lvl);
+    const levels = studySteps.map(x => x.fee);
+    const sum = '<p class="path-sum"><span class="pill good">' + (path.years ? 'About ' + fmtYears(path.years) + ' of study or training' : path.steps.some(x => x.done) ? 'No more study if your qualification is related' : 'No more study needed') + '</span>' +
+      (cost.total ? '<span class="pill">Course fees about ' + money(cost.total) + '</span>' : '') + '<span class="small muted">Starting from: ' + esc(PATH[p.pathway].label) + '</span></p>';
+    const meta = st => [st.yrs ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'paid, no fees' : st.fee === 'pt' ? 'part-time, subsidised' : st.fee === 'check' ? 'fees differ; check the school' : st.fee ? 'about ' + money(FEES[st.fee].yr) + ' a year' : ''].filter(Boolean).join(' · ');
+    const steps = '<ol class="steps-path">' + path.steps.map(st => '<li' + (st.done ? ' class="done"' : '') + '><span class="s-t">' + esc(st.t) + '</span>' +
+      (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') + (st.n ? '<span class="s-n">' + esc(st.n) + '</span>' : '') + '</li>').join('') + '</ol>';
+    const extras = path.alts.concat(T.later ? [T.later] : [], T.note ? [T.note] : []);
+
+    let table = '';
+    const feeRows = cost.rows.filter(x => x.kind === 'fee');
+    if (feeRows.length) {
+      const showAfter = cost.after != null || cost.ipa;
+      const row = x => '<tr><th scope="row">' + esc(FEES[x.s.fee].label) + ' · ' + fmtYears(x.s.yrs) + '</th><td class="num">' + money(x.per) + '</td><td class="num">' + money(x.total) + '</td>' + (showAfter ? '<td class="num">' + (x.after == null ? '–' : money(x.after)) + '</td>' : '') + '</tr>';
+      table = '<div class="income-field"><label for="inc-' + r.id + '">Household income per person each month</label><select id="inc-' + r.id + '" data-income="1">' +
+          INCOME.map(b => '<option value="' + b.k + '"' + (b.k === state.income ? ' selected' : '') + '>' + esc(b.label) + '</option>').join('') + '</select>' +
+          '<span class="muted">Optional, to estimate TTFS and bursaries. Total monthly household income ÷ number of people. It stays on this device and is never shared.</span></div>' +
+        '<div class="table-wrap"><table class="tbl cost-tbl"><thead><tr><th scope="col">Study step</th><th scope="col" class="num">Fees a year</th><th scope="col" class="num">Total fees</th>' + (showAfter ? '<th scope="col" class="num">After help (estimate)</th>' : '') + '</tr></thead><tbody>' +
+        feeRows.map(row).join('') +
+        (cost.ipa ? '<tr><th scope="row">ITE Progression Award (into your PSEA)</th><td></td><td></td><td class="num">−' + money(cost.ipa) + '</td></tr>' : '') +
+        '</tbody><tfoot><tr><th scope="row">Total</th><td></td><td class="num">' + money(cost.total) + '</td>' + (showAfter ? '<td class="num">' + money(cost.after != null ? cost.after : Math.max(0, cost.total - cost.ipa)) + '</td>' : '') + '</tr></tfoot></table></div>' +
+        '<p class="small muted">Fees are for Singapore Citizens after the MOE Tuition Grant, for students starting in 2025–26; they’re fixed for your whole course. ' +
+          (cost.after == null && cost.local ? 'Choose your household income above to see TTFS and bursaries taken off.' : cost.after != null ? 'Estimate assumes you’re Malay and get both TTFS and the bursary for your income band; your school confirms the final amount.' : '') + '</p>' +
+        srcLinks(uniq(feeRows.map(x => FEES[x.s.fee].src)).concat(cost.local ? ['ttfs26', 'burs-poly', 'burs-uni'] : []));
+    }
+
+    const helpKeys = uniq([].concat(
+      levels.some(f => f !== 'ite') ? ['tg', 'ttfs', 'bursary'] : [],
+      p.pathway === 'ITE' && levels.includes('poly') ? ['ipa', 'wsdip'] : [],
+      T.help || [],
+      p.pathway === 'Work' ? ['pt', 'sfc'] : []
+    )).filter(k => HELP[k] && !(k === 'wsdip' && p.pathway !== 'ITE'));
+    const help = helpKeys.length ? '<div><h4>Help with costs</h4><ul class="help-list">' + helpKeys.map(k => '<li><b>' + esc(HELP[k].t) + '.</b> ' + esc(HELP[k].d) + '</li>').join('') + '</ul>' + srcLinks(helpKeys.flatMap(k => HELP[k].src)) + '</div>' : '';
+
+    const abroadKeys = (T.abroad || []).filter(k => ABROAD[k]);
+    const abroad = abroadKeys.length && r.edu >= 2 ? '<div><h4>Or study overseas</h4><p class="small muted" style="margin-bottom:8px">If the course is stronger abroad or a place is hard to get here. Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas. Costs use rough exchange rates.</p><div class="abroad-grid">' + abroadKeys.map(abroadCard).join('') + '</div></div>' : '';
+
+    const contacts = uniq((T.contacts || []).concat((r.pc || {}).org ? [ORG[r.pc.org][1]] : [], helpKeys.map(k => HELP[k].c), abroadKeys.flatMap(k => ABROAD[k].links), ['e2i']));
+    return '<div class="col">' +
+      '<div><h4>Your shortest path</h4>' + sum + '</div>' + steps +
+      (extras.length ? '<div><h4>Other routes and tips</h4><ul class="qa">' + extras.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') +
+      (table ? '<div><h4>Price breakdown</h4>' + table + '</div>' : '') +
+      help + payHint(r) + abroad +
+      '<div><h4>Find out more</h4>' + contactList(contacts) + '</div>' +
+    '</div>';
+  }
+
+  // Places where the role's industry is growing, steady or shrinking.
+  function hubsFor(k) { return WORLD.filter(h => h.ind[k]).map(h => ({ h, o: h.ind[k] })); }
+  function worldPanel(s) {
+    const ind = INDUSTRY[s.role.ind];
+    const hubs = hubsFor(ind.k);
+    const group = (o, label) => {
+      const list = hubs.filter(x => x.o[0] === o);
+      return list.length ? '<div><h4>' + label + '</h4><ul class="reasons">' + list.map(x => '<li class="' + (o === 'grow' ? 'good' : o === 'decline' ? 'gap' : 'info') + '"><span class="mk" aria-hidden="true">' + (o === 'grow' ? '↑' : o === 'decline' ? '↓' : '•') + '</span><span><b>' + esc(x.h.place) + '</b>: ' + esc(x.o[1]) + '</span></li>').join('') + '</ul></div>' : '';
+    };
+    return '<div class="col">' +
+      '<div><h4>' + esc(ind.label) + ' around the world</h4><p class="small" style="color:var(--ink-2)">' + esc(ind.global) + '</p>' + srcLinks(ind.src) + '</div>' +
+      group('grow', 'Growing') + group('steady', 'Steady or mixed') + group('decline', 'Shrinking: think twice') +
+      srcLinks(hubs.flatMap(x => x.o[2])) +
+      '<div><button class="btn ghost" type="button" data-action="world" data-ind="' + ind.k + '">Open the world map for ' + esc(lowerFirst(ind.label)) + '</button></div>' +
+      '<p class="small muted">Working abroad usually needs a work visa, and each country sets its own rules. Notes were checked in October 2026.</p>' +
+    '</div>';
+  }
+
+  function fitPanel(s, p) {
     const r = s.role;
     const reasons = s.reasons.map(x => '<li class="' + x.tone + '"><span class="mk" aria-hidden="true">' + (x.tone === 'good' ? '✓' : x.tone === 'gap' ? '!' : '•') + '</span><span>' + esc(x.text) + '</span></li>').join('');
-    const W = state.weights, Wt = W.i + W.w + W.v || 1;
+    const Wt = W.i + W.w + W.v;
     const bd = [['Interests', s.interest, W.i], ['Work style', s.work, W.w], ['Values', s.values, W.v]]
       .map(([n, v, wt]) => '<li><span>' + n + ' <span class="muted">· ' + Math.round(100 * wt / Wt) + '%</span></span><span class="bar" title="' + n + ': ' + pct(v) + '"><i style="width:' + pct(v) + '%"></i></span><span class="v num">' + pct(v) + '</span></li>').join('');
-    const needTraits = {}; Object.keys(r.ws).forEach(k => { needTraits[k] = r.ws[k]; });
-    const subset = TRAITS.filter(t => r.ws[t.k] != null);
-    const wsRows = subset.map(t => {
+    const wsRows = TRAITS.filter(t => r.ws[t.k] != null).map(t => {
       const v = p.traits[t.k];
       return '<li class="trait-row"><span class="trait-name">' + t.name + '</span><span class="trait-val num">' + pct(v) + '</span>' +
         '<span class="track"><i class="fill" style="width:' + pct(v) + '%"></i><i class="need" style="left:' + pct(r.ws[t.k]) + '%" title="Role tends to need about ' + pct(r.ws[t.k]) + '"></i></span></li>';
@@ -737,10 +1040,10 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       if (r.portals.includes('careersgov')) extras.push('<a href="' + LINKS.gritGov + '" target="_blank" rel="noopener">GRIT@Gov traineeships ↗</a>');
     }
     if (r.sf) extras.push('<a href="' + SF_URL(r.sf) + '" target="_blank" rel="noopener">Skills Framework for this sector ↗</a>');
-    return '<div class="role-body" id="body-' + r.id + '">' +
-      '<div class="col">' +
+    return '<div class="col">' +
         (flag ? '<div>' + flag + '</div>' : '') +
-        '<div><h4>Why it fits</h4><ul class="reasons">' + reasons + '</ul>' + '<button class="btn link ask-role" type="button" data-action="ask-role" data-id="' + r.id + '">Ask Serasi about this job</button>' + '</div>' +
+        '<div><h4>What the job involves</h4><p class="small" style="color:var(--ink-2)">' + esc(ROLE_DOES[r.id]) + '</p></div>' +
+        '<div><h4>Why it fits</h4><ul class="reasons">' + reasons + '</ul><button class="btn link ask-role" type="button" data-action="ask-role" data-id="' + r.id + '">Ask Serasi about this job</button></div>' +
         '<details class="role-fit-details"><summary>See score breakdown</summary><div><h4>Fit score</h4><ul class="breakdown">' + bd + '</ul></div>' +
         '<div><h4>Work style match</h4><ul class="traits">' + wsRows + '</ul><p class="legend" style="margin-top:8px"><span><span class="sw"></span>You</span><span><span class="sw need"></span>What this role tends to need</span></p></div></details>' +
       '</div>' +
@@ -748,22 +1051,32 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         '<div><h4>Find openings</h4><ul class="portals">' + portals + '</ul></div>' +
         '<div><h4>Prefer to talk to someone?</h4><p class="small muted">Career coaches can match you to employers directly.</p><p class="subtle-links" style="margin-top:6px"><a href="' + LINKS.e2i + '" target="_blank" rel="noopener">NTUC e2i career coaching ↗</a><a href="' + LINKS.m3 + '" target="_blank" rel="noopener">M³+ job matching ↗</a></p></div>' +
         (extras.length ? '<div><h4>Try it first</h4><p class="subtle-links">' + extras.join('') + '</p>' + (p.grit ? '<p class="small muted" style="margin-top:6px">GRIT runs 3–6 months with an allowance of $1,800–$2,400 a month, for 2024–25 graduates without a full-time job yet.</p>' : '') + '</div>' : '') +
-      '</div></div>';
+      '</div>';
+  }
+
+  // A role's details, in three tabs: why it fits, the shortest path there, and where its industry is growing.
+  const ROLE_TABS = [['fit', 'Why it fits'], ['path', 'Shortest path'], ['world', 'Where in the world']];
+  function roleBody(s, p, scope, open) {
+    const r = s.role, tab = state.tabs[r.id] || 'fit';
+    const bar = '<div class="role-tabs">' + ROLE_TABS.map(([k, l]) => '<button class="role-tab" type="button" aria-pressed="' + (k === tab) + '" data-action="role-tab" data-id="' + r.id + '" data-tab="' + k + '">' + l + '</button>').join('') + '</div>';
+    const inner = tab === 'path' ? pathPanel(s, p) : tab === 'world' ? worldPanel(s) : fitPanel(s, p);
+    return '<div class="role-body' + (tab === 'fit' ? '' : ' one') + '" id="body-' + scope + r.id + '"' + (open ? '' : ' hidden') + '>' + bar + inner + '</div>';
   }
 
   function roleItem(s, i, p, stretch, scope = '') {
     const r = s.role;
     const open = state.open.includes(r.id);
     const saved = (state.example ? state.exampleSaved : state.saved).includes(r.id);
-    const flagPill = s.flag ? '<span class="pill ' + (s.flag.level === 'strong' ? 'flag' : 'note') + '">' + (s.flag.level === 'strong' ? 'Flagged' : 'Halal search') + '</span>' : '';
+    const flagPill = s.flag ? '<span class="pill ' + (s.flag.level === 'strong' ? 'flag' : 'note') + '">' + (s.flag.level === 'strong' ? 'Flagged' : r.fl ? 'Check first' : 'Halal search') + '</span>' : '';
     const stretchPill = stretch ? '<span class="pill note">Stretch</span>' : '';
+    const pathPill = s.eduSteps && !stretch ? '<span class="pill path">Needs ' + EDU_SHORT[r.edu] + ' first</span>' : '';
     return '<li class="role">' +
       '<button class="role-head" type="button" data-action="toggle-role" data-id="' + r.id + '" aria-expanded="' + open + '" aria-controls="body-' + scope + r.id + '">' +
         '<span class="rank num">' + (stretch ? '↗' : i + 1) + '</span>' +
         '<span style="min-width:0"><span class="role-title">' + esc(r.title) + '</span>' +
-          '<span class="role-meta"><span>' + esc(r.sector) + '</span><span class="pill code">' + r.code + '</span>' + flagPill + stretchPill + '</span></span>' +
+          '<span class="role-meta"><span>' + esc(r.sector) + '</span><span class="pill code">' + r.code + '</span>' + pathPill + flagPill + stretchPill + '</span></span>' +
         '<span class="score"><b class="num">' + s.total + '</b><span>fit score</span><span class="role-open-label">' + (open ? 'Close' : 'View role') + ' <i class="chev" aria-hidden="true">▾</i></span></span>' +
-      '</button><button class="save-role" type="button" data-action="save-role" data-id="' + r.id + '" aria-pressed="' + saved + '" aria-label="' + (saved ? 'Unsave ' : 'Save ') + esc(r.title) + '">' + icon('bookmark') + '</button>' + roleBody(s, p).replace('id="body-' + r.id + '"', 'id="body-' + scope + r.id + '"').replace('class="role-body"', 'class="role-body"' + (open ? '' : ' hidden')) + '</li>';
+      '</button><button class="save-role" type="button" data-action="save-role" data-id="' + r.id + '" aria-pressed="' + saved + '" aria-label="' + (saved ? 'Unsave ' : 'Save ') + esc(r.title) + '">' + icon('bookmark') + '</button>' + roleBody(s, p, scope, open) + '</li>';
   }
 
   function renderLists() {
@@ -776,29 +1089,31 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (!list) return;
     const saved = state.example ? state.exampleSaved : state.saved;
     const query = state.search.trim().toLowerCase();
-    const pool = state.savedOnly ? saved.map(id => scoreRole(ROLE[id], p, state.weights)) : res.main;
+    // The top 10 show first; "Show more" adds the next 10, and searching or filtering looks through all 20.
+    const filtering = !!query || state.sector !== 'all';
+    const ranked = res.main.concat(res.more);
+    const pool = state.savedOnly ? saved.map(id => scoreRole(ROLE[id], p)) : filtering || state.showMore ? ranked : res.main;
     const shown = pool.map((s, i) => ({s, i})).filter(({s}) => (!query || (s.role.title + ' ' + s.role.sector).toLowerCase().includes(query)) && (state.sector === 'all' || s.role.sector === state.sector) && !(state.hideFlagged && s.flag && s.flag.level === 'strong'));
     list.innerHTML = shown.map(({s, i}) => roleItem(s, i, p, state.savedOnly && s.stretch, state.savedOnly ? 'saved-' : '')).join('') || '<li class="card empty"><h3>' + (state.savedOnly ? 'No saved matches here yet' : 'No matches for these filters') + '</h3><p>' + (state.savedOnly ? 'Use the bookmark beside a role to keep it for later, or clear your filters.' : 'Try another keyword or a different sector.') + '</p><button class="btn ghost" type="button" data-action="reset-filters">Show all matches</button></li>';
     const count = document.getElementById('role-count');
     if (count) count.textContent = shown.length + ' of ' + pool.length + (state.savedOnly ? ' saved careers shown' : ' matches shown');
     const savedBtn = document.getElementById('saved-filter');
     if (savedBtn) { savedBtn.innerHTML = icon('bookmark') + ' Saved (' + saved.length + ')'; savedBtn.setAttribute('aria-pressed', String(state.savedOnly)); }
+    const moreBtn = document.getElementById('more-btn');
+    if (moreBtn) {
+      moreBtn.hidden = state.savedOnly || filtering || !res.more.length;
+      moreBtn.textContent = state.showMore ? 'Show fewer matches' : 'Show ' + res.more.length + ' more matches';
+      moreBtn.setAttribute('aria-expanded', String(!!state.showMore));
+    }
     const who = state.example ? 'this example' : 'you';
-    document.getElementById('sl').textContent = state.savedOnly ? 'Careers you’ve saved' : (res.main.length === 1 ? 'Top role for ' : 'Top ' + res.main.length + ' roles for ') + who;
+    const n = state.showMore || filtering ? ranked.length : res.main.length;
+    document.getElementById('sl').textContent = state.savedOnly ? 'Careers you’ve saved' : (n === 1 ? 'Top role for ' : 'Top ' + n + ' roles for ') + who;
     str.innerHTML = res.stretch.length ? res.stretch.map(s => roleItem(s, 0, p, true)).join('') : '<li class="card muted">No stretch roles for this profile.</li>';
     const flagged = state.savedOnly ? pool.filter(s => s.flag && s.flag.level === 'strong').length : res.flaggedTotal;
-    meta.textContent = flagged ? flagged + ' role' + (flagged > 1 ? 's' : '') + ' flagged by your personal preferences ' + (flagged > 1 ? 'are' : 'is') + (state.hideFlagged ? ' hidden.' : ' moved to the end, not removed.') : 'No roles are flagged by your preferences.';
+    meta.textContent = (flagged ? flagged + ' role' + (flagged > 1 ? 's' : '') + ' flagged by your personal preferences ' + (flagged > 1 ? 'are' : 'is') + (state.hideFlagged ? ' hidden. ' : ' moved to the end, not removed. ') : '') +
+      'Ranked from ' + ROLES.length + ' jobs. Scores are fixed once you finish the quiz.';
     document.getElementById('flag-toggle-wrap').hidden = !flagged;
   }
-
-  function weightText() {
-    const W = state.weights, T = W.i + W.w + W.v || 1;
-    return Math.round(100 * W.i / T) + '% interests + ' + Math.round(100 * W.w / T) + '% work style + ' + Math.round(100 * W.v / T) + '% values';
-  }
-  function weightRow(k, label) {
-    return '<label class="weight-row" for="w-' + k + '"><span>' + label + '</span><input type="range" id="w-' + k + '" min="0" max="100" step="5" value="' + state.weights[k] + '" data-weight="' + k + '"><span class="num" id="wv-' + k + '">' + state.weights[k] + '</span></label>';
-  }
-
 
   /* ---------- Rendering: quiz ---------- */
   function likert(item, val, ends) {
@@ -909,7 +1224,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   // ASK_WORKER is the deployed Worker's /ask address; empty means fixed rules only. On localhost the page uses `wrangler dev`.
   const ASK_WORKER = 'https://serasi-ask.serasi-ask.workers.dev/ask';
   const ASK_API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:8787/ask' : ASK_WORKER;
-  const ask = { msgs: [], key: '', draft: '', seq: 0, busy: false, chat: 0 };
+  const ask = { msgs: [], key: '', draft: '', seq: 0, busy: false, chat: 0, ctx: {} };
 
   function askKey() { return state.example ? 'example' : 'mine'; }
   function reduceMotion() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
@@ -959,85 +1274,592 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     'multimedia': 'Creates graphics, animations and simple videos for digital and print media.',
     'retail': 'Leads a store team, manages stock and displays, and makes sure customers are well served.',
     'public-officer': 'Supports a government department with administration, records, processes and public enquiries.',
-    'policy': 'Researches issues and helps develop, review and explain government policies.'
+    'policy': 'Researches issues and helps develop, review and explain government policies.',
+    'electrician': 'Installs, tests and repairs wiring, power points and electrical systems in homes and buildings.',
+    'ev-tech': 'Services and repairs cars, including electric vehicles, finding faults with diagnostic tools.',
+    'solar-tech': 'Installs and maintains solar panels and the electrical systems that connect them to buildings.',
+    'semi-tech': 'Runs and monitors the machines that make computer chips in a clean room, checking quality at each step.',
+    'ai-eng': 'Builds and tests machine-learning models and the software that puts them into apps and services.',
+    'data-sci': 'Uses statistics and code to find patterns in data and build models that predict or explain things.',
+    'it-support': 'Sets up computers and accounts and fixes tech problems for staff, in person or remotely.',
+    'game-dev': 'Programs and builds video games, from gameplay and graphics to testing and bug fixes.',
+    'ecommerce': 'Runs an online store: product listings, promotions, orders and sales data.',
+    'auditor': 'Checks organisations’ financial records and controls, and reports whether the accounts are accurate.',
+    'supply-chain': 'Studies how goods are bought, stored and moved, and finds ways to cut cost and delay.',
+    'port-ops': 'Plans and coordinates ships, cranes and container moves at a port, often in shifts.',
+    'marine-eng': 'Runs and maintains ships’ engines and machinery, at sea or in a shipyard.',
+    'interior': 'Designs the layout, materials and look of homes, offices and shops, and works with contractors.',
+    'fashion': 'Designs clothing and accessories, from sketches and fabrics to samples for production.',
+    'animator': 'Creates 3D characters, scenes and motion for games, films and advertisements.',
+    'photographer': 'Plans and takes photos for clients, events or media, then edits them.',
+    'journalist': 'Finds, checks and writes news and features for print, online or broadcast.',
+    'translator': 'Translates documents between Malay and English, or interprets live at meetings, courts and events.',
+    'hotel': 'Welcomes hotel guests, handles check-in and requests, and solves problems during their stay.',
+    'chef': 'Prepares and cooks dishes, runs a section of the kitchen and keeps food safe.',
+    'pastry': 'Bakes breads, cakes and pastries, and develops new recipes.',
+    'cabin-crew': 'Looks after passengers’ safety and comfort on flights, from boarding to landing.',
+    'atc': 'Guides aircraft safely through the sky and on the ground, using radar and radio.',
+    'pilot': 'Flies passenger or cargo aircraft as part of a two-pilot crew, from flight planning and checks to take-off and landing.',
+    'hair': 'Cuts, colours and styles hair, and advises clients on looks and care.',
+    'doctor': 'Diagnoses and treats patients in hospitals or clinics, and works with the wider care team.',
+    'pharmacist': 'Checks prescriptions, advises patients on medicines and works with doctors on treatment.',
+    'ot': 'Helps people manage daily tasks after illness, injury or disability, through therapy and adapted routines.',
+    'radiographer': 'Takes X-rays, CT and MRI scans so doctors can diagnose patients.',
+    'dietitian': 'Assesses patients’ nutrition and plans diets to treat or prevent illness.',
+    'oral-health': 'Cleans teeth, gives preventive dental care and teaches patients, especially children, about oral health.',
+    'vet-tech': 'Helps vets care for animals: nursing, lab tests, X-rays and preparing for surgery.',
+    'fitness': 'Plans workouts and coaches people, one-to-one or in classes, towards their fitness goals.',
+    'biomed-sci': 'Designs and runs lab experiments in areas such as medicine and biology, and reports the results.',
+    'pharma-qa': 'Checks that medicines are made to strict quality and safety standards, and keeps the records.',
+    'early-int': 'Teaches and supports young children with developmental needs, working with families and therapists.',
+    'asatizah': 'Teaches Islamic knowledge to children and adults at mosques, madrasahs and religious classes.',
+    'counsellor': 'Helps people work through personal, family or emotional difficulties in one-to-one or group sessions.',
+    'real-estate': 'Helps people buy, sell or rent homes and offices, from viewings to paperwork.',
+    'sustainability': 'Measures an organisation’s environmental impact and plans ways to cut emissions and waste.',
+    'civil-eng': 'Designs and oversees roads, bridges, buildings and drains, making sure they’re safe and built to plan.',
+    'qs': 'Estimates and controls the costs of building projects, from tender to completion.',
+    'mech-eng': 'Designs, tests and improves machines and mechanical systems, from engines to air-conditioning.',
+    'elec-eng': 'Designs and maintains electrical systems, from power grids to the electronics in buildings and devices.',
+    'paralegal': 'Supports lawyers by preparing documents, researching cases and managing files.',
+    'lawyer': 'Advises clients on the law, drafts agreements and represents them in disputes or court.',
+    'police': 'Keeps the public safe by patrolling, responding to incidents and investigating crime.',
+    'scdf': 'Responds to fires, accidents and emergencies, rescuing people and keeping them safe.',
+    'saf': 'Operates and maintains the SAF’s equipment and systems as a specialist in a technical or operations role.'
   };
 
-  function askSuggestions() {
-    const { p } = currentProfile();
-    const top = rank(p).main[0];
-    const list = [];
-    if (top) {
-      const t = lowerTitle(top.role.title);
-      list.push('Why is ' + t + ' my top match?');
-      list.push('What does ' + article(t) + ' ' + t + ' do?');
-    }
-    return list.concat(['What does my interest code mean?', 'Which skill should I build first?', 'How do I like to work?', 'What are my stretch roles?', 'How do I find job openings?', 'Who can I talk to?']);
-  }
-  const askMenu = () => askSuggestions().map(x => '- ' + x).join('\n');
-  const askFallback = () => 'Sorry, I can only answer a few simple questions about your results. Try one of these:\n' + askMenu();
+  // The on-device fallback, used when the AI can’t be reached. It works out the topic and any jobs, industry,
+  // country or study level a question names, and answers from the data in this app.
   // The same helplines as DISTRESS_TEXT in worker/src/prompt.js, so a youth in crisis gets them even when the AI is down.
   const ASK_DISTRESS = 'It sounds like a lot is going on. You don’t have to handle it alone. National Mindline 1771 (call, or WhatsApp 6669 1771) and Samaritans of Singapore 1767 are free and open 24 hours. If you’re in danger right now, call 995.';
   const ASK_DISTRESS_RE = /suicid|kill myself|want to die|end my life|dont want to live|self[- ]?harm|hurt myself|bunuh diri|nak mati|tak nak hidup/;
-
-  // The fixed-rule fallback. Topics are checked in order, and the first match answers.
   function askAnswer(question) {
-    const { p } = currentProfile();
-    const res = rank(p);
-    const q = ' ' + question.toLowerCase().replace(/[’']/g, '') + ' ';
-    const has = re => re.test(q);
-    if (has(ASK_DISTRESS_RE)) return ASK_DISTRESS;
-    const s = askRole(q, res, p);
-    if (s) return has(/\b(do|does|day|daily|involve|involves)\b/) && !has(/\bwhy\b|\bfits?\b/) ? roleDoes(s, res) : roleFit(s, res);
-    if (has(/\b(pay|salary|salaries|wages?|earn|income|gaji)\b/)) return askPay(res);
-    if (has(/stretch/)) return askStretch(res);
-    if (has(/\bskills?\b|\bbuild\b|\bimprove|\bcourses?\b|\bweak/)) return askSkills(res, p);
-    if (has(/\bcode\b|riasec|holland|interest type|\bmy interests?\b/)) return askCode(p);
-    if (has(/work style|personality|strength|\btraits?\b|how do i (like to )?work/)) return askStyle(p);
-    if (has(/\bvalues?\b/)) return askValues(res, p);
-    if (has(/coach|counsel|talk to|someone|advice|advise|unsure|not sure|worried|confused|help me (choose|decide)/)) return askCoach();
-    if (has(/opening|vacanc|apply|hiring|portal|job search|find (a )?(job|work)|look for (a )?job/)) return askOpenings(res, p);
-    if (has(/\b(why|top|best|match|fit)\b/)) return res.main[0] ? roleFit(res.main[0], res) : askFallback();
-    if (has(/^ (hi|hello|hey|salam|assalamualaikum)\b/)) return 'Hi! I answer simple questions about your results. Try one of these:\n' + askMenu();
-    return askFallback();
+    if (ASK_DISTRESS_RE.test(' ' + question.toLowerCase().replace(/[’']/g, '') + ' ')) return ASK_DISTRESS;
+    try { return askRules(question); } catch (e) { return askFallback(); }
+  }
+  // Malay words and common short forms, rewritten to the English words the topics look for.
+  const ASK_WORDS = [
+    [/\bmacam ?mana\b|\bmcm mana\b|\bcamne\b|\bbagaimana\b/g, 'how'], [/\bberapa\b/g, 'how much'], [/\bkenapa\b|\bmengapa\b/g, 'why'],
+    [/\bapa\b/g, 'what'], [/\bdi mana\b|\bmana\b/g, 'where'], [/\bsaya\b|\baku\b/g, 'i'], [/\bmenjadi\b|\bjadi\b/g, 'become'],
+    [/\bgaji\b/g, 'salary'], [/\bpekerjaan\b|\bkerjaya\b|\bkerja\b/g, 'job'], [/\bbelajar\b|\bpengajian\b/g, 'study'], [/\bbiasiswa\b/g, 'scholarship'],
+    [/\byuran\b/g, 'fees'], [/\bkos\b|\bharga\b|\bbayaran\b/g, 'cost'], [/\bbantuan kewangan\b|\bbantuan\b/g, 'financial help'], [/\bsubsidi\b/g, 'subsidy'],
+    [/\bluar negara\b/g, 'overseas'], [/\bnegara\b/g, 'country'], [/\bjururawat\b/g, 'nurse'], [/\bcikgu\b|\bguru\b/g, 'teacher'], [/\bdoktor\b/g, 'doctor'],
+    [/\bpolis\b/g, 'police'], [/\btentera\b/g, 'army'], [/\bustaz(ah)?\b/g, 'asatizah'], [/\bjurutera\b/g, 'engineer'], [/\bperakaunan\b/g, 'accounting'],
+    [/\btemu ?duga\b/g, 'interview'], [/\bsolat\b|\bsembahyang\b/g, 'prayer'], [/\bjumaat\b/g, 'friday'], [/\bmasa depan\b/g, 'future'],
+    [/\btekanan\b|\bstres\b/g, 'stress'], [/\bsedih\b|\bmurung\b/g, 'sad'], [/\btakut\b|\bbimbang\b|\brisau\b/g, 'worried'], [/\bterima kasih\b|\btq\b|\bty\b|\bthx\b/g, 'thanks'],
+    [/\bperniagaan\b|\bbisnes\b/g, 'business'], [/\bkemahiran\b/g, 'skill'], [/\bminat\b/g, 'interest'], [/\bperubatan\b/g, 'medicine'], [/\bjepun\b/g, 'japan'],
+    [/\bjerman\b/g, 'germany'], [/\bmesir\b/g, 'egypt'], [/\bboleh\b/g, 'can'], [/\bnak\b|\bmahu\b|\bingin\b/g, 'want'], [/\bpembinaan\b/g, 'construction'],
+    [/\bu\b/g, 'you'], [/\bur\b/g, 'your'], [/\bwat\b|\bwht\b/g, 'what'], [/\bhw\b/g, 'how'], [/\bcuz\b|\bcos\b/g, 'because'], [/\bjob scope\b/g, 'what does do']
+  ];
+
+  // Extra names people use for jobs.
+  const ROLE_ALIAS = {
+    'software-eng': ['programmer', 'coder', 'developer', 'software developer', 'web developer', 'programming', 'coding', 'app developer'],
+    'nurse': ['nurse', 'nursing', 'staff nurse'], 'enrolled-nurse': ['enrolled nurse'], 'teacher': ['teaching', 'school teacher', 'moe teacher'],
+    'doctor': ['physician', 'medical officer', 'mbbs', 'medicine'], 'police': ['policeman', 'policewoman', 'spf', 'police'], 'scdf': ['firefighter', 'fireman', 'civil defence', 'scdf'],
+    'saf': ['army', 'soldier', 'military', 'navy', 'air force', 'rsaf', 'saf regular', 'military expert'], 'cabin-crew': ['flight attendant', 'stewardess', 'steward', 'cabin crew'],
+    'atc': ['air traffic'], 'chef': ['cook', 'cooking', 'chef', 'culinary'], 'pastry': ['baker', 'baking', 'pastry'], 'hair': ['hairdresser', 'barber', 'hairstylist', 'hair stylist'],
+    'asatizah': ['ustaz', 'ustazah', 'religious teacher', 'islamic teacher', 'asatizah', 'madrasah teacher'], 'lawyer': ['law', 'attorney', 'lawyer'], 'paralegal': ['paralegal', 'legal executive'],
+    'ai-eng': ['ai engineer', 'machine learning', 'artificial intelligence', 'ml engineer'], 'data-sci': ['data science'], 'cyber': ['cybersecurity', 'cyber security', 'ethical hacker'],
+    'ux': ['ux', 'ui designer', 'user experience', 'ux designer'], 'graphic': ['graphic design'], 'accounts-exec': ['accountant', 'accounting', 'accountancy'],
+    'physio': ['physiotherapy', 'physio'], 'ot': ['occupational therapy'], 'preschool': ['preschool', 'kindergarten', 'childcare', 'early childhood', 'preschool teacher'],
+    'game-dev': ['game design', 'game developer', 'games developer', 'video games'], 'animator': ['animation', 'anime', 'animator'], 'content': ['youtuber', 'influencer', 'content creator', 'tiktoker', 'social media'],
+    'real-estate': ['property agent', 'housing agent', 'real estate'], 'social-worker': ['social work'], 'counsellor': ['counselor', 'counselling', 'counseling', 'psychologist', 'psychology'],
+    'ev-tech': ['mechanic', 'car mechanic', 'automotive technician', 'ev technician'], 'fitness': ['personal trainer', 'gym trainer', 'fitness'], 'aircraft-tech': ['aircraft mechanic', 'aerospace technician', 'aircraft engineer'],
+    'pharmacist': ['pharmacy'], 'dietitian': ['nutritionist', 'nutrition'], 'journalist': ['reporter', 'journalism'], 'translator': ['interpreter', 'translation', 'translator'],
+    'civil-eng': ['civil engineering'], 'mech-eng': ['mechanical engineering'], 'elec-eng': ['electrical engineering'], 'marine-eng': ['marine engineering'],
+    'islamic-banking': ['islamic bank', 'islamic banker'], 'takaful': ['islamic insurance', 'takaful'], 'hr': ['human resources', 'hr'], 'marketing': ['digital marketing', 'marketer'],
+    'ecommerce': ['online shop', 'online store', 'e-commerce'], 'arch': ['architect', 'architecture'], 'interior': ['interior design'], 'fashion': ['fashion design'], 'photographer': ['photography'],
+    'video': ['video editing', 'film editor', 'filmmaker'], 'biomed-sci': ['scientist', 'research scientist', 'researcher'], 'lab-tech': ['lab technician', 'medical lab', 'lab technologist'],
+    'semi-tech': ['semiconductor technician', 'wafer fab', 'chip technician'], 'solar-tech': ['solar technician', 'solar installer'], 'supply-chain': ['supply chain'],
+    'hotel': ['hotel', 'front desk', 'receptionist'], 'events': ['event planner', 'event management', 'events'], 'sales': ['salesman', 'salesperson', 'sales'], 'customer-service': ['call centre', 'call center', 'customer service'],
+    'public-officer': ['civil servant', 'civil service', 'government job', 'admin officer'], 'vet-tech': ['vet', 'veterinary', 'animal care'], 'radiographer': ['radiography', 'x-ray'],
+    'it-support': ['it support', 'helpdesk', 'tech support'], 'pilot': ['pilot', 'airline pilot', 'cadet pilot'], 'oral-health': ['dental therapist', 'dental hygienist', 'oral health'], 'electrician': ['electrician', 'electrical wiring']
+  };
+  const IND_ALIAS = {
+    tech: ['tech', 'technology', 'it', 'infocomm', 'software', 'ai', 'data', 'computing', 'digital', 'cyber'],
+    semis: ['semiconductor', 'semiconductors', 'chip', 'chips', 'electronics', 'wafer'], manufacturing: ['manufacturing', 'factory', 'factories', 'shipbuilding', 'shipyard', 'engineering industry', 'engineering', 'engineer', 'engineers'],
+    auto: ['automotive', 'car industry', 'cars', 'ev', 'evs', 'electric vehicle', 'electric vehicles', 'car making'], aero: ['aerospace', 'aviation', 'aircraft', 'airline', 'airlines'],
+    construction: ['construction', 'building industry', 'building', 'property', 'real estate', 'built environment', 'infrastructure'], energy: ['energy', 'renewable', 'renewables', 'solar', 'green energy', 'clean energy', 'sustainability', 'green jobs'],
+    health: ['healthcare', 'health care', 'health', 'medical', 'hospital', 'hospitals'], care: ['social work', 'aged care', 'elderly care', 'social service', 'social services', 'caregiving', 'eldercare'],
+    biotech: ['biotech', 'biotechnology', 'pharma', 'pharmaceutical', 'life sciences', 'biomedical'], finance: ['finance', 'banking', 'banks', 'business', 'accounting industry', 'financial'],
+    islamic: ['islamic finance', 'islamic banking', 'syariah', 'shariah', 'sharia'], creative: ['media', 'design', 'creative', 'games', 'gaming', 'film', 'arts', 'art', 'entertainment', 'content'],
+    hospitality: ['hospitality', 'tourism', 'hotels', 'retail', 'f&b', 'food and beverage', 'restaurants'], logistics: ['logistics', 'shipping', 'maritime', 'ports', 'supply chain industry'],
+    education: ['education', 'teaching industry', 'schools'], public: ['public service', 'government', 'civil service', 'home team', 'uniformed']
+  };
+  const COUNTRY_ALIAS = {
+    'China': ['china', 'chinese', 'mainland', 'beijing', 'shanghai', 'shenzhen', 'hangzhou'], 'Hong Kong': ['hong kong', 'hk'], 'Taiwan': ['taiwan', 'hsinchu'],
+    'Japan': ['japan', 'japanese', 'tokyo', 'osaka', 'kumamoto'], 'South Korea': ['korea', 'korean', 'seoul', 'south korea', 'ulsan'], 'India': ['india', 'indian', 'bangalore', 'bengaluru', 'hyderabad', 'pune'],
+    'Vietnam': ['vietnam'], 'Malaysia': ['malaysia', 'malaysian', 'kl', 'kuala lumpur', 'johor', 'jb', 'penang'], 'Indonesia': ['indonesia', 'jakarta', 'nusantara'],
+    'United Arab Emirates': ['uae', 'dubai', 'abu dhabi', 'emirates'], 'Saudi Arabia': ['saudi', 'saudi arabia', 'riyadh', 'neom', 'arab saudi'],
+    'Australia': ['australia', 'aussie', 'sydney', 'melbourne', 'perth', 'brisbane'], 'United Kingdom': ['uk', 'britain', 'england', 'london', 'united kingdom', 'scotland', 'wales'],
+    'Germany': ['germany', 'german', 'berlin', 'munich', 'stuttgart', 'dresden'], 'France': ['france', 'french', 'paris', 'toulouse'],
+    'United States': ['usa', 'america', 'american', 'united states', 'the us', 'new york', 'california', 'silicon valley', 'boston', 'texas', 'arizona'],
+    'Singapore': ['singapore', 'sg', 'local'], 'Egypt': ['egypt', 'cairo', 'azhar', 'al azhar']
+  };
+  const COUNTRY_ABROAD = { 'Australia': ['au-gen', 'au-nurse', 'au-allied'], 'United Kingdom': ['uk-design', 'uk-nurse', 'uk-law'], 'Germany': ['de-eng'], 'Japan': ['jp-gen', 'jp-anime'], 'Malaysia': ['my-tech', 'my-biz', 'my-islamic', 'my-religious'], 'Egypt': ['eg-religious'] };
+  const GULF = ['United Arab Emirates', 'Saudi Arabia'];
+
+  // Phrase lists, longest first, so "bank operations executive" wins over "operations executive".
+  const plainTitle = t => t.replace(/\s*\(.*\)/, '').toLowerCase();
+  const cleanPhrase = n => n.toLowerCase().replace(/[-/]/g, ' ').replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const byLength = (a, b) => b[0].length - a[0].length;
+  const ROLE_PHRASES = ROLES.flatMap(r => uniq([r.title, plainTitle(r.title), r.q].concat(ROLE_ALIAS[r.id] || []).map(cleanPhrase)).flatMap(n => [[n, r.id], [n + 's', r.id]])).sort(byLength);
+  const IND_PHRASES = Object.entries(IND_ALIAS).flatMap(([k, list]) => list.map(n => [cleanPhrase(n), k])).sort(byLength);
+  const COUNTRY_PHRASES = Object.entries(COUNTRY_ALIAS).flatMap(([k, list]) => list.map(n => [n, k])).sort(byLength);
+
+  // Finds every phrase from a list in the question, in the order they appear, without overlaps.
+  function findAll(q, phrases) {
+    let s = q;
+    const hits = [];
+    phrases.forEach(([n, id]) => {
+      const i = s.indexOf(' ' + n + ' ');
+      if (i >= 0 && !hits.some(h => h.id === id)) { hits.push({ id, i }); s = s.slice(0, i + 1) + ' '.repeat(n.length) + s.slice(i + 1 + n.length); }
+    });
+    return hits.sort((a, b) => a.i - b.i).map(h => h.id);
   }
 
-  // Finds a job named in the question: the longest full title it contains (so "bank operations executive"
-  // beats "operations executive"), then a title's last word (such as "nurse"). Jobs on the youth's list
-  // come first, so "analyst" means their best-ranked analyst role.
-  function askRole(q, res, p) {
-    const listed = res.main.concat(res.stretch);
-    const all = listed.concat(ROLES.filter(r => !listed.some(s => s.role === r)).map(r => scoreRole(r, p, state.weights)));
-    const plain = t => t.replace(/\s*\(.*\)/, '').toLowerCase();
-    let best = null, bestLen = 0;
-    all.forEach(s => [s.role.title.toLowerCase(), plain(s.role.title), s.role.q].forEach(n => {
-      if (n.length > bestLen && q.includes(n)) { best = s; bestLen = n.length; }
-    }));
-    return best ||
-      all.find(s => { const w = plain(s.role.title).split(/[\s/]+/).at(-1); return w.length >= 5 && new RegExp('\\b' + w + 's?\\b').test(q); }) ||
-      null;
+  function normalise(question) {
+    let q = ' ' + question.toLowerCase().replace(/[’'`]/g, '').replace(/&/g, ' & ').replace(/[^a-z0-9&$#+\s-]/g, ' ').replace(/-/g, ' ').replace(/\s+/g, ' ') + ' ';
+    ASK_WORDS.forEach(([re, to]) => { q = q.replace(re, to); });
+    return ' ' + q.replace(/\s+/g, ' ').trim() + ' ';
+  }
+
+  // Jobs named in the question: full names and aliases first, then a title's last word (such as "engineer"),
+  // where the youth's best-ranked job with that word wins.
+  function askRoles(q, res) {
+    const ids = findAll(q, ROLE_PHRASES);
+    if (ids.length) return ids;
+    // A bare word such as "engineers" that also names an industry is read as the industry.
+    if (findAll(q, IND_PHRASES).length) return [];
+    const hit = res.all.find(s => { const w = plainTitle(s.role.title).split(/[\s/]+/).at(-1); return w.length >= 5 && new RegExp(' ' + w + 's? ').test(q); });
+    return hit ? [hit.role.id] : [];
+  }
+
+  function askStage(q) {
+    const m = / (from|after|with|in|at|im in|im at|im from|i have an?|currently in|finished|finishing|doing) (ite|nitec|higher nitec|poly|polytechnic|diploma|uni|university|degree)/.exec(q);
+    if (!m) return null;
+    return /ite|nitec/.test(m[2]) ? 'ITE' : /poly|diploma/.test(m[2]) ? 'Poly' : 'Uni';
+  }
+
+  // Topics, each with weighted patterns. The highest total wins; ties go to the earlier topic.
+  const TOPICS = [
+    ['crisis', [[/suicid|kill myself|end my life|self ?harm|want to die|hurt myself|no reason to live/, 20]]],
+    ['wellbeing', [[/\b(stress|stressed|anxious|anxiety|depress\w*|sad|worried|overwhelm\w*|scared|afraid|burn ?out|mental health|give up|hopeless|lonely|pressure)\b/, 4], [/\b(lost|confused|no idea|dont know what to do|unsure|not sure what)\b/, 2]]],
+    ['greet', [[/^ (hi|hello|hey|hai|helo|salam|assalamualaikum|assalamualaikum warahmatullah|yo|good (morning|afternoon|evening))\b/, 3]]],
+    ['thanks', [[/\bthanks\b|\bappreciate\b|\bthank\b/, 3]]],
+    ['help', [[/what can you (do|answer|help)|what (questions|can i ask|do you know)|how (do|does) (this|you) work|\bmenu\b|\boptions\b|what are you for/, 4], [/^ help $/, 4]]],
+    ['about', [[/what is serasi|who (made|built|created) (you|this|serasi)|are you (an? )?(ai|bot|robot|human|real|chatgpt)|\bchatgpt\b|\bprivacy\b|my data|is (this|it) (safe|private)|data (safe|private)|who sees my/, 5]]],
+    ['lock', [[/(change|adjust|edit|improve|raise|increase|fix) (my )?(answers?|scores?|results?|weights?)|\bretake\b|\bredo\b|re do the quiz|do the quiz again|try the quiz again|why cant i change|\bweights?\b/, 5]]],
+    ['scoreHow', [[/how (is|are|was|were|do you|did you) (the |my )?(score|scores|fit|ranking|match|matching)|how (does|do) (the )?(score|scoring|ranking|matching|fit) (work|get)|calculat|algorithm|c index|why (is|are) my (score|scores|fit)|score (so )?(low|high)|out of 100|what does (my )?(fit|score) mean/, 5]]],
+    ['compare', [[/\bvs\b|\bversus\b|\bcompare\b|\bcomparison\b|difference between|which is better|better (job|career|option|choice)|\bor\b.*\bbetter\b/, 4]]],
+    ['path', [[/how (do|can|to|should|would|will) (i|you|someone|one|a person) (become|be|get into|get a job as|work as|qualify|start|get there|join)|how to (become|be an?|get into|work as|qualify|join)|\bbecome (an? )?\w+|want to (be|become|work as|join)\b/, 4],
+      [/pathway|\bpath\b|\broute\b|roadmap|steps? to|what (should|do|must) i (need to )?study|what to study|which course|what course|qualifications?|requirements?|entry|shortest|how long (does it take|will it take|to become)|plan to be/, 3]]],
+    ['cost', [[/how much (is|are|does|do|will|would) (it|the|a|an|my)? ?(cost|costs|fees?|study|course|degree|diploma|poly|uni|university|ite|tuition|school)|\bcosts?\b|\bprice\b|\bfees?\b|expensive|\bcheap\w*|\bafford\w*|\btuition\b|\bbudget\b|\bloan\b|pay for (school|uni|poly|my studies|studies)/, 4]]],
+    ['aid', [[/subsid\w*|bursar\w*|financial (aid|help|assistance|support)|scholarships?|sponsor\w*|\bbond\b|bonded|\bttfs\b|\bmendaki\b|\bgrants?\b|help (with|paying)|cant afford|\bpoor\b|low income|\bpsea\b|progression award|work ?study|\bfree (school|study|course|education)\b/, 5]]],
+    ['abroad', [[/overseas|abroad|foreign universit\w*|study (in|at) another|outside singapore|international student|\bmext\b|\bdaad\b|exchange programme|leave singapore/, 5]]],
+    ['world', [[/which (country|countries|city|cities)|what (country|countries|city)|where (in the world|should i (go|work|move)|can i work|is .* (growing|booming|good|hiring))|best (country|countries|place|city|cities)|work (overseas|abroad|in another country|outside)|job market|in demand|\bdemand\b|\bgrowing\b|\bgrowth\b|declin\w*|\bbooming\b|\bboom\b|\bdying\b|shrinking|future of|\boutlook\b|\bhiring\b|good (place|time) to|should i (go|move) to|is .* (good|bad|safe) (for|in)/, 4]]],
+    ['pay', [[/\bsalar(y|ies)\b|\bpay\b|\bpaid\b|\bearn\w*|\bincome\b|\bwages?\b|how much (do|does|will|can|would) (i|they|you|a|an|we)\b.*\b(make|earn|get)|highest ?paying|well ?paid|\brich\b|\bmoney\b/, 4]]],
+    ['listJobs', [[/jobs? (for|in|that|without|with|which|where|like|similar)|careers? (for|in|that|like)|what (other )?(jobs|careers|options)|\blist\b|other jobs|more jobs|more options|suggest\w*|recommend\w*|options for me|no degree|without (a )?degree|dont need (a )?degree|\bintrovert\w*|\bextrovert\w*|creative jobs|work from home|\bremote\b|helping people|outdoor|hands on jobs|all (the )?jobs|jobs (do you|can you) (know|have)|similar (jobs|roles)/, 4]]],
+    ['topMatch', [[/\b(top|best|first|number one|1st) (match|job|role|fit|career)\b|what (is|are) my (top|best|matches|results)|which job (suits|fits) me|what (job )?should i (do|be|become|choose)|\bsuited\b|suit me|my match(es)?\b|why (is|did) .* (top|first|number one)/, 3]]],
+    ['code', [[/\bcode\b|riasec|holland|interest type|my interests?\b|\binterest shape\b|what (does|do) [riasec]{2,3} (mean|stand for)/, 4]]],
+    ['style', [[/work style|personality|\bstrengths?\b|\btraits?\b|how do i (like to )?work|what am i like|big five/, 4]]],
+    ['values', [[/\bvalues?\b|what matters to me/, 4]]],
+    ['skills', [[/\bskills?\b|\bimprove\b|\bcourses?\b to take|\bweak(ness|nesses)?\b|build (first|up)|what (should|can) i learn|learn first/, 4]]],
+    ['stretch', [[/\bstretch\b/, 5]]],
+    ['openings', [[/openings?|vacanc\w*|\bapply\b|\bhiring now\b|job portal|job search|find (a )?(job|work)|look(ing)? for (a )?job|where to find jobs/, 4]]],
+    ['coach', [[/\bcoach\w*|counsel+or|career (advice|adviser|advisor|guidance)|talk to (someone|a person|a human|somebody)|advise me|someone to talk/, 4]]],
+    ['interview', [[/\binterview\w*/, 6]]],
+    ['resume', [[/\bresume\b|\bcv\b|cover letter|linkedin|\bportfolio\b/, 6]]],
+    ['internship', [[/\bintern\w*|attachment|job taster|work experience|part ?time|holiday job|\bgig\b|freelance work|try (it|a job) first/, 5]]],
+    ['aiFuture', [[/\bai\b.*\b(replace|take|steal|kill|threat|safe|future|affect)|(replace\w*|taken over) by (ai|robots?|machines?)|automat\w*|future ?proof|\brobots?\b|will .* (exist|still be needed)|safe (job|career)s?/, 6]]],
+    ['ns', [[/\bns\b|national service|\bnsf\b|\bord\b|after (ns|army)|\bnsmen\b/, 5]]],
+    ['switch', [[/\bswitch\w*|change (my )?(career|job|field|industry|course)|career change|mid ?career|already working|working adult|start (over|again)|\bpivot\b|wrong course/, 4]]],
+    ['polyjc', [[/(poly|polytechnic) (or|vs|versus) (jc|junior college|a levels?)|(jc|junior college|a levels?) (or|vs|versus) (poly|polytechnic)|should i (go to|choose|pick) (poly|jc|ite|uni)|ite (or|vs) |\bjc\b|a levels?/, 4]]],
+    ['ite', [[/after ite|from ite|ite (to|then)|\bnitec\b|higher nitec|ite grad\w*|im in ite|ite student/, 4]]],
+    ['faith', [[/\bpray\w*|friday|jumaah|jumuah|tudung|hijab|headscarf|\bhalal\b|\bharam\b|\briba\b|interest based|alcohol|gambling|casino|\breligio\w*|\bmuslim\b|\bfasting\b|ramadan|puasa|discriminat\w*/, 5]]],
+    ['business', [[/(start|open|run) (my own|a|an|my) (business|company|shop|cafe|brand)|entrepreneur\w*|own business|\bstart ?up\b|self ?employed|be my own boss/, 6]]],
+    ['contacts', [[/hotlines?|phone numbers?|\bcontacts?\b|call (someone|who)|who (do|can|should) i (call|contact|ask|go to)|\bwebsites?\b|where (can|do) i (find|get) (more )?(info|information|help|details)/, 4]]],
+    ['globe', [[/\bmap\b|\bglobe\b/, 5]]],
+    ['roleDoes', [[/what (does|do|is) (an? )?.+ (do|doing)\b|what (is|s) (it )?like (to be|being|working)|day in the life|\bdaily\b|\binvolve\w*|job scope|responsibilit\w*|\bdescribe\b|tell me about|what is an? /, 3]]],
+    ['roleFit', [[/why .* (fit|match|suit|on my list)|does .* (fit|suit) me|am i (suited|good|right) for|good fit|right for me|is .* (good|right) for me|should i be an?/, 3]]]
+  ];
+  const STAGE_FROM = { ITE: 'ITE', Poly: 'a polytechnic diploma', Uni: 'a university degree', Work: 'work' };
+  const ROLE_TOPICS = ['path', 'pathCost', 'cost', 'pay', 'roleDoes', 'roleFit', 'compare', 'world', 'abroad', 'aid'];
+
+  function askRules(question) {
+    const { p } = currentProfile();
+    const res = rank(p);
+    const q = normalise(question);
+    const ctx = ask.ctx;
+    const roles = askRoles(q, res);
+    const inds = findAll(q, IND_PHRASES);
+    const countries = findAll(q, COUNTRY_PHRASES);
+    const stage = askStage(q);
+    const scores = TOPICS.map(([k, pats], i) => ({ k, i, v: pats.reduce((a, [re, w]) => a + (re.test(q) ? w : 0), 0) }));
+    // Studying words with a non-Singapore country point to studying overseas; country or industry words with
+    // "should", "good" or "work" point to the world outlook.
+    const studyWords = /\b(study|studying|university|uni|degree|diploma|course|school|college|scholarship)\b/.test(q);
+    const abroadC = countries.filter(c => c !== 'Singapore');
+    const bump = (k, v) => { scores.find(s => s.k === k).v += v; };
+    if (abroadC.length && studyWords) bump('abroad', 4);
+    if ((abroadC.length || inds.length) && /\b(work|job|jobs|career|good|bad|should|go|move|live)\b/.test(q) && !studyWords) bump('world', 2);
+    if (roles.length >= 2) bump('compare', 2);
+    if (roles.length && /\bhow much\b/.test(q) && !/\b(earn|make|salary|pay)\b/.test(q)) bump('cost', 2);
+    const sc = k => scores.find(x => x.k === k).v;
+    if (inds.includes('islamic')) scores.find(s => s.k === 'faith').v = 0;
+    let best = scores.reduce((a, b) => (b.v > a.v ? b : a), { v: 0 });
+    let topic = best.v ? best.k : null;
+    if (sc('path') >= 4 && sc('cost') >= 4) topic = 'pathCost';
+
+    // Short follow-ups ("what about Japan?", "and for a teacher?") reuse the last topic.
+    const followUp = /^ (what|how) about |^ and |^ also |^ what if |^ for an? |^ in /.test(q) || (q.trim().split(' ').length <= 3 && best.v < 4);
+    if ((!topic || best.v < 4) && followUp && ctx.topic && (roles.length || countries.length || inds.length || stage)) {
+      topic = abroadC.length && ['path', 'pathCost', 'cost', 'aid'].includes(ctx.topic) ? 'abroad' : ctx.topic;
+    }
+    // "Tell me about Dubai" is about a place, not the last job discussed.
+    if (['roleDoes', 'roleFit'].includes(topic) && !roles.length && (abroadC.length || inds.length)) topic = 'world';
+    if (!topic) topic = roles.length ? 'roleFit' : inds.length || abroadC.length ? 'world' : null;
+
+    // "Islamic finance jobs overseas" is about working there, not studying.
+    if (topic === 'abroad' && !studyWords && /\b(job|jobs|work|career|careers|hiring)\b/.test(q)) topic = 'world';
+
+    // A job or place from earlier in the chat carries over only for follow-ups and "it"/"this" questions,
+    // and not where the question names an industry instead.
+    const useCtx = followUp || / (it|this|that|there|this job|that job|the job|them|they) /.test(q);
+    const roleId = roles[0] || (useCtx && ROLE_TOPICS.includes(topic) && !(inds.length && ['pay', 'world'].includes(topic)) ? ctx.role : null);
+    const s = roleId ? res.all.find(x => x.role.id === roleId) : null;
+    if (!s && ['path', 'pathCost', 'cost', 'pay', 'roleDoes', 'roleFit'].includes(topic)) {
+      const unknown = unknownJob(q);
+      if (unknown) return unknown;
+    }
+    const country = countries[0] || (useCtx && ['world', 'abroad'].includes(topic) && !roles.length && !inds.length ? ctx.country : null);
+    const ind = inds[0] || (s && topic === 'world' && (roles.length || !country) ? s.role.ind : null) || (topic === 'world' && !country ? ctx.ind : null);
+    const out = runTopic(topic, { q, p, res, s, roles, ind, inds, country, stage });
+    ask.ctx = { topic: topic || ctx.topic, role: s ? s.role.id : ctx.role, country: country || ctx.country, ind: ind || (s ? s.role.ind : ctx.ind) };
+    return out;
+  }
+
+  // "How do I become a zookeeper?" names a job Serasi doesn't have: say so instead of answering about another job.
+  const NOT_JOBS = new Set(['a', 'an', 'the', 'good', 'better', 'best', 'successful', 'rich', 'happy', 'more', 'my', 'it', 'this', 'that', 'someone', 'something', 'one', 'there', 'able', 'sure', 'ready', 'what', 'who', 'like', 'myself', 'you', 'me', 'paid', 'hired', 'accepted', 'in', 'on', 'at', 'with']);
+  function unknownJob(q) {
+    const m = / (?:become|be|work as|join as|jadi) (?:an? )?([a-z]+)/.exec(q) || / what (?:does|do|is) an? ([a-z]+)(?: [a-z]+)? do /.exec(q);
+    const w = m && m[1];
+    if (!w || NOT_JOBS.has(w) || findAll(' ' + w + ' ', IND_PHRASES).length || findAll(' ' + w + ' ', COUNTRY_PHRASES).length) return null;
+    const stem = w.slice(0, Math.max(4, w.length - 2));
+    const close = ROLES.filter(r => r.title.toLowerCase().includes(stem) || ROLE_DOES[r.id].toLowerCase().includes(stem)).slice(0, 4).map(r => r.title);
+    return 'I don’t have “' + w + '” among the ' + ROLES.length + ' jobs I know yet.' + (close.length ? ' Jobs I know that are close: ' + joinList(close) + '.' : '') +
+      '\nFor other jobs, MySkillsFuture has career guides: https://www.myskillsfuture.gov.sg\nOr ask about one I know, for example “How do I become a nurse?”';
+  }
+
+  function runTopic(topic, a) {
+    const { q, p, res, s } = a;
+    const top = res.main[0];
+    const need = fn => s ? fn(s) : top ? fn(top, true) : askFallback();
+    switch (topic) {
+      case 'crisis': return ASK_DISTRESS;
+      case 'crisisOld': return 'I’m really sorry you’re feeling this way. You don’t have to handle it alone, and talking to someone now helps:\n- national mindline 1771: call or text any time (WhatsApp 6669 1771), or chat at https://www.mindline.sg\n- Samaritans of Singapore: call 1767 (24 hours), or WhatsApp CareText 9151 1767\n- If you or someone else is in danger right now, call 995.\nCareer plans can wait. Please reach out to one of them now.';
+      case 'wellbeing': return askWellbeing();
+      case 'greet': return 'Hi! I can help with almost any career question: jobs on your list or any of the ' + ROLES.length + ' jobs I know, how to get into them and what it costs, subsidies and scholarships, studying or working overseas, pay, interviews and your results. Try:\n' + askMenu(3);
+      case 'thanks': return 'You’re welcome! Anything else? For example:\n' + askMenu(2, 3);
+      case 'help': return askHelp();
+      case 'about': return 'Serasi is a career-fit pilot for Malay youths aged 18 to 25 in Singapore.\n- Ask Serasi isn’t connected to an AI service. It reads your question, works out the topic and the jobs, places or courses you mention, and answers from the job, pathway, fee and world-market data in this app.\n- Nothing you type leaves this device. Your answers are saved only in this browser, and “Delete my data” removes them.\n- Fees, subsidies and world notes were checked in October 2026. Always confirm with the official links.';
+      case 'lock': return 'Your scores are locked once you finish the quiz, so your list reflects how you actually answered.\n- To change them, tap “Retake quiz” at the top of your results. That clears your old answers and results, and you start again from blank.\n- The weights are fixed for everyone: 50% interests, 30% work style, 20% values.\n- You can still open any job, see its shortest path and ask me about it.';
+      case 'scoreHow': return askScoreHow(s, res);
+      case 'compare': return a.roles.length >= 2 ? askCompare(res.all.find(x => x.role.id === a.roles[0]), res.all.find(x => x.role.id === a.roles[1]), p) : s && top && s !== top ? askCompare(top, s, p) : 'Name two jobs to compare, for example: “Compare nurse and teacher” or “Data analyst vs software engineer”.';
+      case 'path': return need(x => askPath(x, p, a.stage, x === top && !s));
+      case 'pathCost': return need(x => askPath(x, p, a.stage, x === top && !s) + '\n\nWhat it costs:\n' + askCost(x, p, a.stage).split('\n').slice(1).join('\n'));
+      case 'cost': return a.country && a.country !== 'Singapore' ? askAbroad(a.country, s, p) : s && (a.roles.length || !/\b(ite|poly|polytechnic|uni|university|degree|diploma|jc)\b/.test(q)) ? askCost(s, p, a.stage) : /\b(ite|poly|polytechnic|uni|university|degree|diploma|jc)\b/.test(q) || !top ? askFees() : askCost(top, p, a.stage, true);
+      case 'aid': return askAid(q, s, p);
+      case 'abroad': return askAbroad(a.country && a.country !== 'Singapore' ? a.country : null, s, p);
+      case 'world': return askWorld(a.ind ? INDUSTRY[a.ind] : null, a.country, s, top);
+      case 'pay': return askPay(s, res, a.inds[0]);
+      case 'listJobs': return askList(q, a, res, p);
+      case 'topMatch': return top ? roleFit(top, res) : askFallback();
+      case 'code': { const m = / ([riasec]{3}) (mean|stand)/.exec(q); return askCode(p, m && new Set(m[1]).size === 3 ? m[1].toUpperCase() : null); }
+      case 'style': return askStyle(p);
+      case 'values': return askValues(res, p);
+      case 'skills': return askSkills(res, p);
+      case 'stretch': return askStretch(res);
+      case 'openings': return askOpenings(res, p, s);
+      case 'coach': return askCoach();
+      case 'interview': return askInterview(p, s);
+      case 'resume': return askResume(s);
+      case 'internship': return askInternship(p);
+      case 'aiFuture': return askAIFuture(s || top);
+      case 'ns': return askNS(p);
+      case 'switch': return askSwitch();
+      case 'polyjc': return askPolyJC(top, p);
+      case 'ite': return askITE(top, p);
+      case 'faith': return askFaith(q, p);
+      case 'business': return askBusiness();
+      case 'contacts': return askContacts(s);
+      case 'globe': return 'Open “World map” in the menu. Pick an industry to see where it’s growing, steady or shrinking, and tap a country or city for its notes.' + (top ? ' For you, start with ' + lowerFirst(INDUSTRY[top.role.ind].label) + ', the industry of your top match.' : '');
+      case 'roleDoes': return s ? roleDoes(s, res) : askFallback();
+      case 'roleFit': return s ? roleFit(s, res) : top ? roleFit(top, res) : askFallback();
+      default: return askFallback();
+    }
+  }
+
+  function askSuggestions() {
+    const { p } = currentProfile();
+    const res = rank(p);
+    const top = res.main[0];
+    const list = [];
+    if (top) {
+      const t = lowerTitle(top.role.title);
+      list.push('Why is ' + t + ' my top match?', 'How do I become ' + article(t) + ' ' + t + '?', 'How much will it cost to become ' + article(t) + ' ' + t + '?', 'Where in the world is ' + lowerFirst(INDUSTRY[top.role.ind].label) + ' growing?');
+    }
+    return list.concat(['What financial help can I get?', 'Should I study overseas?', 'Show me jobs that don’t need a degree', 'Which skill should I build first?', 'How do I prepare for an interview?', 'Who can I talk to?']);
+  }
+  const askMenu = (n, from) => askSuggestions().slice(from || 0, (from || 0) + (n || 6)).map(x => '- ' + x).join('\n');
+  const askFallback = () => 'I’m not sure I understood that. I can help with jobs, study routes and costs, subsidies, studying or working overseas, pay, interviews and your results. Try one of these, or rephrase:\n' + askMenu(5);
+
+  function askHelp() {
+    return 'Here’s what you can ask me, in English or Malay:\n' +
+      '- Any job: “What does a radiographer do?”, “Why does nursing fit me?”, “Compare chef and baker”\n' +
+      '- Getting there: “How do I become a teacher from ITE?”, “How much does a nursing diploma cost?”\n' +
+      '- Money: “What subsidies can I get?”, “What is TTFS?”, “Are there scholarships for social work?”, “How much do IT graduates earn?”\n' +
+      '- Overseas: “Should I study in Germany?”, “Where is tech growing?”, “Is construction good in China?”\n' +
+      '- Your results: “What does my code mean?”, “How is my score calculated?”, “Show me jobs for introverts”\n' +
+      '- Next steps: interviews, CVs, internships, NS, switching careers, starting a business, who to call';
+  }
+
+  function askWellbeing() {
+    return 'It’s normal to feel unsure about your future. Most people change direction more than once, and there’s no single right answer.\n' +
+      '- Try one job from your list before you decide: a job taster, an internship or a part-time job.\n' +
+      '- Talk it through with a free career coach: NTUC e2i (6474 0606) or Workforce Singapore (6883 5885).\n' +
+      '- If stress or low mood is weighing on you, national mindline 1771 is free and open 24/7 (call, WhatsApp 6669 1771 or https://www.mindline.sg).\n' +
+      'Your results are a guide, not a decision.';
+  }
+
+  function scoreBand(n) { return n >= 80 ? 'a strong match' : n >= 65 ? 'a good match' : n >= 50 ? 'a fair match' : 'a weaker match'; }
+
+  function askScoreHow(s, res) {
+    const lines = ['Each job’s fit score runs from 0 to 100: 50% interests, 30% work style and 20% values.',
+      '- Interests compare your three-letter code with the job’s on Holland’s hexagon (Brown and Gore’s C index), plus how closely your six interest scores follow the job’s shape.',
+      '- Work style counts only where you fall short of what the job needs; scoring higher than needed never costs you.',
+      '- Values give full marks when the job offers two of the values you chose.',
+      '- As a guide: 80 or more is a strong match, 65 to 79 good, 50 to 64 fair.'];
+    const x = s || res.main[0];
+    if (x) lines.push(x.role.title + ' scores ' + x.total + ' for you (' + scoreBand(x.total) + '): interests ' + pct(x.interest) + ', work style ' + pct(x.work) + ', values ' + pct(x.values) + '.');
+    lines.push('Scores are locked once you finish; retake the quiz from blank to change them.');
+    return lines.join('\n');
   }
 
   function placeOf(s, res) {
     const i = res.main.indexOf(s);
     if (i >= 0) return 'number ' + (i + 1) + ' on your list';
-    return res.stretch.includes(s) ? 'one of your stretch roles' : 'not on your list';
+    const j = res.more.indexOf(s);
+    if (j >= 0) return 'number ' + (j + 11) + ' on your list (tap “Show more matches”)';
+    return res.stretch.includes(s) ? 'one of your stretch roles' : 'not in your top 20';
   }
 
   function roleFit(s, res) {
     const r = s.role;
-    const lines = [r.title + ' is ' + placeOf(s, res) + ', with a fit score of ' + s.total + ' out of 100 (interests ' + pct(s.interest) + ', work style ' + pct(s.work) + ', values ' + pct(s.values) + ').'];
+    const lines = [r.title + ' is ' + placeOf(s, res) + ', with a fit score of ' + s.total + ' out of 100, ' + scoreBand(s.total) + ' (interests ' + pct(s.interest) + ', work style ' + pct(s.work) + ', values ' + pct(s.values) + ').'];
     s.reasons.forEach(x => lines.push('- ' + x.text));
     if (s.flag) lines.push('- ' + s.flag.text);
     lines.push('What the work involves: ' + ROLE_DOES[r.id]);
+    lines.push('Ask “How do I become ' + article(lowerTitle(r.title)) + ' ' + lowerTitle(r.title) + '?” for the shortest path and costs.');
     return lines.join('\n');
   }
 
   function roleDoes(s, res) {
     const r = s.role, t = lowerTitle(r.title);
+    const ind = INDUSTRY[r.ind], sg = HUB.sg.ind[r.ind];
     return upperFirst(article(t)) + ' ' + t + ' ' + lowerFirst(ROLE_DOES[r.id]) +
       '\n- Sector: ' + r.sector + '. It usually needs ' + EDU_LABEL[r.edu] + '.' +
+      (sg ? '\n- In Singapore, ' + lowerFirst(ind.label) + ' is ' + OUTLOOK[sg[0]].toLowerCase() + ': ' + lowerFirst(sg[1]) : '') +
       '\n- For you, it’s ' + placeOf(s, res) + ' (fit ' + s.total + ' out of 100).' +
       '\n- To see real tasks, read a few job ads for “' + s.query + '” on ' + PORTALS[r.portals[0]].name + '.';
+  }
+
+  function askPath(s, p, stage, isTop) {
+    const r = s.role, t = lowerTitle(r.title);
+    const pp = stage ? Object.assign({}, p, { pathway: stage }) : p;
+    const path = pathFor(r, pp), cost = pathCost(path, pp);
+    const lines = [(isTop ? 'For your top match, ' + t + ': the ' : 'The ') + 'shortest path to ' + (r.trk === 'uniformed' ? 'join as ' : 'become ') + article(t) + ' ' + t + ', starting from ' + STAGE_FROM[pp.pathway] + ', takes ' + (path.years ? 'about ' + fmtYears(path.years) + ' of study or training.' : 'no more study.')];
+    path.steps.forEach((st, i) => lines.push((i + 1) + '. ' + st.t + (st.n && !st.done && i < path.steps.length - 1 ? '. ' + st.n : '')));
+    if (cost.total) lines.push('Course fees: about ' + money(cost.total) + ' in total' + (cost.after != null ? ', or about ' + money(cost.after) + ' after help for your income band.' : ' before TTFS and bursaries.'));
+    if (path.alts[0]) lines.push('Another route: ' + path.alts[0]);
+    if ((path.T.abroad || []).length && r.edu >= 2) lines.push('You could also study overseas; ask “Should I study ' + (r.trk === 'nursing' ? 'nursing ' : '') + 'overseas?”');
+    const res = rank(p);
+    lines.push(res.main.concat(res.more, res.stretch).some(x => x.role === r) ? 'Open ' + t + ' in your results and tap “Shortest path” for the full price breakdown, subsidies and contacts.' : 'It isn’t in your top 20, but you can still ask me about its costs, subsidies or studying overseas.');
+    return lines.join('\n');
+  }
+
+  function askCost(s, p, stage, isTop) {
+    const r = s.role, t = lowerTitle(r.title);
+    const pp = stage ? Object.assign({}, p, { pathway: stage }) : p;
+    const path = pathFor(r, pp), cost = pathCost(path, pp);
+    const fees = cost.rows.filter(x => x.kind === 'fee');
+    const lines = [(isTop ? 'For your top match, ' + t + ', ' : 'To become ' + article(t) + ' ' + t + ', ') + 'starting from ' + STAGE_FROM[pp.pathway] + ':'];
+    if (!fees.length) lines.push(cost.rows.some(x => x.kind === 'check') ? '- Graduate-entry medicine fees differ from undergraduate fees, so check Duke-NUS’s current fees.' : cost.rows.some(x => x.kind === 'paid') ? '- No course fees: you’re paid while you train.' : cost.rows.some(x => x.kind === 'pt') ? '- Part-time courses are subsidised for Singaporeans; check each course page for the fee.' : '- No more course fees: you already have the usual qualification.');
+    fees.forEach(x => lines.push('- ' + FEES[x.s.fee].label + ': about ' + money(x.per) + ' a year × ' + fmtYears(x.s.yrs) + ' = ' + money(x.total)));
+    if (fees.length) lines.push('- Total: about ' + money(cost.total) + ' (Singapore Citizen fees after the MOE Tuition Grant, for students starting in 2025–26).');
+    if (cost.ipa) lines.push('- ITE Progression Award: $5,000 into your PSEA when you start the diploma, then $10,000 into your CPF when you finish.');
+    if (cost.after != null) lines.push('- After TTFS and bursaries for your income band: about ' + money(cost.after) + '.');
+    else if (cost.local) lines.push('- MENDAKI’s TTFS pays 25% to 100% of tuition if your household income per person is $2,400 or less, and government bursaries add up to $3,050 a year for a diploma or $6,300 for a degree. Pick your income band on the “Shortest path” tab to estimate.');
+    (path.T.help || []).filter(k => HELP[k] && !['wsdip'].includes(k)).forEach(k => lines.push('- ' + HELP[k].t + ': ' + HELP[k].d));
+    const ab = (path.T.abroad || []).map(k => ABROAD[k]).find(x => x.fee || x.total);
+    if (ab && r.edu >= 2) { const c = abroadCalc(ab); lines.push('- For comparison, ' + ab.c + ' (' + ab.course + '): ' + lowerFirst(c.total || c.fee) + '.'); }
+    return lines.join('\n');
+  }
+
+  function askFees() {
+    return 'Fees a year for Singapore Citizens, after the MOE Tuition Grant (students starting in 2025–26):\n' +
+      '- ITE Higher Nitec: about $630 (Nitec about $470)\n- Polytechnic diploma: about $3,180\n- University degree: about $8,300 (business and accountancy $9,500, law $12,700, medicine $36,100)\n' +
+      'Help on top: MENDAKI’s TTFS pays 25% to 100% of diploma and degree tuition if household income per person is $2,400 or less; bursaries add up to $3,050 a year (diploma) or $6,300 (degree); ITE graduates get the $5,000 + $10,000 ITE Progression Award for a diploma.\n' +
+      'Name a job, for example “How much does it cost to become a nurse?”, and I’ll add up your route.';
+  }
+
+  function askAid(q, s, p) {
+    const T = s ? TRACKS[s.role.trk] || {} : {};
+    const line = k => '- ' + HELP[k].t + ': ' + HELP[k].d;
+    if (/ttfs|mendaki/.test(q)) return 'MENDAKI’s Tertiary Tuition Fee Subsidy (TTFS):\n' + line('ttfs') + '\n- Apply online through MENDAKI each semester, within its application windows. Call 6245 5555 or see https://www.mendaki.org.sg\n- You can also apply for a government bursary at the same time.';
+    if (/bursar/.test(q)) return 'Government bursaries (AY2026):\n' + line('bursary') + '\n- Apply through your school’s financial aid office. Details: https://www.moe.gov.sg/financial-matters/financial-assistance';
+    if (/progression award|psea/.test(q)) return line('ipa') + '\nDetails: ' + CONTACTS.ipa.url;
+    if (/work ?study/.test(q)) return line('wsdip') + '\nDetails: ' + CONTACTS.wsdip.url;
+    if (/scholarship|sponsor|bond/.test(q)) {
+      const lines = ['Scholarships and sponsorships usually pay your fees and an allowance. Most come with a bond: you agree to work for the sponsor for a set number of years after you graduate, or pay money back if you leave early.'];
+      const keys = uniq((T.help || []).concat(s ? [] : ['nurse-spon', 'ah-spon', 'ncss', 'ecda', 'moe-teach']));
+      keys.filter(k => HELP[k]).forEach(k => lines.push(line(k)));
+      lines.push('- Overseas: Japan’s MEXT scholarship pays full fees, an allowance and flights; apply through the Embassy of Japan in Singapore.');
+      lines.push('- For a full list of awards, ask your school’s financial aid office, or search MySkillsFuture.');
+      return lines.join('\n');
+    }
+    return 'Help with study costs in Singapore:\n' + ['tg', 'ttfs', 'bursary', 'ipa', 'wsdip', 'sfc'].map(line).join('\n') +
+      (s && (T.help || []).length ? '\nFor ' + lowerTitle(s.role.title) + ':\n' + T.help.filter(k => HELP[k] && k !== 'wsdip').map(line).join('\n') : '') +
+      '\nQuestions? MENDAKI: 6245 5555. MOE financial assistance: https://www.moe.gov.sg/financial-matters/financial-assistance';
+  }
+
+  function abroadLines(key) {
+    const a = ABROAD[key], c = abroadCalc(a);
+    return '- ' + a.c + ', ' + a.course + ': ' + c.fee + (c.living ? '. ' + c.living : '') + (c.total ? '. ' + c.total : '') + '.\n  Why: ' + a.why + '\n  Watch out: ' + a.watch;
+  }
+
+  function askAbroad(country, s, p) {
+    const T = s ? TRACKS[s.role.trk] || {} : {};
+    const head = 'Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas, so compare total costs carefully. Costs use rough exchange rates.';
+    if (country) {
+      const keys = COUNTRY_ABROAD[country] || [];
+      const pick = keys.filter(k => (T.abroad || []).includes(k));
+      const list = (pick.length ? pick : keys).slice(0, 3);
+      if (!list.length) return 'I don’t have study costs for ' + country + '. I have checked figures for Australia, the UK, Germany, Japan and Malaysia (and Egypt for Islamic studies).' + (countryHubs(country).length ? '\nFor jobs there, ask “Is ' + country + ' good for ' + (s ? lowerFirst(INDUSTRY[s.role.ind].label) : 'tech') + '?”' : '');
+      return 'Studying in ' + country + (pick.length ? ', for ' + lowerTitle(s.role.title) : '') + ':\n' + list.map(abroadLines).join('\n') + '\n' + head + (GULF.includes(country) ? '\nNote: the 2026 Iran war has disrupted the Gulf; check travel advice.' : '') + '\nOfficial guide: ' + CONTACTS[ABROAD[list[0]].links[0]].url;
+    }
+    if (s && (T.abroad || []).length && s.role.edu >= 2) return 'Studying overseas for ' + lowerTitle(s.role.title) + ' is worth it when the course is stronger there or a local place is hard to get:\n' + T.abroad.map(abroadLines).join('\n') + '\n' + head + '\nOpen the job’s “Shortest path” tab to compare with the local route, which usually costs much less.';
+    return 'Studying overseas can make sense if the course is stronger there, a local place is hard to get, or you want to work in that country later. Quick comparison (international undergraduates):\n' +
+      '- Germany: most public universities charge no tuition (about €100–350 a semester), but you must show €11,904 a year for living costs, and most bachelor’s degrees are in German.\n' +
+      '- Japan: national universities charge ¥535,800 a year; the MEXT scholarship can pay everything.\n' +
+      '- Malaysia: the cheapest and closest; a 3-year computing degree costs about RM77,400–141,720 in total.\n' +
+      '- Australia: about A$36,000–50,000 a year plus A$29,710 a year for living; 295,000 new international places for 2026.\n' +
+      '- United Kingdom: about £17,000–30,000 a year for many 3-year degrees.\n' + head + '\nName a country or job, for example “Should I study nursing in Australia?”';
+  }
+
+  function countryHubs(country) { return WORLD.filter(h => h.country === country); }
+  const placeName = h => h.scope === 'country' ? h.country : h.place;
+
+  function askWorld(ind, country, s, top) {
+    if (!ind && !country) ind = INDUSTRY[(s || top || { role: { ind: 'tech' } }).role.ind];
+    const lines = [];
+    const fmt = (h, o) => '- ' + placeName(h) + ': ' + OUTLOOK[o[0]].toLowerCase() + '. ' + o[1];
+    let shown = [];
+    if (ind && country) {
+      const notes = countryHubs(country).filter(h => h.ind[ind.k]);
+      if (notes.length) { lines.push(upperFirst(ind.label) + ' in ' + country + ':'); notes.forEach(h => lines.push(fmt(h, h.ind[ind.k]))); }
+      else lines.push('I don’t have checked notes on ' + lowerFirst(ind.label) + ' in ' + country + '.');
+      const worse = notes.some(h => h.ind[ind.k][0] === 'decline') || !notes.length;
+      const grow = hubsFor(ind.k).filter(x => x.o[0] === 'grow' && x.h.country !== country).map(x => placeName(x.h));
+      if (worse && grow.length) lines.push((notes.length ? 'Where it’s growing instead: ' : 'Where it’s growing: ') + joinList(grow.slice(0, 5)) + '.');
+      const other = countryHubs(country).filter(h => !h.ind[ind.k]).flatMap(h => Object.entries(h.ind).filter(([, o]) => o[0] === 'grow').map(([k]) => lowerFirst(INDUSTRY[k].label)));
+      if (other.length) lines.push(country + ' is growing in other areas: ' + uniq(other).slice(0, 4).join('; ') + '.');
+    } else if (ind) {
+      const hubs = hubsFor(ind.k);
+      lines.push(upperFirst(ind.label) + ' around the world: ' + ind.global);
+      const g = hubs.filter(x => x.o[0] === 'grow'), d = hubs.filter(x => x.o[0] === 'decline'), m = hubs.filter(x => x.o[0] === 'steady');
+      if (g.length) { lines.push('Growing:'); g.slice(0, 6).forEach(x => lines.push(fmt(x.h, x.o))); }
+      if (m.length) lines.push('Steady or mixed: ' + joinList(m.map(x => placeName(x.h))) + '.');
+      if (d.length) { lines.push('Shrinking, so think twice:'); d.forEach(x => lines.push(fmt(x.h, x.o))); }
+      shown = g.slice(0, 6).concat(m, d).map(x => x.h.country);
+    } else {
+      const hubs = countryHubs(country);
+      if (!hubs.length) return 'I don’t have checked job-market notes for ' + country + ' yet. The world map covers ' + uniq(WORLD.map(h => h.country)).length + ' countries and territories, including China, Japan, South Korea, India, Malaysia, Australia, the UK, Germany and the US.';
+      lines.push('Job-market notes for ' + country + ':');
+      hubs.forEach(h => Object.entries(h.ind).forEach(([k, o]) => lines.push('- ' + INDUSTRY[k].label + (h.scope === 'country' || h.place === country ? '' : ' (' + h.place + ')') + ': ' + OUTLOOK[o[0]].toLowerCase() + '. ' + o[1])));
+    }
+    if (GULF.includes(country) || (!country && shown.some(c => GULF.includes(c)))) lines.push('Note: the 2026 Iran war has hit Gulf economies and flights; check travel advice and current news.');
+    lines.push('Working abroad usually needs a work visa. Open “World map” in the menu to explore this on the globe.');
+    return lines.join('\n');
+  }
+
+  function payKey(r) {
+    const T = TRACKS[r.trk] || {};
+    if (r.trk === 'medicine') return 'med';
+    if (r.edu === 3) return T.degKey || 'uni';
+    if (r.edu === 2) return r.ind === 'health' ? 'polyHealth' : ['socialwork', 'media', 'earlychild', 'teaching', 'religious'].includes(r.trk) ? 'polyHum' : 'poly';
+    return null;
+  }
+
+  // Survey groups that best match an industry, for "how much do IT graduates earn?".
+  const IND_PAY = { tech: ['it', 'poly'], semis: ['eng', 'poly'], manufacturing: ['eng', 'poly'], auto: ['eng', 'poly'], aero: ['eng', 'poly'], construction: ['eng', 'poly'], energy: ['eng', 'poly'], health: ['med', 'polyHealth', 'uni'], care: ['polyHum', 'uni'], education: ['polyHum', 'uni'], creative: ['polyHum', 'uni'] };
+  function askPay(s, res, ind) {
+    const lines = [];
+    if (!s && ind) {
+      const keys = IND_PAY[ind] || ['uni', 'poly'];
+      lines.push('Median monthly starting pay for fresh graduates in full-time permanent jobs (2025 surveys), closest groups to ' + lowerFirst(INDUSTRY[ind].label) + ':');
+      keys.forEach(k => lines.push('- ' + upperFirst(PAY[k].t) + ': ' + money(PAY[k].v)));
+      lines.push('Name a job, for example “How much does a software engineer earn?”, for its job-ad salary search.');
+    } else if (s) {
+      const k = payKey(s.role);
+      lines.push(k ? 'Fresh graduates in this area: the median starting pay for ' + PAY[k].t + ' was ' + money(PAY[k].v) + ' a month in 2025.' : 'I don’t have survey pay figures for ITE-level jobs like ' + lowerTitle(s.role.title) + '.');
+      lines.push('For this job, MyCareersFuture ads show a salary range: ' + PORTALS.mcf.url(s.role.q));
+    } else {
+      lines.push('Median monthly starting pay for fresh graduates in full-time permanent jobs (2025 surveys):');
+      ['med', 'it', 'eng', 'uni', 'polyHum', 'polyHealth', 'poly'].forEach(k => lines.push('- ' + upperFirst(PAY[k].t) + ': ' + money(PAY[k].v)));
+      if (res.main[0]) lines.push('For a specific job, ask “How much does ' + article(lowerTitle(res.main[0].role.title)) + ' ' + lowerTitle(res.main[0].role.title) + ' earn?”');
+    }
+    lines.push('Pay grows with experience and varies by employer, so compare several ads.');
+    return lines.join('\n');
+  }
+
+  // Jobs that match a description, ranked by the youth's fit.
+  function askList(q, a, res, p) {
+    let pool = res.all, label = '';
+    const take = (f, l) => { pool = pool.filter(f); label = l; };
+    if (/no degree|without (a )?degree|dont need (a )?degree/.test(q)) take(s => s.role.edu <= 2, 'that don’t need a degree');
+    else if (/\bite\b|nitec|o level/.test(q)) take(s => s.role.edu === 1, 'you can start with ITE or less');
+    else if (a.ind) take(s => s.role.ind === a.ind, 'in ' + lowerFirst(INDUSTRY[a.ind].label));
+    else if (/introvert|quiet|alone|independent/.test(q)) take(s => (s.role.ws.E || .5) <= .5 && (s.role.ws.A || .5) <= .65, 'for people who like focused, independent work');
+    else if (/creative|art|design/.test(q)) take(s => s.role.code[0] === 'A', 'for creative people');
+    else if (/help\w* people|helping/.test(q)) take(s => s.role.values.includes('helping'), 'that help people directly');
+    else if (/extrovert|people|social|talk/.test(q)) take(s => (s.role.ws.E || 0) >= .7, 'for people who enjoy being with others');
+    else if (/outdoor|hands on|practical/.test(q)) take(s => s.role.code[0] === 'R', 'that are hands-on');
+    else if (/stable|security|secure/.test(q)) take(s => s.role.values.includes('security'), 'with good job security');
+    else if (/balance/.test(q)) take(s => s.role.values.includes('balance'), 'with good work–life balance');
+    else if (/all (the )?jobs|jobs (do you|can you) (know|have)/.test(q)) return 'I know ' + ROLES.length + ' jobs across ' + uniq(ROLES.map(r => r.sector)).length + ' sectors. Your best 10 are on your list, with 10 more under “Show more matches”. Ask for jobs by type, for example “jobs in healthcare”, “jobs without a degree” or “creative jobs”.';
+    else if (/\b(other|more|else|beyond|another)\b/.test(q)) { pool = res.more.length ? res.more : res.all.slice(10, 20); label = 'beyond your top 10'; }
+    else { pool = res.main; label = 'that suit you'; }
+    if (!pool.length) return 'I couldn’t find jobs like that in Serasi’s list of ' + ROLES.length + '. Try “jobs in healthcare” or “jobs without a degree”.';
+    return 'Jobs ' + label + ', best fit for you first:\n' + pool.slice(0, 8).map(s => '- ' + s.role.title + ' (fit ' + s.total + (s.eduSteps ? ', needs ' + EDU_SHORT[s.role.edu] + ' first' : '') + ')').join('\n') + '\nAsk about any of them by name.';
+  }
+
+  function askCompare(a, b, p) {
+    if (!a || !b) return askFallback();
+    const ta = lowerTitle(a.role.title), tb = lowerTitle(b.role.title);
+    const pa = pathFor(a.role, p), pb = pathFor(b.role, p), ca = pathCost(pa, p), cb = pathCost(pb, p);
+    const sgA = HUB.sg.ind[a.role.ind], sgB = HUB.sg.ind[b.role.ind];
+    const better = (x, y, n) => x > y + .03 ? a.role.title : y > x + .03 ? b.role.title : null;
+    const parts = [['interests', a.interest, b.interest], ['work style', a.work, b.work], ['values', a.values, b.values]].map(([n, x, y]) => [n, better(x, y)]).filter(([, w]) => w);
+    const lines = ['Comparing ' + ta + ' with ' + tb + ' for you:',
+      '- Fit: ' + a.role.title + ' ' + a.total + ', ' + b.role.title + ' ' + b.total + '.' + (parts.length ? ' ' + parts.map(([n, w]) => w + ' suits your ' + n + ' better').join('; ') + '.' : ''),
+      '- Getting there from ' + STAGE_FROM[p.pathway] + ': ' + ta + ' ' + (pa.years ? 'about ' + fmtYears(pa.years) : 'no more study') + (ca.total ? ', fees about ' + money(ca.total) : '') + '; ' + tb + ' ' + (pb.years ? 'about ' + fmtYears(pb.years) : 'no more study') + (cb.total ? ', fees about ' + money(cb.total) : '') + '.',
+      '- Values on offer: ' + ta + ': ' + joinList(a.role.values.map(v => VALUE[v].short)) + '; ' + tb + ': ' + joinList(b.role.values.map(v => VALUE[v].short)) + '.'];
+    if (sgA || sgB) lines.push('- In Singapore: ' + [[a, sgA], [b, sgB]].filter(([, o]) => o).map(([x, o]) => lowerFirst(INDUSTRY[x.role.ind].label) + ' is ' + OUTLOOK[o[0]].toLowerCase()).join('; ') + '.');
+    const ka = payKey(a.role), kb = payKey(b.role);
+    if (ka && kb && ka !== kb) lines.push('- Fresh-graduate pay (2025 medians): ' + PAY[ka].t + ' ' + money(PAY[ka].v) + '; ' + PAY[kb].t + ' ' + money(PAY[kb].v) + '.');
+    lines.push(a.total === b.total ? 'They fit you equally well, so try both before you choose: job tasters, internships or talking to people in each job.' : 'On fit alone, ' + (a.total > b.total ? ta : tb) + ' suits you better. Before you decide, try both through a job taster, an internship or a chat with someone in each job.');
+    return lines.join('\n');
   }
 
   function askSkills(res, p) {
@@ -1052,15 +1874,17 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     const lines = ['Build ' + SKILL[first.k].label.toLowerCase() + ' first. You rated it ' + p.skills[first.k] + ' out of 5, and ' +
       (first.roles.length === 1 ? 'one job on your list usually needs more: ' + first.roles[0] + '.' : first.roles.length + ' jobs on your list usually need more, including ' + joinList(first.roles.slice(0, 2)) + '.')];
     if (second) lines.push('- Next: ' + SKILL[second.k].label.toLowerCase() + ' (' + second.roles.length + (second.roles.length === 1 ? ' job' : ' jobs') + ').');
-    lines.push('- Short courses on MySkillsFuture are a good place to start.');
+    lines.push('- Search short courses on MySkillsFuture: https://www.myskillsfuture.gov.sg');
+    lines.push('- From age 25, your $500 SkillsFuture Credit can pay for approved courses.');
     return lines.join('\n');
   }
 
-  function askCode(p) {
+  function askCode(p, asked) {
+    if (asked && asked !== codeOf(p.interest)) return asked + ' is a three-letter interest code, strongest type first:\n' + [...asked].map(t => '- ' + t + ' = ' + TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + '): ' + TYPE_INFO[t].blurb).join('\n') + '\nYour own code is ' + codeOf(p.interest) + '. Ask “What does my interest code mean?” for yours.';
     const code = codeOf(p.interest);
     return 'Your interest code is ' + code + '. It shows your three strongest interest types, strongest first:\n' +
       [...code].map(t => '- ' + TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ', ' + pct(p.interest[t]) + ' out of 100): ' + TYPE_INFO[t].blurb).join('\n') +
-      '\nThe letters come from Holland’s six RIASEC types, the same ones MySkillsFuture uses.';
+      '\nThe letters come from Holland’s six RIASEC types, the same ones MySkillsFuture uses. Types next to each other on Holland’s hexagon (R–I–A–S–E–C, round in a circle) are related, which is why jobs with neighbouring letters can still fit you.';
   }
 
   function askStyle(p) {
@@ -1074,42 +1898,118 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (!p.values.length) return 'You didn’t choose any values. Retake the quiz to add up to three.';
     const all = res.main.filter(s => p.values.every(v => s.role.values.includes(v)));
     const some = res.main.filter(s => p.values.some(v => s.role.values.includes(v)));
-    const W = state.weights;
     return 'You chose ' + joinList(p.values.map(v => VALUE[v].short)) + '.\n' +
       (all.length
         ? '- Jobs on your list that offer ' + (p.values.length > 1 ? 'all of them' : 'it') + ': ' + joinList(all.slice(0, 4).map(s => s.role.title)) + '.'
         : '- No job on your list offers all of them, but ' + some.length + ' offer at least one.') +
-      '\n- Values make up ' + Math.round(100 * W.v / (W.i + W.w + W.v || 1)) + '% of each fit score.';
+      '\n- Values make up ' + Math.round(100 * W.v / (W.i + W.w + W.v)) + '% of each fit score.';
   }
 
   function askStretch(res) {
-    if (!res.stretch.length) return 'You have no stretch roles right now. The good fits on your list are within reach of your current skills and qualification.';
+    if (!res.stretch.length) return 'You have no stretch roles right now. The good fits on your list are within reach of your current skills and qualification, or one study step away.';
     return 'Stretch roles fit you well but need something first:\n' + res.stretch.map(s => {
-      const needs = (s.eduGap ? [EDU_LABEL[s.role.edu]] : []).concat(s.gaps.map(k => 'more ' + SKILL[k].label.toLowerCase()));
+      const needs = (s.eduSteps >= 2 ? [EDU_LABEL[s.role.edu]] : []).concat(s.gaps.map(k => 'more ' + SKILL[k].label.toLowerCase()));
       return '- ' + s.role.title + ' (fit ' + s.total + '): usually needs ' + joinList(needs) + '.';
-    }).join('\n') + '\nAsk about one by name to see why it fits.';
+    }).join('\n') + '\nAsk “How do I become …?” with any of them for the shortest path.';
   }
 
-  function askOpenings(res, p) {
-    const top = res.main[0];
+  function askOpenings(res, p, s) {
+    const x = s || res.main[0];
     const lines = ['Open any job on your list and tap a job portal to see live openings.'];
-    if (top) lines.push('- For ' + lowerTitle(top.role.title) + ', start with ' + PORTALS[top.role.portals[0]].name + ' and search for “' + top.query + '”.');
+    if (x) lines.push('- For ' + lowerTitle(x.role.title) + ', start with ' + PORTALS[x.role.portals[0]].name + ': ' + PORTALS[x.role.portals[0]].url(x.query));
     lines.push('- MyCareersFuture ads show a salary range.');
     if (p.grit) lines.push('- You may also qualify for GRIT traineeships: 3 to 6 months with a monthly allowance.');
+    lines.push('- Free job matching: NTUC e2i (6474 0606) or Workforce Singapore (6883 5885).');
     return lines.join('\n');
   }
 
-  function askPay(res) {
-    const top = res.main[0];
-    return 'Serasi doesn’t show pay. Job ads on MyCareersFuture list a salary range' + (top ? ', so search there for “' + top.query + '” to see what ' + lowerTitle(top.role.title) + ' jobs offer.' : '.');
+  function askCoach() {
+    return 'Your results are a guide, not a decision. A career coach can talk it through with you for free:\n- NTUC e2i: 6474 0606, https://www.e2i.com.sg\n- Workforce Singapore (Careers Connect): 6883 5885, https://www.wsg.gov.sg\n- M³+ offers job matching for the Malay/Muslim community.\n- Yayasan MENDAKI: 6245 5555 for study help and youth programmes.';
   }
 
-  function askCoach() {
-    return 'Your results are a guide, not a decision. A career coach can help you talk it through:\n- NTUC e2i offers career coaching and job matching.\n- M³+ offers job matching support.\nOpen any job on your list for links to both.';
+  function askInterview(p, s) {
+    const asks = p.faith.filter(f => FAITH_ITEM[f].kind === 'ask').map(f => FAITH_ITEM[f].ask);
+    const lines = ['Interview tips:',
+      '- Research the employer: what they do, recent news and the job ad’s key skills.',
+      '- Prepare 3 or 4 short stories using STAR: the Situation, your Task, the Action you took and the Result. School projects, CCAs, NS and part-time jobs all count.',
+      '- Practise “Tell me about yourself” in under a minute: what you’re studying or doing, what you’re good at, and why this job.',
+      '- Bring 2 or 3 questions of your own, such as what training new staff get.' + (asks.length ? ' From your preferences: “' + asks[0] + '”' : ''),
+      '- Be on time, dress one step smarter than the workplace, and follow up with a short thank-you email.'];
+    if (s) lines.push('- For ' + lowerTitle(s.role.title) + ', expect questions about ' + joinList(Object.keys(s.role.skills).map(k => SKILL[k].label.toLowerCase())) + '.');
+    lines.push('Career coaches at NTUC e2i (6474 0606) can help you practise.');
+    return lines.join('\n');
   }
+
+  function askResume(s) {
+    const creative = s && ['creative', 'tech'].includes(s.role.ind);
+    return 'CV and profile tips:\n- Keep it to one page: contact details, a 2-line summary, education, experience (including part-time, CCAs and NS) and skills.\n- Start each point with an action and a result: “Ran the class’s stock list for 40 items, cutting errors to zero.”\n- Match the words in the job ad, since many employers screen CVs by keyword.\n- Complete your MyCareersFuture profile and a LinkedIn profile; on Jobstreet you can attach verified records from the Careers & Skills Passport.' +
+      (creative ? '\n- For ' + lowerTitle(s.role.title) + ', a portfolio matters most: 3 to 6 of your best projects, each with what you did and why.' : '\n- For design, media and tech jobs, add a short portfolio of your best work.') +
+      '\nNTUC e2i coaches (6474 0606) can review your CV for free.';
+  }
+
+  function askInternship(p) {
+    return 'Ways to try a job before you commit:\n- Job tasters and internships: tap “I’m interested” on your results so MENDAKI can plan them in the fields youths pick most.\n- Internships through your ITE, polytechnic or university career office, often in your second or final year.\n- Part-time and short-term jobs: FastJobs and MyCareersFuture list many.' +
+      (p.grit ? '\n- GRIT traineeships: 3 to 6 months with an allowance of $1,800–$2,400 a month, for 2024–25 graduates without a full-time job yet.' : '') +
+      '\n- Volunteering in a related field also counts as experience on your CV.';
+  }
+
+  function askAIFuture(x) {
+    const lines = ['No one knows exactly how AI will change each job, but some patterns are clear:',
+      '- Jobs that mix hands-on work, caring for people and judgement (nursing, trades, teaching, social work) are harder to automate.',
+      '- Routine desk tasks, such as copying data or simple reports, are easier to automate, so those jobs are changing fastest.',
+      '- Tech jobs are shifting rather than disappearing: in US projections to 2034, data scientists grow about 33% and information security analysts about 29%.',
+      '- Whatever you choose, learning to use AI tools in your field makes you more valuable.'];
+    if (x) lines.push('For ' + lowerTitle(x.role.title) + ': ' + (/^[RS]/.test(x.role.code) ? 'it involves a lot of hands-on or people work, which is harder to automate.' : /^C/.test(x.role.code) ? 'routine parts may be automated, so build skills in checking, judgement and working with people.' : 'build skills that use AI tools rather than compete with them.'));
+    return lines.join('\n');
+  }
+
+  function askNS(p) {
+    return 'Planning around National Service:\n- Apply for courses before you ORD: polytechnic and university applications open months before each intake, so check dates early.\n- ITE graduates who start a Work-Study Diploma within 3 years of their ORD date can get a $5,000 sign-on incentive.\n- If you enjoy NS, SAF, Police and SCDF regular careers pay you during training, with no course fees.\n- GRIT traineeships cover those who finished NS in 2024 or 2025 and haven’t had a full-time job.' +
+      '\n- Use NS to build skills on your CV, such as leadership, logistics or technical work.';
+  }
+
+  function askSwitch() {
+    return 'Switching careers is common, and you don’t have to start from zero:\n- Study part-time while you work: ITE, the polytechnics and SUSS run SkillsFuture-subsidised courses.\n- From age 25, your $500 SkillsFuture Credit pays for approved courses.\n- Workforce Singapore runs Career Conversion Programmes that train you for a new job with an employer: https://www.wsg.gov.sg\n- Free career coaching: NTUC e2i (6474 0606) or WSG (6883 5885).\nAsk “How do I become …?” with the job you want and I’ll show a route from where you are.';
+  }
+
+  function askPolyJC(top, p) {
+    return 'Polytechnic or JC depends on how you like to learn and where you want to go:\n- Polytechnic: 3 years, hands-on and career-focused, with internships. You can work straight after, or go to university, often with module exemptions. Fees about $3,180 a year.\n- JC: 2 years of A-levels, mostly to prepare for university. Better if you’re sure about a degree that most students enter with A-levels, such as medicine or law.\n- ITE then a diploma is also a strong route, with the $5,000 + $10,000 ITE Progression Award.' +
+      (top ? '\nFor your top match, ' + lowerTitle(top.role.title) + ', the usual entry is ' + EDU_LABEL[top.role.edu] + '.' : '') + '\nSerasi can’t decide for you; a school counsellor or career coach can help you weigh it up.';
+  }
+
+  function askITE(top, p) {
+    const lines = ['After ITE, you have several good routes:',
+      '- Start work and grow with in-house training.',
+      '- A Work-Study Diploma: your employer pays the fees while you earn a salary, plus a $5,000 sign-on incentive if you join within 3 years of graduating or finishing NS.',
+      '- A full-time polytechnic or ITE diploma: the ITE Progression Award pays $5,000 into your PSEA when you start and $10,000 into your CPF when you finish.',
+      '- A part-time diploma while you work.'];
+    if (top) { const t = lowerTitle(top.role.title); lines.push('For your top match, ' + t + ', ask “How do I become ' + article(t) + ' ' + t + ' from ITE?”'); }
+    lines.push('ITE: https://www.ite.edu.sg');
+    return lines.join('\n');
+  }
+
+  function askFaith(q, p) {
+    if (/tudung|hijab|headscarf/.test(q)) return 'On the tudung at work:\n- Since 2021, nurses in public healthcare can wear the tudung with their uniform.\n- Many private employers allow it; uniformed jobs and some service roles have stricter dress codes.\n- Ask at the interview: “Does the dress code or uniform allow the tudung?”' + (p.faith.includes('tudung') ? ' It’s already on your list of questions to ask employers.' : '');
+    if (/pray|friday|jumaah|jumuah/.test(q)) return 'On prayer at work:\n- Many workplaces let you take short breaks to pray and a longer lunch on Fridays; office jobs are usually easier to arrange than shift work.\n- Ask at the interview: “Is there a quiet space and time to pray?” and “Can I take a longer lunch for Friday prayers?”\n- In shift jobs such as nursing or hospitality, ask how breaks are rostered.';
+    if (/halal|alcohol|haram|casino|gambling/.test(q)) return 'On halal food, alcohol and gambling:\n- In food and hospitality jobs, look for halal-certified outlets; if you chose that preference, Serasi adds “halal” to your job searches.\n- Jobs at integrated resorts may involve gambling or serving alcohol, so ask what the role involves.\n- Ask employers: “Are halal food options available at work and at team events?”\n- MUIS runs halal certification: https://www.muis.gov.sg';
+    if (/riba|interest based/.test(q)) return 'On riba (interest):\n- Serasi flags jobs built on interest-based products, such as conventional bank risk and operations roles, if you chose that preference, and moves them down your list.\n- Alternatives: Islamic banking officer and takaful executive, both in Serasi.\n- Kuala Lumpur, a short trip away, leads the world in Islamic finance if you want to build a career there.';
+    return 'On faith at work:\n- Serasi lets you flag jobs involving riba, alcohol or gambling, and turns your needs (prayer time, Friday prayers, halal food, the tudung) into questions to ask employers.\n- Ask about these at the interview; most employers are used to the questions.\n- If you face unfair treatment at work, TAFEP handles workplace fairness concerns.';
+  }
+
+  function askBusiness() {
+    return 'Starting your own business:\n- Start small while you study or work: sell online, freelance or run weekend stalls to test your idea.\n- Jobs in sales, business development or marketing teach skills every founder needs.\n- Startup SG (Enterprise Singapore) lists grants and programmes for new founders: https://www.startupsg.gov.sg\n- For food businesses, learn the MUIS halal certification rules early.\n- Career coaches at NTUC e2i (6474 0606) can help you plan.';
+  }
+
+  function askContacts(s) {
+    const keys = ['mendaki', 'e2i', 'wsg', 'ssg', 'mindline', 'sos'].concat(s ? (TRACKS[s.role.trk] || {}).contacts || [] : []);
+    return 'Useful contacts:\n' + uniq(keys).map(k => { const c = CONTACTS[k]; return '- ' + c.n + (c.tel ? ': ' + c.tel : '') + '. ' + c.w + '. ' + c.url; }).join('\n');
+  }
+
+  // Shows URLs in answers as links.
+  function linkify(html) { return html.replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)”]/g, u => '<a href="' + u + '" target="_blank" rel="noopener">' + u + '</a>'); }
 
   function askMsgHTML(m) {
-    return '<li class="msg ' + (m.role === 'user' ? 'user' : 'bot') + (m.pending ? ' pending' : '') + '" id="msg-' + m.id + '"><span class="who">' + (m.role === 'user' ? 'You' : 'Serasi') + '</span><span class="txt">' + esc(m.text) + '</span>' +
+    return '<li class="msg ' + (m.role === 'user' ? 'user' : 'bot') + (m.pending ? ' pending' : '') + '" id="msg-' + m.id + '"><span class="who">' + (m.role === 'user' ? 'You' : 'Serasi') + '</span><span class="txt">' + (m.role === 'user' ? esc(m.text) : linkify(esc(m.text))) + '</span>' +
       (m.fallback ? '<span class="note">Quick answer · AI unavailable right now</span>' : '') + '</li>';
   }
 
@@ -1120,12 +2020,12 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   }
 
   // Clears the conversation. A reply still on its way belongs to the old chat and is dropped when it arrives.
-  function askReset() { ask.msgs = []; ask.busy = false; ask.chat++; }
+  function askReset() { ask.msgs = []; ask.busy = false; ask.chat++; ask.ctx = {}; }
 
   function renderAsk() {
     if (!document.getElementById('ask')) return;
     if (ask.key !== askKey()) { askReset(); ask.key = askKey(); }
-    document.getElementById('ask-chips').innerHTML = askSuggestions().map(q => '<button class="ask-chip" type="button" data-action="ask-suggest" data-q="' + esc(q) + '">' + esc(q) + '</button>').join('');
+    document.getElementById('ask-chips').innerHTML = askSuggestions().slice(0, 8).map(q => '<button class="ask-chip" type="button" data-action="ask-suggest" data-q="' + esc(q) + '">' + esc(q) + '</button>').join('');
     renderAskLog();
   }
 
@@ -1134,9 +2034,11 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (el) el.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
   }
 
-  // What the AI sees about the youth: scores and the job list, nothing that identifies them.
-  // Age, area and personal (faith) preferences stay on the device, so role flags and the personalised
-  // job search (which can add "halal") are left out too.
+  // What the AI sees about the youth: scores, the job list, and the routes, costs and world notes for their
+  // top jobs, nothing that identifies them. Age, area, personal (faith) preferences and the household-income
+  // band stay on the device, so role flags, the personalised job search (which can add "halal") and fee
+  // estimates after help are left out too.
+  const ASK_COSTS = 'Singapore Citizen fees a year after the MOE Tuition Grant (2025–26 intake): ITE Higher Nitec about $630, polytechnic diploma about $3,180, university degree about $8,300 (business $9,500, law $12,700, medicine $36,100). MENDAKI TTFS (AY2026/27) pays 100% of tuition fees if household income per person is up to $1,700, 75% up to $2,000, 50% up to $2,200 and 25% up to $2,400. Government bursaries: diploma $3,050 (income per person up to $1,000), $2,700 (up to $1,375), $2,050 (up to $2,250), $950 (up to $3,000); degree $6,300 or $5,100. ITE Progression Award: $5,000 into the PSEA when an ITE graduate starts a diploma, $10,000 into CPF on finishing. Work-Study Diploma: the employer pays fees and a salary, with a $5,000 sign-on incentive. Singapore subsidies do not apply overseas.';
   function askProfile() {
     const { p } = currentProfile();
     const res = rank(p);
@@ -1151,7 +2053,18 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       search_for: s.role.q,
       portals: s.role.portals.map(k => PORTALS[k].name)
     });
-    return {
+    const route = s => {
+      const path = pathFor(s.role, p), T = TRACKS[s.role.trk] || {};
+      return {
+        from: STAGE_FROM[p.pathway], years_of_study: path.years, steps: path.steps.map(x => x.t),
+        course_fees_sgd: pathCost(path, p).total, other_route: path.alts[0] || '',
+        study_overseas: s.role.edu >= 2 ? (T.abroad || []).slice(0, 1).map(k => { const a = ABROAD[k], c = abroadCalc(a); return a.c + ', ' + a.course + ': ' + (c.total || c.fee) + '. Watch out: ' + a.watch; }) : []
+      };
+    };
+    // In fit order: the on-screen order moves flagged roles down, which would hint at a faith preference.
+    const top = res.main.slice().sort((a, b) => b.total - a.total);
+    const industries = uniq(top.slice(0, 3).map(s => s.role.ind));
+    const out = {
       interest_code: codeOf(p.interest),
       interests: Object.fromEntries(TYPES.map(t => [TYPE_INFO[t].name, pct(p.interest[t])])),
       work_style: Object.fromEntries(TRAITS.map(t => [t.name, pct(p.traits[t.k])])),
@@ -1159,12 +2072,28 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       skills_out_of_5: Object.fromEntries(SKILLS.map(s => [s.label, p.skills[s.k] || 0])),
       pathway: PATH[p.pathway] ? PATH[p.pathway].name : '',
       grit_eligible: !!p.grit,
-      // In fit order: the on-screen order moves flagged roles down, which would hint at a faith preference.
-      top_roles: res.main.slice().sort((a, b) => b.total - a.total).map(role),
+      top_roles: top.map((s, i) => i < 3 ? Object.assign(role(s), { industry: INDUSTRY[s.role.ind].label, shortest_path: route(s) }) : role(s)),
       stretch_roles: res.stretch.map(s => Object.assign(role(s), {
-        needs_first: (s.eduGap ? [EDU_LABEL[s.role.edu]] : []).concat(s.gaps.map(k => 'more ' + SKILL[k].label.toLowerCase()))
-      }))
+        needs_first: (s.eduSteps >= 2 ? [EDU_LABEL[s.role.edu]] : []).concat(s.gaps.map(k => 'more ' + SKILL[k].label.toLowerCase()))
+      })),
+      industry_outlook: industries.map(k => {
+        const hubs = hubsFor(k), sg = HUB.sg.ind[k];
+        return {
+          industry: INDUSTRY[k].label, worldwide: INDUSTRY[k].global, singapore: sg ? OUTLOOK[sg[0]] + ': ' + sg[1] : '',
+          growing_in: hubs.filter(x => x.o[0] === 'grow').map(x => placeName(x.h)),
+          shrinking_in: hubs.filter(x => x.o[0] === 'decline').map(x => placeName(x.h) + ': ' + x.o[1])
+        };
+      }),
+      study_costs: ASK_COSTS,
+      fresh_graduate_pay_2025: Object.fromEntries(Object.values(PAY).map(x => [x.t, x.v])),
+      data_checked: 'October 2026'
     };
+    // The Worker refuses summaries over 16,000 characters, so drop the extras, largest first, if one grows too big.
+    const fits = () => JSON.stringify(out).length <= 14000;
+    if (!fits()) delete out.industry_outlook;
+    if (!fits()) out.top_roles.forEach(r => { delete r.shortest_path; });
+    if (!fits()) delete out.study_costs;
+    return out;
   }
 
   // Returns the AI's reply, or null if the Worker can't be reached, refuses, or takes over 20 seconds.
@@ -1224,12 +2153,13 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     view: 'welcome', step: 0, quizPage: 0, done: false, example: false,
     onboarding: false, exploreType: 'I', resultPanel: 'matches', search: '', sector: 'all', savedOnly: false, saved: [], exampleSaved: [],
     answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '',
-    weights: Object.assign({}, DEFAULT_W), hideFlagged: false, open: ['__first__'], codeError: '',
-    confirmDelete: false, startError: '', notice: ''
+    hideFlagged: false, open: ['__first__'], tabs: {}, showMore: false, income: '', codeError: '',
+    confirmDelete: false, confirmRetake: false, startError: '', notice: '',
+    world: { ind: 'tech', sel: null }
   };
 
   function save() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: state.answers, done: state.done, meta: state.meta, tasters: state.tasters, completedAt: state.completedAt, step: state.step, quizPage: state.quizPage, saved: state.saved })); } catch (e) { /* storage unavailable */ }
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ answers: state.answers, done: state.done, meta: state.meta, tasters: state.tasters, completedAt: state.completedAt, step: state.step, quizPage: state.quizPage, saved: state.saved, income: state.income })); } catch (e) { /* storage unavailable */ }
   }
   function load() {
     try {
@@ -1245,6 +2175,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         state.step = Number.isInteger(d.step) ? clamp(d.step, 0, 4) : 0;
         state.quizPage = Number.isInteger(d.quizPage) ? clamp(d.quizPage, 0, 4) : 0;
         state.saved = Array.isArray(d.saved) ? d.saved.filter(id => ROLE[id]) : [];
+        state.income = INCOME.some(b => b.k === d.income) ? d.income : '';
         if (state.done) state.view = 'results';
       }
     } catch (e) { /* ignore */ }
@@ -1263,7 +2194,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 
   function sharedDoc() {
     const p = profileFromAnswers(state.answers);
-    const res = rank(p, DEFAULT_W, false);
+    const res = rank(p, false);
     const code = codeOf(p.interest);
     return {
       v: 1, month: (state.completedAt || new Date().toISOString()).slice(0, 7),
@@ -1353,8 +2284,8 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         <section aria-labelledby="journey-title"><div class="section-title"><h2 id="journey-title">Small steps. A clearer direction.</h2><span>Your journey, in three parts</span></div>
           <div class="journey-grid">
             <article class="journey-card"><span class="journey-icon">${icon('quiz')}</span><div><span class="step-number">01 / DISCOVER</span><h3>Get to know yourself</h3><p>A little reflection on your interests, work style, values and strengths.</p></div></article>
-            <article class="journey-card"><span class="journey-icon">${icon('spark')}</span><div><span class="step-number">02 / CONNECT</span><h3>Meet your career matches</h3><p>Explore up to 10 roles, with clear reasons why each could fit.</p></div></article>
-            <article class="journey-card"><span class="journey-icon">${icon('compass')}</span><div><span class="step-number">03 / EXPLORE</span><h3>Make your next move</h3><p>Find job openings, ask questions, and connect with a career coach.</p></div></article>
+            <article class="journey-card"><span class="journey-icon">${icon('spark')}</span><div><span class="step-number">02 / CONNECT</span><h3>Meet your career matches</h3><p>Explore your top roles from ${ROLES.length} jobs, with reasons, the shortest path to each and what it costs.</p></div></article>
+            <article class="journey-card"><span class="journey-icon">${icon('compass')}</span><div><span class="step-number">03 / EXPLORE</span><h3>Make your next move</h3><p>See where your industry is growing worldwide, find openings, ask questions and connect with a career coach.</p></div></article>
           </div>
         </section>
         <section class="explorer" aria-labelledby="explorer-title"><div class="section-title"><div><h2 id="explorer-title">What feels most like you?</h2><p style="margin-top:6px">A little curiosity can open a new door. Pick a type to explore.</p></div></div>
@@ -1400,6 +2331,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   /* ---------- Results ---------- */
   function renderResults() {
     const { p, who } = currentProfile();
+    const top = rank(p).main[0];
     const code = codeOf(p.interest);
     const title = TYPE_INFO[code[0]].name + '–' + TYPE_INFO[code[1]].name;
     const nick = TYPE_INFO[code[0]].profile + '–' + TYPE_INFO[code[1]].profile;
@@ -1414,10 +2346,12 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       ? '<div class="banner"><p><b>Example results.</b> ' + esc(who.about) + ' Take the quiz to see your own.</p><div class="actions"><button class="btn primary" type="button" data-action="start-quiz">Take the 15-minute quiz</button></div></div>'
       : '';
     const actions = who ? '' :
-      '<button class="btn ghost" type="button" data-action="edit">Retake quiz</button><button class="btn ghost" type="button" data-action="delete-ask">Delete my data</button>';
+      '<button class="btn ghost" type="button" data-action="retake-ask">Retake quiz</button><button class="btn ghost" type="button" data-action="delete-ask">Delete my data</button>';
     const confirm = (!who && state.confirmDelete)
       ? '<div class="confirm" role="alert"><span>Delete your answers' + (state.meta.share ? ' and your shared record' : '') + ' from this device? This can’t be undone.</span><button class="btn danger" type="button" data-action="delete-yes">Delete</button><button class="btn ghost" type="button" data-action="delete-cancel">Cancel</button></div>'
-      : '';
+      : (!who && state.confirmRetake)
+        ? '<div class="confirm" role="alert"><span>Your scores are locked once you finish. Retaking clears these answers and results, and you start again from blank. Saved careers stay.' + (state.meta.share ? ' Your shared record is replaced when you finish.' : '') + '</span><button class="btn danger" type="button" data-action="retake-yes">Clear and retake</button><button class="btn ghost" type="button" data-action="retake-cancel">Keep my results</button></div>'
+        : '';
 
     document.getElementById('app').innerHTML =
       banner +
@@ -1450,6 +2384,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         '<div class="list-head"><div><p class="eyebrow">Shortlist</p><h2 id="sl">Top roles</h2><p class="small muted" id="list-meta" style="margin-top:4px"></p></div>' +
           '<label class="toggle" id="flag-toggle-wrap"><input type="checkbox" id="hide-flagged"' + (state.hideFlagged ? ' checked' : '') + '> Hide flagged roles</label></div>' +
         roleTools() + '<p class="list-count" id="role-count" aria-live="polite"></p><ol class="roles" id="shortlist"></ol>' +
+        '<div class="more-wrap"><button class="btn ghost" type="button" id="more-btn" data-action="more" aria-controls="shortlist" hidden>Show more matches</button></div>' +
       '</section>' +
 
       '<section class="card ask" id="ask" aria-labelledby="ask-h">' +
@@ -1459,23 +2394,27 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         '<ol class="ask-log" id="ask-log" aria-live="polite"></ol>' +
         '<form class="ask-form" id="ask-form" autocomplete="off"><label class="sr-only" for="ask-input">Your question</label><input id="ask-input" maxlength="300" placeholder="For example: What does a nurse do?"><button class="btn primary" type="submit" id="ask-send">Ask</button></form>' +
         '<p class="small muted">Your question and a results summary are sent to Google Gemini. Avoid sharing personal details.</p>' +
-        '<details class="ask-privacy"><summary>How the guide uses your results</summary><p>Answers are written by AI (Google Gemini) and can be wrong. Your question and a summary of your results, without your name, age, area or personal preferences, are sent to Google, which may use them to improve its products. Don’t type personal details. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+.</p></details>' +
+        '<details class="ask-privacy"><summary>How the guide uses your results</summary><p>Answers are written by AI (Google Gemini) and can be wrong. Your question and a summary of your results (scores, values, skills, pathway, job list, and the routes and world notes for your top jobs), without your name, age, area, income band or personal preferences, are sent to Google, which may use them to improve its products. Don’t type personal details. Check pay and openings on MyCareersFuture, or talk to a coach at NTUC e2i or M³+.</p></details>' +
       '</section>' +
 
       '<section class="card taster" id="taster" aria-label="Job tasters and internships"></section>' +
 
+      '<section class="card world-card" id="world-card" aria-labelledby="wc-h"><div><p class="eyebrow">World map</p><h2 id="wc-h">Where is your industry growing?</h2><p class="small muted" style="margin-top:6px">' + (top ? 'Your top match, ' + esc(lowerTitle(top.role.title)) + ', is in ' + esc(lowerFirst(INDUSTRY[top.role.ind].label)) + '. ' : '') + 'See which countries and cities are hiring, steady or shrinking, with a source for each note.</p></div><button class="btn primary" type="button" data-action="world"' + (top ? ' data-ind="' + top.role.ind + '"' : '') + '>Open the world map ' + icon('arrow') + '</button></section>' +
+
       '<section id="stretch-panel" style="display:flex;flex-direction:column;gap:12px" aria-labelledby="st">' +
-        '<div><p class="eyebrow">Stretch roles</p><h2 id="st">Good fits that need more first</h2><p class="small muted" style="margin-top:4px">These score well but need a skill or qualification you don’t have yet.</p></div>' +
+        '<div><p class="eyebrow">Stretch roles</p><h2 id="st">Good fits that need more first</h2><p class="small muted" style="margin-top:4px">These score well but need a big skill jump, or two qualification steps (such as ITE to a degree), first.</p></div>' +
         '<ul class="roles" id="stretch"></ul>' +
       '</section>' +
 
-      '<details id="ranking-panel" class="how"><summary>Fine-tune your matches & see how the ranking works</summary><div class="how-body">' +
-        '<div class="weights"><p class="formula">Fit = <span id="wf">' + weightText() + '</span></p>' +
-          weightRow('i', 'Interests') + weightRow('w', 'Work style') + weightRow('v', 'Values') +
-          '<p class="small muted">Starting weights. The pilot will recalibrate them against job satisfaction and staying at 6 and 12 months. Changing them here only changes what you see.</p>' +
-          '<div><button class="btn link" type="button" data-action="reset-weights">Reset to 50 / 30 / 20</button></div></div>' +
+      '<details id="ranking-panel" class="how"><summary>How the ranking works</summary><div class="how-body">' +
+        '<div class="weights"><p class="formula">Fit = 50% interests + 30% work style + 20% values</p>' +
+          '<ul><li><b>Interests</b> compare your three-letter code with the job’s using Brown and Gore’s C index, which gives credit for letters that sit next to each other on Holland’s hexagon (60%), and how closely your whole six-type shape follows the job’s (40%).</li>' +
+          '<li><b>Work style</b> counts only where you fall short of what the job needs, after a small allowance. Scoring above what a job needs never costs you points.</li>' +
+          '<li><b>Values</b> give full marks when a job offers two of the values you chose.</li></ul>' +
+          '<p class="lock-note">Your scores are locked once you finish the quiz, so the list reflects your answers. To change them, retake the quiz from blank.</p>' +
+          '<p class="small muted">The pilot will check these weights against job satisfaction and staying in the job at 6 and 12 months.</p></div>' +
         '<div><p><b>Three measures.</b> Interests use Holland’s six RIASEC types, the same language as MySkillsFuture. Work style uses the Big Five plus honesty. Values come from what you choose.</p>' +
-          '<ul><li>Roles you lack a skill or qualification for move to “stretch”, so the main list stays within reach.</li>' +
+          '<ul><li>Roles that need a big skill jump, or two qualification steps, move to “stretch”. Roles one step away stay on your list with a shortest path.</li>' +
           '<li>Personal preferences flag roles and move them down; nothing is hidden unless you choose to hide it.</li>' +
           '<li>Every role links to live searches on local job portals, starting with MyCareersFuture.</li>' +
           '<li>Ask Serasi’s AI answers using your scores and the role data here. It never changes your results.</li>' +
@@ -1512,7 +2451,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       lede.textContent = panel === 'profile' ? lede.dataset.profileText : copy[panel][1];
       document.querySelectorAll('.profile-head .codes, .profile-head .notice, .profile-head .share-status').forEach(el => { el.hidden = panel !== 'profile'; });
     }
-    const groups = { 'matches-panel': 'matches', 'ranking-panel': 'matches', 'profile-summary': 'profile', 'ask': 'guide', 'taster': 'next', 'stretch-panel': 'next' };
+    const groups = { 'matches-panel': 'matches', 'ranking-panel': 'matches', 'profile-summary': 'profile', 'ask': 'guide', 'taster': 'next', 'world-card': 'next', 'stretch-panel': 'next' };
     Object.entries(groups).forEach(([id, group]) => { const el = document.getElementById(id); if (el) el.hidden = panel !== group; });
     document.querySelectorAll('.result-tab').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.panel === panel)));
     refreshChrome();
@@ -1527,14 +2466,23 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   function deleteAll() {
     clearLocal(); clearShared();
     askReset(); ask.draft = '';
-    Object.assign(state, { view: 'welcome', step: 0, quizPage: 0, onboarding: false, saved: [], exampleSaved: [], resultPanel: 'matches', search: '', sector: 'all', savedOnly: false, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', confirmDelete: false, startError: '' });
+    Object.assign(state, { view: 'welcome', step: 0, quizPage: 0, onboarding: false, saved: [], exampleSaved: [], resultPanel: 'matches', search: '', sector: 'all', savedOnly: false, done: false, example: false, answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '', income: '', tabs: {}, showMore: false, confirmDelete: false, confirmRetake: false, startError: '' });
     state.notice = 'Your data has been deleted.';
+    render();
+  }
+
+  // Scores are locked once the quiz is done: a retake starts from blank answers instead of editing the old ones.
+  // Saved careers and the sharing choice stay; the shared record is cleared until the new quiz is finished.
+  function retake() {
+    askReset(); ask.draft = '';
+    Object.assign(state, { view: 'quiz', step: 0, quizPage: 0, onboarding: false, done: false, example: false, answers: blankAnswers(), tasters: false, completedAt: '', tabs: {}, showMore: false, open: [], confirmRetake: false, codeError: '' });
+    save(); syncShared();
     render();
   }
 
   function finishQuiz() {
     state.done = true; state.example = false; state.completedAt = new Date().toISOString().slice(0, 10);
-    state.view = 'results'; state.resultPanel = 'matches'; state.open = []; state.search = ''; state.sector = 'all'; state.savedOnly = false; state.confirmDelete = false;
+    state.view = 'results'; state.resultPanel = 'matches'; state.open = []; state.tabs = {}; state.showMore = false; state.search = ''; state.sector = 'all'; state.savedOnly = false; state.confirmDelete = false; state.confirmRetake = false;
     save(); syncShared();
     render();
   }
@@ -1558,23 +2506,203 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
         '<p>You can delete everything at any time with <b>Delete my data</b> on your results page.</p>' +
         (state.done ? '<div><button class="btn ghost" type="button" data-action="mine">Go to my results</button></div>' : '') +
         '<h2>Ask Serasi</h2>' +
-        '<p>Ask Serasi is an AI career guide powered by Google Gemini. It answers questions about careers and jobs only. With each question it sends a summary of your results: your scores, values, skill ratings, pathway and job list. Your name, age, area and personal preferences are never sent. Google may use what is sent to improve its products, so don’t type personal details, and remember that AI answers can be wrong. If the AI can’t be reached, Serasi answers with fixed rules on your device instead.</p>' +
+        '<p>Ask Serasi is an AI career guide powered by Google Gemini. It answers questions about careers and jobs only. With each question it sends a summary of your results: your scores, values, skill ratings, pathway and job list. Your name, age, area and personal preferences are never sent. Google may use what is sent to improve its products, so don’t type personal details, and remember that AI answers can be wrong. The summary also includes the shortest path, costs and world notes for your top jobs, but never your household-income band. If the AI can’t be reached, Serasi answers on your device instead: it can still handle questions about any of the ' + ROLES.length + ' jobs, routes and costs, subsidies, studying or working overseas, pay, interviews and your results, in English or Malay.</p>' +
+        '<h2>Shortest paths and costs</h2>' +
+        '<p>Each job shows the quickest route from your current qualification, including overseas options, with fees for Singapore Citizens after the MOE Tuition Grant, MENDAKI’s TTFS, government bursaries, the ITE Progression Award and sponsorships. If you choose your household income band to estimate help, it stays on this device and is never shared. Fees and subsidies were checked in October 2026; your school confirms the final amounts.</p>' +
+        '<h2>World map</h2>' +
+        '<p>The world map shows where each industry is growing, steady or shrinking, by country and by city, from reports and news checked in October 2026. Each note links to its source. The globe’s map shapes load from public code libraries when you open it. Job markets change quickly, so check current news and visa rules before you move.</p>' +
+        '<h2>Locked scores</h2>' +
+        '<p>Your scores are fixed once you finish the quiz, with the same 50/30/20 weights for everyone. To change them, retake the quiz from blank.</p>' +
         '<h2>The questions</h2>' +
         '<p>The work-style statements adapt the public-domain Mini-IPIP (Donnellan and colleagues, 2006), plus four honesty statements written for Serasi. The 30 interest activities were written for Serasi using Holland’s six RIASEC types. The ' + ROLES.length + ' jobs are hand-coded for this pilot; the full build will draw on O*NET, linked to Singapore’s SSOC codes and the SSG Skills Framework.</p>' +
         '<h2>Limits</h2>' +
-        '<p>This is a pilot version. Scores have not yet been validated with Singapore youths, and the 50/30/20 weights are a starting point the pilot will test.</p>' +
+        '<p>This is a pilot version. Scores have not yet been validated with Singapore youths, and the 50/30/20 weights are a starting point the pilot will test. Overseas costs use rough exchange rates.</p>' +
       '</article>';
     refreshChrome();
   }
+
+  /* ---------- World map ---------- */
+  // The globe uses d3's orthographic projection and the world-atlas country shapes, loaded only when this view
+  // opens. If they can't load, the lists under the globe still show every place and note.
+  const GLOBE_LIBS = ['https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js'];
+  const ATLAS_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json';
+  const TURN = { asia: [-105, -12], europe: [-25, -38], americas: [95, -30], oceania: [-140, 22] };
+  const globe = { rot: TURN.asia.slice(), feats: null, svg: null, timer: 0 };
+  let geoP = null;
+
+  function loadScript(src) {
+    return new Promise((ok, no) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+  }
+  function loadGeo() {
+    if (!geoP) {
+      geoP = GLOBE_LIBS.reduce((pr, src) => pr.then(() => (src.includes('/d3/') ? window.d3 : window.topojson) || loadScript(src)), Promise.resolve())
+        .then(() => fetch(ATLAS_URL)).then(r => { if (!r.ok) throw new Error('atlas ' + r.status); return r.json(); })
+        .then(t => topojson.feature(t, t.objects.countries).features)
+        .catch(e => { geoP = null; throw e; });
+    }
+    return geoP;
+  }
+
+  // A country's colour for one industry: its nationwide note if it has one, else its cities' shared outlook,
+  // else "steady" when its cities differ.
+  function countryOutlook(iso, k) {
+    const hs = WORLD.filter(h => h.iso === iso && h.ind[k]);
+    if (!hs.length) return null;
+    const nation = hs.find(h => h.scope === 'country');
+    if (nation) return nation.ind[k][0];
+    const set = uniq(hs.map(h => h.ind[k][0]));
+    return set.length === 1 ? set[0] : 'steady';
+  }
+
+  // The industry to show first: the youth's top match, or tech.
+  function defaultIndustry() {
+    if (!state.done && !state.example) return 'tech';
+    const top = rank(currentProfile().p).main[0];
+    return top ? top.role.ind : 'tech';
+  }
+
+  function renderWorld() {
+    const ind = INDUSTRY[state.world.ind] || INDUSTRIES[0];
+    state.world.ind = ind.k;
+    document.getElementById('app').innerHTML =
+      '<section class="world-head"><p class="eyebrow">World map</p><h1>Where is your industry growing?</h1>' +
+        '<p class="lede">Pick an industry to see where it’s growing, steady or shrinking. One country can lead in one industry and lag in another, so tap a country or city to see all its notes. Notes were checked in October 2026.</p></section>' +
+      '<div class="ind-chips" role="group" aria-label="Industry">' + INDUSTRIES.map(x => '<button class="ind-chip" type="button" data-action="world-ind" data-ind="' + x.k + '" aria-pressed="' + (x.k === ind.k) + '">' + esc(x.label) + '</button>').join('') + '</div>' +
+      '<div class="world">' +
+        '<div class="card globe-card"><div class="globe-wrap" id="globe-wrap"><div class="loading" id="globe-msg">Loading the globe…</div></div>' +
+          '<div class="globe-ctrl">' + [['asia', 'Asia'], ['europe', 'Europe and the Gulf'], ['americas', 'Americas'], ['oceania', 'Australia']].map(([k, l]) => '<button type="button" data-action="globe-turn" data-to="' + k + '">' + l + '</button>').join('') + '</div>' +
+          '<p class="g-legend"><span><i style="background:var(--g-grow)"></i>Growing</span><span><i style="background:var(--g-steady)"></i>Steady or mixed</span><span><i style="background:var(--g-decline)"></i>Shrinking</span><span><i style="background:var(--land);border:1px solid var(--line)"></i>No notes</span></p>' +
+          '<p class="small muted" style="text-align:center">Drag to turn the globe. Tap a country or dot for its notes.</p></div>' +
+        '<div class="world-side"><div class="card" id="hub-detail" aria-live="polite"></div></div>' +
+      '</div>' +
+      '<section class="card" aria-label="Places by outlook"><div class="hub-cols" id="hub-cols"></div></section>' +
+      '<p class="small muted">The map shows only places with checked notes. A country without colour may still have jobs in this industry. Working abroad usually needs a work visa, and the 2026 Iran war has disrupted the Gulf, so check current news and travel advice.</p>';
+    renderWorldSide();
+    renderHubCols();
+    drawGlobe();
+    refreshChrome();
+  }
+
+  function renderWorldSide() {
+    const el = document.getElementById('hub-detail');
+    if (!el) return;
+    const w = state.world, ind = INDUSTRY[w.ind];
+    const sel = w.sel || '';
+    const hubs = sel.startsWith('h:') ? [HUB[sel.slice(2)]].filter(Boolean) : sel.startsWith('c:') ? WORLD.filter(h => String(h.iso) === sel.slice(2)) : [];
+    if (!sel) {
+      const jobs = ROLES.filter(r => r.ind === ind.k).map(r => lowerTitle(r.title));
+      el.innerHTML = '<div class="hub-detail"><p class="eyebrow">' + esc(ind.label) + '</p><h2>The big picture</h2><p style="color:var(--ink-2)">' + esc(ind.global) + '</p>' + srcLinks(ind.src) +
+        (jobs.length ? '<p class="small muted">Jobs in Serasi in this industry: ' + esc(joinList(jobs)) + '.</p>' : '') + '</div>';
+      return;
+    }
+    const name = sel.startsWith('c:') ? (hubs[0] ? hubs[0].country : w.selName || 'This country') : hubs[0].place + (hubs[0].place === hubs[0].country ? '' : ', ' + hubs[0].country);
+    const items = [];
+    hubs.forEach(h => Object.entries(h.ind).forEach(([k, o]) => items.push({ h, k, o })));
+    items.sort((a, b) => (b.k === w.ind) - (a.k === w.ind));
+    el.innerHTML = '<div class="hub-detail"><p class="eyebrow">' + (sel.startsWith('c:') ? 'Country' : 'Place') + '</p><h2>' + esc(name) + '</h2>' +
+      (items.length
+        ? '<ul>' + items.map(x => '<li><span class="pill ' + x.o[0] + '">' + OUTLOOK[x.o[0]] + '</span><span><b>' + esc(INDUSTRY[x.k].label) + (hubs.length > 1 ? ' · ' + esc(x.h.place) : '') + '.</b> ' + esc(x.o[1]) + '</span></li>').join('') + '</ul>' + srcLinks(items.flatMap(x => x.o[2]))
+        : '<p class="muted">No notes for this country yet.</p>') +
+      '<div><button class="btn link" type="button" data-action="world-clear">Back to the big picture</button></div></div>';
+  }
+
+  function renderHubCols() {
+    const el = document.getElementById('hub-cols');
+    if (!el) return;
+    const hubs = hubsFor(state.world.ind);
+    el.innerHTML = ['grow', 'steady', 'decline'].map(o => {
+      const list = hubs.filter(x => x.o[0] === o);
+      return '<div class="hub-col"><h3><i style="background:var(--g-' + o + ')"></i>' + OUTLOOK[o] + '</h3>' +
+        (list.length ? '<ul class="hub-list">' + list.map(x => '<li><button class="hub-btn" type="button" data-action="hub" data-id="' + x.h.id + '"><b>' + esc(x.h.place) + '</b><span>' + esc(x.o[1]) + '</span></button></li>').join('') + '</ul>' : '<p class="small muted" style="margin-top:8px">None noted.</p>') + '</div>';
+    }).join('');
+  }
+
+  function drawGlobe() {
+    loadGeo().then(feats => { globe.feats = feats; if (document.getElementById('globe-wrap')) buildGlobe(); },
+      () => { const m = document.getElementById('globe-msg'); if (m) m.textContent = 'The globe couldn’t load. It needs an internet connection. The lists below show every place.'; });
+  }
+
+  function buildGlobe() {
+    const wrap = document.getElementById('globe-wrap');
+    const size = 500;
+    wrap.innerHTML = '';
+    const svg = d3.select(wrap).append('svg').attr('viewBox', '0 0 ' + size + ' ' + size).attr('role', 'img');
+    const proj = d3.geoOrthographic().scale(size / 2 - 6).translate([size / 2, size / 2]).clipAngle(90).rotate(globe.rot);
+    const path = d3.geoPath(proj);
+    svg.append('path').datum({ type: 'Sphere' }).attr('class', 'g-sea').on('click', () => selectPlace(null));
+    svg.append('path').datum(d3.geoGraticule10()).attr('class', 'g-grat');
+    const lands = svg.append('g').selectAll('path').data(globe.feats).join('path').on('click', (ev, d) => selectPlace('c:' + Number(d.id), d.properties.name));
+    lands.append('title');
+    Object.assign(globe, { svg, proj, path, lands, cities: svg.append('g'), labels: svg.append('g') });
+    svg.call(d3.drag()
+      .on('start', stopTurn)
+      .on('drag', ev => { globe.rot = [globe.rot[0] + ev.dx * .35, clamp(globe.rot[1] - ev.dy * .35, -70, 70)]; proj.rotate(globe.rot); placeGlobe(); }));
+    paintGlobe();
+  }
+
+  // Colours countries and dots for the chosen industry, and marks the selection.
+  function paintGlobe() {
+    if (!globe.svg || !document.getElementById('globe-wrap')) return;
+    const k = state.world.ind, sel = state.world.sel || '';
+    globe.svg.attr('aria-label', 'Globe of where ' + lowerFirst(INDUSTRY[k].label) + ' is growing, steady or shrinking. The same places are listed below the map.');
+    globe.lands.attr('class', d => { const o = countryOutlook(Number(d.id), k); return 'g-land' + (o ? ' ' + o : '') + (sel === 'c:' + Number(d.id) ? ' sel' : ''); })
+      .select('title').text(d => { const o = countryOutlook(Number(d.id), k); return d.properties.name + (o ? ': ' + OUTLOOK[o] : ''); });
+    const pts = WORLD.filter(h => h.scope !== 'country');
+    globe.cities.selectAll('circle').data(pts, d => d.id).join(enter => enter.append('circle').call(c => c.append('title')))
+      .attr('r', d => d.ind[k] ? 6.5 : 3.5)
+      .attr('class', d => 'g-city ' + (d.ind[k] ? d.ind[k][0] : 'other') + (sel === 'h:' + d.id ? ' sel' : ''))
+      .on('click', (ev, d) => { ev.stopPropagation(); selectPlace('h:' + d.id); })
+      .select('title').text(d => d.place + (d.ind[k] ? ': ' + OUTLOOK[d.ind[k][0]] : ''));
+    globe.labels.selectAll('text').data(sel.startsWith('h:') && HUB[sel.slice(2)] ? [HUB[sel.slice(2)]] : [], d => d.id).join('text').attr('class', 'g-label').text(d => d.place);
+    placeGlobe();
+  }
+
+  function placeGlobe() {
+    const { proj, path } = globe;
+    globe.svg.selectAll('.g-sea, .g-grat').attr('d', path);
+    globe.lands.attr('d', path);
+    const centre = [-globe.rot[0], -globe.rot[1]];
+    const shown = d => d3.geoDistance(d.ll, centre) < Math.PI / 2 - .04;
+    globe.cities.selectAll('circle').attr('display', d => shown(d) ? null : 'none').attr('cx', d => proj(d.ll)[0]).attr('cy', d => proj(d.ll)[1]);
+    globe.labels.selectAll('text').attr('display', d => shown(d) ? null : 'none').attr('x', d => proj(d.ll)[0] + 9).attr('y', d => proj(d.ll)[1] + 4);
+  }
+
+  function stopTurn() { if (globe.timer) cancelAnimationFrame(globe.timer); globe.timer = 0; }
+  // Turns the globe to face a rotation, the short way round.
+  function turnTo(rot) {
+    stopTurn();
+    if (!globe.svg || !document.getElementById('globe-wrap') || reduceMotion()) {
+      globe.rot = rot.slice();
+      if (globe.svg && document.getElementById('globe-wrap')) { globe.proj.rotate(globe.rot); placeGlobe(); }
+      return;
+    }
+    const from = globe.rot.slice(), dLon = ((rot[0] - from[0] + 540) % 360) - 180, t0 = performance.now();
+    const step = now => {
+      const t = Math.min(1, (now - t0) / 700), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      globe.rot = [from[0] + dLon * e, from[1] + (rot[1] - from[1]) * e];
+      if (!document.getElementById('globe-wrap')) return;
+      globe.proj.rotate(globe.rot); placeGlobe();
+      globe.timer = t < 1 ? requestAnimationFrame(step) : 0;
+    };
+    globe.timer = requestAnimationFrame(step);
+  }
+
+  function selectPlace(sel, name) {
+    state.world.sel = sel;
+    state.world.selName = name || '';
+    paintGlobe();
+    renderWorldSide();
+  }
+
 
   /* ---------- App shell ---------- */
   function refreshChrome() {
     const mine = document.getElementById('nav-mine');
     if (mine) mine.querySelector('span').textContent = state.done ? 'My matches' : 'Example';
     const guide = state.view === 'results' && state.resultPanel === 'guide';
-    const cur = { home: state.view === 'welcome' && !state.onboarding, 'start-quiz': state.view === 'quiz' || (state.view === 'welcome' && state.onboarding), matches: state.view === 'results' && !guide, mine: state.view === 'results' && !state.example && !guide, example: state.view === 'results' && state.example && !guide, guide, about: state.view === 'about' };
+    const cur = { home: state.view === 'welcome' && !state.onboarding, 'start-quiz': state.view === 'quiz' || (state.view === 'welcome' && state.onboarding), matches: state.view === 'results' && !guide, mine: state.view === 'results' && !state.example && !guide, example: state.view === 'results' && state.example && !guide, guide, world: state.view === 'world', about: state.view === 'about' };
     document.querySelectorAll('.topnav [data-action], .nav-more [data-action]').forEach(b => b.setAttribute('aria-pressed', String(!!cur[b.dataset.action])));
-    const label = state.view === 'quiz' ? 'Career quiz' : state.view === 'results' ? (guide ? 'Ask Serasi' : state.example ? 'Example results' : 'My results') : state.view === 'about' ? 'About & privacy' : state.onboarding ? 'Getting started' : 'Discover';
+    const label = state.view === 'quiz' ? 'Career quiz' : state.view === 'results' ? (guide ? 'Ask Serasi' : state.example ? 'Example results' : 'My results') : state.view === 'about' ? 'About & privacy' : state.view === 'world' ? 'World map' : state.onboarding ? 'Getting started' : 'Discover';
     const more = document.getElementById('nav-more');
     if (state.view === 'about') more.open = true;
     document.getElementById('page-context').textContent = label;
@@ -1585,14 +2713,21 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (state.view === 'quiz') renderQuiz();
     else if (state.view === 'results') renderResults();
     else if (state.view === 'about') renderAbout();
+    else if (state.view === 'world') renderWorld();
     else renderWelcome();
     document.getElementById('app').focus({ preventScroll: true });
     try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { /* ignore */ }
   }
 
   function go(view, extra) {
-    Object.assign(state, { view, confirmDelete: false }, extra || {});
+    Object.assign(state, { view, confirmDelete: false, confirmRetake: false }, extra || {});
     render();
+  }
+
+  function retakeAsk() {
+    state.confirmRetake = true; state.confirmDelete = false;
+    renderResults();
+    const b = document.querySelector('[data-action="retake-yes"]'); if (b) b.focus();
   }
 
   function flash(el, text, back) { el.textContent = text; setTimeout(() => { el.textContent = back; }, 1600); }
@@ -1613,8 +2748,35 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (act === 'example') go('results', { example: true, open: [], resultPanel: 'matches', search: '', sector: 'all', savedOnly: false });
     if (act === 'guide') go('results', { example: !state.done, resultPanel: 'guide' });
     if (act === 'about') go('about');
-    if (act === 'start-quiz') go(state.meta.consent ? 'quiz' : 'welcome', Object.assign({ onboarding: true, example: false, codeError: '' }, state.done ? { step: 0, quizPage: 0 } : {}));
-    if (act === 'edit') go('quiz', { step: 0, quizPage: 0, example: false });
+    // Finished results are locked: starting the quiz again offers a retake from blank instead of editing old answers.
+    if (act === 'start-quiz') {
+      if (state.done) { go('results', { example: false, open: [], resultPanel: 'matches' }); retakeAsk(); }
+      else go(state.meta.consent ? 'quiz' : 'welcome', { onboarding: true, example: false, codeError: '' });
+    }
+    if (act === 'retake-ask') retakeAsk();
+    if (act === 'retake-cancel') { state.confirmRetake = false; renderResults(); }
+    if (act === 'retake-yes') retake();
+    if (act === 'world') go('world', { world: { ind: INDUSTRY[el.dataset.ind] ? el.dataset.ind : defaultIndustry(), sel: null } });
+    if (act === 'world-ind') {
+      state.world = { ind: el.dataset.ind, sel: null };
+      document.querySelectorAll('[data-action="world-ind"]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ind === el.dataset.ind)));
+      renderWorldSide(); renderHubCols(); paintGlobe();
+    }
+    if (act === 'globe-turn' && TURN[el.dataset.to]) turnTo(TURN[el.dataset.to]);
+    if (act === 'hub' && HUB[el.dataset.id]) {
+      const h = HUB[el.dataset.id];
+      selectPlace(h.scope === 'country' ? 'c:' + h.iso : 'h:' + h.id);
+      turnTo([-h.ll[0], -clamp(h.ll[1], -60, 60)]);
+      const d = document.getElementById('hub-detail'); if (d) d.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
+    }
+    if (act === 'world-clear') selectPlace(null);
+    if (act === 'role-tab') {
+      const owner = el.closest('section').id;
+      state.tabs[el.dataset.id] = el.dataset.tab;
+      renderLists();
+      const b = document.querySelector('#' + owner + ' [data-action="role-tab"][data-id="' + el.dataset.id + '"][data-tab="' + el.dataset.tab + '"]'); if (b) b.focus();
+    }
+    if (act === 'more') { state.showMore = !state.showMore; renderLists(); const b = document.getElementById('more-btn'); if (b) b.focus(); }
     if (act === 'back') {
       if (state.quizPage > 0) { state.quizPage--; save(); render(); }
       else if (state.step === 0) go('welcome', { onboarding: false, example: false });
@@ -1655,11 +2817,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       renderLists();
       const btn = document.querySelector('#' + owner + ' [data-action="toggle-role"][data-id="' + id + '"]'); if (btn) btn.focus();
     }
-    if (act === 'reset-weights') {
-      state.weights = Object.assign({}, DEFAULT_W);
-      ['i', 'w', 'v'].forEach(k => { document.getElementById('w-' + k).value = state.weights[k]; document.getElementById('wv-' + k).textContent = state.weights[k]; });
-      document.getElementById('wf').textContent = weightText(); renderLists();
-    }
     if (act === 'copy') {
       const text = el.dataset.text;
       try { navigator.clipboard.writeText(text).then(() => flash(el, 'Copied', 'Copy search'), () => { el.textContent = text; }); } catch (e) { el.textContent = text; }
@@ -1668,7 +2825,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (act === 'share-off') setSharing(false);
     if (act === 'tasters-on') setTasters(true);
     if (act === 'tasters-off') setTasters(false);
-    if (act === 'delete-ask') { state.confirmDelete = true; renderResults(); const b = document.querySelector('[data-action="delete-yes"]'); if (b) b.focus(); }
+    if (act === 'delete-ask') { state.confirmDelete = true; state.confirmRetake = false; renderResults(); const b = document.querySelector('[data-action="delete-yes"]'); if (b) b.focus(); }
     if (act === 'delete-cancel') { state.confirmDelete = false; renderResults(); }
     if (act === 'delete-yes') deleteAll();
     if (act === 'ask-suggest') askSend(el.dataset.q);
@@ -1707,18 +2864,26 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (t.id === 'grit') { a.grit = t.checked; save(); }
     if (t.id === 'role-sector') { state.sector = t.value; renderLists(); }
     if (t.id === 'hide-flagged') { state.hideFlagged = t.checked; renderLists(); }
+    if (t.dataset.income) {
+      state.income = t.value;
+      if (!state.example) save();
+      const id = t.id;
+      renderLists();
+      const sel = document.getElementById(id); if (sel) sel.focus();
+    }
   });
 
   document.addEventListener('input', ev => {
     const t = ev.target;
     if (t.dataset.skill) { state.answers.skills[t.dataset.skill] = Number(t.value); document.getElementById('sko-' + t.dataset.skill).textContent = t.value; save(); }
-    if (t.dataset.weight) { state.weights[t.dataset.weight] = Number(t.value); document.getElementById('wv-' + t.dataset.weight).textContent = t.value; document.getElementById('wf').textContent = weightText(); renderLists(); }
     if (t.id === 'role-search') { state.search = t.value; renderLists(); }
     if (t.id === 'code-input') t.value = t.value.toUpperCase();
     if (t.id === 'ask-input') ask.draft = t.value;
   });
 
   load();
+  // The world map has its own link for demos: youth.html#world
+  if (location.hash === '#world') { state.view = 'world'; state.world = { ind: defaultIndustry(), sel: null }; }
   // Youths who shared before the staff page existed have no stored record yet.
   if (isShared() && !hasShared()) syncShared();
   render();

@@ -201,7 +201,7 @@ footer.foot a { margin-right: 16px; }
 (function () {
   'use strict';
 
-  const { TYPES, TYPE_INFO, VALUES, VALUE, SKILLS, SKILL, PATHWAYS, PATH, ROLES, ROLE, AGES, AREAS, DEFAULT_W, EVENT_IDEAS,
+  const { TYPES, TYPE_INFO, VALUES, VALUE, SKILLS, SKILL, PATHWAYS, PATH, ROLES, ROLE, AGES, AREAS, EVENT_IDEAS,
     rank, esc, joinList, lowerTitle, upperFirst, options, readShared, SHARED_KEY } = window.SerasiCore;
 
   /* ---------- Labels ---------- */
@@ -238,7 +238,7 @@ footer.foot a { margin-right: 16px; }
       while (vals.length < 3) { const v = pick(VALUES.map(x => x.k), [68, 67, 56, 53, 45, 30, 25, 20]); if (!vals.includes(v)) vals.push(v); }
       const interest = {}; TYPES.forEach(t => { interest[t] = t === t1 ? .9 : t === t2 ? .72 : t === t3 ? .55 : .3 + rnd() * .2; });
       const prof = { interest, traits: { O: .4 + rnd() * .4, C: .4 + rnd() * .4, E: .3 + rnd() * .5, A: .4 + rnd() * .4, S: .4 + rnd() * .4, H: .5 + rnd() * .4 }, values: vals, faith: [], skills: { num: 3, comm: 3, people: 3, tech: 3, hands: 3, create: 3 }, pathway: pick(['ITE', 'Poly', 'Uni', 'Work'], [25, 35, 25, 15]) };
-      const res = rank(prof, DEFAULT_W, false);
+      const res = rank(prof, false);
       rows.push({
         id: 'Y' + String(n + 1).padStart(3, '0'), month: pick(['2027-04', '2027-05', '2027-06'], [30, 40, 30]),
         age: pick(['18-20', '21-23', '24-25'], [40, 38, 22]), area: pick(['north', 'north-east', 'east', 'west', 'central'], [18, 24, 22, 24, 12]), path: prof.pathway,
