@@ -14,7 +14,7 @@ const srcLinks = keys => {
   const list = [...new Set(keys || [])].filter(k => P.SOURCES[k]);
   return list.length ? '<p class="src">Sources: ' + list.map(k => '<a href="' + esc(P.SOURCES[k][1]) + '">' + esc(P.SOURCES[k][0]) + '</a>').join(' · ') + '</p>' : '';
 };
-const h = { esc, srcLinks, contactList: keys => keys.join(' ') };
+const h = { esc, srcLinks };
 // A made-up option and field for the html tests that should not depend on the real data.
 const opt = (over = {}) => ({ country: 'Switzerland', school: 'Test School', course: 'BSc Test', yrs: 4, tuition: [1000, 2000], cur: 'CHF', living: 20000,
   standing: 'Ranked 1st (QS World University Rankings by Subject 2026)', why: 'Why it is good.', env: 'German-taught.', watch: 'Check recognition.',
@@ -83,6 +83,7 @@ test('every option has what the card needs, names its QS edition, and its source
     assert.ok(o.yrs > 0, id + ': yrs');
     assert.ok(Array.isArray(o.tuition) && o.tuition.length === 2 && o.tuition[0] >= 0 && o.tuition[0] <= o.tuition[1], id + ': tuition');
     assert.ok(o.living === null || o.living > 0, id + ': living');
+    if (o.tuition[0] !== o.tuition[1]) assert.ok(typeof o.tuitionNote === 'string' && o.tuitionNote.length > 0, id + ': a tuition range says what its ends are');
     assert.match(o.standing, /QS World University Rankings by Subject 20\d\d/, id + ': standing names the edition');
     assert.match(o.url, /^https:\/\//, id + ': url');
     assert.ok(o.src.length > 0, id + ': src');
@@ -90,9 +91,11 @@ test('every option has what the card needs, names its QS edition, and its source
     for (const c of o.links || []) assert.ok(P.CONTACTS[c], id + ': contact ' + c);
   }
 });
-test('every agency note is plain text of a sentence or two', () => {
+test('every agency note is plain text of a sentence or two, with its sources in SOURCES', () => {
   for (const [k, f] of Object.entries(O.OPTIONS)) if (f.agency !== undefined) {
     assert.equal(typeof f.agency, 'string', k); assert.ok(f.agency.length > 40, k); assert.equal(f.best, undefined, k);
+    assert.ok(Array.isArray(f.src) && f.src.length > 0, k + ': src');
+    for (const s of f.src) assert.ok(P.SOURCES[s] && /^https:\/\//.test(P.SOURCES[s][1]), k + ': source ' + s);
   }
 });
 
@@ -122,7 +125,8 @@ test('forRole is null below edu 2, for an ite field, and for a study field with 
 test('forRole gives the field with its best pick and alternatives, or the agency note', () => {
   const r = O.forRole(ROLE.arch, { architecture: { best: opt(), alts: [opt({ country: 'Italy' })] } });
   assert.equal(r.field, 'architecture'); assert.equal(r.best.school, 'Test School'); assert.equal(r.alts.length, 1);
-  assert.deepEqual(plain(O.forRole(ROLE.teacher, { teaching: { agency: 'Train with MOE.' } })), { field: 'teaching', agency: 'Train with MOE.' });
+  assert.deepEqual(plain(O.forRole(ROLE.teacher, { teaching: { agency: 'Train with MOE.', src: ['moe-diped'] } })), { field: 'teaching', agency: 'Train with MOE.', src: ['moe-diped'] });
+  assert.deepEqual(plain(O.forRole(ROLE.teacher, { teaching: { agency: 'Train with MOE.' } })).src, []);
 });
 test('html: the card has the course and years, standing, why, environment, the three cost lines, the watch-out, the school link and sources', () => {
   const out = O.html(ROLE.arch, h, { architecture: { best: opt(), alts: [] } });
@@ -156,9 +160,31 @@ test('html escapes every string, including links', () => {
   assert.doesNotMatch(out, /<img/); assert.match(out, /&lt;img src=x onerror=alert\(1\)&gt;/);
   assert.match(out, /href="https:\/\/example\.org\/\?a=&quot;b&quot;&amp;c=&lt;d&gt;"/);
 });
-test('html: an agency note has a heading and no study card', () => {
-  const out = O.html(ROLE.teacher, h, { teaching: { agency: 'Train with <MOE>.' } });
-  assert.match(out, /<h4>[^<]+<\/h4>/); assert.match(out, /Train with &lt;MOE&gt;\./); assert.doesNotMatch(out, /Best place/);
+test('html: an agency note has the overseas heading, its sources and no study card', () => {
+  const out = O.html(ROLE.teacher, h, { teaching: { agency: 'Train with <MOE>.', src: ['moe-diped'] } });
+  assert.match(out, /<h4>Or study overseas<\/h4>/); assert.match(out, /Train with &lt;MOE&gt;\./); assert.doesNotMatch(out, /Best place/);
+  assert.ok(out.includes(esc(P.SOURCES['moe-diped'][0])));
+});
+
+// The runner-up rows: the alternative's cost line, from the made-up option. alt() is the "Also worth a look" part of the html.
+const alt = o => { const out = O.html(ROLE.arch, h, { architecture: { best: opt(), alts: [o] } }); return out.slice(out.indexOf('Also worth a look')); };
+test('html: a runner-up with no tuition says so beside a single total', () => {
+  const a = alt(opt({ country: 'Germany', tuition: [0, 0], cur: 'EUR', living: 12000, yrs: 3 }));
+  assert.match(a, /3 years · No tuition fees · about \$[\d,]+ in total/); assert.doesNotMatch(a, /about \$[\d,]+–/);
+  assert.doesNotMatch(a, /NaN|undefined|null/);
+});
+test('html: a runner-up with equal tuition bounds prints one total, not a range', () => {
+  const a = alt(opt({ country: 'Italy', tuition: [5000, 5000] }));
+  assert.match(a, /4 years · about \$[\d,]+ in total/); assert.doesNotMatch(a, /about \$[\d,]+–/); assert.doesNotMatch(a, /No tuition fees/);
+});
+test('html: a runner-up whose currency has no exchange rate fails loudly, never as NaN', () =>
+  assert.throws(() => alt(opt({ country: 'Italy', cur: 'XXX' })), /No exchange rate for XXX/));
+test('html: a tuition note explains a range on the runner-up row and on the card', () => {
+  const note = 'low end uses the bachelor’s fee, high end the master’s';
+  const out = O.html(ROLE.arch, h, { architecture: { best: opt({ tuitionNote: note }), alts: [opt({ country: 'Italy', tuitionNote: note })] } });
+  const a = out.slice(out.indexOf('Also worth a look'));
+  assert.ok(a.includes('in total (' + esc(note) + ')'));
+  assert.ok(out.slice(0, out.indexOf('Also worth a look')).includes(esc(O.costText(opt()).fees + '; ' + note)));
 });
 test('there is a rate for every currency the plan names', () => {
   for (const cur of ['AUD', 'GBP', 'EUR', 'JPY', 'MYR', 'CHF', 'DKK', 'SEK', 'NOK', 'CAD', 'USD', 'NZD', 'KRW', 'CNY', 'HKD', 'AED', 'EGP', 'TRY', 'SAR'])

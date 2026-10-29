@@ -63,7 +63,7 @@
       (c.mode ? ' <span class="pill">' + esc(c.mode) + '</span>' : '') +
       ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">course page ↗</a></li>').join('');
     return '<ul class="schools">' + items + '</ul>' +
-      '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, as listed on each school\'s page in October 2026.</p>';
+      '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, from each school\'s fee page in October 2026 (sources under the price breakdown). The links go to the course pages.</p>';
   }
 
   window.SerasiLocal = { SCHOOLS, COURSES, forRole, spread, html };

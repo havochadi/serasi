@@ -1028,7 +1028,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     const help = helpKeys.length ? '<div><h4>Help with costs</h4><ul class="help-list">' + helpKeys.map(k => '<li><b>' + esc(HELP[k].t) + '.</b> ' + esc(HELP[k].d) + '</li>').join('') + '</ul>' + srcLinks(helpKeys.flatMap(k => HELP[k].src)) + '</div>' : '';
 
     // The best place to study abroad and the alternatives (serasi-overseas.js), or an agency note; '' when overseas study doesn't apply.
-    const abroad = SerasiOverseas.html(r, { esc, srcLinks, contactList });
+    const abroad = SerasiOverseas.html(r, { esc, srcLinks });
     const ov = SerasiOverseas.forRole(r);
     const abroadLinks = ov && ov.best ? [ov.best].concat(ov.alts).flatMap(o => o.links || []) : [];
 
