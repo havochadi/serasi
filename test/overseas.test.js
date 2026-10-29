@@ -194,3 +194,27 @@ test('exchange rates are dated this year', () => assert.match(P.FX_ASOF, /2026/)
 test('the exchange-rate sources are in SOURCES with a label and an https link', () => {
   for (const k of ['fx-ecb', 'fx-egp']) { assert.ok(P.SOURCES[k], k); assert.match(P.SOURCES[k][0], /2026/); assert.match(P.SOURCES[k][1], /^https:\/\//); }
 });
+
+// Health and care fields: the regulator named in each option's watch-out, field by field.
+const REGULATOR = { pharmacy: /Singapore Pharmacy Council/, medicine: /Singapore Medical Council/ };
+test('health fields that carry a recognition warning name their Singapore regulator in every option', () => {
+  for (const [field, re] of Object.entries(REGULATOR)) {
+    const f = O.OPTIONS[field];
+    assert.ok(f && f.best, field + ' has options');
+    for (const o of [f.best].concat(f.alts || [])) assert.match(o.watch, re, field + ': ' + o.school);
+  }
+});
+test('pharmacy and medicine: each field has a best pick in a different country from its alternatives', () => {
+  for (const field of ['pharmacy', 'medicine', 'biomedical']) {
+    const f = O.OPTIONS[field], all = [f.best].concat(f.alts || []);
+    assert.equal(new Set(all.map(o => o.country)).size, all.length, field);
+  }
+});
+test('medicine keeps its place-missed-locally framing and says what the degree costs against a local place', () => {
+  const b = O.OPTIONS.medicine.best;
+  assert.match(b.why, /miss a local place/i);
+  assert.match(b.why, /NUS, NTU or Duke-NUS/);
+});
+test('every option whose fee is an average over the course says so in the fee label', () => {
+  for (const [, o] of allOptions()) if (/average/i.test(o.feeLabel || '')) assert.match(o.watch, /instalments/);
+});

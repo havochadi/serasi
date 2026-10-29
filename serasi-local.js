@@ -63,7 +63,7 @@
     // Medicine. The MBBS places are the main route; Duke-NUS takes graduates of any field. NUS's "Medicine (except Nursing)" band is $33,200 and NTU's
     // medicine fee is $36,100 (AY2026/27). Duke-NUS's tuition page could not be read for the MD fee, so it is null. Both MBBS fees are for 2026/27 entrants.
     { school: 'NUS', course: 'Bachelor of Medicine and Bachelor of Surgery (MBBS)', lvl: 3, yrs: 5, fee: 33200, fields: ['medicine'], url: 'https://www.nus.edu.sg/nusbulletin/ay202627/programmes/yong-loo-lin-school-of-medicine-including-nursing/undergraduate-education/', src: ['fee-nus26'] },
-    { school: 'NTU', course: 'Bachelor of Medicine and Bachelor of Surgery (MBBS)', lvl: 3, yrs: 5, fee: 36100, fields: ['medicine'], url: 'https://www.ntu.edu.sg/admissions/undergraduate/medicine', src: ['fee-ntu'] },
+    { school: 'NTU', course: 'Bachelor of Medicine and Bachelor of Surgery (MBBS)', lvl: 3, yrs: 5, fee: 36100, fields: ['medicine'], url: 'https://www.ntu.edu.sg/medicine/education/bachelor-of-medicine-and-bachelor-of-surgery-(mbbs)', src: ['fee-ntu'] },
     { school: 'Duke-NUS', course: 'Doctor of Medicine (MD), for graduates of any field', lvl: 3, yrs: 4, fee: null, fields: ['medicine'], url: 'https://www.duke-nus.edu.sg/admissions/tuition-scholarships' },
 
     // Biomedical and laboratory science. Temasek's Medical Biotechnology is left out: it is not a biomedical science or medical laboratory course by name.
