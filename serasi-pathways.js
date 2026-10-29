@@ -12,6 +12,7 @@
     'scmp-prop': ['South China Morning Post, 2025', 'https://www.scmp.com/opinion/china-opinion/article/3323176/why-beijing-letting-parts-chinas-property-sector-fail'],
     'cntech-ai': ['CnTechPost, March 2026', 'https://cntechpost.com/2026/03/10/china-tech-giants-spark-fierce-ai-talent-war-massive-hiring-drives'],
     'chinadaily-ai': ['China Daily, April 2026', 'https://mobile.chinadaily.com.cn/html5/2026-04/17/content_003_69e12668ed50be540e72ea0b.htm'],
+    'byd-shenzhen': ['Asia Business Daily, inside BYD’s Shenzhen headquarters, July 2025', 'https://www.asiae.co.kr/en/article/2025063014164060494'],
     'hk-fin': ['South China Morning Post, 2026', 'https://www.scmp.com/business/article/3344131/hong-kong-finance-hiring-rises-ipo-revival-cost-cuts-persist'],
     'tsmc-jp': ['Tribune India, 2026', 'https://www.tribuneindia.com/news/business/tsmcs-japan-unit-fab-swings-to-profit-in-q1/'],
     'tsmc-az': ['Tribune India, 2026', 'https://www.tribuneindia.com/news/arizona/tsmc-accelerates-us-expansion-eyes-arizona-as-global-semiconductor-hub'],
@@ -22,6 +23,7 @@
     'vn-fdi': ['Bac Ninh Newspaper, citing Savills, 2026', 'https://en.baobacninhtv.vn/northern-vietnam-attracts-80-5-of-new-manufacturing-fdi-in-first-half.bbg'],
     'my-johor': ['EdgeProp, citing DBS', 'https://edgeprop.sg/property-news/data-centres-electronics-among-sectors-benefit-johor-singapore-special-economic-zone-dbs'],
     'my-jsez': ['New Straits Times, February 2026', 'https://www.nst.com.my/amp/business/economy/2026/02/1370164/js-sez-embeds-rm911bil-growth-deep-johors-local-economy'],
+    'my-penang-osat': ['iConnect007, Chipbond’s new Penang plant, February 2026', 'https://iconnect007.com/article/148910/chipbond-boosts-malaysias-semiconductor-ecosystem-with-new-penang-facility/148907/smt'],
     'id-ikn': ['New Straits Times (AFP), September 2025', 'https://www.nst.com.my/amp/world/region/2025/09/1271575/indonesias-new-capital-nusantara-risks-fading-white-elephant'],
     'lseg-ifdi': ['LSEG and ICD, Islamic Finance Development Indicator', 'https://mondovisione.com/media-and-resources/news/lseg-and-icd-announce-findings-of-the-2025-islamic-finance-development-indicator-20251014/'],
     'lseg-assets': ['Arab News, October 2025', 'https://www.arabnews.pk/node/2618992/business-economy'],
@@ -121,7 +123,7 @@
     } },
     { id: 'shenzhen', place: 'Shenzhen', country: 'China', iso: 156, ll: [114.06, 22.54], ind: {
       tech: ['grow', 'One of the four Chinese cities drawing the most tech job applicants, and climbing the start-up hub ranking.', ['chinadaily-ai', 'gser25']],
-      auto: ['grow', 'Home of BYD, one of the world’s biggest electric-vehicle makers.', []],
+      auto: ['grow', 'Home of BYD, one of the world’s biggest electric-vehicle makers.', ['byd-shenzhen']],
       finance: ['steady', '9th in the Global Financial Centres Index.', ['gfci38']]
     } },
     { id: 'hangzhou', place: 'Hangzhou', country: 'China', iso: 156, ll: [120.15, 30.27], ind: {
@@ -183,7 +185,7 @@
       construction: ['grow', 'Record approved investment (RM91.1 billion by late 2025) is driving data-centre and factory building.', ['my-jsez']]
     } },
     { id: 'penang', place: 'Penang', country: 'Malaysia', iso: 458, ll: [100.33, 5.41], ind: {
-      semis: ['steady', 'A long-established centre for chip assembly and testing.', []]
+      semis: ['steady', 'A mature centre for chip assembly and testing.', ['my-penang-osat']]
     } },
     { id: 'jakarta', place: 'Jakarta', country: 'Indonesia', iso: 360, ll: [106.85, -6.21], ind: {
       islamic: ['grow', 'Indonesia is one of the five most developed Islamic finance markets.', ['lseg-ifdi']]
