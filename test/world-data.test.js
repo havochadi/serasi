@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { load } = require('./helpers/load');
 
-const w = load(['serasi-core.js', 'serasi-pathways.js']);
+const w = load(['serasi-core.js', 'serasi-pathways.js', 'serasi-sectors.js']);
 const { WORLD, SOURCES, INDUSTRY, OUTLOOK } = w.SerasiPathways;
 // The world-atlas countries (plus the two places that appear only as city dots), for the numeric iso check.
 const ATLAS = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'atlas-ids.json'), 'utf8'));
@@ -57,6 +57,14 @@ test('finished industries list enough countries', () => {
 
 test('public service stays Singapore-only', () => {
   for (const h of WORLD) if (h.ind.public) assert.equal(h.iso, 702, h.id + ' lists public service but is not Singapore');
+});
+
+test('each country has at most one nationwide entry', () => {
+  const seen = new Set();
+  for (const h of WORLD.filter(h => h.scope === 'country')) {
+    assert.ok(!seen.has(h.iso), h.country + ' has two nationwide entries');
+    seen.add(h.iso);
+  }
 });
 
 // Sector tasks append their DONE.push(...) and SHORT.<key> lines below this line.
