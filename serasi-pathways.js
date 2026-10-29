@@ -76,7 +76,14 @@
     'my-fees': ['Universiti Teknologi PETRONAS, international fees', 'https://utp.edu.my/Pages/Admission/Undergraduate/International/Tuition-fees.aspx'],
     'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/'],
     'fx-ecb': ['European Central Bank, euro foreign exchange reference rates, 28 October 2026', 'https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html'],
-    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com']
+    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com'],
+
+    // Task 13: finance, Islamic finance, health, biotech
+    'my-bnm-fin24': ['Bank Negara Malaysia Governor, speech on financial-sector skills, 22 July 2024 (BIS)', 'https://www.bis.org/review/r240722a.pdf'],
+    'in-bfsi-taggd25': ['Tribune India, CII–Taggd India Decoding Jobs 2026, November 2025', 'https://www.tribuneindia.com/news/business/indias-hiring-intent-rebounds-to-11-for-2026-led-by-bfsi-and-tech-driven-roles-report'],
+    'in-gift-gfci40': ['Business Today, GIFT City in the Global Financial Centres Index 40, September 2026', 'https://www.businesstoday.in/markets/story/gift-city-climbs-nine-places-to-37th-in-global-financial-centres-index-556209-2026-09-17'],
+    'ch-sba-staff26': ['Swiss Bankers Association, Banking Barometer 2026: staff at banks in Switzerland', 'https://publications.swissbanking.ch/banking-barometer-2026-en/number-of-staff-at-banks-in-switzerland'],
+    'ch-ubs-cuts26': ['Swissinfo (Keystone-SDA), UBS redundancies, 4 February 2026', 'https://www.swissinfo.ch/eng/various/ubs-redundancies-mainly-in-the-second-half-of-the-year/90889822'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
