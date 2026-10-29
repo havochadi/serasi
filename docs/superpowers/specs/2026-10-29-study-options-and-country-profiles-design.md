@@ -27,12 +27,12 @@ The aim is for a Malay youth in Singapore to see, for any role, every local rout
 
 ## Goals
 
-1. Every role that currently offers the overseas panel (`edu >= 2`) shows a best place to study abroad plus about three alternatives, or a plain explanation when overseas study doesn't apply.
+1. Every role that currently offers the overseas panel (`edu >= 2`) shows a best place to study abroad plus two alternatives (trimmed from about three on 2026-10-30), or a plain explanation when overseas study doesn't apply.
 2. Every role lists every public local school offering the relevant course at each level, with years, yearly fee and a link to the course page.
-3. Every country on the globe that has a standard numeric ISO code has a profile with all the facts above, or states plainly what is not available.
+3. A core set of about 60 countries has a full profile (every country with a sector note, every overseas study destination, Singapore, Hong Kong and the main neighbours and economies); every other globe country opens "No profile yet". Trimmed from "every country on the globe" on 2026-10-30; the rest can be added later.
 4. Each number has a year and a source link. Anything written from general knowledge, and not individually sourced, says so on the page.
 5. Ask Serasi (the Gemini path and the on-device fallback) keeps working and uses the new data.
-6. Each of the 17 industries lists many more countries than it does now, each with a researched, sourced note on whether the industry is growing, steady or shrinking there. The aim is about eight to ten countries per industry wherever the evidence exists. Where it doesn't, the list is shorter; it is never padded. The exception is "Public service and security", which stays Singapore-only because those jobs are Singapore jobs.
+6. Each of the 17 industries lists many more countries than it does now, each with a researched, sourced note on whether the industry is growing, steady or shrinking there. The aim is about five or six countries per industry (trimmed from eight to ten on 2026-10-30) wherever the evidence exists. Where it doesn't, the list is shorter; it is never padded. The exception is "Public service and security", which stays Singapore-only because those jobs are Singapore jobs.
 
 ## Non-goals
 
@@ -61,7 +61,7 @@ The aim is for a Malay youth in Singapore to see, for any role, every local rout
 |---|---|
 | Overseas layout | A: one "best pick" card, then a short list of runner-ups. |
 | How "best" is chosen | School standing for the field first. Cost is shown and used to break ties, not to decide. Environment is a short written note per option, not a score. |
-| Coverage of overseas advice | All 29 study tracks, finer where a track mixes fields (see below), each with one best pick and about three alternatives. |
+| Coverage of overseas advice | All 29 study tracks, finer where a track mixes fields (see below), each with one best pick and two alternatives (trimmed on 2026-10-30). |
 | Recognition warnings | Kept. |
 | Sector notes | Research and add new sourced notes so each sector lists many more countries (see goal 6). Not limited to the existing notes. |
 | Country list for a sector | Countries with a checked note for that sector first, grouped Growing, Steady or mixed, Shrinking. Below them, a collapsed "All other countries (A to Z)". |
@@ -69,7 +69,7 @@ The aim is for a Malay youth in Singapore to see, for any role, every local rout
 | Region buttons (Asia, Europe, Americas, Australia) | Removed, so the globe turns only from a country choice. |
 | Tapping a country on the globe | Spins the globe to show the country and opens its profile (the user's change; earlier draft did not spin). |
 | Flags | Each profile shows the country's flag, as an image (not emoji, which don't render on Windows). |
-| Coverage of profiles | Every country on the globe, about 175. |
+| Coverage of profiles | A core set of about 60 countries (trimmed on 2026-10-30 from every country, about 175, to save time; "No profile yet" for the rest). |
 | Numbers | Population, GDP and GDP per person from the World Bank, showing the year and linking to the source. |
 | Institutions | From the QS World University Rankings. |
 | Hand-written parts | "Known for", facts and notable organisations are written by Serasi and are not individually sourced. |

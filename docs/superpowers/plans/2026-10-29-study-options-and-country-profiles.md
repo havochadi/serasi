@@ -26,7 +26,7 @@
 - "Every local school" = publicly funded institutions only: ITE, the five polytechnics, NUS, NTU, SMU, SUTD, SIT, SUSS, LASALLE, NAFA, the University of the Arts Singapore, Duke-NUS, NIE. No private schools.
 - Overseas advice only for roles with `edu >= 2`; roles tied to Singapore agencies get a note instead.
 - "Best" overseas = school standing for the field first (latest QS by-subject ranking, edition named), then environment (a short note, not a score); cost shown, used to break ties.
-- Sector notes: 2025–2026 sources where possible, older ones say their year; every link returns a page; list about 8–10 countries per industry where evidence exists, fewer (never padded) where it doesn't; "Public service and security" stays Singapore-only.
+- Sector notes: 2025–2026 sources where possible, older ones say their year; every link returns a page; list about 5–6 countries per industry where evidence exists (scope trimmed by the user on 2026-10-30), fewer (never padded) where it doesn't; "Public service and security" stays Singapore-only.
 - Commit steps below are skipped unless the user has said commits are wanted. Work on branch `study-options-country-profiles`, not `main`.
 
 ## Review Focus
@@ -53,7 +53,7 @@ Script order in `youth.html`: core, pathways, study, local, overseas, countries-
 
 For each field in the task:
 1. **Local:** find every public school (list in Global Constraints) offering a matching course at each level the roles in the field need (ITE for edu 1, diploma for edu 2, degree for edu 3, and the diploma route into a degree where one exists). Use the school's own course page. `fee` is the school's published yearly fee for a Singapore Citizen after the Tuition Grant, else `null`. Add one `COURSES` entry per school and course.
-2. **Overseas** (`kind: 'study'` fields): rank countries by the latest QS by-subject ranking for the field's subject, then weigh environment; record the best pick and about three alternatives (2–4). Tuition and living costs are yearly, in local currency; living is the official visa financial-proof figure where one exists, else a cited estimate; `yrs` covers what is needed to qualify (e.g. bachelor's plus master's for architects). `watch` carries the Singapore recognition warning for regulated professions (architects, nurses, allied health, doctors, lawyers, Islamic scholars). Keep the existing scholarship notes (e.g. MEXT) on the option they belong to.
+2. **Overseas** (`kind: 'study'` fields): rank countries by the latest QS by-subject ranking for the field's subject, then weigh environment; record the best pick and two alternatives (scope trimmed by the user on 2026-10-30; a third only if it is already researched). Tuition and living costs are yearly, in local currency; living is the official visa financial-proof figure where one exists, else a cited estimate; `yrs` covers what is needed to qualify (e.g. bachelor's plus master's for architects). `watch` carries the Singapore recognition warning for regulated professions (architects, nurses, allied health, doctors, lawyers, Islamic scholars). Keep the existing scholarship notes (e.g. MEXT) on the option they belong to.
 3. Add every new source to `SOURCES` (and official country guides to `CONTACTS`). Add any new currency to `FX`.
 4. Run `node --test test/` (must pass) and `node scripts/check-links.mjs` (no hard failures).
 5. Commit: `git add serasi-*.js && git commit -m "Add study options for <fields>"`.
@@ -212,15 +212,15 @@ Allowed exceptions for the last-but-one test: `aviation, property` (custom route
 
 ```js
 const DONE = [];                       // industries finished so far; each sector task appends its keys
-const SHORT = {};                      // industry → reason it lists fewer than 8 countries
+const SHORT = {};                      // industry → reason it lists fewer than 5 countries
 test('every WORLD entry is well formed', () => { /* unique id; numeric iso found in the fixture; ll lon/lat in range; every ind key in INDUSTRY; outlook in grow|steady|decline; text 20–400 chars; ≥1 src key (none needed for public); every src key exists in SOURCES */ });
 test('every source is an https link', () => { /* SOURCES values [label, https url] */ });
-test('finished industries list enough countries', () => { for (const k of DONE) { const n = new Set(WORLD.filter(h => h.ind[k]).map(h => h.iso)).size; assert.ok(n >= 8 || SHORT[k], k + ' lists ' + n); } });
+test('finished industries list enough countries', () => { for (const k of DONE) { const n = new Set(WORLD.filter(h => h.ind[k]).map(h => h.iso)).size; assert.ok(n >= 5 || SHORT[k], k + ' lists ' + n); } });
 test('public service stays Singapore-only', () => { /* every hub with ind.public has iso 702 */ });
 ```
 - [ ] **Step 3:** Run it and note which of the existing 39 entries fail (for example notes with an empty source list, such as Shenzhen's BYD note). Fix each by adding a real source or correcting the note, and list the fixes in the hand-over, until the first two tests pass. **Step 4: Research and add notes for `construction, energy, manufacturing, auto`** (see **Sector research procedure** below). **Step 5:** Append the four keys to `DONE` (explain any shortfall in `SHORT`). **Step 6:** Tests and link checker pass; commit `Add sourced job-market notes for construction, energy, manufacturing and auto`.
 
-**Sector research procedure (Tasks 11–14).** For each industry, find countries where 2025–2026 evidence shows hiring growth, steadiness or decline: official statistics and international bodies first (ILO, UNESCO, IRENA, IEA, UNCTAD, World Bank, national statistics offices), industry associations, then established news outlets. Add a note to the country's existing `scope: 'country'` hub, or create `{id, place: '<Country> (nationwide)', country, iso, ll, scope: 'country', ind: {...}}` (`country` must match the name used in `serasi-countries-data.js`; use the English short name as the existing entries do). A note is an outlook, one or two plain sentences with a figure and its year, and source keys. Add each source to `SOURCES`. Mixed evidence is `steady` with the reason. Correct any existing note the research shows to be wrong and list the correction in the hand-over. Aim for about eight to ten countries, spread across regions where the evidence allows.
+**Sector research procedure (Tasks 11–14).** For each industry, find countries where 2025–2026 evidence shows hiring growth, steadiness or decline: official statistics and international bodies first (ILO, UNESCO, IRENA, IEA, UNCTAD, World Bank, national statistics offices), industry associations, then established news outlets. Add a note to the country's existing `scope: 'country'` hub, or create `{id, place: '<Country> (nationwide)', country, iso, ll, scope: 'country', ind: {...}}` (`country` must match the name used in `serasi-countries-data.js`; use the English short name as the existing entries do). A note is an outlook, one or two plain sentences with a figure and its year, and source keys. Add each source to `SOURCES`. Mixed evidence is `steady` with the reason. Correct any existing note the research shows to be wrong and list the correction in the hand-over. Aim for five or six countries, spread across regions where the evidence allows (the user trimmed this from eight to ten on 2026-10-30 to save time).
 
 ### Task 12: Sector notes — semiconductors, tech, aerospace, logistics
 
@@ -254,13 +254,18 @@ As Task 11 steps 4–6 for `care, hospitality, creative, education`. `public` is
 - `scripts/countries/<region>.json` is an array of `{iso: number, name: string, a2: string, langs: string[], known: string[], facts: string[], orgs: string[], unis: {n: string, rank?: number, url?: string}[], fallback?: {pop?: Figure, gdp?: Figure, gdppc?: Figure}}`. `_meta.json` is `{qsEdition: string, qsUrl: string}`.
 - `node scripts/build-countries.mjs` reads every region file, fetches population (`SP.POP.TOTL`), GDP (`NY.GDP.MKTP.CD`) and GDP per person (`NY.GDP.PCAP.CD`) from the World Bank API with `mrnev=1` in three bulk calls, and writes `serasi-countries-data.js`: `window.SerasiCountryData = {asof, qs: {edition, url}, wb: {url: 'https://data.worldbank.org/'}, byIso: {[iso]: {name, a2, langs, pop, gdp, gdppc, known, facts, orgs, unis}}}` with `Figure = {v: number, yr: number, src?: string} | {v: null, why: string}`. `fallback` wins over the World Bank value; a missing figure with no fallback becomes `{v: null, why: 'No figure in the World Bank data'}`. The file begins with a "generated, do not edit" comment.
 
+**Scope (the user's call, 2026-10-30, to save time):** profiles are written for a **core set** of about 60 countries, not all ~175. The core set is: every country with a `WORLD` hub (after Tasks 11–14), every country named in `OPTIONS` (Tasks 5–10), Singapore and Hong Kong, and the `CORE_ALSO` list below. Every other globe country opens "No profile yet" (already pinned by Review Focus 2) and is added later from the same region files. Region tasks write only their core countries.
+
 - [ ] **Step 1: Failing tests** in `countries.test.js` (load all scripts):
 
 ```js
 const DONE_REGIONS = [];   // each region task appends its region
 const fixture = require('./fixtures/atlas-ids.json');
-test('every atlas country in a finished region has a complete profile', () => {
-  for (const c of fixture.filter(c => DONE_REGIONS.includes(c.region))) {
+const CORE_ALSO = ['Brunei','Cambodia','Indonesia','Laos','Malaysia','Myanmar','Philippines','Thailand','Vietnam','Timor-Leste','India','Pakistan','Bangladesh','Sri Lanka','China','Japan','South Korea','Taiwan','Saudi Arabia','United Arab Emirates','Qatar','Kuwait','Turkey','Jordan','United Kingdom','Ireland','Germany','France','Netherlands','Switzerland','Sweden','Norway','Denmark','Finland','Italy','Spain','Russia','Poland','Belgium','Austria','Egypt','Morocco','South Africa','Nigeria','Kenya','Ethiopia','Ghana','United States of America','Canada','Brazil','Mexico','Argentina','Chile','Australia','New Zealand'];   // names as spelled in the atlas fixture; the first test fails on any that is not in the fixture
+const coreNames = () => new Set([...CORE_ALSO, 'Singapore', 'Hong Kong', ...WORLD.map(h => h.country), ...Object.values(O.OPTIONS).flatMap(o => o.best ? [o.best, ...o.alts].map(x => x.country) : [])]);
+test('every core country name is in the atlas fixture', () => { for (const n of coreNames()) assert.ok(fixture.some(c => c.name === n), n); });
+test('every core atlas country in a finished region has a complete profile', () => {
+  for (const c of fixture.filter(c => DONE_REGIONS.includes(c.region) && coreNames().has(c.name))) {
     const p = D.byIso[c.id]; assert.ok(p, c.name);
     assert.match(p.a2, /^[A-Z]{2}$/); assert.ok(p.langs.length >= 1 && p.known.length >= 2 && p.facts.length >= 2 && p.orgs.length >= 2 && p.unis.length >= 1, c.name);   // 3–6 organisations where they exist; small countries may have two
     for (const f of [p.pop, p.gdp, p.gdppc]) assert.ok((f.v > 0 && f.yr >= 2018 && f.yr <= 2026) || (f.v === null && f.why), c.name);
@@ -270,23 +275,23 @@ test('flag codes are unique', () => { /* no a2 repeated */ });
 test('every WORLD country and iso match a profile name', () => { /* for DONE regions only: WORLD hubs whose iso is in a done region have byIso[iso].name === hub.country */ });
 test('ranked institutions carry integer ranks', () => { /* rank, when present, is a positive integer */ });
 ```
-- [ ] **Step 2:** FAIL. **Step 3:** Implement the builder; fill `_meta.json` after confirming the latest QS edition on topuniversities.com. **Step 4: Research and write `asia.json`** for every `asia` fixture country: official/main languages; 2–4 "known for"; 2–4 plain facts; 3–6 notable organisations, brands or companies (a main export, national airline, bank or institution for small countries, whichever is true); institutions from the QS table (rank if listed; else the main national university, no rank). Use `fallback` for Taiwan and any territory the World Bank omits, citing the IMF or national statistics office in `src`. **Step 5:** Run the builder, then `node --test test/` (append `'asia'` to `DONE_REGIONS`) and `node scripts/check-links.mjs --only jsdelivr`. **Step 6:** Commit `Add the country data builder and Asian country profiles`.
+- [ ] **Step 2:** FAIL. **Step 3:** Implement the builder; fill `_meta.json` after confirming the latest QS edition on topuniversities.com. **Step 4: Research and write `asia.json`** for every `asia` country in the core set: official/main languages; 2–4 "known for"; 2–4 plain facts; 3–6 notable organisations, brands or companies (a main export, national airline, bank or institution for small countries, whichever is true); institutions from the QS table (rank if listed; else the main national university, no rank). Use `fallback` for Taiwan and any territory the World Bank omits, citing the IMF or national statistics office in `src`. **Step 5:** Run the builder, then `node --test test/` (append `'asia'` to `DONE_REGIONS`) and `node scripts/check-links.mjs --only jsdelivr`. **Step 6:** Commit `Add the country data builder and Asian country profiles`.
 
 ### Task 17: Country profiles — Europe
 
-As Task 16 steps 4–6 for the `europe` region (`scripts/countries/europe.json`); append `'europe'` to `DONE_REGIONS`. Commit `Add European country profiles`.
+As Task 16 steps 4–6 for the core countries of the `europe` region (`scripts/countries/europe.json`); append `'europe'` to `DONE_REGIONS`. Commit `Add European country profiles`.
 
 ### Task 18: Country profiles — Africa
 
-As Task 16 steps 4–6 for `africa`. Commit `Add African country profiles`.
+As Task 16 steps 4–6 for the core countries of `africa`. Commit `Add African country profiles`. **Tasks 18, 19 and 20 are dispatched as one batch (one implementer, one review) to save time; keep one commit per region.**
 
 ### Task 19: Country profiles — Americas
 
-As Task 16 steps 4–6 for `americas`. Commit `Add country profiles for the Americas`.
+As Task 16 steps 4–6 for the core countries of `americas`. Commit `Add country profiles for the Americas`.
 
-### Task 20: Country profiles — Oceania, and full coverage
+### Task 20: Country profiles — Oceania, and core coverage
 
-As Task 16 steps 4–6 for `oceania`; append `'oceania'`. With all five regions done the coverage test now covers every fixture country. Also add a test that every `WORLD` hub's `iso` has a profile and its `country` equals the profile's `name` (fix whichever side is wrong). Commit `Add Oceania country profiles and check full coverage`.
+As Task 16 steps 4–6 for the core countries of `oceania`; append `'oceania'`. With all five regions done the coverage test covers every core country, and a floor test asserts `Object.keys(D.byIso).length >= 55`. Also add a test that every `WORLD` hub's `iso` has a profile and its `country` equals the profile's `name` (fix whichever side is wrong). Commit `Add Oceania country profiles and check full coverage`.
 
 ### Task 21: World map UI
 
