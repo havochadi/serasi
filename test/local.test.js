@@ -108,3 +108,47 @@ test('architecture: local schools', () => {
   assert.ok(L.forRole(ROLE.arch, 3).map(c => c.school).includes('SUTD'));
   assert.ok(L.forRole(ROLE.arch, 2).length >= 1);
 });
+
+const schoolsFor = (id, lvl) => plain(L.forRole(ROLE[id], lvl).map(c => c.school));
+const names = (id, lvl) => plain(L.forRole(ROLE[id], lvl).map(c => c.course));
+
+test('nursing: ITE courses are at level 1 and the diplomas at level 2', () => {
+  assert.deepEqual(schoolsFor('enrolled-nurse', 1), ['ITE', 'ITE']);
+  assert.ok(L.forRole(ROLE['enrolled-nurse'], 1).every(c => /Higher Nitec in Nursing/.test(c.course)));
+  assert.deepEqual(schoolsFor('nurse', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic']);
+});
+test('early childhood: the ITE course is at level 1 and the diplomas at level 2', () => {
+  assert.deepEqual(schoolsFor('preschool', 1), ['ITE']);
+  assert.deepEqual(schoolsFor('early-int', 2), ['Ngee Ann Polytechnic', 'Temasek Polytechnic']);
+});
+test('medicine: NUS, NTU and Duke-NUS are listed at level 3, and Duke-NUS says its fee is not on a page we could read', () => {
+  assert.deepEqual(schoolsFor('doctor', 3), ['NUS', 'NTU', 'Duke-NUS']);
+  assert.equal(L.forRole(ROLE.doctor, 3).find(c => c.school === 'Duke-NUS').fee, null);
+});
+test('allied health: each degree is listed only for its own role, and oral health therapy for its diploma', () => {
+  assert.deepEqual(names('physio', 3), ['Bachelor of Science with Honours in Physiotherapy']);
+  assert.deepEqual(names('ot', 3), ['Bachelor of Science with Honours in Occupational Therapy']);
+  assert.deepEqual(names('radiographer', 3), ['Bachelor of Science with Honours in Diagnostic Radiography']);
+  assert.deepEqual(names('dietitian', 3), ['Bachelor of Science with Honours in Dietetics and Nutrition']);
+  assert.deepEqual(schoolsFor('oral-health', 2), ['Nanyang Polytechnic']);
+});
+test('pharmacy: four polytechnic diplomas for the technician, and NUS for the pharmacist', () => {
+  assert.deepEqual(schoolsFor('pharm-tech', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic', 'Temasek Polytechnic']);
+  assert.deepEqual(schoolsFor('pharmacist', 3), ['NUS']);
+});
+test('biomedical and veterinary diplomas', () => {
+  assert.deepEqual(schoolsFor('lab-tech', 2), ['Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic']);
+  assert.deepEqual(schoolsFor('vet-tech', 2), ['Temasek Polytechnic']);
+});
+test('social work: the ITE course at level 1 and three diplomas for the youth worker at level 2', () => {
+  assert.deepEqual(schoolsFor('community-care', 1), ['ITE']);
+  assert.deepEqual(schoolsFor('youth-worker', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Temasek Polytechnic']);
+});
+test('a fee that comes from the school is within reach of the generic fee table', () => {
+  for (const c of L.COURSES.filter(c => c.lvl === 2 && c.fee != null)) assert.ok(Math.abs(c.fee - 3180) < 100, c.school + ' ' + c.course);
+});
+
+test('the allied health sponsorship contact no longer uses the old MOH Holdings host that failed its TLS handshake', () => {
+  assert.doesNotMatch(P.CONTACTS.ahspon.url, /ahp\.mohh\.com\.sg/);
+  assert.match(P.CONTACTS.ahspon.url, /^https:\/\/www\.healthcarescholarships\.sg\//);
+});
