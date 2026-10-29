@@ -1,0 +1,96 @@
+'use strict';
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const { load, plain } = require('./helpers/load');
+
+const w = load(['serasi-core.js', 'serasi-pathways.js', 'serasi-study.js', 'serasi-local.js']);
+const L = w.SerasiLocal;
+const { ROLE, esc } = w.SerasiCore;
+const { FIELDS } = w.SerasiStudy;
+const h = { esc, money: n => '$' + Math.round(n).toLocaleString('en-SG') };
+
+const course = (over = {}) => ({ school: 'Ngee Ann Polytechnic', course: 'Diploma in Data Science', lvl: 2, yrs: 3, fee: 3180, fields: ['data-ai'], url: 'https://example.sg/c', ...over });
+
+test('SCHOOLS lists the publicly funded institutions in order', () => assert.deepEqual(plain(L.SCHOOLS), [
+  'ITE', 'Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic', 'Temasek Polytechnic',
+  'NUS', 'NTU', 'SMU', 'SUTD', 'SIT', 'SUSS', 'LASALLE', 'NAFA', 'University of the Arts Singapore', 'Duke-NUS', 'NIE']));
+
+test('spread gives the lowest and highest fee and whether any is far from the generic fee', () =>
+  assert.deepEqual(plain(L.spread([{ fee: 3180 }, { fee: 3600 }], 3180)), { lo: 3180, hi: 3600, differs: true }));
+test('spread ignores null fees', () =>
+  assert.deepEqual(plain(L.spread([{ fee: 3180 }, { fee: null }], 3180)), { lo: 3180, hi: 3180, differs: false }));
+test('spread of an empty list is null', () => assert.equal(L.spread([], 3180), null));
+test('spread is null when no course has a fee', () => assert.equal(L.spread([{ fee: null }], 3180), null));
+test('differs only when a fee is more than $300 from the generic fee, in either direction', () => {
+  assert.equal(L.spread([{ fee: 3480 }], 3180).differs, false);
+  assert.equal(L.spread([{ fee: 3481 }], 3180).differs, true);
+  assert.equal(L.spread([{ fee: 2880 }], 3180).differs, false);
+  assert.equal(L.spread([{ fee: 2879 }], 3180).differs, true);
+});
+
+test('forRole keeps only courses for the role\'s field, at the level, and for the role when roles is given', () => {
+  const list = [
+    course({ course: 'keep' }),
+    course({ course: 'wrong level', lvl: 3 }),
+    course({ course: 'wrong field', fields: ['computing'] }),
+    course({ course: 'several fields', fields: ['computing', 'data-ai'] }),
+    course({ course: 'this role only', roles: ['data-sci', 'ai-eng'] }),
+    course({ course: 'other roles only', roles: ['data-analyst'] })
+  ];
+  assert.deepEqual(L.forRole(ROLE['data-sci'], 2, list).map(c => c.course), ['keep', 'several fields', 'this role only']);
+  assert.deepEqual(L.forRole(ROLE['data-analyst'], 2, list).map(c => c.course), ['keep', 'several fields', 'other roles only']);
+});
+test('forRole orders by SCHOOLS and keeps the given order within a school', () => {
+  const list = [
+    course({ school: 'NUS', course: 'b' }), course({ school: 'ITE', course: 'a' }),
+    course({ school: 'NUS', course: 'c' }), course({ school: 'Nanyang Polytechnic', course: 'd' })
+  ];
+  assert.deepEqual(L.forRole(ROLE['data-sci'], 2, list).map(c => c.course), ['a', 'd', 'b', 'c']);
+});
+test('forRole returns nothing for an empty list', () => assert.deepEqual(plain(L.forRole(ROLE['data-sci'], 2, [])), []));
+
+test('html is an empty string when no course matches (Review Focus 1)', () => {
+  assert.equal(L.html(ROLE['data-sci'], 2, h, []), '');
+  assert.equal(L.html(ROLE['data-sci'], 3, h, [course()]), '');
+  assert.equal(L.html(ROLE.arch, 2, h, [course()]), '');
+});
+test('html uses COURSES by default', () => assert.equal(L.html(ROLE['data-sci'], 2, h), L.html(ROLE['data-sci'], 2, h, L.COURSES)));
+test('html lists each course with school, course, years, fee, link and the fee note', () => {
+  const out = L.html(ROLE['data-sci'], 2, h, [course(), course({ school: 'NUS', course: 'BSc Data Science', lvl: 2, yrs: 3.5, fee: 8250, url: 'https://example.sg/d' })]);
+  assert.match(out, /^<ul class="schools">/);
+  assert.equal(out.match(/<li>/g).length, 2);
+  assert.match(out, /Ngee Ann Polytechnic/); assert.match(out, /Diploma in Data Science/);
+  assert.match(out, /3 years/); assert.match(out, /\$3,180 a year/);
+  assert.match(out, /3½ years/); assert.match(out, /\$8,250 a year/);
+  assert.match(out, /<a href="https:\/\/example\.sg\/c" target="_blank" rel="noopener">course page ↗<\/a>/);
+  assert.match(out, /Yearly fees are for Singapore Citizens after the MOE Tuition Grant, as listed on each school's page in October 2026\./);
+});
+test('html says 1 year for a one-year course', () => assert.match(L.html(ROLE['data-sci'], 2, h, [course({ yrs: 1 })]), /1 year[^s]/));
+test('a course with no fee points to the school page, with no null or undefined', () => {
+  const out = L.html(ROLE['data-sci'], 2, h, [course({ fee: null })]);
+  assert.match(out, /fee on the school's page/);
+  assert.doesNotMatch(out, /null|undefined|NaN|a year/);
+});
+test('html tags part-time and work-study courses and no others', () => {
+  const tag = mode => L.html(ROLE['data-sci'], 2, h, [course({ mode })]);
+  assert.match(tag('part-time'), /part-time/); assert.match(tag('work-study'), /work-study/);
+  assert.doesNotMatch(tag(undefined), /part-time|work-study/);
+});
+test('html escapes every string, including the link', () => {
+  const out = L.html(ROLE['data-sci'], 2, h, [course({ school: 'NUS', course: '<img src=x onerror=alert(1)>', url: 'https://example.sg/?a="b"&c=<d>' })]);
+  assert.doesNotMatch(out, /<img/); assert.match(out, /&lt;img src=x onerror=alert\(1\)&gt;/);
+  assert.match(out, /href="https:\/\/example\.sg\/\?a=&quot;b&quot;&amp;c=&lt;d&gt;"/);
+});
+
+// COURSES is empty until the data tasks fill it, so this passes vacuously for now. Every course added later is held to it.
+test('every course has a listed school, an https link, positive years and known fields', () => {
+  for (const c of L.COURSES) {
+    const id = c.school + ' ' + c.course;
+    assert.ok(L.SCHOOLS.includes(c.school), id + ': school');
+    assert.match(c.url, /^https:\/\//, id + ': url');
+    assert.ok(c.yrs > 0, id + ': yrs');
+    assert.ok([1, 2, 3].includes(c.lvl), id + ': lvl');
+    assert.ok(c.fields.length > 0, id + ': fields');
+    for (const f of c.fields) assert.ok(FIELDS[f], id + ': field ' + f);
+  }
+});

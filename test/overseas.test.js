@@ -1,12 +1,10 @@
 'use strict';
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const load = require('./helpers/load');
+const { load, plain } = require('./helpers/load');
 
 const w = load(['serasi-core.js', 'serasi-pathways.js', 'serasi-study.js', 'serasi-overseas.js']);
 const P = w.SerasiPathways, O = w.SerasiOverseas;
-// Arrays and objects built inside the vm context have that context's prototypes, which deepEqual from node:assert/strict rejects.
-const plain = x => JSON.parse(JSON.stringify(x));
 
 test('costOf sums tuition, living and one-off fees in S$', () =>
   assert.deepEqual(plain(O.costOf({ yrs: 4, tuition: [1000, 2000], cur: 'CHF', living: 20000, once: 500 }, { CHF: 1.5 }).totalSgd), [126800, 132800]));

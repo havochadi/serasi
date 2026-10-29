@@ -14,4 +14,8 @@ function load(files) {
   return window;
 }
 
-module.exports = load;
+// Arrays and objects built inside the vm context have that context's prototypes, which deepEqual from node:assert/strict rejects.
+// plain() copies a value into this context's prototypes so it can be compared.
+const plain = x => JSON.parse(JSON.stringify(x));
+
+module.exports = { load, plain };

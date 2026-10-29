@@ -1,7 +1,7 @@
 'use strict';
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const load = require('./helpers/load');
+const { load } = require('./helpers/load');
 
 const w = load(['serasi-core.js', 'serasi-pathways.js', 'serasi-study.js']);
 const { ROLES, ROLE } = w.SerasiCore;
