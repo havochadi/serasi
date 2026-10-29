@@ -72,7 +72,9 @@
     'de-block': ['Expatrio, blocked account 2026', 'https://www.expatrio.com/about-germany/blocked-amount-2025'],
     'jp-fees': ['Shizuoka University fees', 'https://www.shizuoka.ac.jp/english/campuslife/tuition/list/'],
     'my-fees': ['Universiti Teknologi PETRONAS, international fees', 'https://utp.edu.my/Pages/Admission/Undergraduate/International/Tuition-fees.aspx'],
-    'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/']
+    'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/'],
+    'fx-ecb': ['European Central Bank, euro foreign exchange reference rates, 28 October 2026', 'https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html'],
+    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -337,8 +339,16 @@
     mcf: { n: 'MyCareersFuture', url: 'https://www.mycareersfuture.gov.sg', w: 'Job ads with salary ranges' }
   };
 
-  // Rough exchange rates for showing overseas costs in Singapore dollars.
-  const FX = { AUD: .85, GBP: 1.72, EUR: 1.49, JPY: .0088, MYR: .3 };
+  /* Rough exchange rates for showing overseas costs in Singapore dollars: S$ per one unit of each currency, to 4 figures.
+     Most are the ECB euro reference rates of 28 October 2026 (1 EUR = 1.4274 SGD) crossed through the euro (source 'fx-ecb').
+     AED and SAR are fixed to the US dollar (3.6725 and 3.75), so they come from the same USD rate.
+     EGP is not an ECB currency: it comes from ExchangeRate-API on 29 October 2026 (source 'fx-egp'). */
+  const FX_ASOF = 'October 2026';
+  const FX = {
+    AUD: .9017, GBP: 1.704, EUR: 1.427, JPY: .008117, MYR: .3145,
+    CHF: 1.544, DKK: .191, SEK: .1291, NOK: .1379, CAD: .9128, USD: 1.282, NZD: .7197,
+    KRW: .0009565, CNY: .1923, HKD: .1634, AED: .3491, EGP: .02286, TRY: .02573, SAR: .3419
+  };
   const ABROAD = {
     'au-nurse': { c: 'Australia', course: 'Bachelor of Nursing', yrs: 3, fee: [32000, 42000], cur: 'AUD', living: 29710, why: 'Nurses in aged care, children’s and mental health are in national shortage, so graduates are in demand.', watch: 'Fees rise most years. If you plan to work here later, check the Singapore Nursing Board recognises the course first.', src: ['rmit', 'jsa-osl', 'au-visa'], links: ['studyau', 'snb'] },
     'uk-nurse': { c: 'United Kingdom', course: 'BSc Nursing', yrs: 3, fee: [14500, 26000], cur: 'GBP', why: 'Three-year degrees with hospital placements built in.', watch: 'In 2026 many new UK nursing graduates couldn’t find NHS jobs (35% unplaced in Wales). Check Singapore Nursing Board recognition first.', src: ['uk-nfees', 'wales-nurse'], links: ['ukvisa', 'snb'] },
@@ -414,6 +424,7 @@
     HELP,
     CONTACTS,
     FX,
+    FX_ASOF,
     ABROAD,
     TRACKS,
     PAY
