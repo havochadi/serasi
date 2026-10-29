@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const { load, plain } = require('./helpers/load');
 
 const w = load(['serasi-core.js', 'serasi-pathways.js', 'serasi-study.js', 'serasi-local.js']);
-const L = w.SerasiLocal;
+const L = w.SerasiLocal, P = w.SerasiPathways;
 const { ROLE, esc } = w.SerasiCore;
 const { FIELDS } = w.SerasiStudy;
 const h = { esc, money: n => '$' + Math.round(n).toLocaleString('en-SG') };
@@ -82,15 +82,29 @@ test('html escapes every string, including the link', () => {
   assert.match(out, /href="https:\/\/example\.sg\/\?a=&quot;b&quot;&amp;c=&lt;d&gt;"/);
 });
 
-// COURSES is empty until the data tasks fill it, so this passes vacuously for now. Every course added later is held to it.
-test('every course has a listed school, an https link, positive years and known fields', () => {
+test('every course has a listed school, an https link, positive years, a fee or null, and known fields', () => {
+  assert.ok(L.COURSES.length > 0, 'COURSES has data');
   for (const c of L.COURSES) {
     const id = c.school + ' ' + c.course;
     assert.ok(L.SCHOOLS.includes(c.school), id + ': school');
     assert.match(c.url, /^https:\/\//, id + ': url');
     assert.ok(c.yrs > 0, id + ': yrs');
     assert.ok([1, 2, 3].includes(c.lvl), id + ': lvl');
+    assert.ok(c.fee === null || c.fee > 0, id + ': fee');
     assert.ok(c.fields.length > 0, id + ': fields');
     for (const f of c.fields) assert.ok(FIELDS[f], id + ': field ' + f);
   }
+});
+test('every course with a fee names its fee source, and each source is in SOURCES with an https link', () => {
+  for (const c of L.COURSES) {
+    const id = c.school + ' ' + c.course;
+    if (c.fee != null) assert.ok((c.src || []).length > 0, id + ': fee source');
+    for (const k of c.src || []) { assert.ok(P.SOURCES[k], id + ': ' + k); assert.match(P.SOURCES[k][1], /^https:\/\//, k); }
+  }
+});
+
+test('architecture: local schools', () => {
+  assert.ok(L.forRole(ROLE.arch, 3).map(c => c.school).includes('NUS'));
+  assert.ok(L.forRole(ROLE.arch, 3).map(c => c.school).includes('SUTD'));
+  assert.ok(L.forRole(ROLE.arch, 2).length >= 1);
 });

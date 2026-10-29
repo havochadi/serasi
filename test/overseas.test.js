@@ -5,6 +5,20 @@ const { load, plain } = require('./helpers/load');
 
 const w = load(['serasi-core.js', 'serasi-pathways.js', 'serasi-study.js', 'serasi-overseas.js']);
 const P = w.SerasiPathways, O = w.SerasiOverseas;
+const { ROLE, esc } = w.SerasiCore;
+
+// Countries in Europe, for the architecture best pick.
+const EUROPE = ['Austria', 'Belgium', 'Denmark', 'Finland', 'France', 'Germany', 'Ireland', 'Italy', 'Netherlands', 'Norway', 'Portugal', 'Spain', 'Sweden', 'Switzerland', 'United Kingdom'];
+// Stand-ins for the page's helpers: the same markup shape, built from the shared SOURCES.
+const srcLinks = keys => {
+  const list = [...new Set(keys || [])].filter(k => P.SOURCES[k]);
+  return list.length ? '<p class="src">Sources: ' + list.map(k => '<a href="' + esc(P.SOURCES[k][1]) + '">' + esc(P.SOURCES[k][0]) + '</a>').join(' · ') + '</p>' : '';
+};
+const h = { esc, srcLinks, contactList: keys => keys.join(' ') };
+// A made-up option and field for the html tests that should not depend on the real data.
+const opt = (over = {}) => ({ country: 'Switzerland', school: 'Test School', course: 'BSc Test', yrs: 4, tuition: [1000, 2000], cur: 'CHF', living: 20000,
+  standing: 'Ranked 1st (QS World University Rankings by Subject 2026)', why: 'Why it is good.', env: 'German-taught.', watch: 'Check recognition.',
+  url: 'https://example.org/school', src: ['fx-ecb'], links: ['daad'], ...over });
 
 test('costOf sums tuition, living and one-off fees in S$', () =>
   assert.deepEqual(plain(O.costOf({ yrs: 4, tuition: [1000, 2000], cur: 'CHF', living: 20000, once: 500 }, { CHF: 1.5 }).totalSgd), [126800, 132800]));
@@ -55,10 +69,96 @@ test('currency symbols for the common currencies, the code for the rest', () => 
 });
 test('a missing exchange rate fails loudly', () => assert.throws(() => O.costOf({ yrs: 1, tuition: [1, 1], cur: 'XXX', living: null }, {}), /No exchange rate for XXX/));
 test('a missing exchange rate fails loudly in costText too, never as NaN', () => assert.throws(() => O.costText({ yrs: 1, tuition: [1, 1], cur: 'XXX', living: null }, {}), /No exchange rate for XXX/));
+// Every best pick and alternative in OPTIONS, as [field, option].
+const allOptions = () => Object.entries(O.OPTIONS).flatMap(([k, f]) => (f.best ? [f.best] : []).concat(f.alts || []).map(o => [k, o]));
 test('every option uses a currency with a rate', () => {
-  const opts = [];
-  for (const f of Object.values(O.OPTIONS)) { if (f.best) opts.push(f.best); opts.push(...(f.alts || [])); }
-  for (const o of opts) assert.ok(P.FX[o.cur] > 0, o.school + ' ' + o.cur);
+  const opts = allOptions();
+  assert.ok(opts.length > 0, 'OPTIONS has study options');
+  for (const [, o] of opts) assert.ok(P.FX[o.cur] > 0, o.school + ' ' + o.cur);
+});
+test('every option has what the card needs, names its QS edition, and its sources and contacts exist', () => {
+  for (const [k, o] of allOptions()) {
+    const id = k + ': ' + o.school;
+    for (const f of ['country', 'school', 'course', 'standing', 'why', 'env', 'watch']) assert.ok(typeof o[f] === 'string' && o[f].length > 0, id + ': ' + f);
+    assert.ok(o.yrs > 0, id + ': yrs');
+    assert.ok(Array.isArray(o.tuition) && o.tuition.length === 2 && o.tuition[0] >= 0 && o.tuition[0] <= o.tuition[1], id + ': tuition');
+    assert.ok(o.living === null || o.living > 0, id + ': living');
+    assert.match(o.standing, /QS World University Rankings by Subject 20\d\d/, id + ': standing names the edition');
+    assert.match(o.url, /^https:\/\//, id + ': url');
+    assert.ok(o.src.length > 0, id + ': src');
+    for (const s of o.src) assert.ok(P.SOURCES[s] && /^https:\/\//.test(P.SOURCES[s][1]), id + ': source ' + s);
+    for (const c of o.links || []) assert.ok(P.CONTACTS[c], id + ': contact ' + c);
+  }
+});
+test('every agency note is plain text of a sentence or two', () => {
+  for (const [k, f] of Object.entries(O.OPTIONS)) if (f.agency !== undefined) {
+    assert.equal(typeof f.agency, 'string', k); assert.ok(f.agency.length > 40, k); assert.equal(f.best, undefined, k);
+  }
+});
+
+test('architecture: best overseas place is in Europe, with alternatives', () => {
+  const r = O.forRole(ROLE.arch);
+  assert.ok(EUROPE.includes(r.best.country)); assert.ok(r.alts.length >= 2 && r.alts.length <= 4);
+});
+test('architecture: every option is in a different country and carries the Board of Architects warning', () => {
+  const r = O.forRole(ROLE.arch), all = [r.best].concat(r.alts);
+  assert.equal(new Set(all.map(o => o.country)).size, all.length);
+  for (const o of all) assert.match(o.watch, /Board of Architects/, o.school);
+});
+test('html: best card first, then runners-up, costs in S$', () => {
+  const html = O.html(ROLE.arch, h);
+  assert.match(html, /Best place to study this/); assert.ok(html.indexOf('Best place') < html.indexOf('Also worth a look'));
+  assert.match(html, /about \$[\d,]+/); assert.doesNotMatch(html, /undefined|NaN|null/);
+});
+test('html is empty for a role with no overseas study', () => assert.equal(O.html(ROLE.electrician, h), ''));
+test('agency roles get a note instead of options', () => assert.match(O.html(ROLE.teacher, h), /MOE|NIE/));
+
+test('forRole is null below edu 2, for an ite field, and for a study field with no options yet', () => {
+  assert.equal(O.forRole(ROLE.electrician), null);
+  assert.equal(O.forRole({ id: 'made-up', trk: 'trades', edu: 2 }), null);
+  assert.equal(O.forRole(ROLE.arch, {}), null);
+  assert.equal(O.html(ROLE.arch, h, {}), '');
+});
+test('forRole gives the field with its best pick and alternatives, or the agency note', () => {
+  const r = O.forRole(ROLE.arch, { architecture: { best: opt(), alts: [opt({ country: 'Italy' })] } });
+  assert.equal(r.field, 'architecture'); assert.equal(r.best.school, 'Test School'); assert.equal(r.alts.length, 1);
+  assert.deepEqual(plain(O.forRole(ROLE.teacher, { teaching: { agency: 'Train with MOE.' } })), { field: 'teaching', agency: 'Train with MOE.' });
+});
+test('html: the card has the course and years, standing, why, environment, the three cost lines, the watch-out, the school link and sources', () => {
+  const out = O.html(ROLE.arch, h, { architecture: { best: opt(), alts: [] } });
+  assert.match(out, /Switzerland · Test School/); assert.match(out, /BSc Test · 4 years/);
+  assert.match(out, /Ranked 1st/); assert.match(out, /Why it is good\./); assert.match(out, /Environment:<\/b> German-taught\./);
+  assert.match(out, /Tuition CHF 1,000–2,000 a year/); assert.match(out, /Living costs CHF 20,000 a year/); assert.match(out, /for 4 years, including living costs/);
+  assert.match(out, /Watch out: Check recognition\./);
+  assert.match(out, /<a href="https:\/\/example\.org\/school" target="_blank" rel="noopener">/);
+  assert.match(out, /Sources: /);
+});
+test('html: no alternatives means no "Also worth a look" heading', () =>
+  assert.doesNotMatch(O.html(ROLE.arch, h, { architecture: { best: opt(), alts: [] } }), /Also worth a look/));
+test('html: each runner-up shows country, school, years, total in S$ and a link', () => {
+  const out = O.html(ROLE.arch, h, { architecture: { best: opt(), alts: [opt({ country: 'Italy', school: 'Other School', yrs: 5, url: 'https://example.org/other' })] } });
+  const alt = out.slice(out.indexOf('Also worth a look'));
+  assert.match(alt, /Italy<\/b> · Other School/); assert.match(alt, /5 years · about \$[\d,]+–[\d,]+ in total/);
+  assert.match(alt, /href="https:\/\/example\.org\/other"/); assert.match(alt, /Watch out: Check recognition\./);
+});
+test('html: an option with no living figure says the total is before living costs and prints no empty line', () => {
+  const out = O.html(ROLE.arch, h, { architecture: { best: opt({ living: null }), alts: [opt({ country: 'Italy', living: null })] } });
+  assert.match(out, /before living costs/); assert.doesNotMatch(out, /Living costs|<li><\/li>|null/);
+});
+test('html: the footnote dates the exchange rates and says Singapore subsidies do not apply', () => {
+  const out = O.html(ROLE.arch, h, { architecture: { best: opt(), alts: [] } });
+  assert.ok(out.includes('Costs use rough exchange rates as of ' + P.FX_ASOF + '.'));
+  assert.ok(out.includes(esc("Singapore's Tuition Grant, TTFS and bursaries don't apply overseas.")));
+});
+test('html escapes every string, including links', () => {
+  const bad = '<img src=x onerror=alert(1)>';
+  const out = O.html(ROLE.arch, h, { architecture: { best: opt({ school: bad, why: bad, url: 'https://example.org/?a="b"&c=<d>' }), alts: [opt({ country: 'Italy', school: bad })] } });
+  assert.doesNotMatch(out, /<img/); assert.match(out, /&lt;img src=x onerror=alert\(1\)&gt;/);
+  assert.match(out, /href="https:\/\/example\.org\/\?a=&quot;b&quot;&amp;c=&lt;d&gt;"/);
+});
+test('html: an agency note has a heading and no study card', () => {
+  const out = O.html(ROLE.teacher, h, { teaching: { agency: 'Train with <MOE>.' } });
+  assert.match(out, /<h4>[^<]+<\/h4>/); assert.match(out, /Train with &lt;MOE&gt;\./); assert.doesNotMatch(out, /Best place/);
 });
 test('there is a rate for every currency the plan names', () => {
   for (const cur of ['AUD', 'GBP', 'EUR', 'JPY', 'MYR', 'CHF', 'DKK', 'SEK', 'NOK', 'CAD', 'USD', 'NZD', 'KRW', 'CNY', 'HKD', 'AED', 'EGP', 'TRY', 'SAR'])
