@@ -63,7 +63,7 @@ test('html lists each course with school, course, years, fee, link and the fee n
   assert.match(out, /3 years/); assert.match(out, /\$3,180 a year/);
   assert.match(out, /3½ years/); assert.match(out, /\$8,250 a year/);
   assert.match(out, /<a href="https:\/\/example\.sg\/c" target="_blank" rel="noopener">course page ↗<\/a>/);
-  assert.match(out, /Yearly fees are for Singapore Citizens after the MOE Tuition Grant, from each school's fee page in October 2026 \(sources under the price breakdown\)\. The links go to the course pages\./);
+  assert.match(out, /Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools' fee pages in October 2026 \(sources under the price breakdown\)\. A note beside a fee says how it was worked out\. The links go to the course pages\./);
 });
 test('html says 1 year for a one-year course', () => assert.match(L.html(ROLE['data-sci'], 2, h, [course({ yrs: 1 })]), /1 year[^s]/));
 test('a course with no fee points to the school page, with no null or undefined', () => {
@@ -144,11 +144,28 @@ test('social work: the ITE course at level 1 and three diplomas for the youth wo
   assert.deepEqual(schoolsFor('community-care', 1), ['ITE']);
   assert.deepEqual(schoolsFor('youth-worker', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Temasek Polytechnic']);
 });
-test('a fee that comes from the school is within reach of the generic fee table', () => {
-  for (const c of L.COURSES.filter(c => c.lvl === 2 && c.fee != null)) assert.ok(Math.abs(c.fee - 3180) < 100, c.school + ' ' + c.course);
+test('a polytechnic diploma fee is the $3,100 Tuition Grant tuition plus under $150 of other fees, as the AY2026 fee pages give it', () => {
+  const diplomas = L.COURSES.filter(c => c.lvl === 2 && c.fee != null);
+  assert.ok(diplomas.length > 0, 'there are diplomas with fees');
+  for (const c of diplomas) assert.ok(c.fee >= 3100 && c.fee < 3250, c.school + ' ' + c.course + ' ' + c.fee);
+});
+test('a note beside a fee says how it was worked out, and is escaped', () => {
+  const out = L.html(ROLE['data-sci'], 2, h, [course({ note: 'worked out as <b>2</b> terms' })]);
+  assert.match(out, /\$3,180 a year \(worked out as &lt;b&gt;2&lt;\/b&gt; terms\)/);
+  assert.doesNotMatch(out, /<b>2<\/b>/);
+  assert.doesNotMatch(L.html(ROLE['data-sci'], 2, h, [course()]), /\(worked|\(\)/);
+});
+test('every fee that is worked out rather than published carries a note', () => {
+  const noted = L.COURSES.filter(c => c.note);
+  for (const c of L.COURSES.filter(c => c.school === 'SIT' || (c.school === 'ITE' && /Nursing/.test(c.course)))) assert.ok(c.note, c.course);
+  for (const c of noted) assert.ok(c.note.length > 10, c.course);
 });
 
 test('the allied health sponsorship contact no longer uses the old MOH Holdings host that failed its TLS handshake', () => {
   assert.doesNotMatch(P.CONTACTS.ahspon.url, /ahp\.mohh\.com\.sg/);
   assert.match(P.CONTACTS.ahspon.url, /^https:\/\/www\.healthcarescholarships\.sg\//);
+});
+test('the allied health sponsorship contact says only what its page says: degree scholarships and a Diploma in Nursing conversion route', () => {
+  assert.match(P.CONTACTS.ahspon.w, /degree-conversion route for Diploma in Nursing students/);
+  assert.doesNotMatch(P.CONTACTS.ahspon.w, /cluster|diploma sponsorship/i);
 });

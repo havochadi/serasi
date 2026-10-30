@@ -314,7 +314,7 @@
     ipa: { n: 'ITE Progression Award (MOE)', url: 'https://www.moe.gov.sg/financial-matters/awards-scholarships/ite-progression-award-ipa', w: 'Who qualifies and how it’s paid' },
     wsdip: { n: 'Work-Study Diploma (ITE)', url: 'https://ite.edu.sg/courses/work-study-diploma', w: 'Earn while you study for a diploma' },
     hcspon: { n: 'Public healthcare sponsorships', url: 'https://www.nuhs.edu.sg/careers/healthcare-scholarships-and-sponsorships', w: 'Nursing and healthcare study awards' },
-    ahspon: { n: 'MOH Holdings Healthcare Professionals Scholarship', url: 'https://www.healthcarescholarships.sg/scholarships/healthcare-professionals-scholarship.html', w: 'Nursing and allied health degrees; diploma students ask their hospital cluster about sponsorships' },
+    ahspon: { n: 'MOH Holdings Healthcare Professionals Scholarship', url: 'https://www.healthcarescholarships.sg/scholarships/healthcare-professionals-scholarship.html', w: 'Nursing and allied health degree scholarships, including a degree-conversion route for Diploma in Nursing students' },
     snb: { n: 'Singapore Nursing Board', url: 'https://www.healthprofessionals.gov.sg/snb', w: 'Nurse registration, including overseas degrees' },
     ahpc: { n: 'Allied Health Professions Council', url: 'https://www.healthprofessionals.gov.sg/ahpc', w: 'Registration for allied health professionals' },
     smc: { n: 'Singapore Medical Council', url: 'https://www.healthprofessionals.gov.sg/smc', w: 'Doctor registration and recognised medical schools' },

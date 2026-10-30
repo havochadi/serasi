@@ -1,8 +1,10 @@
 /* Serasi local study options: every publicly funded Singapore school that offers a course, and the section HTML for it.
    Load it after serasi-core.js, serasi-pathways.js and serasi-study.js.
-   A course is { school, course, lvl: 1 | 2 | 3, yrs, fee: number | null, mode?: 'part-time' | 'work-study', fields, roles?, url, src? }.
+   A course is { school, course, lvl: 1 | 2 | 3, yrs, fee: number | null, note?, mode?: 'part-time' | 'work-study', fields, roles?, url, src? }.
    lvl 1 = ITE, 2 = diploma, 3 = degree. fee is the yearly fee in S$ for Singapore Citizens after the MOE Tuition Grant, or null when the
-   school's page does not list one. fields are keys of SerasiStudy.FIELDS; roles, when present, limits the course to those role ids. */
+   school's page does not list one. note, when present, is shown beside the fee: use it whenever the fee is worked out from published
+   figures or taken from a band the school's page does not name the course in, so it does not read as a published yearly fee.
+   fields are keys of SerasiStudy.FIELDS; roles, when present, limits the course to those role ids. */
 (function () {
   'use strict';
 
@@ -36,10 +38,12 @@
     { school: 'SUTD', course: 'Bachelor of Science (Architecture and Sustainable Design)', lvl: 3, yrs: 4, fee: 13500, fields: ['architecture'], url: 'https://www.sutd.edu.sg/asd/education/undergraduate/curriculum/', src: ['fee-sutd26'] },
 
     // Nursing. ITE's fee table (AY2026 intake) gives Singapore Citizens $283 a term, or $566 a year, for every Higher Nitec. Nursing students also pay
-    // the hospital insurance premium of $8.17 a term, so their year is 2 x ($283 + $8.17) = $582.34. The 2-year and 3-year courses share one rate.
+    // the hospital insurance premium of $8.17 a term, so their year is 2 x ($283 + $8.17) = $582.34 (worked out, so it carries a note). The table puts the
+    // 2-year and 3-year courses on one rate, but its note 9 says 3-year Higher Nitec fees are "pro-rated for accelerated pathway", so the 3-year rows say
+    // that the figure is the yearly rate and may be lower for a student who finishes early.
     // Nursing at the polytechnics: Ngee Ann and Nanyang only (Ngee Ann charges $3,193.70 for nursing, $26.20 more than its other diplomas).
-    { school: 'ITE', course: 'Higher Nitec in Nursing', lvl: 1, yrs: 2, fee: 582.34, fields: ['nursing'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-nursing/', src: ['fee-ite26'] },
-    { school: 'ITE', course: 'Higher Nitec in Nursing (3 years)', lvl: 1, yrs: 3, fee: 582.34, fields: ['nursing'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-nursing-3-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Nursing', lvl: 1, yrs: 2, fee: 582.34, note: 'worked out as 2 terms at $283 plus $8.17 hospital insurance a term', fields: ['nursing'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-nursing/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Nursing (3 years)', lvl: 1, yrs: 3, fee: 582.34, note: 'worked out as 2 terms at $283 plus $8.17 hospital insurance a term; ITE pro-rates 3-year fees for students who finish early', fields: ['nursing'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-nursing-3-year/', src: ['fee-ite26'] },
     { school: 'Ngee Ann Polytechnic', course: 'Diploma in Nursing', lvl: 2, yrs: 3, fee: 3193.7, fields: ['nursing'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-health-sciences/diploma-in-nursing', src: ['fee-np26'] },
     { school: 'Nanyang Polytechnic', course: 'Diploma in Nursing', lvl: 2, yrs: 3, fee: 3188.09, fields: ['nursing'], url: 'https://www.nyp.edu.sg/student/study/schools/health-social-sciences/diploma-nursing', src: ['fee-nyp26'] },
 
@@ -47,10 +51,10 @@
     // no longer on Nanyang's school page, so only oral health therapy is listed. SIT's four-year degrees are 240 credits at $155 a credit for Singapore
     // Citizens (the intake of 31 August 2026): $37,200 over the course, or $9,300 a year. Each degree is tied to its own role.
     { school: 'Nanyang Polytechnic', course: 'Diploma in Oral Health Therapy', lvl: 2, yrs: 3, fee: 3188.09, fields: ['allied-health'], roles: ['oral-health'], url: 'https://www.nyp.edu.sg/student/study/schools/health-social-sciences/diploma-oral-health-therapy', src: ['fee-nyp26'] },
-    { school: 'SIT', course: 'Bachelor of Science with Honours in Physiotherapy', lvl: 3, yrs: 4, fee: 9300, fields: ['allied-health'], roles: ['physio'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/physiotherapy', src: ['fee-sit26'] },
-    { school: 'SIT', course: 'Bachelor of Science with Honours in Occupational Therapy', lvl: 3, yrs: 4, fee: 9300, fields: ['allied-health'], roles: ['ot'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/occupational-therapy', src: ['fee-sit26'] },
-    { school: 'SIT', course: 'Bachelor of Science with Honours in Diagnostic Radiography', lvl: 3, yrs: 4, fee: 9300, fields: ['allied-health'], roles: ['radiographer'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/diagnostic-radiography', src: ['fee-sit26'] },
-    { school: 'SIT', course: 'Bachelor of Science with Honours in Dietetics and Nutrition', lvl: 3, yrs: 4, fee: 9300, fields: ['allied-health'], roles: ['dietitian'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/dietetics-and-nutrition', src: ['fee-sit26'] },
+    { school: 'SIT', course: 'Bachelor of Science with Honours in Physiotherapy', lvl: 3, yrs: 4, fee: 9300, note: 'worked out as $155 a credit for 240 credits over 4 years', fields: ['allied-health'], roles: ['physio'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/physiotherapy', src: ['fee-sit26'] },
+    { school: 'SIT', course: 'Bachelor of Science with Honours in Occupational Therapy', lvl: 3, yrs: 4, fee: 9300, note: 'worked out as $155 a credit for 240 credits over 4 years', fields: ['allied-health'], roles: ['ot'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/occupational-therapy', src: ['fee-sit26'] },
+    { school: 'SIT', course: 'Bachelor of Science with Honours in Diagnostic Radiography', lvl: 3, yrs: 4, fee: 9300, note: 'worked out as $155 a credit for 240 credits over 4 years', fields: ['allied-health'], roles: ['radiographer'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/diagnostic-radiography', src: ['fee-sit26'] },
+    { school: 'SIT', course: 'Bachelor of Science with Honours in Dietetics and Nutrition', lvl: 3, yrs: 4, fee: 9300, note: 'worked out as $155 a credit for 240 credits over 4 years', fields: ['allied-health'], roles: ['dietitian'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/dietetics-and-nutrition', src: ['fee-sit26'] },
 
     // Pharmacy. The Pharmaceutical Science diplomas also suit the pharmaceutical quality assurance officer (biomedical). Singapore Polytechnic has none.
     // NUS's Bachelor of Pharmacy (Honours) is its "Science (Pharmacy)" fee band.
@@ -63,7 +67,7 @@
     // Medicine. The MBBS places are the main route; Duke-NUS takes graduates of any field. NUS's "Medicine (except Nursing)" band is $33,200 and NTU's
     // medicine fee is $36,100 (AY2026/27). Duke-NUS's tuition page could not be read for the MD fee, so it is null. Both MBBS fees are for 2026/27 entrants.
     { school: 'NUS', course: 'Bachelor of Medicine and Bachelor of Surgery (MBBS)', lvl: 3, yrs: 5, fee: 33200, fields: ['medicine'], url: 'https://www.nus.edu.sg/nusbulletin/ay202627/programmes/yong-loo-lin-school-of-medicine-including-nursing/undergraduate-education/', src: ['fee-nus26'] },
-    { school: 'NTU', course: 'Bachelor of Medicine and Bachelor of Surgery (MBBS)', lvl: 3, yrs: 5, fee: 36100, fields: ['medicine'], url: 'https://www.ntu.edu.sg/medicine/education/bachelor-of-medicine-and-bachelor-of-surgery-(mbbs)', src: ['fee-ntu'] },
+    { school: 'NTU', course: 'Bachelor of Medicine and Bachelor of Surgery (MBBS)', lvl: 3, yrs: 5, fee: 36100, note: 'NTU lists one fee for Medicine', fields: ['medicine'], url: 'https://www.ntu.edu.sg/medicine/education/bachelor-of-medicine-and-bachelor-of-surgery-(mbbs)', src: ['fee-ntu'] },
     { school: 'Duke-NUS', course: 'Doctor of Medicine (MD), for graduates of any field', lvl: 3, yrs: 4, fee: null, fields: ['medicine'], url: 'https://www.duke-nus.edu.sg/admissions/tuition-scholarships' },
 
     // Biomedical and laboratory science. Temasek's Medical Biotechnology is left out: it is not a biomedical science or medical laboratory course by name.
@@ -81,7 +85,7 @@
     { school: 'Temasek Polytechnic', course: 'Diploma in Early Childhood Development & Education', lvl: 2, yrs: 3, fee: 3183.15, fields: ['earlychild'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/hss/early-childhood-development-education.html', src: ['fee-tp26'] },
 
     // Social work and community care. ITE's course is the 3-year Higher Nitec. The degrees (social worker, counsellor) are not listed yet.
-    { school: 'ITE', course: 'Higher Nitec in Community Care & Social Services (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['socialwork'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-community-care-and-social-services-3-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Community Care & Social Services (3 years)', lvl: 1, yrs: 3, fee: 566, note: 'ITE pro-rates 3-year fees for students who finish early', fields: ['socialwork'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-community-care-and-social-services-3-year/', src: ['fee-ite26'] },
     { school: 'Ngee Ann Polytechnic', course: 'Diploma in Psychology & Community Development', lvl: 2, yrs: 3, fee: 3167.5, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-humanities-interdisciplinary-studies/diploma-in-psychology-community-development', src: ['fee-np26'] },
     { school: 'Nanyang Polytechnic', course: 'Diploma in Social Work', lvl: 2, yrs: 3, fee: 3188.09, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.nyp.edu.sg/student/study/schools/health-social-sciences/diploma-social-work', src: ['fee-nyp26'] },
     { school: 'Temasek Polytechnic', course: 'Diploma in Psychology Studies', lvl: 2, yrs: 3, fee: 3183.15, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/hss/psychology-studies.html', src: ['fee-tp26'] }
@@ -113,11 +117,12 @@
     const { esc, money } = h;
     const items = list.map(c =>
       '<li><b class="s-n">' + esc(c.school) + '</b> <span class="s-c">' + esc(c.course) + '</span> ' +
-      '<span class="s-m">' + esc(fmtYears(c.yrs)) + ' · ' + (c.fee == null ? 'fee on the school\'s page' : esc(money(c.fee)) + ' a year') + '</span>' +
+      '<span class="s-m">' + esc(fmtYears(c.yrs)) + ' · ' + (c.fee == null ? 'fee on the school\'s page' : esc(money(c.fee)) + ' a year') +
+        (c.note ? ' (' + esc(c.note) + ')' : '') + '</span>' +
       (c.mode ? ' <span class="pill">' + esc(c.mode) + '</span>' : '') +
       ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">course page ↗</a></li>').join('');
     return '<ul class="schools">' + items + '</ul>' +
-      '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, from each school\'s fee page in October 2026 (sources under the price breakdown). The links go to the course pages.</p>';
+      '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools\' fee pages in October 2026 (sources under the price breakdown). A note beside a fee says how it was worked out. The links go to the course pages.</p>';
   }
 
   window.SerasiLocal = { SCHOOLS, COURSES, forRole, spread, html };
