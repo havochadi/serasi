@@ -7,7 +7,7 @@
     "orgs": ["Grameen Bank", "BRAC", "Square Group", "Beximco", "Biman Bangladesh Airlines"],
     "unis": [
       { "n": "University of Dhaka", "rank": 600, "url": "https://www.du.ac.bd/" },
-      { "n": "Bangladesh University of Engineering and Technology (BUET)", "url": "https://www.buet.ac.bd/" }
+      { "n": "Bangladesh University of Engineering and Technology (BUET)", "url": "https://buet.ac.bd/" }
     ]
   },
   {
@@ -148,7 +148,7 @@
     "facts": ["Kuwait became independent from Britain in 1961.", "Iraq invaded in 1990, and a coalition freed the country in 1991.", "Most people living in Kuwait are foreign workers."],
     "orgs": ["Kuwait Petroleum Corporation", "Kuwait Investment Authority", "National Bank of Kuwait", "Zain", "Kuwait Airways"],
     "unis": [
-      { "n": "Kuwait University", "url": "https://ku.edu.kw/" }
+      { "n": "Kuwait University", "url": "https://www.ku.edu.kw/" }
     ]
   },
   {
@@ -158,7 +158,7 @@
     "facts": ["It is the only landlocked country in Southeast Asia.", "A railway between Vientiane and Kunming in China opened in December 2021.", "The capital is Vientiane."],
     "orgs": ["Beerlao (Lao Brewery)", "Lao Airlines", "Electricite du Laos", "Banque pour le Commerce Exterieur Lao (BCEL)"],
     "unis": [
-      { "n": "National University of Laos", "url": "https://www.nuol.edu.la/" }
+      { "n": "National University of Laos", "url": "https://nuol.edu.la/" }
     ]
   },
   {
@@ -239,7 +239,7 @@
     "orgs": ["Samsung Electronics", "Hyundai Motor Group", "SK hynix", "LG", "Naver", "HYBE"],
     "unis": [
       { "n": "Seoul National University", "rank": 38, "url": "https://en.snu.ac.kr/" },
-      { "n": "Yonsei University", "rank": 42, "url": "https://www.yonsei.ac.kr/en_sc/" },
+      { "n": "Yonsei University", "rank": 42, "url": "https://www.yonsei.ac.kr/en_sc/index.do" },
       { "n": "Korea University", "rank": 52, "url": "https://www.korea.edu/" },
       { "n": "KAIST", "rank": 65, "url": "https://www.kaist.ac.kr/en/" }
     ]
