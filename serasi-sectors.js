@@ -54,5 +54,16 @@
     health: ['grow', 'Nursing and health jobs had Germany’s biggest shortage of skilled workers in 2025. Since June 2024, nursing gained 46,000 staff with foreign passports and lost 5,000 with German ones, as hospitals and care homes recruit abroad.', ['de-ba-pflege26']],
   });
 
+  // biotech (Singapore's note is in its own entry in serasi-pathways.js; Boston's is there too)
+  note(156, 'China', [104, 35], {
+    biotech: ['grow', 'Biopharma hiring is recovering after a funding slump: in the first half of 2026, job postings for AI drug discovery rose 84% and for smart medical devices 113% on a year earlier (Zhaopin data), and drug licensing deals with overseas firms hit about US$110 billion.', ['cn-zhaopin-bio26']],
+  });
+  note(410, 'South Korea', [127.8, 36.5], {
+    biotech: ['grow', 'Samsung Biologics hired 484 young people in 2025, up from 205 in 2023, and had about 5,300 full-time staff in early 2026, while Korea’s 113 biggest groups hired 15.3% fewer new people over the same two years.', ['kr-sambio26']],
+  });
+  note(208, 'Denmark', [10, 56], {
+    biotech: ['decline', 'Novo Nordisk, maker of Ozempic and Wegovy, said in September 2025 it would cut about 9,000 jobs (11% of its 78,400 staff), around 5,000 of them in Denmark, as competition in weight-loss drugs grows.', ['dk-novo-pe25', 'dk-novo-cbs25']],
+  });
+
   // ---- Task 14: care, hospitality, creative, education ----
 })();

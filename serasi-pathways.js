@@ -95,6 +95,15 @@
     // Task 13: health
     'my-nurse-vac26': ['CodeBlue, Health Ministry nursing vacancies, 27 July 2026', 'https://codeblue.galencentre.org/2026/07/health-ministrys-nursing-vacancies-rise-now-exceed-15000/'],
     'de-ba-pflege26': ['Deutsches Ärzteblatt (in German), Federal Employment Agency on shortage occupations, 2 September 2026', 'https://www.aerzteblatt.de/news/jobs-in-pflege-und-gesundheit-zahlen-weiter-zu-engpassberufen-3c72c400-da5a-4adc-ba7d-360676f21840'],
+
+    // Task 13: biotech
+    'sg-edb-yir25': ['EDB, Year 2025 in Review, 9 February 2026', 'https://www.edb.gov.sg/en/about-edb/media-releases-publications/edb-year-2025-in-review.html'],
+    'sg-edb-vp25': ['Vulcan Post, EDB 2025 in review, 9 February 2026', 'https://vulcanpost.com/909095/singapore-edb-2025-year-in-review/'],
+    'cn-zhaopin-bio26': ['Caixin Global, China’s biopharma job market rebounds (Zhaopin data), 4 September 2026', 'https://www.caixinglobal.com/2026-09-04/chinas-biopharma-job-market-rebounds-on-ai-and-smart-device-boom-102481639.html'],
+    'kr-sambio26': ['Herald Business (in Korean), Samsung Biologics hiring, 9 September 2026', 'https://biz.heraldcorp.com/article/10866064'],
+    'dk-novo-pe25': ['Pharmaceutical Executive, Novo Nordisk to cut 9,000 jobs, 10 September 2025', 'https://www.pharmexec.com/view/novo-nordisk-cut-9-000-jobs-global-restructuring-effort'],
+    'dk-novo-cbs25': ['CBS News, Novo Nordisk job cuts, 10 September 2025', 'https://www.cbsnews.com/news/novo-nordisk-nvo-stock-9000-job-cuts-wegovy'],
+    'wbur-massbio26': ['WBUR, MassBio 2026 industry snapshot, 25 August 2026', 'https://www.wbur.org/news/2026/08/25/massbio-industry-2026-snapshot-jobs-funding'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -130,6 +139,7 @@
       aero: ['grow', 'A major aircraft repair hub in Asia, the region that needs 44% of the world’s new aircraft technicians.', ['mro-tech']],
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
+      biotech: ['grow', 'Biomedical manufacturing drew 30.8% of the S$14.2 billion in new factory investment promised in 2025, second only to electronics (33%). EDB expects 15,700 new jobs across all industries from 2025 commitments over five years.', ['sg-edb-yir25', 'sg-edb-vp25']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
       education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
@@ -265,7 +275,7 @@
       tech: ['grow', '2nd in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'boston', place: 'Boston', country: 'United States', iso: 840, ll: [-71.06, 42.36], ind: {
-      biotech: ['decline', 'Venture funding fell to its lowest since 2017, and over 4,100 biotech jobs were cut in 2025 by September.', ['boston-bio']],
+      biotech: ['decline', 'Massachusetts biopharma cut about 3,600 jobs in 2025, its first yearly fall in over 20 years of records. Venture funding is up 25% in the first half of 2026 ($3.45 billion), but jobs haven’t come back yet.', ['wbur-massbio26']],
       tech: ['grow', 'Joint 5th in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'phoenix', place: 'Phoenix, Arizona', country: 'United States', iso: 840, ll: [-112.07, 33.45], ind: {
