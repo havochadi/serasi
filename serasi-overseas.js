@@ -54,7 +54,7 @@
     'uva-comm': ['University of Amsterdam, BSc Communication Science (taught in English)', 'https://www.uva.nl/en/programmes/bachelors/communication-science/communication-science.html'],
     'uva-fees': ['University of Amsterdam, tuition fees (institutional fees for 2027-2028, by faculty)', 'https://www.uva.nl/en/education/fees-and-funding/tuition-fees/tuition-fees.html'],
     'cuhk-commn': ['CUHK, Journalism and Communication (four-year undergraduate programme)', 'https://admission.cuhk.edu.hk/programme/commn/'],
-    'cuhk-fees': ['CUHK, undergraduate fees for non-local students (2027-28 rate; hostel fee 2026-27)', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
+    'cuhk-fees': ['CUHK, fees and living costs for non-local undergraduates (2027-28 rate; hostel fee 2026-27)', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
     'leiden-ling': ['Leiden University, BA Linguistics (taught in English)', 'https://www.universiteitleiden.nl/en/education/study-programmes/bachelor/linguistics'],
     'leiden-fees': ['Leiden University, bachelor’s tuition fees (institutional fee for 2027-2028, by faculty)', 'https://www.universiteitleiden.nl/en/education/admission-and-application/bachelors/tuition-fee'],
     'cuhk-ling': ['CUHK, major programme in Linguistics', 'https://ling.cuhk.edu.hk/programmes/undergraduate-programme/major-programme-in-linguistics/'],
@@ -79,7 +79,6 @@
     'ut-bscn-apply': ['University of Toronto Nursing, BScN admission requirements', 'https://bloomberg.nursing.utoronto.ca/how-to-apply-bachelor-of-science-in-nursing-bscn'],
     'cuhk-bnurs': ['CUHK Nethersole School of Nursing, Bachelor of Nursing', 'https://www.nur.cuhk.edu.hk/education/undergraduate-programmes/bachelor-of-nursing/'],
     'ut-bscn': ['University of Toronto Nursing, international tuition fees 2026-2027', 'https://bloomberg.nursing.utoronto.ca/learn-with-us/tuition-fees/'],
-    'cuhk-fees': ['CUHK, fees and living costs for non-local undergraduates, 2027-28', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
     'sasw-recog': ['SASW, accreditation: social work qualifications from overseas and the bodies it recognises', 'https://accreditation.sasw.org.sg/recognition']
   });
 
