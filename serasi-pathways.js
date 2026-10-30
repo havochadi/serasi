@@ -129,6 +129,22 @@
     'wbur-massbio26': ['WBUR, MassBio 2026 industry snapshot, 25 August 2026', 'https://www.wbur.org/news/2026/08/25/massbio-industry-2026-snapshot-jobs-funding'],
     'sg-edb-fmt26': ['Free Malaysia Today, Singapore sees fewer jobs created even with more investments, 9 February 2026', 'https://www.freemalaysiatoday.com/category/business/2026/02/09/singapore-sees-fewer-jobs-created-even-with-more-investments'],
     'cn-cctv-lic26': ['The Standard (Hong Kong), citing CCTV: China out-licensing deal value, first half of 2026', 'https://www.thestandard.com.hk/finance/article/337073/China-innovative-drug-out-licensing-deal-value-reaches-new-high-in-first-half-of-2026-says-CCTV'],
+
+    // Task 11: construction, energy, manufacturing, auto
+    'irena-countries-2025': ['Bioenergy International, IRENA and ILO jobs review by country (2024 figures), January 2026', 'https://bioenergyinternational.com/jobs-in-renewables-sees-slump-despite-global-deployment-growth-irena/'],
+    'pv-jobs-2024': ['pv magazine, IRENA solar jobs in 2024, January 2026', 'https://www.pv-magazine.com/2026/01/14/solar-accounted-for-7-24-million-jobs-in-2024/'],
+    'ema-manpower-2025': ['Energy Market Authority, Energy Sector Manpower Survey 2024 (October 2025)', 'https://ema.gov.sg/news-events/news/media-releases/2025/sg-energy-workforce-poised-to-grow-over-the-next-decade'],
+    'ceew-jobs-2026': ['Construction World, CEEW and NRDC clean energy jobs study, June 2026', 'https://www.constructionworld.in/amp/energy-infrastructure/power-and-renewable-energy/india-clean-energy-push-could-create-four-point-four-million-jobs-by-2030/92991'],
+    'cew-jobs-2026': ['Clean Energy Wire, Bertelsmann Foundation renewable jobs report, June 2026', 'https://www.cleanenergywire.org/news/government-policies-put-record-renewable-energy-jobs-risk-germany-report'],
+    'pso-plan-2025': ['ESD News, Powering Skills Organisation 2025 Workforce Plan, August 2025', 'https://esdnews.com.au/net-zero-journey-could-stall-without-skilled-energy-trades/'],
+    'edb-yir-2025': ['EDB, Singapore to create 15,700 jobs over five years (February 2026)', 'https://www.edb.gov.sg/en/news-and-insights/singapore-to-create-15700-jobs-over-five-years-with-two-thirds-paying-above-s5000-edb'],
+    'bls-empsit-sep26': ['US Bureau of Labor Statistics, Employment Situation, September 2026', 'https://www.bls.gov/news.release/archives/empsit_10022026.htm'],
+    'ba-manufacturing-2026': ['German Federal Employment Agency, press release 26/2026 (15 July 2026)', 'https://www.arbeitsagentur.de/en/press/2026-26-employment-in-the-manufacturing-sector-fell-by-177000'],
+    'mot-ev-pathway-2026': ['Ministry of Transport, Skills pathway for EV technical specialists (4 March 2026)', 'https://www.mot.gov.sg/news-resources/newsroom/launch-of-skills-pathway-for-ev-technical-specialists/'],
+    'siam-fy26': ['Millennium Post, SIAM vehicle sales for 2025–26 (April 2026)', 'https://www.millenniumpost.in/business/automobile-wholesales-up-104-to-283-crore-units-in-fy26-siam-656006'],
+    'autocar-workers-2026': ['Autocar Professional, India’s auto workers (1 May 2026)', 'https://www.autocarpro.in/news/reskilling-the-workforce-the-new-scorecard-for-indias-3-crore-auto-workers-132377?amp=1'],
+    'citb-cwo-2026': ['Construction Index, CITB Construction Workforce Outlook 2026–30 (June 2026)', 'https://www.theconstructionindex.co.uk/news/view/citb-predicts-construction-demands'],
+    'ema-manpower-2025-pdf': ['Energy Market Authority, media release of 31 October 2025 (PDF)', 'https://www.ema.gov.sg/content/dam/corporate/news/media-releases/2025/20251031-Media-Release-Singapore-Energy-Workforce-Poised-to-Grow-Over-Next%20Decade.pdf.coredownload.pdf'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -159,6 +175,9 @@
   const WORLD = [
     { id: 'sg', place: 'Singapore', country: 'Singapore', iso: 702, ll: [103.82, 1.35], ind: {
       construction: ['grow', 'Construction demand is forecast at S$47–53 billion for 2026, led by Changi Terminal 5, Tuas Port and new hospitals.', ['bca26']],
+      auto: ['steady', 'No hiring count has been published yet; the Ministry of Transport says demand for skilled EV workers is growing. A four-level EV technician pathway, from technical specialist up to engineer, launched in March 2026. Eligible learners get at least 50% course fee subsidies.', ['mot-ev-pathway-2026']],
+      manufacturing: ['steady', 'Investment won in 2025 will create 15,700 jobs over five years across all sectors, 37% of them in manufacturing. That is 16% fewer than the year before and the lowest in a decade; EDB says firms are cautious and automating more.', ['edb-yir-2025']],
+      energy: ['grow', 'Clean energy employers are expected to add about 1,000 workers (up 60%) over the next ten years, mainly in solar, energy storage and low-carbon electricity imports. Energy-sector headcount already rose 4% (310 workers) from 2022 to 2024.', ['ema-manpower-2025', 'ema-manpower-2025-pdf']],
       finance: ['grow', '4th in the Global Financial Centres Index, within a point of New York.', ['gfci38']],
       tech: ['grow', '9th in the 2025 start-up hub ranking. IT graduates had the highest median starting pay in 2025, at S$5,500.', ['gser25', 'ges25']],
       aero: ['grow', 'By early 2024 aerospace jobs had grown by almost 3,000 to over 21,000, and firms planned to hire over 2,500 more within three to five years. In February 2026 the government said new investment (over S$750 million) should create close to 600 jobs over five years.', ['edb-aero-2024', 'meti-airshow-2026', 'mro-tech']],
@@ -172,7 +191,7 @@
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
       construction: ['decline', 'Property investment fell 10.6% in 2024 and 11.2% in the first half of 2025. Construction’s share of migrant workers fell to its lowest since 2008.', ['caixin-cn', 'scmp-prop']],
-      energy: ['grow', 'Holds the largest share of the world’s renewable energy jobs.', ['irena25']],
+      energy: ['steady', 'About 7.3 million renewable energy jobs in 2024, 44% of the world’s total. But solar jobs fell about 8%, from 4.59 million to just over 4.2 million, as factories needed fewer workers per panel.', ['irena-countries-2025', 'pv-jobs-2024']],
       auto: ['grow', 'Chinese electric-vehicle makers are winning market share; German car makers name them as a reason for job cuts.', ['de-auto']]
     } },
     { id: 'shenzhen', place: 'Shenzhen', country: 'China', iso: 156, ll: [114.06, 22.54], ind: {
@@ -277,7 +296,7 @@
     } },
     { id: 'de', place: 'Germany (nationwide)', country: 'Germany', iso: 276, ll: [10.4, 51.2], scope: 'country', ind: {
       auto: ['decline', 'Car industry jobs fell by 42,300 in a year, to the lowest level since 2005, and Volkswagen plans 50,000 more cuts by 2030.', ['de-auto2', 'de-auto']],
-      manufacturing: ['decline', 'Suppliers such as Bosch and ZF are cutting thousands of jobs.', ['de-auto']]
+      manufacturing: ['decline', 'Manufacturing employment fell by 177,000 in 2025, to 6.5 million. Car and car-parts makers lost 52,000, machinery makers 28,000 and metal products 24,000. Suppliers such as Bosch and ZF are cutting thousands more.', ['ba-manufacturing-2026', 'de-auto']]
     } },
     { id: 'stuttgart', place: 'Stuttgart', country: 'Germany', iso: 276, ll: [9.18, 48.78], ind: {
       auto: ['decline', 'Home of Bosch and Porsche, which are both cutting jobs.', ['de-auto']]

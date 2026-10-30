@@ -76,3 +76,4 @@ DONE.push('finance');
 DONE.push('islamic');
 DONE.push('health');
 DONE.push('biotech');
+DONE.push('construction', 'energy', 'manufacturing', 'auto');
