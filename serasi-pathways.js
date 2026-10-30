@@ -86,6 +86,12 @@
     'emirates-2025-26': ['Dubai Media Office, Emirates Group results 2025–26, May 2026', 'https://mediaoffice.ae/en/news/2026/may/07-05/emirates-group-achieves-record-profit-in-2025-26'],
     'dxb-war-2026': ['BusinessDay, Dubai airports after the war disruption, May 2026', 'https://www.businessday.co.za/world/international-companies/2026-05-04-dubai-airports-ramp-up-as-airspace-reopens-after-war-disruption/'],
     'edb-aero-2024': ['EDB, Singapore aerospace investment commitments and jobs, February 2024', 'https://www.edb.gov.sg/en/news-and-insights/singapore-bags-s750-million-in-aerospace-investment-commitments-2500-jobs-to-be-filled-edb'],
+    'bls-logisticians-2025': ['US Bureau of Labor Statistics, logisticians, projections 2025–35', 'https://www.bls.gov/ooh/business-and-financial/logisticians.htm'],
+    'lssc-india-2026': ['News Arena India, Logistics Sector Skill Council at LogiMAT India, February 2026', 'https://newsarenaindia.com/economy/india-needs-big-time-reforms-to-bridge-workforce-gap-in-logistics/69285'],
+    'vneconomy-logistics-2026': ['VnEconomy, securing a workforce for logistics, January 2026', 'https://en.vneconomy.vn/to-secure-a-workforce-for-logistics-industry.htm'],
+    'rotterdam-2025': ['Container News, Rotterdam port throughput 2025, February 2026', 'https://container-news.com/rotterdam-port-throughput-falls-1-7-in-2025/'],
+    'rotterdam-h1-2025': ['Dry Cargo Magazine, Port of Rotterdam first half 2025', 'https://www.drycargomag.com/throughput-in-the-port-of-rotterdam-declines-in-h1'],
+    'dpworld-h1-2026': ['Semafor, Hormuz closure dents DP World earnings, August 2026', 'https://semafor.com/article/08/13/2026/hormuz-closure-dents-dp-world-earnings'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
