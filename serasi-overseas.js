@@ -1085,6 +1085,45 @@
     }
   });
 
+  /* Islamic religious studies (Task 10). MUIS's two pages and the two schools' own fee and admission documents, checked in October 2026. */
+  Object.assign(window.SerasiPathways.SOURCES, {
+    'muis-ars': ['MUIS, Asatizah Recognition Scheme (page updated 7 May 2026)', 'https://muis.gov.sg/ARS-and-IECP/About/About-ARS-IECP/More-info-on-ARS'],
+    'muis-pcics': ['MUIS Academy, Postgraduate Certificate in Islam in Contemporary Societies, PCICS (page updated 7 July 2025)', 'https://www.muis.gov.sg/muisacademy/Programmes/PCICS/Overview'],
+    'iium-ug-fees': ['IIUM, bachelor degree fees for international students from Semester 1, 2024/2025 (file of March 2026)', 'https://division.iium.edu.my/finance/wp-content/uploads/sites/6/2026/05/2.4.2-UG-International-After-Discount-Sem-1-2024-2025-1.7-Mar26.pdf'],
+    'iium-convo41': ['IIUM News, 41st Convocation, seventh session (10 December 2025): the bachelor’s programmes of the Abdulhamid AbuSulayman Kulliyyah', 'https://news.iium.edu.my/iium-celebrates-559-graduates-at-seventh-session-of-the-41st-convocation-ceremony/'],
+    'iu-madinah-guide': ['Islamic University of Madinah, Undergraduate Admission Guide for full and partial scholarship students, 1448 AH', 'https://iu.edu.sa/media/%D8%B9%D9%85%D8%A7%D8%AF%D8%A9%20%D8%A7%D9%84%D9%82%D8%A8%D9%88%D9%84%20%D9%88%D8%A7%D9%84%D8%AA%D8%B3%D8%AC%D9%8A%D9%84/Undergraduate%20Admission%20Guide%20-%201448.pdf']
+  });
+  Object.assign(OPTIONS, {
+    // QS World University Rankings by Subject has no Islamic studies table, and its Theology, Divinity and Religious Studies table was not read (QS turns scripts away),
+    // so neither school is picked by a QS rank: both are chosen as well-known centres for the subject, and each standing says so. Egypt (Al-Azhar) and Jordan
+    // (the University of Jordan) are also well-known centres, but no official fee page for a foreign undergraduate could be read, so they are not priced here.
+    // The only Singapore gatekeeper is MUIS's Asatizah Recognition Scheme: its pages list no overseas degrees that count, which both watch-outs say.
+    religious: {
+      best: {
+        country: 'Malaysia', school: 'International Islamic University Malaysia (IIUM)', course: 'Bachelor of Islamic Revealed Knowledge and Heritage (Fiqh and Usul al-Fiqh, Qur’an and Sunnah Studies, or Usul al-Din and Comparative Religion) (Honours)', yrs: 4,
+        feeLabel: 'Tuition and recurrent fees', tuition: [13875, 13875], once: 4065, cur: 'MYR', living: null,
+        standing: 'Not ranked by a QS subject table: QS World University Rankings by Subject 2026 has no Islamic studies table, so IIUM is picked as a well-known centre for the subject',
+        why: 'An international university in Malaysia, close to home, with a four-year honours bachelor’s in Islamic studies.',
+        env: 'Malaysia, about an hour’s flight from Singapore (compiled by Serasi). IIUM’s own pages did not say what language the course is taught in, so check the programme page.',
+        watch: 'MUIS’s Asatizah Recognition Scheme applies to everyone teaching Islam in Singapore, and you send MUIS your transcripts and certificates (page updated 7 May 2026). MUIS says all new applicants for Tier 1 Graduate ARS must take its PCICS programme, which is for asatizah returning from overseas study (page updated 7 July 2025). Neither page says which overseas degrees are accepted, so a degree from here may or may not be, and you should ask MUIS (info@muis.gov.sg) before you enrol. The fee is for students starting from Semester 1, 2024/2025 onwards and IIUM can revise it without notice: tuition RM 48,000 and the recurrent fee RM 7,500 are each spread over 8 semesters, so the yearly figure is (48,000 + 7,500) / 4. The one-off figure adds the entrance fee RM 1,565, the graduation fee RM 500 and Takaful RM 2,000. It leaves out the hostel (mahallah) fee of RM 12,100 over the four years, meals, and the Sales and Service Tax added for international students from 1 July 2025, so living costs are not shown.',
+        url: 'https://www.iium.edu.my/undergraduate-international/',
+        src: ['iium-ug-fees', 'iium-convo41', 'muis-ars', 'muis-pcics'], links: ['muis', 'emgs']
+      },
+      alts: [
+        {
+          country: 'Saudi Arabia', school: 'Islamic University of Madinah', course: 'Bachelor’s degree in Shariah (Islamic Law), Islamic Creed and Dawah, Noble Qur’an, Noble Hadith or Arabic Language', yrs: 4,
+          tuition: [0, 0], cur: 'SAR', living: null,
+          standing: 'Not ranked by a QS subject table: QS World University Rankings by Subject 2026 has no Islamic studies table, so this university is picked as a well-known centre for the subject',
+          why: 'A full scholarship for non-Saudi students living outside Saudi Arabia means no tuition fees, and the guide lists a monthly stipend, university housing and subsidised meals. Students come from more than 140 countries.',
+          env: 'Madinah, Saudi Arabia. Teaching in the theoretical colleges, which include Shariah, is in Arabic, and students may first spend a preparatory stage learning Arabic at the university’s institute, depending on a placement test.',
+          watch: 'The “$0” is tuition only: the stipend amount is not stated in the guide, and the ticket home at the end of each academic year is discounted, not free. Places are competitive: applicants must be 17 to 25, hold a secondary certificate from the last five years, pass any entrance exams and bring recommendation letters, and the Faculty of the Holy Qur’an needs the whole Qur’an memorised. Students must return home after their studies. The guide (for 1448 AH entry) does not say whether Singapore citizens are eligible, and some outside sites say the scholarship is for men only, so check with the university. MUIS’s Asatizah Recognition Scheme applies to everyone teaching Islam in Singapore, and its pages do not say which overseas degrees are accepted, so a degree from here may or may not be: ask MUIS (info@muis.gov.sg) before you apply.',
+          url: 'https://iu.edu.sa/media/%D8%B9%D9%85%D8%A7%D8%AF%D8%A9%20%D8%A7%D9%84%D9%82%D8%A8%D9%88%D9%84%20%D9%88%D8%A7%D9%84%D8%AA%D8%B3%D8%AC%D9%8A%D9%84/Undergraduate%20Admission%20Guide%20-%201448.pdf',
+          src: ['iu-madinah-guide', 'muis-ars', 'muis-pcics'], links: ['muis']
+        }
+      ]
+    }
+  });
+
   const SYMBOL = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' };
   const round100 = n => Math.round(n / 100) * 100;
   const num = n => Math.round(n).toLocaleString('en-SG');
