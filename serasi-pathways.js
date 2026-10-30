@@ -40,7 +40,7 @@
     'de-auto2': ['news.am, 2026', 'https://news.am/en/news/1055808'],
     'airbus-hire': ['ATW, Airbus recruitment', 'https://atwonline.com/air-transport/location/airbus-target-recruit-over-13000-year'],
     'mro-tech': ['GBP Aerospace and Defence, citing Airbus', 'https://gbp.com.sg/stories/shortage-of-skilled-technicians-poses-challenge-for-mro-industry/'],
-    'bls-proj': ['US Bureau of Labor Statistics, projections 2024–34', 'https://www.bls.gov/news.release/ecopro.nr0.htm'],
+    'bls-proj': ['US Bureau of Labor Statistics, employment projections 2025–35 (27 August 2026)', 'https://www.bls.gov/news.release/ecopro.nr0.htm'],
     'bls-wind': ['US Bureau of Labor Statistics, 2026', 'https://www.bls.gov/opub/ted/2026/wind-turbine-service-technicians-employment-projected-to-grow-49-9-percent-from-2024-to-2034.htm'],
     'boston-bio': ['PharmaVoice, 2025', 'https://www.pharmavoice.com/news/massachusetts-biotech-limping-layoffs-investment-boston-massbio/803581/'],
     irena25: ['IRENA and ILO, Renewable Energy and Jobs 2025', 'https://www.ilo.org/publications/renewable-energy-and-jobs-annual-review-2025'],
@@ -91,6 +91,10 @@
     'pk-ibank-br26': ['ProPakistani, Islamic banking branch share crosses 40% (State Bank of Pakistan data), 6 March 2026', 'https://propakistani.pk/2026/03/06/islamic-banking-branch-share-crosses-40-in-pakistan/'],
     'tr-tkbb-q125': ['Participation Banks Association of Türkiye (TKBB), financial performance of participation banks, Q1 2025', 'https://en.tkbb.org.tr/news/turkiye-financial-performance-of-the-participation-banking-sector'],
     'tr-tkbb-sep25': ['Participation Banks Association of Türkiye (TKBB), participation finance, September 2025 data', 'https://en.tkbb.org.tr/news/new-horizons-in-participation-finance-a-sustainable-and-digital-future'],
+
+    // Task 13: health
+    'my-nurse-vac26': ['CodeBlue, Health Ministry nursing vacancies, 27 July 2026', 'https://codeblue.galencentre.org/2026/07/health-ministrys-nursing-vacancies-rise-now-exceed-15000/'],
+    'de-ba-pflege26': ['Deutsches Ärzteblatt (in German), Federal Employment Agency on shortage occupations, 2 September 2026', 'https://www.aerzteblatt.de/news/jobs-in-pflege-und-gesundheit-zahlen-weiter-zu-engpassberufen-3c72c400-da5a-4adc-ba7d-360676f21840'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -249,7 +253,7 @@
       aero: ['grow', 'Airbus’s home is raising aircraft production and has been hiring thousands of people a year.', ['airbus-hire']]
     } },
     { id: 'us', place: 'United States (nationwide)', country: 'United States', iso: 840, ll: [-98, 39], scope: 'country', ind: {
-      health: ['grow', 'Healthcare is projected to drive most US job growth to 2034; nurse practitioners are among the fastest-growing jobs.', ['bls-proj']],
+      health: ['grow', 'Healthcare and social assistance is projected to add over 2.2 million jobs from 2025 to 2035, about 37% of all new US jobs. Nurse practitioner is the fastest-growing job, at 41%.', ['bls-proj']],
       energy: ['grow', 'Wind turbine technician is the fastest-growing US job in official projections, at about 50% to 2034.', ['bls-wind']]
     } },
     { id: 'sf', place: 'San Francisco Bay Area', country: 'United States', iso: 840, ll: [-122.42, 37.77], ind: {

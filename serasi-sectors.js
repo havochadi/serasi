@@ -46,5 +46,13 @@
     islamic: ['grow', 'Interest-free “participation” banks employed 21,869 people in 1,490 branches in early 2025. Their assets rose 45% in the first nine months of 2025, lifting their share of Turkish banking to 8.9%, and the number of banks reached 10 by November 2025.', ['tr-tkbb-q125', 'tr-tkbb-sep25']],
   });
 
+  // health
+  note(458, 'Malaysia', [102.5, 4.2], {
+    health: ['grow', 'The Health Ministry had 15,587 nurse vacancies on 31 March 2026, up from 14,792 in September 2025. It has raised its yearly nursing diploma intake to 3,000 and is giving graduates permanent posts.', ['my-nurse-vac26']],
+  });
+  note(276, 'Germany', [10.4, 51.2], {
+    health: ['grow', 'Nursing and health jobs had Germany’s biggest shortage of skilled workers in 2025. Since June 2024, nursing gained 46,000 staff with foreign passports and lost 5,000 with German ones, as hospitals and care homes recruit abroad.', ['de-ba-pflege26']],
+  });
+
   // ---- Task 14: care, hospitality, creative, education ----
 })();
