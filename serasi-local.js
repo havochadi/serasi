@@ -156,6 +156,33 @@
     { school: 'Singapore Polytechnic', course: 'Diploma in Marine Engineering', lvl: 2, yrs: 3, fee: 3177.52, fields: ['maritime'], roles: ['marine-eng'], url: 'https://www.sp.edu.sg/courses/schools/sma/marine-engineering', src: ['fee-poly'] },
   );
 
+  /* Tech and engineering degrees. NUS charges $8,300 a year for its Computing and Design and Engineering degrees and NTU $8,300 for all programmes
+     except business, medicine and the Renaissance Engineering Programme (AY2026/27 new students); SUTD charges $13,500 (AY2026). SIT's and SMU's pages
+     block automated reading and SIT's own pages disagree on its per-credit rate, so their fees are null. SMU is left out of data and AI: it has
+     no data science degree of its own, only a second major. Computing and cybersecurity roles need a diploma at most, so no degrees are listed for them. */
+  COURSES.push(
+    // Data and AI. NUS's Data Science and Analytics degree is being replaced by a Data Science and Applied AI major, so it is not listed.
+    { school: 'NUS', course: 'Bachelor of Computing in Computer Science', lvl: 3, yrs: 4, fee: 8300, fields: ['data-ai'], url: 'https://www.comp.nus.edu.sg/programmes/ug/cs/', src: ['fee-nus26'] },
+    { school: 'NUS', course: 'Bachelor of Science in Business Analytics', lvl: 3, yrs: 4, fee: 8300, fields: ['data-ai'], url: 'https://www.comp.nus.edu.sg/programmes/ug/ba/', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Science in Data Science and Artificial Intelligence', lvl: 3, yrs: 4, fee: 8300, fields: ['data-ai'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-data-science-artificial-intelligence', src: ['fee-ntu'] },
+    { school: 'SUTD', course: 'Bachelor of Science in Design and Artificial Intelligence', lvl: 3, yrs: 3.5, fee: 13500, fields: ['data-ai'], url: 'https://www.sutd.edu.sg/dai/education/undergraduate/curriculum/', src: ['fee-sutd26'] },
+    { school: 'SIT', course: 'Bachelor of Science with Honours in Applied Artificial Intelligence', lvl: 3, yrs: 3, fee: null, fields: ['data-ai'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/applied-artificial-intelligence' },
+
+    // Civil engineering. Only the civil engineer needs a degree: the quantity surveyor's diploma is enough.
+    { school: 'NUS', course: 'Bachelor of Engineering (Civil Engineering)', lvl: 3, yrs: 4, fee: 8300, fields: ['civil-eng'], roles: ['civil-eng'], url: 'https://cde.nus.edu.sg/cee/undergraduate/', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Engineering in Civil Engineering', lvl: 3, yrs: 4, fee: 8300, fields: ['civil-eng'], roles: ['civil-eng'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-civil-engineering', src: ['fee-ntu'] },
+    { school: 'SIT', course: 'Bachelor of Engineering with Honours in Civil Engineering', lvl: 3, yrs: 4, fee: null, fields: ['civil-eng'], roles: ['civil-eng'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/sit-civil-engineering' },
+
+    // Mechanical engineering. SIT's Mechanical Design and Manufacturing Engineering takes its last cohort in AY2026/27, so it is not listed.
+    { school: 'NUS', course: 'Bachelor of Engineering (Mechanical Engineering)', lvl: 3, yrs: 4, fee: 8300, fields: ['mechanical-eng'], url: 'https://cde.nus.edu.sg/me/undergraduate/beng-me/overview/', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Engineering in Mechanical Engineering', lvl: 3, yrs: 4, fee: 8300, fields: ['mechanical-eng'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-mechanical-engineering', src: ['fee-ntu'] },
+
+    // Electrical engineering.
+    { school: 'NUS', course: 'Bachelor of Engineering (Electrical Engineering)', lvl: 3, yrs: 4, fee: 8300, fields: ['electrical-eng'], url: 'https://cde.nus.edu.sg/ece/undergraduate/what-is-ece/', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Engineering in Electrical and Electronic Engineering', lvl: 3, yrs: 4, fee: 8300, fields: ['electrical-eng'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-electrical-and-electronic-engineering-(eee)', src: ['fee-ntu'] },
+    { school: 'SIT', course: 'Bachelor of Engineering with Honours in Electrical and Electronic Engineering', lvl: 3, yrs: 4, fee: null, fields: ['electrical-eng'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/electrical-and-electronic-engineering' }
+  );
+
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');
 
   // The courses for a role at a level (1 = ITE, 2 = diploma, 3 = degree), in the order of SCHOOLS.

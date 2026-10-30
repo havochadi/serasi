@@ -117,3 +117,18 @@ test('the tech options use currencies with a rate and fees in the right range, a
 test('roles whose field has no overseas options (yet) get no overseas section', () => {
   assert.equal(O.html(ROLE['port-ops'], { esc: String, srcLinks: () => '' }), '');
 });
+
+test('degrees: data and AI roles get NUS, NTU, SUTD and SIT; civil, mechanical and electrical engineers get the NUS and NTU engineering degrees', () => {
+  assert.deepEqual(schoolsFor('data-sci', 3), ['NUS', 'NUS', 'NTU', 'SUTD', 'SIT']);
+  assert.deepEqual(schoolsFor('civil-eng', 3), ['NUS', 'NTU', 'SIT']);
+  assert.deepEqual(schoolsFor('mech-eng', 3), ['NUS', 'NTU']);
+  assert.deepEqual(schoolsFor('elec-eng', 3), ['NUS', 'NTU', 'SIT']);
+});
+test('the quantity surveyor and the computing, cybersecurity and marine roles have no degree listed (their routes end at a diploma)', () => {
+  for (const id of ['qs', 'software-eng', 'cyber', 'marine-eng']) assert.deepEqual(schoolsFor(id, 3), [], id);
+});
+test('SIT fees are null where its pages could not be read, and the other degrees carry a fee with a source', () => {
+  for (const c of L.COURSES.filter(c => c.lvl === 3 && FIELD_IDS.some(f => c.fields.includes(f)))) {
+    if (c.school === 'SIT') assert.equal(c.fee, null, c.course); else { assert.ok(c.fee > 8000, c.course); assert.ok(c.src.length > 0, c.course); }
+  }
+});
