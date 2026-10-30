@@ -18,7 +18,7 @@
     "orgs": ["Petrobras", "Vale", "Embraer", "Itaú Unibanco", "JBS", "Natura"],
     "unis": [
       { "n": "University of São Paulo (USP)", "rank": 133, "url": "https://www.usp.br/" },
-      { "n": "State University of Campinas (Unicamp)", "url": "https://www.unicamp.br/unicamp/english" }
+      { "n": "State University of Campinas (Unicamp)", "url": "https://www.unicamp.br/" }
     ]
   },
   {
