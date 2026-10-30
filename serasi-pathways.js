@@ -113,7 +113,7 @@
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
-      education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
+      education: ['steady', 'Diploma holders do a compulsory contract teaching stint first; MOE then fully funds the 2-year Diploma in Education at NIE. Fresh diploma holders typically start at $3,110 (MOE, 2026).', ['moe-diped']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
@@ -296,7 +296,7 @@
     'ah-spon': { t: 'Allied health sponsorships (MOH Holdings)', d: 'Sponsor local diplomas and degrees such as physiotherapy, occupational therapy, radiography, pharmacy and dietetics, in return for a bond.', c: 'ahspon', src: [] },
     ncss: { t: 'NCSS Social Service Scholarship', d: 'Full tuition plus allowances for social work, occupational therapy, physiotherapy and speech therapy degrees. Bond: 4 years for local study, 6 for overseas.', c: 'ncss', src: [] },
     ecda: { t: 'ECDA Training Award', d: 'Pays full course fees plus a monthly allowance ($800 at polytechnic, $500 at ITE) for early childhood courses. You then work one year in the sector for each year of support.', c: 'ecda', src: [] },
-    'moe-teach': { t: 'Paid teacher training', d: 'MOE pays you while you train at NIE. Diploma holders typically start at about $2,970 a month and serve a 3-year bond in a primary school. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond.', c: 'moeTeach', src: ['moe-diped'] },
+    'moe-teach': { t: 'MOE-funded teacher training', d: 'Diploma holders first do a compulsory contract teaching stint. If it goes well, MOE fully funds your training at NIE, and you then serve a 3-year bond in a primary school. Fresh diploma holders typically start at $3,110. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond.', c: 'moeTeach', src: ['moe-diped'] },
     'paid-train': { t: 'Paid from day one', d: 'Home Team and SAF recruits draw a salary during training and pay no course fees. Ask about sponsored study for a diploma or degree later.', c: 'careersgov', src: [] },
     sfc: { t: 'SkillsFuture Credit', d: 'Singaporeans aged 25 and above get $500 of SkillsFuture Credit for approved courses.', c: 'ssg', src: [] },
     pt: { t: 'Part-time study', d: 'Part-time Higher Nitec modules at ITE cost about $71 each for Singapore Citizens after SkillsFuture funding. Polytechnics and SUSS run subsidised part-time diplomas and degrees.', c: 'ssg', src: [] }
