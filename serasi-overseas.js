@@ -1113,5 +1113,34 @@
       '<p class="small muted">' + esc('Costs use rough exchange rates as of ' + window.SerasiPathways.FX_ASOF + '. Singapore\'s Tuition Grant, TTFS and bursaries don\'t apply overseas.') + '</p></div>';
   }
 
-  window.SerasiOverseas = { OPTIONS, costOf, costText, forRole, html };
+  // Every option (best picks and alternatives) in a country, across fields. The role's field comes first, and an option is listed once.
+  function forCountry(country, role, options = OPTIONS) {
+    const mine = role ? forRole(role, options) : null;
+    const seen = new Set(), out = [];
+    const add = o => { if (o && o.country === country && !seen.has(o)) { seen.add(o); out.push(o); } };
+    if (mine && mine.best) [mine.best].concat(mine.alts).forEach(add);
+    Object.keys(options).forEach(f => { const o = options[f]; if (o && o.best) [o.best].concat(o.alts || []).forEach(add); });
+    return out;
+  }
+
+  // Cut text to at most max characters: at the last full sentence that fits, else the last word, with an ellipsis.
+  function clip(text, max) {
+    if (text.length <= max) return text;
+    const head = text.slice(0, max), stop = head.lastIndexOf('. ');
+    if (stop >= max * .5) return head.slice(0, stop + 1);
+    return head.slice(0, Math.max(head.lastIndexOf(' '), 0)).replace(/[,;:\s]+$/, '') + '…';
+  }
+
+  /* One short paragraph for the Ask Serasi payload (at most 450 characters): the best pick, its whole-course total in S$ and the watch-out;
+     an agency role gets its note; '' when forRole is null. */
+  function summaryFor(role, options = OPTIONS) {
+    const r = forRole(role, options);
+    if (!r) return '';
+    if (r.agency) return clip(r.agency, 450);
+    const b = r.best, t = costOf(b).totalSgd;
+    const lead = b.country + ', ' + b.school + ': about ' + sgd(t[0], t[1]) + ' for ' + fmtYears(b.yrs) + (b.living == null ? ', before living costs' : '') + '. Watch out: ';
+    return lead + clip(b.watch, Math.max(450 - lead.length, 0));
+  }
+
+  window.SerasiOverseas = { OPTIONS, costOf, costText, forRole, forCountry, summaryFor, html };
 })();

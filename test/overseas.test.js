@@ -224,3 +224,32 @@ test('medicine keeps its place-missed-locally framing and says what the degree c
 test('every option whose fee is an average over the course says so in the fee label', () => {
   for (const [, o] of allOptions()) if (/average/i.test(o.feeLabel || '')) assert.match(o.watch, /instalments/);
 });
+
+const { ROLES } = w.SerasiCore;
+test('summaryFor names the best pick and stays short', () => {
+  const s = O.summaryFor(ROLE.arch);
+  assert.ok(s.startsWith(O.OPTIONS.architecture.best.country));
+  assert.match(s, /Watch out: /);
+  assert.ok(s.length <= 450, String(s.length));
+});
+test('every role summary is at most 450 characters and never says undefined or NaN', () => {
+  for (const r of ROLES) { const s = O.summaryFor(r); assert.ok(s.length <= 450, r.id + ' ' + s.length); assert.doesNotMatch(s, /undefined|NaN/, r.id); }
+});
+test('summaryFor is empty for ITE-level roles', () => assert.equal(O.summaryFor(ROLE.electrician), ''));
+test('summaryFor gives an agency role its note', () => {
+  const r = ROLES.find(x => (O.forRole(x) || {}).agency);
+  assert.ok(r, 'some role has an agency note');
+  assert.ok(O.summaryFor(r).length > 0);
+});
+test('forCountry lists a country\'s options, the role\'s field first', () => {
+  const r = O.forRole(ROLE.arch), list = O.forCountry(r.best.country, ROLE.arch);
+  assert.equal(list[0], r.best);
+  assert.ok(list.every(o => o.country === r.best.country));
+  assert.equal(new Set(list).size, list.length);
+});
+test('forCountry without a role lists every option in the country', () => {
+  const list = O.forCountry('Japan');
+  assert.ok(list.length >= 1);
+  assert.ok(list.every(o => o.country === 'Japan'));
+});
+test('forCountry returns [] for a country with no options', () => assert.deepEqual(plain(O.forCountry('Nowhere')), []));
