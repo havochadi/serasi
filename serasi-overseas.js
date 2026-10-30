@@ -50,6 +50,10 @@
     'cam-ns': ['University of Cambridge, Natural Sciences course page', 'https://www.undergraduate.study.cam.ac.uk/courses/natural-sciences'],
     'ahpc-list': ['Allied Health Professions Council, list of recognised qualifications (page updated 23 September 2026)', 'https://www.ahpc.gov.sg/for-professionals/apply-for-registration/list-of-recognised-qualifications/'],
     'ed-med': ['University of Edinburgh, undergraduate medicine fees for 2027-2028', 'https://registryservices.ed.ac.uk/tuition-fees/find/undergraduate/2027-2028/medicine'],
+    'qs-nurs26': ['QS World University Rankings by Subject 2026: Nursing', 'https://www.topuniversities.com/university-subject-rankings/nursing'],
+    'snb-foreign': ['Singapore Nursing Board, foreign-trained nurses and midwives (page updated 9 June 2026)', 'https://www.snb.gov.sg/for-professionals/becoming-a-nurse-or-midwife/apply-for-registration-enrolment/foreign-trained-nurses-midwives/'],
+    'ut-bscn-apply': ['University of Toronto Nursing, BScN admission requirements', 'https://bloomberg.nursing.utoronto.ca/how-to-apply-bachelor-of-science-in-nursing-bscn'],
+    'cuhk-bnurs': ['CUHK Nethersole School of Nursing, Bachelor of Nursing', 'https://www.nur.cuhk.edu.hk/education/undergraduate-programmes/bachelor-of-nursing/'],
     'ut-bscn': ['University of Toronto Nursing, international tuition fees 2026-2027', 'https://bloomberg.nursing.utoronto.ca/learn-with-us/tuition-fees/'],
     'cuhk-fees': ['CUHK, fees and living costs for non-local undergraduates, 2027-28', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
     'sasw-recog': ['SASW, accreditation: social work qualifications from overseas and the bodies it recognises', 'https://accreditation.sasw.org.sg/recognition']
@@ -104,7 +108,7 @@
           standing: 'Ranked 14th in the world for Architecture and Built Environment (QS World University Rankings by Subject 2026)',
           why: 'Close to home, and Singapore’s Board of Architects recognises its Master of Architecture.',
           env: 'Taught in English. The four-year bachelor’s makes this a six-year route, a year longer than in the UK or Australia.',
-          watch: 'The bachelor’s fee is HK$250,000 a year for 2027/28; the MArch fee is HK$224,000 a year for the 2026–27 intake, the latest HKU has published. Singapore’s Board of Architects recognises the MArch, not the bachelor’s alone. Hong Kong has no fixed visa figure, so living costs are HKU’s own estimate, not a visa minimum: HK$37,940 for the dearest hall place plus up to HK$50,000 for daily costs, HK$87,940 in all.',
+          watch: 'The bachelor’s fee is HK$250,000 a year for 2027/28; the MArch fee is HK$224,000 a year for the 2026–27 intake, the latest HKU has published. Singapore’s Board of Architects recognises the MArch, not the bachelor’s alone. Living costs are HKU’s own estimate, not a visa minimum: HK$37,940 for the dearest hall place plus up to HK$50,000 for daily costs, HK$87,940 in all.',
           url: 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-architectural-studies',
           src: ['qs-arch26', 'hku-fees', 'hku-march', 'boa-schools'], links: ['hkimmd', 'boa']
         },
@@ -221,6 +225,36 @@
           watch: 'It is a broad Natural Sciences degree, not a degree called biomedical sciences. Singapore’s Allied Health Professions Council lists recognised qualifications for five professions (diagnostic radiography, occupational therapy, physiotherapy, radiation therapy and speech-language therapy) and medical laboratory technologists are not among them, so ask the Council or a lab employer here what you would need. The fee is for 2027 entry and is fixed for the course. You also pay a yearly College fee on top, which is not in the cost shown. The living figure is the UK visa minimum for 9 months outside London, not a typical budget.',
           url: 'https://www.undergraduate.study.cam.ac.uk/courses/natural-sciences',
           src: ['qs-bio26', 'cam-fees', 'cam-ns', 'uk-living-outside', 'ahpc-list'], links: ['ukvisa', 'ahpc']
+        }
+      ]
+    },
+    // QS 2026 Nursing: 1 Penn, 2 King's, 4 Toronto, =6 CUHK, =10 Trinity College Dublin, =16 UTS. Best: Toronto, the highest-ranked school that
+    // teaches in English and whose own page gave a fee. Alternative: CUHK, in a different country, with the Chinese-language requirement in watch.
+    // Left out: Penn (US: no visa money-for-living figure); King's (2nd; its fees load dynamically and could not be read, so none is shown);
+    // Trinity (=10; third-party sites disagree on whether non-EU students can take the undergraduate nursing degree, and its own fee page was not
+    // read); UTS (=16; its international fee loads dynamically). Singapore recognition: the Nursing Board's page (updated 9 June 2026) names no
+    // approved overseas programmes and says it assesses each one, so every option sends the reader to ask the Board first.
+    nursing: {
+      best: {
+        country: 'Canada', school: 'University of Toronto (Lawrence S. Bloomberg Faculty of Nursing)', course: 'BScN Nursing, a 2-year degree after two years of university study', yrs: 2,
+        tuition: [53610, 53610], cur: 'CAD', living: 23448,
+        standing: 'Ranked 4th in the world for Nursing (QS World University Rankings by Subject 2026)',
+        why: 'One of the top four nursing schools in the world, with a fast two-year degree for students who already have two years of university study. Penn (1st) is in the US, which Serasi leaves out because the US sets no visa living-cost figure to quote, and we couldn’t confirm King’s College London’s (2nd) fees from its own website.',
+        env: 'Taught in English in Toronto. The degree is full-time and in person, with lectures, labs and clinical placements.',
+        watch: 'You need two years of university study first (10 Toronto credits, with at least a B average), and those years are not in the cost shown. Places are highly competitive. The Singapore Nursing Board publishes no list of approved overseas programmes: it assesses each one itself, so ask the Board before you apply. It also asks for a job offer from an eligible hospital here, registration and a practising licence from the country where you trained, and recent nursing practice, and then a licensure exam, a competency assessment or provisional registration. The fee is the 2026-27 international program fee, before about CAD 3,400 a year in student and course fees. The living figure is the amount Canada asks a single student to show for a study permit (from 1 September 2026), not a typical budget.',
+        url: 'https://bloomberg.nursing.utoronto.ca/programs/bachelor',
+        src: ['qs-nurs26', 'ut-bscn', 'ut-bscn-apply', 'ca-funds', 'snb-foreign'], links: ['snb']
+      },
+      alts: [
+        {
+          country: 'Hong Kong', school: 'The Chinese University of Hong Kong (Nethersole School of Nursing)', course: 'Bachelor of Nursing (BNurs)', yrs: 5,
+          tuition: [230000, 230000], cur: 'HKD', living: 62000,
+          standing: 'Ranked joint 6th in the world for Nursing (QS World University Rankings by Subject 2026)',
+          why: 'Joint 6th in the world for nursing, close to home, and open to applicants with A levels, the IB or another recognised school-leaving qualification, so no university study is needed first.',
+          env: 'A five-year degree with hospital and community placements. It prepares students for registration with the Nursing Council of Hong Kong.',
+          watch: 'CUHK asks for an acceptable level of both English and Chinese, so read its language requirements before you apply. The Singapore Nursing Board publishes no list of approved overseas programmes: it assesses each one itself, so ask the Board before you apply. It also asks for a job offer from an eligible hospital here, registration and a practising licence from the country where you trained, and recent nursing practice. The fee is the non-local fee for 2027-28, and CUHK says it can rise by up to 3% a year. Living costs are CUHK’s own estimate, not a visa minimum: about HK$17,000 for on-campus housing and HK$45,000 for living expenses.',
+          url: 'https://www.nur.cuhk.edu.hk/education/undergraduate-programmes/bachelor-of-nursing/',
+          src: ['qs-nurs26', 'cuhk-fees', 'cuhk-bnurs', 'snb-foreign'], links: ['snb', 'hkimmd']
         }
       ]
     },
