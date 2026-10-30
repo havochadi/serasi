@@ -4,3 +4,4 @@ worker/.dev.vars
 .wrangler/
 node_modules/
 .superpowers/
+.claude/worktrees/
