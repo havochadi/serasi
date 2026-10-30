@@ -117,6 +117,22 @@
     { school: 'Temasek Polytechnic', course: 'Diploma in Product Experience & Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['graphic-ux'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/product-experience-and-design.html', src: ['fee-tp26'] },
     { school: 'LASALLE', course: 'Diploma in Graphic Design and Experiences', lvl: 2, yrs: 3, fee: 5490, fields: ['graphic-ux'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/graphic-design-and-experiences/', src: ['fee-lasalle27'] },
     { school: 'NAFA', course: 'Diploma in Design Communication and Strategy', lvl: 2, yrs: 3, fee: 4810, fields: ['graphic-ux'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-communication-and-strategy', src: ['fee-nafa27'] },
+
+    // Fashion design. Only Temasek (Year 2: choose Fashion Design or Fashion Management) and NAFA (choose Fashion Design, Business or Textiles when applying)
+    // teach it at diploma level; NAFA's fee is its "Fashion Studies" band, $450 above its design band because it includes the graduation show.
+    // ITE has no fashion design course (its Visual Merchandising is a retail display course). LASALLE's Diploma in Creative Direction for Fashion is left
+    // out: its own page says it is not a fashion design programme (garment design is its BA (Hons) Fashion Design and Textiles, a degree).
+    { school: 'Temasek Polytechnic', course: 'Diploma in Fashion Management & Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['fashion'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/fashion-management-and-design.html', src: ['fee-tp26'] },
+    { school: 'NAFA', course: 'Diploma in Fashion', lvl: 2, yrs: 3, fee: 5260, fields: ['fashion'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-fashion', src: ['fee-nafa27'] },
+
+    // Animation. ITE's Communication Design (listed under graphic and UX design above) has an Animation & Motion Graphics specialisation. Singapore
+    // Polytechnic's specialisation is Animation & Games. Nanyang's diploma covers 2D and 3D animation and visual effects. NAFA's Digital Illustration
+    // and Narrative teaches frame-by-frame animation, cel animation and stop motion. Republic's Design (Games & Gamification major) is a games course,
+    // and Temasek's Communication Design teaches motion graphics only, so both are left out. LASALLE's BA (Hons) Animation Art is a degree and no
+    // animation role needs one.
+    { school: 'Singapore Polytechnic', course: 'Diploma in Media, Arts & Design (Animation & Games)', lvl: 2, yrs: 3, fee: 3177.52, fields: ['animation'], url: 'https://www.sp.edu.sg/courses/schools/mad/animation-and-games', src: ['fee-poly'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Animation, Games & Visual Effects', lvl: 2, yrs: 3, fee: 3188.09, fields: ['animation'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-animation-games-visual-effects', src: ['fee-nyp26'] },
+    { school: 'NAFA', course: 'Diploma in Digital Illustration and Narrative', lvl: 2, yrs: 3, fee: 4810, fields: ['animation'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-digital-illustration-and-narrative', src: ['fee-nafa27'] },
   ];
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');

@@ -33,3 +33,13 @@ test('graphic and UX design: ITE Communication Design at level 1 for the roles i
     'Temasek Polytechnic', 'Temasek Polytechnic', 'LASALLE', 'NAFA']);
   assert.ok(L.forRole(ROLE.ux, 2).some(c => /Experience Design/.test(c.course)), 'Nanyang Experience Design is shared with interior design');
 });
+
+test('fashion: Temasek and NAFA at level 2, and LASALLE\'s creative direction diploma is not listed as fashion design', () => {
+  assert.deepEqual(schoolsFor('fashion', 2), ['Temasek Polytechnic', 'NAFA']);
+  assert.equal(L.forRole(ROLE.fashion, 1).length, 0, 'ITE has no fashion design course, so level 1 shows nothing');
+  assert.ok(!L.COURSES.some(c => /Creative Direction for Fashion/.test(c.course)));
+});
+test('animation: ITE Communication Design at level 1 for the animator, and three diplomas at level 2', () => {
+  assert.deepEqual(namesFor('animator', 1), ['Higher Nitec in Communication Design', 'Higher Nitec in Communication Design (3 years)']);
+  assert.deepEqual(schoolsFor('animator', 2), ['Singapore Polytechnic', 'Nanyang Polytechnic', 'NAFA']);
+});
