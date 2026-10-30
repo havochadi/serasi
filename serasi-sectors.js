@@ -39,6 +39,14 @@
     manufacturing: ['steady', 'Factory jobs hit a recent low in December 2025, then regained 72,000 by September 2026, when about 12.65 million Americans worked in manufacturing.', ['bls-empsit-sep26']],
   });
 
+  // auto
+  note(356, 'India', [78, 22], {
+    auto: ['grow', 'Vehicle sales hit a record 28.3 million in the year to March 2026, up 10.4%. Autocar Professional puts the industry’s jobs at nearly 30 million, and says skills in batteries, power electronics and software are short.', ['siam-fy26', 'autocar-workers-2026']],
+  });
+  note(840, 'United States of America', [-98, 39], {
+    auto: ['steady', 'Car and car-parts factories employed about 968,000 people in September 2026, almost the same as a year earlier (965,000).', ['bls-empsit-sep26']],
+  });
+
   // ---- Task 12: semiconductors, tech, aerospace, logistics ----
 
   // ---- Task 13: finance, Islamic finance, health, biotech ----

@@ -86,7 +86,10 @@
     'pso-plan-2025': ['ESD News, Powering Skills Organisation 2025 Workforce Plan, August 2025', 'https://esdnews.com.au/net-zero-journey-could-stall-without-skilled-energy-trades/'],
     'edb-yir-2025': ['EDB, Singapore to create 15,700 jobs over five years (February 2026)', 'https://www.edb.gov.sg/en/news-and-insights/singapore-to-create-15700-jobs-over-five-years-with-two-thirds-paying-above-s5000-edb'],
     'bls-empsit-sep26': ['US Bureau of Labor Statistics, Employment Situation, September 2026', 'https://www.bls.gov/news.release/archives/empsit_10022026.htm'],
-    'ba-manufacturing-2026': ['German Federal Employment Agency, press release 26/2026 (15 July 2026)', 'https://www.arbeitsagentur.de/en/press/2026-26-employment-in-the-manufacturing-sector-fell-by-177000']
+    'ba-manufacturing-2026': ['German Federal Employment Agency, press release 26/2026 (15 July 2026)', 'https://www.arbeitsagentur.de/en/press/2026-26-employment-in-the-manufacturing-sector-fell-by-177000'],
+    'mot-ev-pathway-2026': ['Ministry of Transport, Skills pathway for EV technical specialists (4 March 2026)', 'https://www.mot.gov.sg/news-resources/newsroom/launch-of-skills-pathway-for-ev-technical-specialists/'],
+    'siam-fy26': ['Millennium Post, SIAM vehicle sales for 2025–26 (April 2026)', 'https://www.millenniumpost.in/business/automobile-wholesales-up-104-to-283-crore-units-in-fy26-siam-656006'],
+    'autocar-workers-2026': ['Autocar Professional, India’s auto workers (1 May 2026)', 'https://www.autocarpro.in/news/reskilling-the-workforce-the-new-scorecard-for-indias-3-crore-auto-workers-132377?amp=1']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -117,6 +120,7 @@
   const WORLD = [
     { id: 'sg', place: 'Singapore', country: 'Singapore', iso: 702, ll: [103.82, 1.35], ind: {
       construction: ['grow', 'Construction demand is forecast at S$47–53 billion for 2026, led by Changi Terminal 5, Tuas Port and new hospitals.', ['bca26']],
+      auto: ['steady', 'Workshop jobs are shifting towards electric cars. A four-level EV technician pathway, from technical specialist up to engineer, launched in March 2026. The safety certificate it builds on has trained over 2,000 people since 2022, and courses get at least 50% fee subsidies.', ['mot-ev-pathway-2026']],
       manufacturing: ['steady', 'Investment won in 2025 will create 15,700 jobs over five years, 37% of them in manufacturing. That is 16% fewer jobs than the year before and the lowest in a decade, as factories automate.', ['edb-yir-2025']],
       energy: ['grow', 'Clean energy employers are expected to add about 1,000 workers (up 60%) over the next ten years, mainly in solar, energy storage and low-carbon electricity imports, says the 2024 energy manpower survey.', ['ema-manpower-2025']],
       finance: ['grow', '4th in the Global Financial Centres Index, within a point of New York.', ['gfci38']],
