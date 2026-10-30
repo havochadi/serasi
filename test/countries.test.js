@@ -29,7 +29,7 @@ const WORLD = [
 ];
 const DATA = {
   asof: 'October 2026',
-  qs: { edition: '2026', url: 'https://qs.example/2026' },
+  qs: { edition: 'QS World University Rankings 2026', url: 'https://qs.example/2026' },
   wb: { url: 'https://wb.example/api' },
   byIso: {
     1: {
@@ -264,16 +264,16 @@ test('a full profile lists what it is known for, facts and organisations', () =>
 });
 test('institutions: a ranked one shows the QS edition and rank, an unranked one says "main national university"', () => {
   const out = prof(1, 'tech');
-  assert.match(out, /Alpha National University/); assert.match(out, /QS 2026: 12th/);
+  assert.match(out, /Alpha National University/); assert.match(out, /QS World University Rankings 2026: 12th/);
   assert.match(out, /<a href="https:\/\/alpha\.example\/uni" target="_blank" rel="noopener">Alpha National University<\/a>/);
   const tech = out.slice(out.indexOf('Alpha Tech'));
   assert.match(tech, /^Alpha Tech[^<]*<\/b>[^]*?main national university/);
   assert.equal(out.match(/main national university/g).length, 1, 'only the unranked one says it');
   assert.doesNotMatch(tech.slice(0, tech.indexOf('</li>')), /QS/, 'no rank claim for the unranked one');
 });
-test('institutions: a rank written as text (a QS band) is shown as written', () => assert.match(prof(3, 'tech'), /QS 2026: 601-650/));
+test('institutions: a rank written as text (a QS band) is shown as written', () => assert.match(prof(3, 'tech'), /QS World University Rankings 2026: 601-650/));
 test('institutions: ordinals are correct (1st, 2nd, 3rd, 11th, 21st, 112th)', () => {
-  const rankText = r => { const d = { ...DATA, byIso: { 1: { ...B[1], unis: [{ n: 'U', rank: r }] } } }; return C.profileHtml(1, 'tech', h, W, d.byIso, { data: d }).match(/QS 2026: (\S+?)</)[1]; };
+  const rankText = r => { const d = { ...DATA, byIso: { 1: { ...B[1], unis: [{ n: 'U', rank: r }] } } }; return C.profileHtml(1, 'tech', h, W, d.byIso, { data: d }).match(/QS World University Rankings 2026: (\S+?)</)[1]; };
   assert.deepEqual([1, 2, 3, 4, 11, 12, 13, 21, 22, 23, 101, 111, 112].map(rankText), ['1st', '2nd', '3rd', '4th', '11th', '12th', '13th', '21st', '22nd', '23rd', '101st', '111th', '112th']);
 });
 test('institutions: only an absent rank means "main national university"; a bad rank shows nothing and makes no claim', () => {
@@ -323,7 +323,7 @@ test('the source line names another source for a figure that has one, and leaves
   assert.match(src, /GDP per person 2024: Beta Statistics Office/);
 });
 test('links are made only for http(s) URLs: javascript: and other schemes in a university url, a figure srcUrl, the QS url and the World Bank url stay plain text', () => {
-  const d = { qs: { edition: '2026', url: 'javascript:alert(1)' }, wb: { url: ' javascript:alert(2)' }, byIso: { 7: {
+  const d = { qs: { edition: 'QS World University Rankings 2026', url: 'javascript:alert(1)' }, wb: { url: ' javascript:alert(2)' }, byIso: { 7: {
     name: 'Seven', a2: 'zz', pop: { v: 5e6, yr: 2025 }, gdp: { v: 2e9, yr: 2024, src: 'Seven Office', srcUrl: 'javascript:alert(3)' }, gdppc: { v: null, why: 'none' },
     unis: [{ n: 'U1', rank: 1, url: 'JavaScript:alert(4)' }, { n: 'U2', url: ' javascript:alert(5)' }, { n: 'U3', url: 'data:text/html,x' }, { n: 'U4', url: '//evil.example/x' }, { n: 'U5', url: 'vbscript:x' }] } } };
   const out = C.profileHtml(7, 'tech', h, W, d.byIso, { data: d });
@@ -331,7 +331,7 @@ test('links are made only for http(s) URLs: javascript: and other schemes in a u
   assert.doesNotMatch(out, /<a /, 'nothing is linked');
   for (const t of ['U1', 'U2', 'U3', 'U4', 'U5', 'Seven Office']) assert.ok(out.includes(t), t);
   assert.match(out, /World Bank \(population 2025\)/); assert.match(out, /QS World University Rankings 2026/);
-  const good = { ...d, qs: { edition: '2026', url: 'https://qs.example/' }, wb: { url: 'http://wb.example/' }, byIso: { 7: { ...d.byIso[7], unis: [{ n: 'U1', rank: 1, url: 'https://u.example/' }] } } };
+  const good = { ...d, qs: { edition: 'QS World University Rankings 2026', url: 'https://qs.example/' }, wb: { url: 'http://wb.example/' }, byIso: { 7: { ...d.byIso[7], unis: [{ n: 'U1', rank: 1, url: 'https://u.example/' }] } } };
   const ok = C.profileHtml(7, 'tech', h, W, good.byIso, { data: good });
   for (const u of ['https://qs.example/', 'http://wb.example/', 'https://u.example/']) assert.ok(ok.includes('<a href="' + u + '" target="_blank" rel="noopener">'), u);
 });
@@ -478,4 +478,14 @@ test('listHtml escapes the place that prefixes a city\'s note', () => {
   const world = [{ id: 'c', place: '<img src=x onerror=alert(1)>', country: 'Evil', iso: 9, ind: { tech: ['grow', 'A <i>note</i>', []] } }];
   const out = C.listHtml('tech', h, world, { 9: { name: 'Evil' } });
   assert.doesNotMatch(out, /<img|<i>/); assert.match(out, /&lt;img src=x onerror=alert\(1\)&gt;: A &lt;i&gt;note&lt;\/i&gt;/);
+});
+test('the QS edition is printed as stored, once per rank and once in the source line, never "QS QS"', () => {
+  const real = require('./helpers/load').load(['serasi-core.js', 'serasi-pathways.js', 'serasi-countries-data.js', 'serasi-countries.js']);
+  const D = real.SerasiCountryData, edition = D.qs.edition;
+  for (const [iso, rec] of Object.entries(D.byIso)) {
+    const out = real.SerasiCountries.profileHtml(Number(iso), 'tech', h, real.SerasiPathways.WORLD, D.byIso, { data: D });
+    assert.doesNotMatch(out, /QS QS|Rankings QS|Rankings World/, rec.name);
+    const ranked = rec.unis.filter(u => u.rank !== undefined).length;
+    assert.equal(out.split(edition).length - 1, ranked ? ranked + 1 : 0, rec.name + ' shows the edition once per rank plus once in the source line');
+  }
 });

@@ -187,7 +187,7 @@
       // Only a missing rank means "main national university"; a rank that is there but unusable shows nothing, so no false claim.
       let note = '';
       if (u.rank == null) note = 'main national university';
-      else if (rank && edition) { note = 'QS ' + edition + ': ' + rank; ranked = true; }
+      else if (rank && edition) { note = edition + ': ' + rank; ranked = true; }
       const name = linkTo(u.url, u.n, esc);
       return '<li><b>' + name + '</b>' + (note ? ' <span class="small muted">' + esc(note) + '</span>' : '') + '</li>';
     });
@@ -208,7 +208,7 @@
     const parts = [];
     if (wb.length) parts.push(link(data.wb && data.wb.url, 'World Bank') + ' (' + wb.join(', ') + ')');
     parts.push(...other);
-    if (ranked) parts.push(link(data.qs && data.qs.url, 'QS World University Rankings ' + edition));
+    if (ranked) parts.push(link(data.qs && data.qs.url, edition));
     return '<p class="src">' + (parts.length ? 'Sources: ' + parts.join('; ') + '. ' : '') +
       'Languages, what the country is known for, facts, notable organisations and main national universities are compiled by Serasi from general knowledge and are not individually sourced.</p>';
   }
