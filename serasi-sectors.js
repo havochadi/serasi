@@ -39,4 +39,12 @@
   note(840, 'United States of America', [-98, 39], {
     care: ['grow', 'Home health and personal care aides are projected to grow 18% from 2025 to 2035, adding 847,300 jobs to 4.68 million. Median pay was $35,800 in May 2025.', ['bls-aides-2035']],
   });
+
+  // hospitality
+  note(458, 'Malaysia', [102, 4.2], {
+    hospitality: ['grow', 'Visitors rose 11.2% to 42.2 million in 2025, which is 20.4% above 2019. 2026 is the Visit Malaysia year, with a national campaign to bring in even more.', ['my-visitors-2025']],
+  });
+  note(826, 'United Kingdom', [-1.5, 52.5], {
+    hospitality: ['decline', 'UKHospitality says its analysis of official ONS figures shows the sector lost about 100,000 jobs in the two years to October 2026, 45% of all UK job losses. The sector gives 31% of first jobs to 16 to 24 year olds.', ['uk-hosp-2026']],
+  });
 })();

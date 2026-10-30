@@ -83,7 +83,10 @@
     'sfc-vacancy-2026': ['Skills for Care, adult social care vacancy rate (June 2026)', 'https://www.skillsforcare.org.uk/news-and-events/news/adult-social-care-vacancy-rate-falls-to-lowest-level-in-a-decade-as-workforce-grows'],
     'uk-care-visa-2025': ['GOV.UK, applying for health and social care jobs in the UK from abroad', 'https://www.gov.uk/government/publications/applying-for-health-and-social-care-jobs-in-the-uk-from-abroad/part-1-applying-for-health-and-social-care-jobs-in-the-uk-from-abroad'],
     'bls-aides-2035': ['US Bureau of Labor Statistics, Home health and personal care aides (updated August 2026)', 'https://www.bls.gov/ooh/healthcare/home-health-aides-and-personal-care-aides.htm'],
-    'kr-care-2028': ['The Star (Korea Immigration Service Foundation), March 2026', 'https://www.thestar.com.my/aseanplus/aseanplus-news/2026/03/16/south-korea-may-need-foreign-workers-to-fill-110000-elderly-care-jobs-by-2028']
+    'kr-care-2028': ['The Star (Korea Immigration Service Foundation), March 2026', 'https://www.thestar.com.my/aseanplus/aseanplus-news/2026/03/16/south-korea-may-need-foreign-workers-to-fill-110000-elderly-care-jobs-by-2028'],
+    'sg-tourism-2025': ['TTG Asia, Singapore visitor arrivals and tourism receipts (February 2026)', 'https://www.ttgasia.com/2026/02/03/visitor-arrivals-to-singapore-increase-as-tourism-receipts-grow/'],
+    'my-visitors-2025': ['The Star, Malaysia records 42.2 million visitors in 2025 (January 2026)', 'https://www.thestar.com.my/news/nation/2026/01/26/malaysia-records-422-million-visitors-in-2025-strengthens-collaboration-for-vm2026'],
+    'uk-hosp-2026': ['Vinetur, UKHospitality analysis of ONS data (October 2026)', 'https://www.vinetur.com/en/amp/20261008108596/britains-hospitality-industry-urges-national-insurance-cut-after-losing-100000-jobs-in-two-years.html']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -122,6 +125,7 @@
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
       education: ['steady', 'Diploma holders do a compulsory contract teaching stint first; MOE then fully funds the 2-year Diploma in Education at NIE. Fresh diploma holders typically start at $3,110 (MOE, 2026).', ['moe-diped']],
       care: ['grow', 'Citizens aged 65 and over rose from 13.1% in 2015 to 20.7% in 2025, and are projected to reach 23.9% by 2030. The government aims to grow the national healthcare workforce by 20% by 2030.', ['sg-65plus-2025', 'sg-hc-workforce-2025']],
+      hospitality: ['grow', 'Visitors rose 2.3% to 16.9 million in 2025, and tourism receipts reached S$23.9 billion in January to September, up 6.5%. The Tourism Board forecasts 17 to 18 million visitors in 2026.', ['sg-tourism-2025']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
