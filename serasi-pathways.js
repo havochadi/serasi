@@ -96,7 +96,8 @@
     'mext-teach-2025': ['MEXT, public school teacher recruitment exams for April 2025 hiring (Board of Education Monthly Report, February 2026)', 'https://www.mext.go.jp/content/20260209-mxt_syoto01-000047272_07.pdf'],
     'kr-teach-2030': ['The Herald Business, Korea teacher supply plan 2027-2030 (June 2026)', 'https://mbiz.heraldcorp.com/article/10787643'],
     'cn-preschool-2025': ['Yicai, China’s kindergarten teachers fall by over 219,000 in 2025 (August 2026)', 'https://www.yicaiglobal.com/news/chinas-number-of-kindergarten-teachers-drops-by-over-219000-in-2025'],
-    'dfe-itt-2025': ['Department for Education, Initial Teacher Training Census 2025/26', 'https://explore-education-statistics.service.gov.uk/find-statistics/initial-teacher-training-census/2025-26']
+    'dfe-itt-2025': ['Department for Education, Initial Teacher Training Census 2025/26', 'https://explore-education-statistics.service.gov.uk/find-statistics/initial-teacher-training-census/2025-26'],
+    'moe-teach-award': ['MOE, teaching scholarship and award details (bond lengths)', 'https://www.moe.gov.sg/careers/teaching-scholarships-sponsorships/moe-teaching-scholarships-full-term/scholarship-and-award-details']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -133,10 +134,10 @@
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
-      education: ['grow', 'In July 2025 the Education Minister said MOE will hire more than 1,000 new teachers a year, up from about 700. Diploma holders do a compulsory contract teaching stint first; MOE then fully funds the 2-year Diploma in Education at NIE. Fresh diploma holders typically start at $3,110 (MOE, 2026).', ['nie-hire-2025', 'moe-diped']],
+      education: ['grow', 'In July 2025 the Education Minister said MOE will hire more than 1,000 new educators a year, up from about 700. Fresh diploma holders in teaching typically start at $3,110 (MOE, 2026).', ['nie-hire-2025', 'moe-diped']],
       care: ['grow', 'Citizens aged 65 and over rose from 13.1% in 2015 to 20.7% in 2025, and are projected to reach 23.9% by 2030. The government aims to grow the national healthcare workforce by 20% by 2030.', ['sg-65plus-2025', 'sg-hc-workforce-2025']],
       hospitality: ['grow', 'Visitors rose 2.3% to 16.9 million in 2025, and tourism receipts reached S$23.9 billion in January to September, up 6.5%. The Tourism Board forecasts 17 to 18 million visitors in 2026.', ['sg-tourism-2025']],
-      creative: ['decline', 'Only 50.0% of 2025 university graduates in arts, design and media who were looking for work had a full-time permanent job six months after finishing, down from 66.7% in 2023 and the lowest of the eight course groups. Their median pay was $3,840.', ['moe-ges25']],
+      creative: ['decline', 'A fresh-graduate measure: only 50.0% of 2025 university arts, design and media graduates in the labour force had a full-time permanent job six months after finishing (66.7% in 2023, the lowest of eight course groups). 77.5% were working in some form; freelance and part-time work do not count as full-time permanent. Median pay was $3,840.', ['moe-ges25']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
@@ -319,7 +320,7 @@
     'ah-spon': { t: 'Allied health sponsorships (MOH Holdings)', d: 'Sponsor local diplomas and degrees such as physiotherapy, occupational therapy, radiography, pharmacy and dietetics, in return for a bond.', c: 'ahspon', src: [] },
     ncss: { t: 'NCSS Social Service Scholarship', d: 'Full tuition plus allowances for social work, occupational therapy, physiotherapy and speech therapy degrees. Bond: 4 years for local study, 6 for overseas.', c: 'ncss', src: [] },
     ecda: { t: 'ECDA Training Award', d: 'Pays full course fees plus a monthly allowance ($800 at polytechnic, $500 at ITE) for early childhood courses. You then work one year in the sector for each year of support.', c: 'ecda', src: [] },
-    'moe-teach': { t: 'MOE-funded teacher training', d: 'Diploma holders first do a compulsory contract teaching stint. If it goes well, MOE fully funds your training at NIE, and you then serve a 3-year bond in a primary school. Fresh diploma holders typically start at $3,110. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond.', c: 'moeTeach', src: ['moe-diped'] },
+    'moe-teach': { t: 'MOE-funded teacher training', d: 'Diploma holders first do a compulsory contract teaching stint. If it goes well, MOE fully funds your training at NIE, and you then serve a 3-year bond in a primary school. Fresh diploma holders typically start at $3,110. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond for local study.', c: 'moeTeach', src: ['moe-diped', 'moe-teach-award'] },
     'paid-train': { t: 'Paid from day one', d: 'Home Team and SAF recruits draw a salary during training and pay no course fees. Ask about sponsored study for a diploma or degree later.', c: 'careersgov', src: [] },
     sfc: { t: 'SkillsFuture Credit', d: 'Singaporeans aged 25 and above get $500 of SkillsFuture Credit for approved courses.', c: 'ssg', src: [] },
     pt: { t: 'Part-time study', d: 'Part-time Higher Nitec modules at ITE cost about $71 each for Singapore Citizens after SkillsFuture funding. Polytechnics and SUSS run subsidised part-time diplomas and degrees.', c: 'ssg', src: [] }

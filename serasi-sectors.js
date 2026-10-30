@@ -45,18 +45,18 @@
     hospitality: ['grow', 'Visitors rose 11.2% to 42.2 million in 2025, which is 20.4% above 2019. 2026 is the Visit Malaysia year, with a national campaign to bring in even more.', ['my-visitors-2025']],
   });
   note(826, 'United Kingdom', [-1.5, 52.5], {
-    hospitality: ['decline', 'UKHospitality says its analysis of official ONS figures shows the sector lost about 100,000 jobs in the two years to October 2026, 45% of all UK job losses. The sector gives 31% of first jobs to 16 to 24 year olds.', ['uk-hosp-2026']],
+    hospitality: ['decline', 'UKHospitality says its analysis of official ONS figures shows the sector lost about 100,000 jobs over “the past two years” (reported October 2026), 45% of all UK job losses. The sector gives 31% of first jobs to 16 to 24 year olds.', ['uk-hosp-2026']],
   });
 
   // creative
   note(826, 'United Kingdom', [-1.5, 52.5], {
-    creative: ['steady', 'Creative industries’ output grew 4.6% in 2024, against 1.0% for the whole UK economy. But games jobs are falling: game development employment dropped 4.5% from May 2024 to September 2025, and 22% of surveyed games workers were out of work at least once in 2023 to 2025.', ['dcms-gva-2024', 'ukie-census-2026']],
+    creative: ['steady', 'Creative industries’ output grew 4.6% in 2024, against 1.0% for the whole UK economy. But games jobs are falling: the games trade body TIGA found game development employment dropped 4.5% from May 2024 to September 2025, and a UKIE survey found 22% of games workers were out of work at least once in 2023 to 2025.', ['dcms-gva-2024', 'ukie-census-2026']],
   });
   note(840, 'United States of America', [-98, 39], {
     creative: ['decline', 'Film and TV shoot days in the Los Angeles area fell 16.1% in 2025, to 19,694. California’s expanded tax credit backed about 13% of shoot days in late 2025.', ['filmla-2025']],
   });
   note(156, 'China', [104, 35], {
-    creative: ['grow', 'China’s game industry sales hit a record 350.79 billion yuan in 2025, up 7.68%, with 683 million players. Chinese games sold US$20.46 billion overseas, up 10.23%.', ['cn-games-2025']],
+    creative: ['grow', 'China’s game industry sales (not job numbers) hit a record 350.79 billion yuan in 2025, up 7.68%, with 683 million players. Chinese games sold US$20.46 billion overseas, up 10.23%.', ['cn-games-2025']],
   });
 
   // education
@@ -70,6 +70,6 @@
     education: ['decline', 'Full-time kindergarten teachers fell from 2.83 million in 2024 to 2.61 million in 2025, down about 219,000, as fewer children enrol. Some universities have stopped recruiting for preschool education majors.', ['cn-preschool-2025']],
   });
   note(826, 'United Kingdom', [-1.5, 52.5], {
-    education: ['steady', 'In England in 2025/26, teacher training reached 89% of its secondary target, up from 61% in 2024/25, and 128% of its primary target (7,650).', ['dfe-itt-2025']],
+    education: ['steady', 'In England in 2025/26, postgraduate teacher training recruited 89% of its secondary target and 128% of its primary target (7,650).', ['dfe-itt-2025']],
   });
 })();
