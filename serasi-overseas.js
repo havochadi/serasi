@@ -42,7 +42,9 @@
     'ual-interior': ['UAL, BA (Hons) Interior Design (Chelsea): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/architecture-spatial-and-interior-design/undergraduate/ba-hons-interior-design-chelsea'],
     'rmit-interior': ['RMIT, Bachelor of Interior Design (Honours): 2027 fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/honours-degrees/bachelor-of-interior-design-honours-bh115'],
     'polyu-fees': ['PolyU, undergraduate fees and estimated costs for non-local students', 'https://www.polyu.edu.hk/study/ug/fees-and-scholarships/fees'],
-    'polyu-design': ['PolyU, BA (Hons) Scheme in Design (4-year): specialisms', 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en']
+    'polyu-design': ['PolyU, BA (Hons) Scheme in Design (4-year): specialisms', 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en'],
+    'ual-graphic': ['UAL, BA (Hons) Graphic Communication Design (Central Saint Martins): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/communication-and-graphic-design/undergraduate/ba-hons-graphic-communication-design-csm'],
+    'rmit-graphic': ['RMIT, Bachelor of Graphic Design: 2027 fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-graphic-design-bp115']
   });
 
   /* Official guides and regulators named by the options' links. */
@@ -203,6 +205,45 @@
           tuition: [240000, 240000], cur: 'HKD', living: 90272,
           standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
           why: 'A four-year design degree close to home. Interior Design is one of nine specialisms.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
+          url: 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en',
+          src: ['qs-art26', 'polyu-fees', 'polyu-design'], links: ['hkimmd']
+        }
+      ]
+    },
+
+    // QS 2026 Art & Design (QS has no separate table for graphic or UX design); same ranks and the same choices as interior design above.
+    // UAL's Graphic Communication Design is the Central Saint Martins degree; its page covers computation and digital media but does not name UX.
+    // RMIT's Bachelor of Graphic Design has an Experience Design major (interaction and service design). PolyU's Design scheme has Advertising,
+    // Information and Interaction Design specialisms.
+    'graphic-ux': {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (Central Saint Martins)', course: 'BA (Hons) Graphic Communication Design', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for graphic or UX design',
+        why: 'A three-year degree at the second-ranked art and design university in the world. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at Central Saint Martins in London. The course covers typography, print production and computation, and UAL’s page does not name UX.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/communication-and-graphic-design/undergraduate/ba-hons-graphic-communication-design-csm',
+        src: ['qs-art26', 'ual-graphic', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Graphic Design', yrs: 3,
+          tuition: [48000, 48000], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for graphic or UX design',
+          why: 'A three-year degree in Melbourne, taught in English, with an Experience Design major that covers interaction design and service design.',
+          env: 'Based at RMIT’s city campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-graphic-design-bp115',
+          src: ['qs-art26', 'rmit-graphic', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Design, with the Advertising, Information or Interaction Design specialism', yrs: 4,
+          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for graphic or UX design',
+          why: 'A four-year design degree close to home, with interaction and information design among its nine specialisms.',
           env: 'The programme page does not say what language the teaching is in, so check before you apply.',
           watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
           url: 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en',
