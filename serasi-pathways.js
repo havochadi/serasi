@@ -92,6 +92,13 @@
     'rotterdam-2025': ['Container News, Rotterdam port throughput 2025, February 2026', 'https://container-news.com/rotterdam-port-throughput-falls-1-7-in-2025/'],
     'rotterdam-h1-2025': ['Dry Cargo Magazine, Port of Rotterdam first half 2025', 'https://www.drycargomag.com/throughput-in-the-port-of-rotterdam-declines-in-h1'],
     'dpworld-h1-2026': ['Semafor, Hormuz closure dents DP World earnings, August 2026', 'https://semafor.com/article/08/13/2026/hormuz-closure-dents-dp-world-earnings'],
+    'edb-semi-talent-2025': ['EDB, how Singapore develops semiconductor talent, February 2025', 'https://www.edb.gov.sg/en/news-and-insights/how-is-singapore-developing-semiconductor-talent-to-meet-industry-needs'],
+    'edb-semi-jobs-2026': ['EDB, semiconductor manufacturing jobs for young graduates, February 2026', 'https://www.edb.gov.sg/news-and-insights/insights/jobs-in-singapore-why-semiconductor-manufacturing-offers-good-opportunities-for-young-graduates-today'],
+    'bls-software-2025': ['US Bureau of Labor Statistics, software developers, projections 2025–35', 'https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm'],
+    'stanford-canaries-2025': ['Stanford Digital Economy Lab, “Canaries in the Coal Mine?”, August 2025', 'https://digitaleconomy.stanford.edu/wp-content/uploads/2025/08/Canaries_BrynjolfssonChandarChen.pdf'],
+    'register-canaries-2025': ['The Register on the Stanford study, August 2025', 'https://www.theregister.com/2025/08/26/ai_hurts_recent_college_grads_jobs/'],
+    'dsit-entry-2026': ['UK Department for Science, Innovation and Technology, entry-level hiring snapshot, June 2026', 'https://www.gov.uk/government/publications/entry-level-hiring-in-the-uk-a-snapshot'],
+    'chinadaily-grad-ai-2026': ['China Daily, AI roles in graduate hiring, July 2026', 'https://www.chinadaily.com.cn/a/202607/03/WS6a479ddda310986e2b46370d.html'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -129,6 +136,7 @@
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
       education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
+      semis: ['grow', 'Semiconductors employ over 35,000 people and make up nearly 6% of Singapore’s GDP (EDB, 2025). UMC’s new wafer plant, unveiled in 2025, will add 700 jobs, and semiconductor engineers joined the Shortage Occupation List in November 2024.', ['edb-semi-talent-2025', 'edb-semi-jobs-2026']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {

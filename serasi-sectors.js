@@ -56,6 +56,19 @@
     logistics: ['decline', 'Dubai’s Jebel Ali port handled 374,000 containers in the second quarter of 2026, down from 2.7 million in the first, after the Strait of Hormuz closed. DP World’s first-half profit fell 39%.', ['dpworld-h1-2026']],
   });
 
+  // Semiconductors (Singapore, Taiwan, Japan, India, Vietnam, Malaysia, Germany and the US are already noted in serasi-pathways.js).
+
+  // Tech, AI and data (Singapore, China, South Korea, India, Malaysia, the UK and the US already have start-up hub or tech-centre notes).
+  note(840, 'United States of America', [-98, 39], {
+    tech: ['steady', 'Software developer jobs are projected to grow 10% from 2025 to 2035. But a Stanford study of payroll data found that employment of 22–25-year-olds in the most AI-exposed jobs, such as software development, fell 13% compared with other jobs by July 2025.', ['bls-software-2025', 'stanford-canaries-2025', 'register-canaries-2025']],
+  });
+  note(826, 'United Kingdom', [-2, 54], {
+    tech: ['decline', 'A June 2026 government snapshot found entry-level hiring falling in 30 of 38 jobs tracked, with software engineer among the fastest at 27% down. UK hiring overall was down 14% year on year in April 2026. London is still a top-3 start-up hub.', ['dsit-entry-2026', 'gser25']],
+  });
+  note(156, 'China', [104, 35], {
+    tech: ['grow', 'AI’s share of newly posted graduate jobs rose from 26.41% in 2025 to 37.56% in 2026. AI job postings in January–February 2026 were about twelve times those of a year earlier.', ['chinadaily-grad-ai-2026', 'cntech-ai']],
+  });
+
   // ---- Task 13: finance, Islamic finance, health, biotech ----
 
   // ---- Task 14: care, hospitality, creative, education ----
