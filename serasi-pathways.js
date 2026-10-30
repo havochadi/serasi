@@ -51,7 +51,7 @@
     'kr-content': ['Korea JoongAng Daily, 2026', 'https://www.koreajoongangdaily.com/business/koreas-content-industry-exports-hit-record-high-149-billion-in-2025-buoyed-by-govt-support-initiatives/12605188'],
     'kr-tourism': ['Korea Herald, 2026', 'https://www.koreaherald.com/article/10762264'],
     'kr-ship': ['Splash247', 'https://splash247.com/south-korean-shipbuilders-hit-by-welder-crisis-as-over-1000-vietnamese-workers-denied-entry/'],
-    'unesco-teach': ['UN News, UNESCO Global Report on Teachers', 'https://news.un.org/en/node/1147067'],
+    'unesco-teach': ['UN News, UNESCO Global Report on Teachers (February 2024)', 'https://news.un.org/en/story/2024/02/1147067'],
     bca26: ['BCA, January 2026', 'https://www1.bca.gov.sg/resources/newsroom/speech-by-minister-chee-hong-tat-at-bca-redas-built-environment-and-real-estate--prospects-seminar-2026/'],
     ges25: ['Graduate Employment Survey 2025 (Human Resources Online)', 'https://www.humanresourcesonline.net/median-starting-salaries-of-fresh-graduates-from-nus-ntu-smu-sit-suss-sutd-in-2025'],
     ges25p: ['Polytechnic Graduate Employment Survey 2025 (VnExpress)', 'https://e.vnexpress.net/news/news/education/singapore-polytechnic-graduates-earn-more-in-2025-even-as-job-market-tightens-5006517.html'],
@@ -91,7 +91,12 @@
     'dcms-gva-2024': ['GOV.UK, DCMS Economic Estimates: GVA 2024 provisional (February 2026)', 'https://www.gov.uk/government/statistics/dcms-economic-estimates-gva-2024-provisional'],
     'ukie-census-2026': ['Game World Observer, UKIE survey of UK games workers (July 2026)', 'https://gameworldobserver.com/2026/07/20/nearly-a-quarter-of-surveyed-british-developers-have-lost-their-jobs-in-the-past-three-years'],
     'filmla-2025': ['FilmLA, Los Angeles shoot days in 2025 (January 2026)', 'https://filmla.com/rising-california-film-tv-tax-credit-productions-signal-growing-industry-momentum-amid-2025-production-losses/'],
-    'cn-games-2025': ['China Daily, China Game Industry Annual Report (December 2025)', 'https://www.chinadaily.com.cn/a/202512/19/WS69454c69a310d6866eb2f917.html']
+    'cn-games-2025': ['China Daily, China Game Industry Annual Report (December 2025)', 'https://www.chinadaily.com.cn/a/202512/19/WS69454c69a310d6866eb2f917.html'],
+    'nie-hire-2025': ['NIE news, Singapore to hire more than 1,000 new educators a year (July 2025)', 'https://www.ntu.edu.sg/nie/news-events/news/detail/singapore-to-hire-more-than-1-000-new-educators-annually-in-the-next-few-years--up-from-700'],
+    'mext-teach-2025': ['MEXT, public school teacher recruitment exams for April 2025 hiring (Board of Education Monthly Report, February 2026)', 'https://www.mext.go.jp/content/20260209-mxt_syoto01-000047272_07.pdf'],
+    'kr-teach-2030': ['The Herald Business, Korea teacher supply plan 2027-2030 (June 2026)', 'https://mbiz.heraldcorp.com/article/10787643'],
+    'cn-preschool-2025': ['Yicai, China’s kindergarten teachers fall by over 219,000 in 2025 (August 2026)', 'https://www.yicaiglobal.com/news/chinas-number-of-kindergarten-teachers-drops-by-over-219000-in-2025'],
+    'dfe-itt-2025': ['Department for Education, Initial Teacher Training Census 2025/26', 'https://explore-education-statistics.service.gov.uk/find-statistics/initial-teacher-training-census/2025-26']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -128,7 +133,7 @@
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
-      education: ['steady', 'Diploma holders do a compulsory contract teaching stint first; MOE then fully funds the 2-year Diploma in Education at NIE. Fresh diploma holders typically start at $3,110 (MOE, 2026).', ['moe-diped']],
+      education: ['grow', 'In July 2025 the Education Minister said MOE will hire more than 1,000 new teachers a year, up from about 700. Diploma holders do a compulsory contract teaching stint first; MOE then fully funds the 2-year Diploma in Education at NIE. Fresh diploma holders typically start at $3,110 (MOE, 2026).', ['nie-hire-2025', 'moe-diped']],
       care: ['grow', 'Citizens aged 65 and over rose from 13.1% in 2015 to 20.7% in 2025, and are projected to reach 23.9% by 2030. The government aims to grow the national healthcare workforce by 20% by 2030.', ['sg-65plus-2025', 'sg-hc-workforce-2025']],
       hospitality: ['grow', 'Visitors rose 2.3% to 16.9 million in 2025, and tourism receipts reached S$23.9 billion in January to September, up 6.5%. The Tourism Board forecasts 17 to 18 million visitors in 2026.', ['sg-tourism-2025']],
       creative: ['decline', 'Only 50.0% of 2025 university graduates in arts, design and media who were looking for work had a full-time permanent job six months after finishing, down from 66.7% in 2023 and the lowest of the eight course groups. Their median pay was $3,840.', ['moe-ges25']],

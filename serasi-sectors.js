@@ -58,4 +58,18 @@
   note(156, 'China', [104, 35], {
     creative: ['grow', 'China’s game industry sales hit a record 350.79 billion yuan in 2025, up 7.68%, with 683 million players. Chinese games sold US$20.46 billion overseas, up 10.23%.', ['cn-games-2025']],
   });
+
+  // education
+  note(392, 'Japan', [138, 36], {
+    education: ['grow', 'Public schools hired 37,375 teachers for April 2025, with only 2.9 applicants per job (2.0 for primary schools). Primary schools hired 17,078, the most since 1983, as many older teachers retire.', ['mext-teach-2025']],
+  });
+  note(410, 'South Korea', [127.8, 36.5], {
+    education: ['steady', 'Primary pupils are forecast to fall from about 2.30 million in 2025 to 1.60 million in 2030, and the plan is for only 2,700 to 2,900 new primary teachers a year. Secondary hiring is planned to rise to 4,700 to 5,100 a year.', ['kr-teach-2030']],
+  });
+  note(156, 'China', [104, 35], {
+    education: ['decline', 'Full-time kindergarten teachers fell from 2.83 million in 2024 to 2.61 million in 2025, down about 219,000, as fewer children enrol. Some universities have stopped recruiting for preschool education majors.', ['cn-preschool-2025']],
+  });
+  note(826, 'United Kingdom', [-1.5, 52.5], {
+    education: ['steady', 'In England in 2025/26, teacher training reached 89% of its secondary target, up from 61% in 2024/25, and 128% of its primary target (7,650).', ['dfe-itt-2025']],
+  });
 })();
