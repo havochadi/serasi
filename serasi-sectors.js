@@ -23,6 +23,17 @@
 
   // ---- Task 11: construction, energy, manufacturing, auto ----
 
+  // energy
+  note(356, 'India', [78, 22], {
+    energy: ['grow', 'Renewable energy jobs rose from about 1 million to 1.3 million in 2024. A 2026 study counted over 650,000 clean energy workers added in three years to March 2026, mostly in rooftop solar, and estimates about 4.4 million jobs by 2030.', ['irena-countries-2025', 'ceew-jobs-2026']],
+  });
+  note(276, 'Germany', [10.4, 51.2], {
+    energy: ['grow', 'Renewable energy jobs hit a record 436,000 in 2025, 4% above the 2023 peak; wind alone has 172,000. Solar jobs are falling as panels are made abroad, and the study warns that cutting solar support could cost jobs.', ['cew-jobs-2026']],
+  });
+  note(36, 'Australia', [134, -25], {
+    energy: ['grow', 'Australia expects to be 42,000 qualified energy tradespeople short by 2030, and training is about 22,000 apprentices behind. More than 300,000 people already work in energy trades, up 20% since 2010.', ['pso-plan-2025']],
+  });
+
   // ---- Task 12: semiconductors, tech, aerospace, logistics ----
 
   // ---- Task 13: finance, Islamic finance, health, biotech ----

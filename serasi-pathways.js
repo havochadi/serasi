@@ -76,7 +76,14 @@
     'my-fees': ['Universiti Teknologi PETRONAS, international fees', 'https://utp.edu.my/Pages/Admission/Undergraduate/International/Tuition-fees.aspx'],
     'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/'],
     'fx-ecb': ['European Central Bank, euro foreign exchange reference rates, 28 October 2026', 'https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html'],
-    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com']
+    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com'],
+    // Task 11: construction, energy, manufacturing, auto
+    'irena-countries-2025': ['Bioenergy International, IRENA and ILO jobs review by country (2024 figures), January 2026', 'https://bioenergyinternational.com/jobs-in-renewables-sees-slump-despite-global-deployment-growth-irena/'],
+    'pv-jobs-2024': ['pv magazine, IRENA solar jobs in 2024, January 2026', 'https://www.pv-magazine.com/2026/01/14/solar-accounted-for-7-24-million-jobs-in-2024/'],
+    'ema-manpower-2025': ['Energy Market Authority, Energy Sector Manpower Survey 2024 (October 2025)', 'https://ema.gov.sg/news-events/news/media-releases/2025/sg-energy-workforce-poised-to-grow-over-the-next-decade'],
+    'ceew-jobs-2026': ['Construction World, CEEW and NRDC clean energy jobs study, June 2026', 'https://www.constructionworld.in/amp/energy-infrastructure/power-and-renewable-energy/india-clean-energy-push-could-create-four-point-four-million-jobs-by-2030/92991'],
+    'cew-jobs-2026': ['Clean Energy Wire, Bertelsmann Foundation renewable jobs report, June 2026', 'https://www.cleanenergywire.org/news/government-policies-put-record-renewable-energy-jobs-risk-germany-report'],
+    'pso-plan-2025': ['ESD News, Powering Skills Organisation 2025 Workforce Plan, August 2025', 'https://esdnews.com.au/net-zero-journey-could-stall-without-skilled-energy-trades/']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -107,6 +114,7 @@
   const WORLD = [
     { id: 'sg', place: 'Singapore', country: 'Singapore', iso: 702, ll: [103.82, 1.35], ind: {
       construction: ['grow', 'Construction demand is forecast at S$47–53 billion for 2026, led by Changi Terminal 5, Tuas Port and new hospitals.', ['bca26']],
+      energy: ['grow', 'Clean energy employers are expected to add about 1,000 workers (up 60%) over the next ten years, mainly in solar, energy storage and low-carbon electricity imports, says the 2024 energy manpower survey.', ['ema-manpower-2025']],
       finance: ['grow', '4th in the Global Financial Centres Index, within a point of New York.', ['gfci38']],
       tech: ['grow', '9th in the 2025 start-up hub ranking. IT graduates had the highest median starting pay in 2025, at S$5,500.', ['gser25', 'ges25']],
       aero: ['grow', 'A major aircraft repair hub in Asia, the region that needs 44% of the world’s new aircraft technicians.', ['mro-tech']],
@@ -118,7 +126,7 @@
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
       construction: ['decline', 'Property investment fell 10.6% in 2024 and 11.2% in the first half of 2025. Construction’s share of migrant workers fell to its lowest since 2008.', ['caixin-cn', 'scmp-prop']],
-      energy: ['grow', 'Holds the largest share of the world’s renewable energy jobs.', ['irena25']],
+      energy: ['steady', 'About 7.3 million renewable energy jobs in 2024, 44% of the world’s total. But solar jobs fell about 8%, from 4.59 million to just over 4.2 million, as factories needed fewer workers per panel.', ['irena-countries-2025', 'pv-jobs-2024']],
       auto: ['grow', 'Chinese electric-vehicle makers are winning market share; German car makers name them as a reason for job cuts.', ['de-auto']]
     } },
     { id: 'shenzhen', place: 'Shenzhen', country: 'China', iso: 156, ll: [114.06, 22.54], ind: {
