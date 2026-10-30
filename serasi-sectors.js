@@ -34,6 +34,11 @@
     energy: ['grow', 'Australia expects to be 42,000 qualified energy tradespeople short by 2030, and training is about 22,000 apprentices behind. More than 300,000 people already work in energy trades, up 20% since 2010.', ['pso-plan-2025']],
   });
 
+  // manufacturing
+  note(840, 'United States of America', [-98, 39], {
+    manufacturing: ['steady', 'Factory jobs hit a recent low in December 2025, then regained 72,000 by September 2026, when about 12.65 million Americans worked in manufacturing.', ['bls-empsit-sep26']],
+  });
+
   // ---- Task 12: semiconductors, tech, aerospace, logistics ----
 
   // ---- Task 13: finance, Islamic finance, health, biotech ----

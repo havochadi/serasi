@@ -83,7 +83,10 @@
     'ema-manpower-2025': ['Energy Market Authority, Energy Sector Manpower Survey 2024 (October 2025)', 'https://ema.gov.sg/news-events/news/media-releases/2025/sg-energy-workforce-poised-to-grow-over-the-next-decade'],
     'ceew-jobs-2026': ['Construction World, CEEW and NRDC clean energy jobs study, June 2026', 'https://www.constructionworld.in/amp/energy-infrastructure/power-and-renewable-energy/india-clean-energy-push-could-create-four-point-four-million-jobs-by-2030/92991'],
     'cew-jobs-2026': ['Clean Energy Wire, Bertelsmann Foundation renewable jobs report, June 2026', 'https://www.cleanenergywire.org/news/government-policies-put-record-renewable-energy-jobs-risk-germany-report'],
-    'pso-plan-2025': ['ESD News, Powering Skills Organisation 2025 Workforce Plan, August 2025', 'https://esdnews.com.au/net-zero-journey-could-stall-without-skilled-energy-trades/']
+    'pso-plan-2025': ['ESD News, Powering Skills Organisation 2025 Workforce Plan, August 2025', 'https://esdnews.com.au/net-zero-journey-could-stall-without-skilled-energy-trades/'],
+    'edb-yir-2025': ['EDB, Singapore to create 15,700 jobs over five years (February 2026)', 'https://www.edb.gov.sg/en/news-and-insights/singapore-to-create-15700-jobs-over-five-years-with-two-thirds-paying-above-s5000-edb'],
+    'bls-empsit-sep26': ['US Bureau of Labor Statistics, Employment Situation, September 2026', 'https://www.bls.gov/news.release/archives/empsit_10022026.htm'],
+    'ba-manufacturing-2026': ['German Federal Employment Agency, press release 26/2026 (15 July 2026)', 'https://www.arbeitsagentur.de/en/press/2026-26-employment-in-the-manufacturing-sector-fell-by-177000']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -114,6 +117,7 @@
   const WORLD = [
     { id: 'sg', place: 'Singapore', country: 'Singapore', iso: 702, ll: [103.82, 1.35], ind: {
       construction: ['grow', 'Construction demand is forecast at S$47–53 billion for 2026, led by Changi Terminal 5, Tuas Port and new hospitals.', ['bca26']],
+      manufacturing: ['steady', 'Investment won in 2025 will create 15,700 jobs over five years, 37% of them in manufacturing. That is 16% fewer jobs than the year before and the lowest in a decade, as factories automate.', ['edb-yir-2025']],
       energy: ['grow', 'Clean energy employers are expected to add about 1,000 workers (up 60%) over the next ten years, mainly in solar, energy storage and low-carbon electricity imports, says the 2024 energy manpower survey.', ['ema-manpower-2025']],
       finance: ['grow', '4th in the Global Financial Centres Index, within a point of New York.', ['gfci38']],
       tech: ['grow', '9th in the 2025 start-up hub ranking. IT graduates had the highest median starting pay in 2025, at S$5,500.', ['gser25', 'ges25']],
@@ -231,7 +235,7 @@
     } },
     { id: 'de', place: 'Germany (nationwide)', country: 'Germany', iso: 276, ll: [10.4, 51.2], scope: 'country', ind: {
       auto: ['decline', 'Car industry jobs fell by 42,300 in a year, to the lowest level since 2005, and Volkswagen plans 50,000 more cuts by 2030.', ['de-auto2', 'de-auto']],
-      manufacturing: ['decline', 'Suppliers such as Bosch and ZF are cutting thousands of jobs.', ['de-auto']]
+      manufacturing: ['decline', 'Manufacturing employment fell by 177,000 in 2025, to 6.5 million. Car and car-parts makers lost 52,000, machinery makers 28,000 and metal products 24,000. Suppliers such as Bosch and ZF are cutting thousands more.', ['ba-manufacturing-2026', 'de-auto']]
     } },
     { id: 'stuttgart', place: 'Stuttgart', country: 'Germany', iso: 276, ll: [9.18, 48.78], ind: {
       auto: ['decline', 'Home of Bosch and Porsche, which are both cutting jobs.', ['de-auto']]
