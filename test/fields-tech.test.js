@@ -75,7 +75,7 @@ test('every ITE course in these fields is charged the ITE Higher Nitec rate, and
 });
 
 test('each tech study field with options has a best pick and no more than two alternatives, one per country', () => {
-  for (const f of STUDY_FIELDS.filter(f => O.OPTIONS[f])) {
+  for (const f of STUDY_FIELDS.filter(f => O.OPTIONS[f] && O.OPTIONS[f].best)) {
     const { best, alts } = O.OPTIONS[f], all = [best].concat(alts);
     assert.ok(alts.length <= 2, f + ': at most two alternatives');
     assert.equal(new Set(all.map(o => o.country)).size, all.length, f + ': one school per country');
@@ -97,7 +97,7 @@ test('computing, data and cybersecurity options make no Singapore recognition cl
   for (const f of ['computing', 'data-ai', 'cybersecurity']) for (const o of [O.OPTIONS[f].best].concat(O.OPTIONS[f].alts)) assert.doesNotMatch(o.watch, /Professional Engineers Board|recognis/i, f + ': ' + o.school);
 });
 test('every option states its living figure as a budget or visa minimum rather than a typical cost', () => {
-  for (const f of STUDY_FIELDS.filter(f => O.OPTIONS[f])) for (const o of [O.OPTIONS[f].best].concat(O.OPTIONS[f].alts)) assert.match(o.watch, /not a typical budget|estimate/, f + ': ' + o.school);
+  for (const f of STUDY_FIELDS.filter(f => O.OPTIONS[f] && O.OPTIONS[f].best)) for (const o of [O.OPTIONS[f].best].concat(O.OPTIONS[f].alts)) assert.match(o.watch, /not a typical budget|estimate/, f + ': ' + o.school);
 });
 test('the best pick is the world number one where its school page gave a fee, and cybersecurity says which QS subject it borrows', () => {
   for (const f of ['computing', 'data-ai', 'civil-eng', 'mechanical-eng', 'electrical-eng']) assert.match(O.OPTIONS[f].best.standing, /Ranked 1st in the world/, f);

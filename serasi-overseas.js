@@ -1023,6 +1023,68 @@
     }
   });
 
+  /* Sources for the agency routes and the plain "not checked yet" notes (Task 10), checked in October 2026. */
+  Object.assign(window.SerasiPathways.SOURCES, {
+    'caas-atc-careers': ['CAAS, Careers in air traffic control (page updated 28 May 2026)', 'https://www.caas.gov.sg/careers/careers-in-air-traffic-control/'],
+    'sia-pilot-careers': ['Singapore Airlines, Pilots: Ab Initio Cadet Pilot (Singapore)', 'https://www.singaporeair.com/en_UK/sg/careers/cadet-pilots-career/'],
+    'spf-join-officer': ['Singapore Police Force, Join Us: Police Officer (page updated 4 September 2025)', 'https://www.police.gov.sg/Join-Us/Police-Officer'],
+    'scdf-join-us': ['SCDF, Why Join Us (page updated 29 July 2026)', 'https://www.scdf.gov.sg/join-us/why-join-us'],
+    'mindef-saf-schemes': ['MINDEF, Explore SAF Career Schemes (page updated 24 June 2026)', 'https://www.mindef.gov.sg/join-us/saf-career-schemes/'],
+    'careersgov-home': ['Careers@Gov, home page (updated 1 September 2026)', 'https://www.careers.gov.sg/'],
+    'nparks-vetcouncil': ['NParks, a Veterinary Council will be established to regulate standards and practices of veterinary professionals (published 11 October 2023)', 'https://www.nparks.gov.sg/news/news-detail/a-veterinary-council-will-be-established-to-regulate-standards-and-practices-of-veterinary-professionals'],
+    'mpa-crewing': ['MPA, Overview of crewing a Singapore ship', 'https://www.mpa.gov.sg/singapore-registry-of-ships/crewing/overview-of-crewing-a-singapore-ship'],
+    'ecda-foreign-quals': ['ECDA, foreign early childhood qualifications (page updated 30 June 2026)', 'https://www.ecda.gov.sg/early-childhood-educators-(ece)/becoming-a-certified-educator/educator-certification/foreign-early-childhood-qualifications']
+  });
+
+  /* Agency routes (Task 10): the route runs through the agency, so there is no overseas option to price. The four notes after the first block
+     are plain "not checked yet" notes for study fields where the earlier tasks could not read enough fee pages to price an overseas course;
+     they carry no figures and send the reader to the body that decides what counts in Singapore. */
+  Object.assign(OPTIONS, {
+    // CAAS's page (updated 28 May 2026): apply through Careers@Gov; 4-month Primary Air Traffic Control course at the Singapore Aviation Academy, then
+    // simulator and on-the-job training over the next 12 to 14 months; a training bond follows the licence (length not stated).
+    atc: {
+      agency: 'Air traffic controllers are trained by CAAS itself: you apply for a trainee place through Careers@Gov, take a 4-month course at the Singapore Aviation Academy, then train on simulators and on the job for 12 to 14 months. Read CAAS’s “Careers in air traffic control” page for the intakes and what selection involves.',
+      src: ['caas-atc-careers']
+    },
+    // SIA's pilots page: ab initio cadets are trained at Singapore Flying College in Singapore and overseas; SIA recruits directly, with no third-party agencies.
+    pilot: {
+      agency: 'Airline pilots in Singapore are mostly recruited and trained by the airline: Singapore Airlines takes on ab initio cadet pilots directly and trains them at the Singapore Flying College, in Singapore and overseas. Read SIA’s pilots page for the entry requirements and the stages of selection.',
+      src: ['sia-pilot-careers']
+    },
+    // The Home Team (Police, SCDF) and the SAF each recruit through their own pages. The SPF page lists Direct-Entry Sergeant (assessed academic qualifications)
+    // and Direct-Entry Inspector (a pass degree); SCDF's page lists its schemes without entry qualifications; MINDEF's lists Officers, Warrant Officers and Military Experts.
+    uniformed: {
+      agency: 'The Police, SCDF and the SAF recruit and train their own people, so there’s no overseas course to take. The Police page lists its Direct-Entry Sergeant and Inspector schemes and what each asks for, and the SCDF and MINDEF pages list their schemes too.',
+      src: ['spf-join-officer', 'scdf-join-us', 'mindef-saf-schemes']
+    },
+    // Careers@Gov says it lists roles "across 16 Ministries and more than 50 statutory boards".
+    public: {
+      agency: 'Public service jobs are advertised on Careers@Gov, which says it covers 16 ministries and more than 50 statutory boards, so there’s no overseas course to take. Read the job ad for the qualification each role asks for.',
+      src: ['careersgov-home']
+    },
+    // Plain notes: overseas options for these study fields have not been checked yet. Each names the body whose decision counts in Singapore.
+    veterinary: {
+      agency: 'We haven’t checked overseas veterinary courses yet. In Singapore the regulator decides what counts: NParks announced in 2023 a Veterinary Council that will register vets and veterinary nurses and technicians and recognise their qualifications, so ask NParks which overseas courses it accepts before you enrol.',
+      src: ['nparks-vetcouncil']
+    },
+    maritime: {
+      agency: 'We haven’t checked overseas maritime courses yet. For sea-going officer jobs the Maritime and Port Authority decides what counts: officers on Singapore ships must hold a certificate of competency from a country Singapore recognises, plus an MPA endorsement. Read MPA’s page on crewing a Singapore ship before you choose a course abroad.',
+      src: ['mpa-crewing']
+    },
+    'allied-health': {
+      agency: 'We haven’t checked overseas allied health courses yet. The Allied Health Professions Council publishes the qualifications it recognises for radiography, occupational therapy, physiotherapy, radiation therapy and speech-language therapy, and sends anyone whose qualification is not on its list to its Qualifying Examinations. Read that list before you choose a course abroad.',
+      src: ['ahpc-list']
+    },
+    earlychild: {
+      agency: 'We haven’t checked overseas early childhood courses yet. ECDA decides whether a foreign qualification counts: it checks it against its approved programmes, and from 1 July 2026 accepts it only if the practicum was assessed in person and on site. Read ECDA’s page on foreign qualifications before you choose a course abroad.',
+      src: ['ecda-foreign-quals']
+    },
+    socialwork: {
+      agency: 'We haven’t checked overseas social work courses yet. The Singapore Association of Social Workers says an overseas qualification must be accredited by a recognised accrediting body in the country and year it was awarded, and its page lists the bodies it recognises. Read it before you choose a course abroad.',
+      src: ['sasw-recog']
+    }
+  });
+
   const SYMBOL = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' };
   const round100 = n => Math.round(n / 100) * 100;
   const num = n => Math.round(n).toLocaleString('en-SG');
@@ -1072,7 +1134,8 @@
     const S = window.SerasiStudy, field = S.fieldOf(role), kind = (S.FIELDS[field] || {}).kind;
     const o = Object.prototype.hasOwnProperty.call(options, field) ? options[field] : null;
     if (!o || kind === 'ite' || !kind) return null;
-    if (kind === 'agency') return typeof o.agency === 'string' ? { field, agency: o.agency, src: o.src || [] } : null;
+    // A study field can carry the same kind of note when its overseas options have not been checked yet.
+    if (kind === 'agency' || typeof o.agency === 'string') return typeof o.agency === 'string' ? { field, agency: o.agency, src: o.src || [] } : null;
     return o.best ? { field, best: o.best, alts: o.alts || [] } : null;
   }
 
