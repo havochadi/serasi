@@ -231,7 +231,7 @@ test('profileHtml works with no data loaded at all (the page has not fetched it)
 
 test('a full profile starts with the flag image and the name', () => {
   const out = prof(1, 'tech');
-  assert.ok(out.includes('<img class="flag" src="' + C.flagUrl('KR') + '" alt="Alpha">'), out);
+  assert.ok(out.includes('<img class="flag" src="' + C.flagUrl('KR') + '" alt="">'), out);
   assert.match(out, /<h2>Alpha<\/h2>/);
   assert.ok(out.indexOf('class="flag"') < out.indexOf('<h2>Alpha'));
 });
@@ -389,7 +389,7 @@ test('profileHtml escapes names and data', () => {
   const out = C.profileHtml(7, 'tech', h, W, bad, { data: DATA });
   assert.doesNotMatch(out, /<script|<i>|<u>|<b>k|<em>/);
   assert.match(out, /A&lt;script&gt;/); assert.match(out, /O&amp;O/); assert.match(out, /&quot;q&quot;/);
-  assert.match(out, /alt="A&lt;script&gt;x&lt;\/script&gt;"/);
+  assert.match(out, /<img class="flag" src="[^"]*" alt="">/);
   assert.ok(out.includes('href="https://x.example/?a=1&amp;b=&quot;2&quot;"'), 'a university link keeps its query but not a raw & or "');
 });
 test('profileHtml escapes a hostile place, note text, industry key, outlook and map country name', () => {

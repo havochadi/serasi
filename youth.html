@@ -2670,6 +2670,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const el = document.getElementById('world-panel');
     if (!el) return;
     const w = state.world, ind = INDUSTRY[w.ind];
+    if (!window.SerasiCountries) { el.innerHTML = '<p class="muted">Country profiles could not load.</p>'; return; }
     if (w.sel === null) {
       const jobs = ROLES.filter(r => r.ind === ind.k).map(r => lowerTitle(r.title));
       el.innerHTML = '<div class="world-list"><div><p class="eyebrow">' + esc(ind.label) + '</p><h2>Countries</h2><p class="small muted" style="margin-top:4px">Choose a country to see its profile.</p></div>' +
@@ -2712,7 +2713,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
   function paintGlobe() {
     if (!globe.svg || !document.getElementById('globe-wrap')) return;
     const w = state.world, k = w.ind;
-    const outlook = d => SerasiCountries.countryOutlook(d.id, k);
+    const outlook = d => window.SerasiCountries ? SerasiCountries.countryOutlook(d.id, k) : null;
     const chosen = d => (Number.isNaN(w.sel) ? d.id == null && d.properties.name === w.selName : w.sel !== null && d.id != null && Number(d.id) === w.sel);
     globe.svg.attr('aria-label', 'Globe of where ' + lowerFirst(INDUSTRY[k].label) + ' is growing, steady or shrinking. The same countries are in the country list.');
     globe.lands.attr('class', d => { const o = outlook(d); return 'g-land' + (o ? ' ' + o : '') + (chosen(d) ? ' sel' : ''); })

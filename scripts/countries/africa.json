@@ -27,7 +27,7 @@
     "langs": ["English", "Akan (Twi)", "Ewe", "Ga"],
     "known": ["Gold and cocoa", "Being the first country in sub-Saharan Africa to win independence from colonial rule, in 1957", "Kente cloth and highlife music", "Football and the national team, the Black Stars"],
     "facts": ["The capital is Accra, on the Atlantic coast.", "Lake Volta, created by the Akosombo Dam, is one of the largest man-made lakes in the world by surface area.", "English is the official language, but most people also speak a local language such as Akan."],
-    "orgs": ["COCOBOD", "GCB Bank", "MTN Ghana", "AngloGold Ashanti", "Tullow Oil"],
+    "orgs": ["COCOBOD", "GCB Bank", "MTN Ghana", "Ghana National Petroleum Corporation (GNPC)", "Volta River Authority"],
     "unis": [
       { "n": "University of Ghana", "url": "https://www.ug.edu.gh/" }
     ]

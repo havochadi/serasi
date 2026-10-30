@@ -235,7 +235,7 @@
     const row = (label, cell) => '<tr><th scope="row">' + label + '</th><td>' + cell + '</td></tr>';
     const unis = unisHtml(rec, edition, esc);
     return '<div class="country-profile">' +
-      '<div class="country-head">' + (flag ? '<img class="flag" src="' + esc(flag) + '" alt="' + esc(name) + '">' : '') +
+      '<div class="country-head">' + (flag ? '<img class="flag" src="' + esc(flag) + '" alt="">' : '') +
         '<div><p class="eyebrow">Country</p><h2>' + esc(name) + '</h2></div></div>' +
       sectorHtml(iso, k, notes, W, h) +
       '<table class="country-figs"><tbody>' +
