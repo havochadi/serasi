@@ -2894,9 +2894,15 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     if (act === 'world-clear') showList(true);
     if (act === 'role-tab') {
       const owner = el.closest('section').id;
+      const headTop = (el.closest('li') || el).getBoundingClientRect().top;   // keep the job where it is on screen while its tab changes
       state.tabs[el.dataset.id] = el.dataset.tab;
       renderLists();
-      const b = document.querySelector('#' + owner + ' [data-action="role-tab"][data-id="' + el.dataset.id + '"][data-tab="' + el.dataset.tab + '"]'); if (b) b.focus();
+      const b = document.querySelector('#' + owner + ' [data-action="role-tab"][data-id="' + el.dataset.id + '"][data-tab="' + el.dataset.tab + '"]');
+      if (b) {
+        const li = b.closest('li');
+        if (li) window.scrollBy(0, li.getBoundingClientRect().top - headTop);
+        b.focus({ preventScroll: true });
+      }
     }
     if (act === 'more') { state.showMore = !state.showMore; renderLists(); const b = document.getElementById('more-btn'); if (b) b.focus(); }
     if (act === 'back') {
