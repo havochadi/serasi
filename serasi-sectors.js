@@ -38,5 +38,13 @@
     finance: ['decline', 'Banks in Switzerland employed 92,002 full-time staff at the end of 2025, down 2.5% in a year. The fall was all at the big banks; other bank types added staff. UBS still expects around 3,000 more cuts in Switzerland, mostly from late 2026 into early 2027.', ['ch-sba-staff26', 'ch-ubs-cuts26']],
   });
 
+  // islamic finance
+  note(586, 'Pakistan', [69.3, 30.4], {
+    islamic: ['grow', 'Islamic banking branches rose from 5,854 to 7,562 in 2025, nearly 42% of all bank branches (31.5% a year earlier). Industry officials say there are too few skilled staff for the growth.', ['pk-ibank-br26']],
+  });
+  note(792, 'Turkey', [35, 39], {
+    islamic: ['grow', 'Interest-free “participation” banks employed 21,869 people in 1,490 branches in early 2025. Their assets rose 45% in the first nine months of 2025, lifting their share of Turkish banking to 8.9%, and the number of banks reached 10 by November 2025.', ['tr-tkbb-q125', 'tr-tkbb-sep25']],
+  });
+
   // ---- Task 14: care, hospitality, creative, education ----
 })();

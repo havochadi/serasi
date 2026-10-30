@@ -84,6 +84,13 @@
     'in-gift-gfci40': ['Business Today, GIFT City in the Global Financial Centres Index 40, September 2026', 'https://www.businesstoday.in/markets/story/gift-city-climbs-nine-places-to-37th-in-global-financial-centres-index-556209-2026-09-17'],
     'ch-sba-staff26': ['Swiss Bankers Association, Banking Barometer 2026: staff at banks in Switzerland', 'https://publications.swissbanking.ch/banking-barometer-2026-en/number-of-staff-at-banks-in-switzerland'],
     'ch-ubs-cuts26': ['Swissinfo (Keystone-SDA), UBS redundancies, 4 February 2026', 'https://www.swissinfo.ch/eng/various/ubs-redundancies-mainly-in-the-second-half-of-the-year/90889822'],
+
+    // Task 13: Islamic finance
+    'lseg-ifdr26': ['LSEG and ICD, Islamic Finance Development Report 2026', 'https://www.lseg.com/en/data-analytics/islamic-finance/islamic-market-intelligence/islamic-finance-development-report-2026'],
+    'intfin-ifdr26': ['International Finance, LSEG–ICD report, 27 October 2026', 'https://internationalfinance.com/islamic-finance/islamic-finance-assets-to-reach-usd-10-5-trillion-by-2030-states-lseg-icd-report/'],
+    'pk-ibank-br26': ['ProPakistani, Islamic banking branch share crosses 40% (State Bank of Pakistan data), 6 March 2026', 'https://propakistani.pk/2026/03/06/islamic-banking-branch-share-crosses-40-in-pakistan/'],
+    'tr-tkbb-q125': ['Participation Banks Association of Türkiye (TKBB), financial performance of participation banks, Q1 2025', 'https://en.tkbb.org.tr/news/turkiye-financial-performance-of-the-participation-banking-sector'],
+    'tr-tkbb-sep25': ['Participation Banks Association of Türkiye (TKBB), participation finance, September 2025 data', 'https://en.tkbb.org.tr/news/new-horizons-in-participation-finance-a-sustainable-and-digital-future'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -99,7 +106,7 @@
     { k: 'care', label: 'Social and aged care', global: 'Ageing societies need many more carers. Japan expects to be short of about 250,000 care workers in 2026.', src: ['jp-care'] },
     { k: 'biotech', label: 'Biotech and life sciences', global: 'Biotech funding has been weak since 2021. Boston, the biggest hub, had its lowest venture funding since 2017 in early 2025.', src: ['boston-bio'] },
     { k: 'finance', label: 'Finance and business services', global: 'New York, London, Hong Kong and Singapore are within one rating point of each other at the top of the Global Financial Centres Index.', src: ['gfci38'] },
-    { k: 'islamic', label: 'Islamic finance', global: 'Islamic finance assets grew 9% to about US$6.5 trillion in 2025. Malaysia, Saudi Arabia, the UAE, Indonesia and Pakistan are the most developed markets.', src: ['lseg-ifdi'] },
+    { k: 'islamic', label: 'Islamic finance', global: 'Islamic finance assets grew 9% to about US$6.5 trillion in 2025. Malaysia, Saudi Arabia, the UAE, Indonesia and Pakistan are the most developed markets.', src: ['lseg-ifdr26', 'intfin-ifdr26'] },
     { k: 'creative', label: 'Media, design and games', global: 'Korean content exports hit a record US$14.9 billion in 2025. Japan’s anime market also set a record, but most studios call it a “profitless boom” with low pay.', src: ['kr-content', 'jp-anime'] },
     { k: 'hospitality', label: 'Tourism, hospitality and retail', global: 'Tourism is booming in Japan and South Korea, where hotels are short of staff. The 2026 Iran war has hit Gulf tourism and flights hard.', src: ['jp-hotel', 'kr-tourism', 'cnbc-uae'] },
     { k: 'logistics', label: 'Logistics and maritime', global: 'Asia’s ports and shipyards are busy. Singapore is adding berths at Tuas, and Korean shipyards have record orders but too few welders.', src: ['bca26', 'kr-ship'] },
