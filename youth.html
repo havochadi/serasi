@@ -2623,7 +2623,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       '<div class="world">' +
         '<div class="card globe-card"><div class="globe-wrap" id="globe-wrap"><div class="loading" id="globe-msg">Loading the globe…</div></div>' +
           '<p class="g-legend"><span><i style="background:var(--g-grow)"></i>Growing</span><span><i style="background:var(--g-steady)"></i>Steady or mixed</span><span><i style="background:var(--g-decline)"></i>Shrinking</span><span><i style="background:var(--land);border:1px solid var(--line)"></i>No notes</span></p>' +
-          '<p class="small muted" style="text-align:center">Drag to turn the globe. Tap a country to see its profile.</p></div>' +
+          '<p class="small muted" id="globe-hint" style="text-align:center">Drag to turn the globe. Tap a country to see its profile.</p></div>' +
         '<div class="world-side"><div class="card world-panel" id="world-panel" tabindex="-1" aria-live="polite"></div></div>' +
       '</div>' +
       '<p class="small muted">The map shows only places with checked notes. A country without colour may still have jobs in this industry. Working abroad usually needs a work visa, and the 2026 Iran war has disrupted the Gulf, so check current news and travel advice.</p>';
@@ -2652,7 +2652,11 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
 
   function drawGlobe() {
     loadGeo().then(feats => { globe.feats = feats; if (document.getElementById('globe-wrap')) buildGlobe(); },
-      () => { const m = document.getElementById('globe-msg'); if (m) m.textContent = 'The globe couldn’t load. It needs an internet connection. The country list still works.'; });
+      () => {
+        const m = document.getElementById('globe-msg'), hint = document.getElementById('globe-hint');
+        if (m) m.textContent = 'The globe couldn’t load. It needs an internet connection. The country list still works.';
+        if (hint) hint.hidden = true;
+      });
   }
 
   function buildGlobe() {
@@ -2679,7 +2683,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const w = state.world, k = w.ind;
     const outlook = d => SerasiCountries.countryOutlook(d.id, k);
     const chosen = d => (Number.isNaN(w.sel) ? d.id == null && d.properties.name === w.selName : w.sel !== null && d.id != null && Number(d.id) === w.sel);
-    globe.svg.attr('aria-label', 'Globe of where ' + lowerFirst(INDUSTRY[k].label) + ' is growing, steady or shrinking. The same countries are listed beside the map.');
+    globe.svg.attr('aria-label', 'Globe of where ' + lowerFirst(INDUSTRY[k].label) + ' is growing, steady or shrinking. The same countries are in the country list.');
     globe.lands.attr('class', d => { const o = outlook(d); return 'g-land' + (o ? ' ' + o : '') + (chosen(d) ? ' sel' : ''); })
       .select('title').text(d => { const o = outlook(d); return d.properties.name + (o ? ': ' + OUTLOOK[o] : ''); });
     const pts = WORLD.filter(h => h.scope !== 'country');
