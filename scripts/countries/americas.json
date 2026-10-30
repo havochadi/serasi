@@ -1,0 +1,74 @@
+[
+  {
+    "iso": 32, "name": "Argentina", "a2": "AR",
+    "langs": ["Spanish"],
+    "known": ["Football, and the legacy of Diego Maradona and Lionel Messi", "Tango, beef and Malbec wine", "Patagonia, glaciers and the Andes"],
+    "facts": ["The second-largest country in South America by area, after Brazil.", "Aconcagua, near the Chilean border, is the highest mountain outside Asia at about 6,960 metres.", "The capital, Buenos Aires, is one of the largest cities in South America."],
+    "orgs": ["YPF", "Mercado Libre", "Globant", "Techint", "Aerolíneas Argentinas"],
+    "unis": [
+      { "n": "Universidad de Buenos Aires (UBA)", "rank": 84, "url": "https://www.uba.ar/" },
+      { "n": "Universidad Nacional de La Plata", "url": "https://unlp.edu.ar/" }
+    ]
+  },
+  {
+    "iso": 76, "name": "Brazil", "a2": "BR",
+    "langs": ["Portuguese"],
+    "known": ["Football and Carnival", "The Amazon rainforest", "Exports of soybeans, coffee, iron ore and beef", "Beaches and the city of Rio de Janeiro"],
+    "facts": ["The largest country in South America, and the only one where Portuguese is the main language.", "Most of the Amazon rainforest lies inside Brazil.", "The capital, Brasília, was built from scratch and opened in 1960; the biggest city is São Paulo."],
+    "orgs": ["Petrobras", "Vale", "Embraer", "Itaú Unibanco", "JBS", "Natura"],
+    "unis": [
+      { "n": "University of São Paulo (USP)", "rank": 133, "url": "https://www.usp.br/" },
+      { "n": "State University of Campinas (Unicamp)", "url": "https://www.unicamp.br/unicamp/english" }
+    ]
+  },
+  {
+    "iso": 124, "name": "Canada", "a2": "CA",
+    "langs": ["English", "French"],
+    "known": ["Ice hockey, maple syrup and cold winters", "The Rocky Mountains, Niagara Falls and huge areas of wilderness", "Oil, timber and mining", "A reputation for welcoming immigrants and international students"],
+    "facts": ["The second-largest country in the world by area.", "English and French are both official languages of the federal government; Quebec is mainly French-speaking.", "It has ten provinces and three territories, and most people live in cities in the south, near the border with the United States."],
+    "orgs": ["Shopify", "Royal Bank of Canada", "Bombardier", "Lululemon", "Tim Hortons", "Air Canada"],
+    "unis": [
+      { "n": "McGill University", "rank": 30, "url": "https://www.mcgill.ca/" },
+      { "n": "University of Toronto", "rank": 32, "url": "https://www.utoronto.ca/" },
+      { "n": "University of British Columbia", "rank": 45, "url": "https://www.ubc.ca/" },
+      { "n": "University of Alberta", "rank": 96, "url": "https://www.ualberta.ca/" },
+      { "n": "University of Waterloo", "rank": 113, "url": "https://uwaterloo.ca/" }
+    ]
+  },
+  {
+    "iso": 152, "name": "Chile", "a2": "CL",
+    "langs": ["Spanish"],
+    "known": ["Copper, of which it is the world's largest producer", "Wine, fruit and salmon exports", "The Atacama Desert and the Andes", "Easter Island (Rapa Nui)"],
+    "facts": ["It is about 4,300 kilometres long but rarely more than 200 kilometres wide.", "The Atacama is one of the driest places on Earth, and its clear skies make it a home for major telescopes.", "The capital is Santiago, where more than a third of Chileans live."],
+    "orgs": ["Codelco", "LATAM Airlines", "Falabella", "Cencosud", "SQM", "Banco de Chile"],
+    "unis": [
+      { "n": "Pontificia Universidad Católica de Chile", "rank": 119, "url": "https://www.uc.cl/en/" },
+      { "n": "Universidad de Chile", "rank": 185, "url": "https://uchile.cl/" }
+    ]
+  },
+  {
+    "iso": 484, "name": "Mexico", "a2": "MX",
+    "langs": ["Spanish", "Indigenous languages such as Nahuatl and Maya"],
+    "known": ["Tacos, chilli and a food tradition recognised by UNESCO", "Maya and Aztec ruins such as Chichén Itzá and Teotihuacán", "Day of the Dead", "Making cars, electronics and other goods for export to the United States"],
+    "facts": ["The country with the most Spanish speakers in the world.", "Mexico City is built on the site of the Aztec capital, Tenochtitlan.", "It shares a border of about 3,100 kilometres with the United States, its biggest trading partner."],
+    "orgs": ["Pemex", "América Móvil", "Cemex", "Grupo Bimbo", "FEMSA"],
+    "unis": [
+      { "n": "National Autonomous University of Mexico (UNAM)", "rank": 145, "url": "https://www.unam.mx/" },
+      { "n": "Tecnológico de Monterrey", "rank": 188, "url": "https://tec.mx/en" }
+    ]
+  },
+  {
+    "iso": 840, "name": "United States", "a2": "US",
+    "langs": ["English", "Spanish (widely spoken)"],
+    "known": ["Technology companies and Silicon Valley", "Hollywood films, music and sport", "Leading research universities", "National parks such as Yellowstone and the Grand Canyon"],
+    "facts": ["It is a federation of 50 states and the District of Columbia, and declared independence in 1776.", "The world's largest economy, and the third most populous country.", "It has no official language at the federal level, though English is by far the most widely used."],
+    "orgs": ["Apple", "Alphabet (Google)", "Microsoft", "Amazon", "Boeing", "NASA"],
+    "unis": [
+      { "n": "Massachusetts Institute of Technology (MIT)", "rank": 1, "url": "https://www.mit.edu/" },
+      { "n": "Stanford University", "rank": 2, "url": "https://www.stanford.edu/" },
+      { "n": "Harvard University", "rank": 5, "url": "https://www.harvard.edu/" },
+      { "n": "California Institute of Technology (Caltech)", "rank": 7, "url": "https://www.caltech.edu/" },
+      { "n": "Yale University", "rank": 16, "url": "https://www.yale.edu/" }
+    ]
+  }
+]
