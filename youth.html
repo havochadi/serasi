@@ -2550,7 +2550,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       document.querySelectorAll('.profile-head .codes, .profile-head .notice, .profile-head .share-status').forEach(el => { el.hidden = panel !== 'profile'; });
     }
     const groups = { 'matches-panel': 'matches', 'ranking-panel': 'matches', 'profile-summary': 'profile', 'ask': 'guide', 'taster': 'next', 'world-card': 'next', 'stretch-panel': 'next' };
-    Object.entries(groups).forEach(([id, group]) => { const el = document.getElementById(id); if (el) el.hidden = panel !== group; });
+    Object.entries(groups).forEach(([id, group]) => { const el = document.getElementById(id); if (el) el.hidden = panel !== group || (id === 'taster' && state.example); });   // the example has no job-taster sign-up, so its card stays hidden
     document.querySelectorAll('.result-tab').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.panel === panel)));
     refreshChrome();
   }
