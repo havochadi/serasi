@@ -100,6 +100,17 @@ test('law: Cambridge\'s fee range is the University fee plus the lowest and high
   assert.match(b.tuitionNote, /lowest College fee/);
 });
 
+test('hospitality: EHL first, then Hotelschool The Hague and PolyU, in QS order and in different countries', () => {
+  const all = optionsOf('hospitality');
+  assert.deepEqual(all.map(o => o.country), ['Switzerland', 'Netherlands', 'Hong Kong']);
+  assert.deepEqual(all.map(o => Number(o.standing.match(/Ranked (\d+)/)[1])), [1, 7, 15]);
+});
+test('hospitality: the Hotelschool fee has the one-off Skotel fee, and the EHL average says it is an average of instalments', () => {
+  assert.equal(O.OPTIONS.hospitality.alts[0].once, 8611);
+  assert.match(O.OPTIONS.hospitality.best.feeLabel, /Average/);
+  assert.match(O.OPTIONS.hospitality.best.watch, /183,874/);
+});
+
 test('a course in these fields with no fee is a SIT or SUSS degree, whose fee pages are closed to scripts', () => {
   const fields = ['business', 'accounting', 'finance-risk', 'islamicfin', 'logistics', 'law', 'hospitality', 'culinary', 'aviation', 'beauty', 'sport'];
   for (const c of L.COURSES.filter(c => c.fields.some(f => fields.includes(f)))) if (c.fee === null) assert.ok(['SIT', 'SUSS'].includes(c.school), c.school + ' ' + c.course);

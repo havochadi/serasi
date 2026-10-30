@@ -65,6 +65,15 @@
     sile: { n: 'Singapore Institute of Legal Education', url: 'https://www.sile.edu.sg', w: 'The Qualified Person route for law graduates from overseas, and the Bar exams' },
     studynz: { n: 'Study with New Zealand', url: 'https://www.studywithnewzealand.govt.nz/', w: 'Official guide to studying in New Zealand' }
   });
+  Object.assign(window.SerasiPathways.SOURCES, {
+    'qs-hosp26': ['QS World University Rankings by Subject 2026: Hospitality and Leisure Management', 'https://www.topuniversities.com/university-subject-rankings/hospitality-leisure-management'],
+    'ehl-fees': ['EHL, Bachelor of Science in International Hospitality Management: tuition and fees, September 2027 and February 2028 intakes (version of January 2026)', 'https://www.ehl.edu/hubfs/DL_Docs/Tuition_Fees_BOS_EN.pdf'],
+    'ch-living': ['Zurich University of the Arts, residence permit for students from outside the EU/EFTA: proof of CHF 21,000 (2026)', 'https://www.zhdk.ch/file/live/92/92513af55ae3169a4ffd31a00b82a0d670b7406c/2026_e_cl_nicht_eu_efta_komplett.pdf'],
+    'hth-bsc': ['Hotelschool The Hague, Bachelor in Hospitality Management: fees for non-EEA students, 2027 intakes', 'https://www.hotelschool.nl/bachelor-hospitality-management/'],
+    'hth-qs': ['Hotelschool The Hague, ranked 7th in the world in the QS subject rankings 2026', 'https://www.hotelschool.nl/blog/news/qs-ranking-by-subject-2026/'],
+    'polyu-fees': ['PolyU, undergraduate fees for non-local students, with estimated living costs', 'https://www.polyu.edu.hk/study/ug/fees-and-scholarships/fees'],
+    'polyu-qs': ['PolyU, ranked 15th in the world for Hospitality and Leisure Management, QS subject rankings 2026', 'https://www.polyu.edu.hk/en/media/media-releases/2026/0325_polyu-ranked-top-30-globally-for-five-subjects-in-qs-world-university-rankings-by-subject-2026/']
+  });
 
   /* The options for each field of study, field by field. A study field is { best, alts }; an agency field is { agency, src },
      a note with its source keys. The rule for a study field: one school per country, taken in order of the latest QS ranking by
@@ -225,6 +234,48 @@
           watch: 'Singapore’s Ministry of Law decides which overseas law degrees count, and the Singapore Institute of Legal Education lists them; for Auckland you must also rank in the top 70% of your batch, and you must be a Singapore citizen or permanent resident, pass Part A of the Singapore Bar Examinations and complete 6 months of relevant legal training, then Part B and a practice training period. The fee is for 2026 and excludes the Student Services Fee (about NZ$1,133 a year). The living figure is the New Zealand student-visa minimum, not a typical budget.',
           url: 'https://www.auckland.ac.nz/en/study/study-options/find-a-study-option/bachelor-of-laws-llb.html',
           src: ['qs-law26', 'auck-llb', 'auck-rank', 'nz-living', 'mlaw-bar', 'sile-qp'], links: ['studynz', 'minlaw', 'sile']
+        }
+      ]
+    }
+  });
+
+  Object.assign(OPTIONS, {
+    // QS 2026 Hospitality and Leisure Management: 1 EHL, 2 Les Roches, 3 Glion, 4 SHMS, 5 César Ritz (all Switzerland), 6 UNLV, 7 Hotelschool The Hague,
+    // 10 Macao University of Tourism, 11 Vatel, 15 PolyU, 16 Cornell, 18 Surrey, 36 HKU. Nothing regulates hospitality in Singapore, so no recognition
+    // warning. One school per country, in QS order: Best: EHL, first, taught in English. Left out: Les Roches, Glion and the other Swiss schools (same country
+    // as EHL); UNLV and Cornell (the US has no visa living figure); Macao (10th, fee and visa pages not checked) and Vatel (taught partly in French).
+    // Alternatives: Hotelschool The Hague (7th, English-taught) and PolyU (15th, close to home, the top-ranked comprehensive university).
+    hospitality: {
+      best: {
+        country: 'Switzerland', school: 'EHL Hospitality Business School (Lausanne)', course: 'Bachelor of Science in International Hospitality Management', yrs: 4,
+        tuition: [45969, 45969], feeLabel: 'Average fees', cur: 'CHF', living: 21000,
+        standing: 'Ranked 1st in the world for Hospitality and Leisure Management (QS World University Rankings by Subject 2026)',
+        why: 'The top-ranked hospitality school in the world; the five highest-ranked schools are all Swiss. Taught in English.',
+        env: 'A private hospitality school in Lausanne, Switzerland. It is the most expensive place on this list.',
+        watch: 'Nothing in Singapore regulates hospitality jobs, so no licence applies. EHL’s sheet for the September 2027 intake lists four annual instalments for the four years (a preparatory year, then three): CHF 39,838, 59,660, 35,049 and 49,328, or CHF 183,874 in all, and the figure here averages that over four years. They cover tuition, services and a prepaid food and drink credit, not housing (from CHF 5,850 a year), health insurance or a CHF 5,000 deposit. Students from outside the EU must also pay CHF 18,000 before applying for a visa, which counts towards the total. Switzerland has no single national figure for visa money: CHF 21,000 a year is what the canton of Zurich asks and is a cited estimate here, so check the canton of Vaud with EHL.',
+        url: 'https://www.ehl.edu/en/study/bachelor-degree-in-hospitality',
+        src: ['qs-hosp26', 'ehl-fees', 'ch-living']
+      },
+      alts: [
+        {
+          country: 'Netherlands', school: 'Hotelschool The Hague', course: 'Bachelor in Hospitality Management', yrs: 4,
+          tuition: [18297, 18297], once: 8611, cur: 'EUR', living: 13569,
+          standing: 'Ranked 7th in the world for Hospitality and Leisure Management (QS World University Rankings by Subject 2026)',
+          why: 'Seventh in the world and the top school in the Netherlands, at less than half EHL’s fees. Taught in English.',
+          env: 'A hospitality school in The Hague.',
+          watch: 'Nothing in Singapore regulates hospitality jobs. The fee is the 2027 non-EEA rate for the September intake. The one-off €8,611 is the Skotel fee, charged to first-year students, which covers breakfast and one meal a day on campus and internet. The living figure is the minimum the Dutch immigration service asks students to have, not a typical budget.',
+          url: 'https://www.hotelschool.nl/bachelor-hospitality-management/',
+          src: ['qs-hosp26', 'hth-qs', 'hth-bsc', 'nl-living'], links: ['studynl']
+        },
+        {
+          country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (School of Hotel and Tourism Management)', course: 'BSc (Hons) Scheme in Hotel and Tourism Management', yrs: 4,
+          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          standing: 'Ranked 15th in the world for Hospitality and Leisure Management (QS World University Rankings by Subject 2026)',
+          why: 'Close to home, and the highest-ranked school in Hong Kong for this subject, according to PolyU.',
+          env: 'Taught in English at a public university in Hong Kong.',
+          watch: 'Nothing in Singapore regulates hospitality jobs. PolyU’s page gives HK$240,000 a year for non-local undergraduates without naming the intake year, so the fee may change. Living costs are PolyU’s own estimate for a hall place (HK$18,515), campus meals and personal spending, not a visa figure; halls are normally only for the first year.',
+          url: 'https://www.polyu.edu.hk/shtm/study/undergraduate-programmes/undergraduate-programme/',
+          src: ['qs-hosp26', 'polyu-qs', 'polyu-fees'], links: ['hkimmd']
         }
       ]
     }
