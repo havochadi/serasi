@@ -127,7 +127,7 @@ test('business: LSE, Erasmus Rotterdam and HKU, ranked 11, joint 24 and joint 32
 test('accounting names ISCA in every option, and Malaysia is explained, not picked, for Islamic finance', () => {
   for (const o of optionsOf('accounting')) assert.match(o.watch, /ISCA/, o.school);
   const b = O.OPTIONS.islamicfin.best;
-  assert.match(b.watch, /Malaysia leads/); assert.match(b.watch, /top 39/);
+  assert.match(b.watch, /Malaysia leads/); assert.match(b.watch, /no Malaysian university/);
   assert.ok(optionsOf('islamicfin').every(o => o.country !== 'Malaysia'));
 });
 test('every option in these fields has a school page on its own site and sources that exist', () => {

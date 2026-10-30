@@ -1,6 +1,6 @@
 /* Serasi local study options: every publicly funded Singapore school that offers a course, and the section HTML for it.
    Load it after serasi-core.js, serasi-pathways.js and serasi-study.js.
-   A course is { school, course, lvl: 1 | 2 | 3, yrs, fee: number | null, mode?: 'part-time' | 'work-study', fields, roles?, url, src? }.
+   A course is { school, course, lvl: 1 | 2 | 3, yrs, fee: number | null, mode?: 'part-time' | 'work-study', note?, fields, roles?, url, src? }.
    lvl 1 = ITE, 2 = diploma, 3 = degree. fee is the yearly fee in S$ for Singapore Citizens after the MOE Tuition Grant, or null when the
    school's page does not list one. fields are keys of SerasiStudy.FIELDS; roles, when present, limits the course to those role ids. */
 (function () {
@@ -138,8 +138,8 @@
     { school: 'NUS', course: 'Bachelor of Business Administration (Accountancy) (Honours)', lvl: 3, yrs: 4, fee: 9700, fields: ['accounting'], url: 'https://www.nus.edu.sg/nusbulletin/ay202526/programmes/school-of-business/undergraduate-education/', src: ['fee-nus26'] },
     { school: 'NTU', course: 'Bachelor of Accountancy', lvl: 3, yrs: 3, fee: 9500, fields: ['accounting'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy', src: ['fee-ntu'] },
     { school: 'SMU', course: 'Bachelor of Accountancy', lvl: 3, yrs: 4, fee: 11550, fields: ['accounting'], url: 'https://admissions.smu.edu.sg/programmes/school-accountancy', src: ['fee-smu26'] },
-    { school: 'SIT', course: 'Degree in Accountancy', lvl: 3, yrs: 3, fee: null, fields: ['accounting'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' },
-    { school: 'SUSS', course: 'Bachelor of Accountancy', lvl: 3, yrs: 4, fee: null, fields: ['accounting'], url: 'https://www.suss.edu.sg/programmes/detail/ft-bachelor-of-accountancy' }
+    { school: 'SIT', course: 'Degree in Accountancy', lvl: 3, yrs: 3, fee: null, note: 'SIT charges by the credit; its degree pages could not be read when we checked in October 2026', fields: ['accounting'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' },
+    { school: 'SUSS', course: 'Bachelor of Accountancy', lvl: 3, yrs: 4, fee: null, note: 'SUSS’s fee page could not be read when we checked in October 2026', fields: ['accounting'], url: 'https://www.suss.edu.sg/programmes/detail/ft-bachelor-of-accountancy' }
   );
 
   /* Finance, risk and compliance, and Islamic finance. No public school has an Islamic finance course, so the Islamic banking and takaful roles use the
@@ -162,8 +162,8 @@
     { school: 'ITE', course: 'Higher Nitec in Logistics & Supply Chain Management (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['logistics'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-logistics-and-supply-chain-management-3-year/', src: ['fee-ite26'] },
     { school: 'Republic Polytechnic', course: 'Diploma in Supply Chain Management', lvl: 2, yrs: 3, fee: 3186.5, fields: ['logistics'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-supply-chain-management/', src: ['fee-rp26'] },
     { school: 'Temasek Polytechnic', course: 'Diploma in International Trade & Logistics', lvl: 2, yrs: 3, fee: 3183.15, fields: ['logistics'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/international-trade-and-logistics.html', src: ['fee-tp26'] },
-    { school: 'SIT', course: 'Degree in Digital Supply Chain', lvl: 3, yrs: 3, fee: null, fields: ['logistics'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' },
-    { school: 'SUSS', course: 'Bachelor of Science in Supply Chain Management', lvl: 3, yrs: 4, fee: null, fields: ['logistics'], url: 'https://www.moe.gov.sg/coursefinder/coursedetail/ftscmmj1-bachelor-of-science-in-supply-chain-management' }
+    { school: 'SIT', course: 'Degree in Digital Supply Chain', lvl: 3, yrs: 3, fee: null, note: 'SIT charges by the credit; its degree pages could not be read when we checked in October 2026', fields: ['logistics'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' },
+    { school: 'SUSS', course: 'Bachelor of Science in Supply Chain Management', lvl: 3, yrs: 4, fee: null, note: 'SUSS’s fee page could not be read when we checked in October 2026', fields: ['logistics'], url: 'https://www.moe.gov.sg/coursefinder/coursedetail/ftscmmj1-bachelor-of-science-in-supply-chain-management' }
   );
 
   /* Law. Temasek's diploma is the only public one for the legal executive. The LLBs are NUS and SMU (4 years, $12,750 a year for the 2026/27 intake, the same
@@ -174,7 +174,7 @@
     { school: 'Temasek Polytechnic', course: 'Diploma in Law & Management', lvl: 2, yrs: 3, fee: 3183.15, fields: ['law'], roles: ['paralegal'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/law-management.html', src: ['fee-tp26'] },
     { school: 'NUS', course: 'Bachelor of Laws (LLB)', lvl: 3, yrs: 4, fee: 12750, fields: ['law'], url: 'https://law1a.nus.edu.sg/admissions/4_yrs_llb_prog.html', src: ['fee-nus26'] },
     { school: 'SMU', course: 'Bachelor of Laws (LLB)', lvl: 3, yrs: 4, fee: 12750, fields: ['law'], url: 'https://law.smu.edu.sg/llb', src: ['fee-smu26'] },
-    { school: 'SUSS', course: 'Bachelor of Laws (LLB)', lvl: 3, yrs: 4.5, fee: null, mode: 'part-time', fields: ['law'], url: 'https://www.suss.edu.sg/programmes/detail/bachelor-of-laws-lawllb' }
+    { school: 'SUSS', course: 'Bachelor of Laws (LLB)', lvl: 3, yrs: 4.5, fee: null, mode: 'part-time', fields: ['law'], note: 'SUSS charges by the credit, with no yearly fee; it estimates about $46,840 for the whole programme for Singapore Citizens (fee sheet of 13 March 2026)', url: 'https://www.suss.edu.sg/programmes/detail/bachelor-of-laws-lawllb' }
   );
 
   /* Hospitality and events. ITE's course is for the restaurant supervisor; the diplomas are for the hotel and events roles. Left out: Nanyang's Food &
@@ -190,7 +190,7 @@
     { school: 'Republic Polytechnic', course: 'Diploma in Hotel & Leisure Management', lvl: 2, yrs: 3, fee: 3186.5, fields: ['hospitality'], roles: ['hotel'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-hotel-leisure-and-management/', src: ['fee-rp26'] },
     { school: 'Republic Polytechnic', course: 'Diploma in Events & Project Management', lvl: 2, yrs: 3, fee: 3186.5, fields: ['hospitality'], roles: ['events'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-events-and-project-management/', src: ['fee-rp26'] },
     { school: 'Temasek Polytechnic', course: 'Diploma in Hospitality & Tourism Management', lvl: 2, yrs: 3, fee: 3183.15, fields: ['hospitality'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/hospitality-tourism-management.html', src: ['fee-tp26'] },
-    { school: 'SIT', course: 'Degree in Hospitality and Tourism Management', lvl: 3, yrs: 3, fee: null, fields: ['hospitality'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' }
+    { school: 'SIT', course: 'Degree in Hospitality and Tourism Management', lvl: 3, yrs: 3, fee: null, note: 'SIT charges by the credit; its degree pages could not be read when we checked in October 2026', fields: ['hospitality'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' }
   );
 
   /* Culinary and baking (ITE only: both roles are reachable with a Higher Nitec). Culinary Arts is for the chef and Pastry & Baking for the baker. The 1-year
@@ -259,6 +259,7 @@
       '<li><b class="s-n">' + esc(c.school) + '</b> <span class="s-c">' + esc(c.course) + '</span> ' +
       '<span class="s-m">' + esc(fmtYears(c.yrs)) + ' · ' + (c.fee == null ? 'fee on the school\'s page' : esc(money(c.fee)) + ' a year') + '</span>' +
       (c.mode ? ' <span class="pill">' + esc(c.mode) + '</span>' : '') +
+      (c.note ? ' <span class="s-m">' + esc(c.note) + '</span>' : '') +
       ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">course page ↗</a></li>').join('');
     return '<ul class="schools">' + items + '</ul>' +
       '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, from each school\'s fee page in October 2026 (sources under the price breakdown). The links go to the course pages.</p>';

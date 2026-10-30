@@ -213,14 +213,14 @@
     // JD follows a bachelor's degree (with no visa living figure) so the US is out too. Best: Cambridge, the highest-ranked school on the list whose own page
     // gave a fee. Left out: Oxford (2nd and on the list, but its fee pages are closed to scripts); LSE and UCL (same country as Cambridge); Melbourne (11th,
     // JD only after a first degree, and its page is closed to scripts) and UNSW (13th, but its pages do not show a stand-alone LLB or a fee for it) and Sydney
-    // (17th, no stand-alone LLB fee read). The alternatives are the highest-ranked school per country with a four-year LLB and a fee I could read:
+    // (17th, no stand-alone LLB fee read). The alternatives are the highest-ranked school per country with a four-year LLB and a published fee:
     // Monash (Australia) and Auckland (New Zealand).
     law: {
       best: {
         country: 'United Kingdom', school: 'University of Cambridge (Faculty of Law)', course: 'BA Law', yrs: 3,
         tuition: [43298, 46748], tuitionNote: 'low end is the University fee plus the lowest College fee (Darwin), high end the highest (Murray Edwards)', cur: 'GBP', living: 10539,
         standing: 'Ranked 3rd in the world for Law and Legal Studies (QS World University Rankings by Subject 2026)',
-        why: 'Third in the world for law, and its BA Law is on the Ministry of Law’s list of overseas degrees that can make you a Qualified Person. It takes three years, one fewer than the local LLB. Oxford ranks 2nd and is also on the list, but its fee could not be confirmed from its own page.',
+        why: 'Third in the world for law, and its BA Law is on the Ministry of Law’s list of overseas degrees that can make you a Qualified Person. It takes three years, one fewer than the local LLB. Oxford ranks 2nd and is also on the list, but its fee page could not be read when we checked in October 2026, so it is not priced here. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
         env: 'Taught in English in a college town. You belong to a College as well as the University, and each College sets its own fee.',
         watch: 'Singapore’s Ministry of Law decides which overseas law degrees count, and the Singapore Institute of Legal Education lists them; Cambridge’s BA Law is on the list. To practise here you must be a Singapore citizen or permanent resident, get at least a lower second class honours, pass Part A of the Singapore Bar Examinations, complete 6 months of relevant legal training, then pass Part B and a practice training period. Check the Ministry’s rules again before you enrol. The fee is the 2027–28 University fee of £30,798 plus a College fee of £12,500 to £15,950, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months outside London (£1,171 a month), not a typical budget.',
         url: 'https://www.undergraduate.study.cam.ac.uk/courses/law',
@@ -255,16 +255,16 @@
     // QS 2026 Hospitality and Leisure Management: 1 EHL, 2 Les Roches, 3 Glion, 4 SHMS, 5 César Ritz (all Switzerland), 6 UNLV, 7 Hotelschool The Hague,
     // 10 Macao University of Tourism, 11 Vatel, 15 PolyU, 16 Cornell, 18 Surrey, 36 HKU. Nothing regulates hospitality in Singapore, so no recognition
     // warning. One school per country, in QS order: Best: EHL, first, taught in English. Left out: Les Roches, Glion and the other Swiss schools (same country
-    // as EHL); UNLV and Cornell (the US has no visa living figure); Macao (10th, fee and visa pages not checked) and Vatel (taught partly in French).
-    // Alternatives: Hotelschool The Hague (7th, English-taught) and PolyU (15th, close to home, the top-ranked comprehensive university).
+    // as EHL); UNLV and Cornell (the US has no visa living figure); Macao (10th, no fee or visa page used) and Vatel (taught partly in French).
+    // Alternatives: Hotelschool The Hague (7th, English-taught) and PolyU (15th, close to home, the highest-ranked school in Hong Kong).
     hospitality: {
       best: {
         country: 'Switzerland', school: 'EHL Hospitality Business School (Lausanne)', course: 'Bachelor of Science in International Hospitality Management', yrs: 4,
         tuition: [45969, 45969], feeLabel: 'Average fees', cur: 'CHF', living: 21000,
         standing: 'Ranked 1st in the world for Hospitality and Leisure Management (QS World University Rankings by Subject 2026)',
-        why: 'The top-ranked hospitality school in the world; the five highest-ranked schools are all Swiss. Taught in English.',
+        why: 'The top-ranked hospitality school in the world; the five highest-ranked schools are all Swiss. Taught in English. The sixth-ranked school, UNLV, is in the US and is not shown because no official living-cost figure was found; check its own page.',
         env: 'A private hospitality school in Lausanne, Switzerland. It is the most expensive place on this list.',
-        watch: 'Nothing in Singapore regulates hospitality jobs, so no licence applies. EHL’s sheet for the September 2027 intake lists four annual instalments for the four years (a preparatory year, then three): CHF 39,838, 59,660, 35,049 and 49,328, or CHF 183,874 in all, and the figure here averages that over four years. They cover tuition, services and a prepaid food and drink credit, not housing (from CHF 5,850 a year), health insurance or a CHF 5,000 deposit. Students from outside the EU must also pay CHF 18,000 before applying for a visa, which counts towards the total. Switzerland has no single national figure for visa money: CHF 21,000 a year is what the canton of Zurich asks and is a cited estimate here, so check the canton of Vaud with EHL.',
+        watch: 'Nothing in Singapore regulates hospitality jobs, so no licence applies. EHL’s sheet for the September 2027 intake lists four annual instalments for the four years (a preparatory year, then three): CHF 39,838, 59,660, 35,049 and 49,328, or CHF 183,874 in all, and the figure here averages that over four years. They cover tuition, services and a prepaid food and drink credit, not housing (from CHF 5,850 a year), health insurance or a CHF 5,000 deposit. Students from outside the EU must also pay CHF 18,000 before applying for a visa, which counts towards the total. Switzerland has no single national figure for visa money. CHF 21,000 a year is what the canton of Zurich asks of students who need a visa, and is used here as a cited estimate; the same checklist lists Singapore among the visa-exempt countries, so confirm with EHL and the canton of Vaud what applies to you.',
         url: 'https://www.ehl.edu/en/study/bachelor-degree-in-hospitality',
         src: ['qs-hosp26', 'ehl-fees', 'ch-living']
       },
@@ -298,14 +298,13 @@
     // 19 CBS, =24 Erasmus Rotterdam, 30 HKUST, =32 HKU, 39 SMU, 52 PolyU. Nothing regulates business jobs in Singapore, so no recognition warning.
     // One school per country, in QS order, with an English-taught bachelor's whose own page gave a fee: Best: LSE. Left out: Oxford and Cambridge (5th and 6th,
     // but Oxford's fee pages are closed to scripts and no matching Cambridge bachelor's was found); the US schools (no visa living
-    // figure); INSEAD and LBS (graduate schools); Bocconi, CBS and HKUST (fee or visa pages not checked in the time
-    // allowed). Alternatives: Erasmus Rotterdam (Netherlands) and HKU (Hong Kong, =32nd; HKUST ranks 30th but its fee page could not be read).
+    // figure); INSEAD and LBS (graduate schools); Bocconi, CBS and HKUST (no fee or visa page used). Alternatives: Erasmus Rotterdam (Netherlands) and HKU (Hong Kong, =32nd; HKUST ranks 30th but its fee page could not be read).
     business: {
       best: {
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Management', yrs: 3,
         tuition: [37500, 37500], cur: 'GBP', living: 13761,
         standing: 'Ranked 11th in the world for Business and Management Studies (QS World University Rankings by Subject 2026)',
-        why: 'The highest-ranked school here with a stand-alone English-taught bachelor’s and a published fee. A three-year degree, a year shorter than the four-year NUS, NTU and SMU business degrees.',
+        why: 'The highest-ranked school here with a stand-alone English-taught bachelor’s and a published fee. A three-year degree, a year shorter than the four-year NUS, NTU and SMU business degrees. Oxford and Cambridge rank higher but are not priced here: Oxford’s fee page could not be read when we checked in October 2026. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'Nothing in Singapore regulates business jobs, so no licence applies. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-management',
@@ -344,7 +343,7 @@
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Accounting and Finance', yrs: 3,
         tuition: [39300, 39300], cur: 'GBP', living: 13761,
         standing: 'Ranked 8th in the world for Accounting and Finance (QS World University Rankings by Subject 2026)',
-        why: 'Eighth in the world, and a three-year degree. Oxford ranks 4th but its fee could not be confirmed from its own page.',
+        why: 'Eighth in the world, and a three-year degree. Oxford ranks 4th, but its fee page could not be read when we checked in October 2026, so it is not priced here. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'To become a Singapore Chartered Accountant you take ISCA’s Singapore CA Qualification, and ISCA keeps a list of the accounting degrees it recognises; it assesses other overseas degrees case by case, so check the list before you enrol. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-accounting-and-finance',
@@ -369,7 +368,7 @@
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Finance', yrs: 3,
         tuition: [39300, 39300], cur: 'GBP', living: 13761,
         standing: 'Ranked 8th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
-        why: 'Eighth in the world in the closest QS subject, and a three-year degree. Oxford ranks 4th but its fee could not be confirmed from its own page.',
+        why: 'Eighth in the world in the closest QS subject, and a three-year degree. Oxford ranks 4th, but its fee page could not be read when we checked in October 2026, so it is not priced here. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'Nothing in Singapore regulates a degree for risk and compliance jobs, though employers often ask for a finance, law or accounting degree. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-finance',
@@ -397,7 +396,7 @@
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Finance', yrs: 3,
         tuition: [39300, 39300], cur: 'GBP', living: 13761,
         standing: 'Ranked 8th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
-        why: 'There is no QS ranking for Islamic finance, so this follows the closest subject, where LSE ranks 8th. Serasi’s pathway for this field is a business or finance degree plus an Islamic finance certificate.',
+        why: 'There is no QS ranking for Islamic finance, so this follows the closest subject, where LSE ranks 8th. Serasi’s pathway for this field is a business or finance degree plus an Islamic finance certificate. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'Malaysia leads the world’s Islamic Finance Development Indicator and Kuala Lumpur is the industry’s hub, but no Malaysian university is in the top 39 of the QS table for accounting and finance, so it is not the pick here; check the pathway’s Malaysia note if you want to study there. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-finance',
