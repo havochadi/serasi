@@ -98,6 +98,25 @@
     { school: 'Nanyang Polytechnic', course: 'Diploma in Experience Design', lvl: 2, yrs: 3, fee: 3188.09, fields: ['interior-design', 'graphic-ux'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-experience-design', src: ['fee-nyp26'] },
     { school: 'LASALLE', course: 'Diploma in Spatial Design', lvl: 2, yrs: 3, fee: 5490, fields: ['interior-design'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/spatial-design/', src: ['fee-lasalle27'] },
     { school: 'NAFA', course: 'Diploma in Design (Interior and Spatial)', lvl: 2, yrs: 3, fee: 4810, fields: ['interior-design'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-interior-and-spatial', src: ['fee-nafa27'] },
+
+    // Graphic and UX design. ITE's Higher Nitec in Communication Design (ITE College Central) has Graphic Design and Animation & Motion Graphics
+    // specialisations, so it also serves animation, and its careers page names photographers, so it is the level-1 course for that role too.
+    // Singapore Polytechnic's Media, Arts & Design diploma is one course with seven specialisations; each one that fits a field is its own entry.
+    // Ngee Ann's Design diploma has two specialisations; its Product Innovation one lists UI/UX and visual communication designer as careers
+    // (its Architecture one is on the architecture field above). Republic's Design diploma has three majors, of which Visual Communication and
+    // User Experience are listed (the third, Games & Gamification, is a games course). Nanyang's Communication & Motion Design teaches graphic and
+    // visual communication; UI/UX is only one of its electives. Temasek's Product Experience & Design teaches UX and product design, with no interior.
+    { school: 'ITE', course: 'Higher Nitec in Communication Design', lvl: 1, yrs: 2, fee: 566, fields: ['graphic-ux', 'animation', 'media'], roles: ['multimedia', 'graphic', 'ux', 'animator', 'photographer'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-communication-design/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Communication Design (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['graphic-ux', 'animation', 'media'], roles: ['multimedia', 'graphic', 'ux', 'animator', 'photographer'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-communication-design-3-year/', src: ['fee-ite26'] },
+    { school: 'Singapore Polytechnic', course: 'Diploma in Media, Arts & Design (Visual Communication & Motion Design)', lvl: 2, yrs: 3, fee: 3177.52, fields: ['graphic-ux'], url: 'https://www.sp.edu.sg/courses/schools/mad/visual-communication-and-motion-design', src: ['fee-poly'] },
+    { school: 'Singapore Polytechnic', course: 'Diploma in Media, Arts & Design (Experience & Product Design)', lvl: 2, yrs: 3, fee: 3177.52, fields: ['graphic-ux'], url: 'https://www.sp.edu.sg/courses/schools/mad/experience-and-product-design', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Design (Product Innovation specialisation)', lvl: 2, yrs: 3, fee: 3167.5, fields: ['graphic-ux'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-design-environment/diploma-in-design', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Communication & Motion Design', lvl: 2, yrs: 3, fee: 3188.09, fields: ['graphic-ux'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-communication-motion-design', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Design (Visual Communication and User Experience majors)', lvl: 2, yrs: 3, fee: 3186.5, fields: ['graphic-ux'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-design/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Communication Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['graphic-ux'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/communication-design.html', src: ['fee-tp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Product Experience & Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['graphic-ux'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/product-experience-and-design.html', src: ['fee-tp26'] },
+    { school: 'LASALLE', course: 'Diploma in Graphic Design and Experiences', lvl: 2, yrs: 3, fee: 5490, fields: ['graphic-ux'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/graphic-design-and-experiences/', src: ['fee-lasalle27'] },
+    { school: 'NAFA', course: 'Diploma in Design Communication and Strategy', lvl: 2, yrs: 3, fee: 4810, fields: ['graphic-ux'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-communication-and-strategy', src: ['fee-nafa27'] },
   ];
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');

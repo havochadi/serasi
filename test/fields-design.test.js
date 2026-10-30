@@ -24,3 +24,12 @@ test('LASALLE and NAFA fees are their own published figures and carry a fee sour
     assert.ok(c.src.some(k => /^fee-(lasalle|nafa)27$/.test(k)), c.course);
   }
 });
+
+test('graphic and UX design: ITE Communication Design at level 1 for the roles it fits, and ten diplomas at level 2', () => {
+  assert.deepEqual(schoolsFor('multimedia', 1), ['ITE', 'ITE']);
+  assert.deepEqual(schoolsFor('ux', 1), ['ITE', 'ITE']);
+  assert.deepEqual(schoolsFor('graphic', 2), [
+    'Singapore Polytechnic', 'Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic',
+    'Temasek Polytechnic', 'Temasek Polytechnic', 'LASALLE', 'NAFA']);
+  assert.ok(L.forRole(ROLE.ux, 2).some(c => /Experience Design/.test(c.course)), 'Nanyang Experience Design is shared with interior design');
+});
