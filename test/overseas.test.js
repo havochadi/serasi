@@ -253,3 +253,29 @@ test('forCountry without a role lists every option in the country', () => {
   assert.ok(list.every(o => o.country === 'Japan'));
 });
 test('forCountry returns [] for a country with no options', () => assert.deepEqual(plain(O.forCountry('Nowhere')), []));
+
+test('trimmed summaries for the licensed professions still carry the recognition wording', () => {
+  for (const id of ['arch', 'nurse', 'doctor', 'lawyer', 'paralegal', 'pharmacist', 'civil-eng', 'mech-eng', 'elec-eng'])
+    assert.match(O.summaryFor(ROLE[id]), /recogni|registers|decides|Ministry|Board|Council|ISCA/, id);
+});
+test('every summary ends on a full stop, question mark or exclamation mark', () => {
+  for (const r of ROLES) { const s = O.summaryFor(r); if (s) assert.match(s, /[.!?]$/, r.id); }
+});
+test('a summary states whether its total includes living costs', () => {
+  for (const r of ROLES) { const s = O.summaryFor(r), x = O.forRole(r); if (x && x.best) assert.match(s, x.best.living == null ? /before living costs/ : /including living costs/, r.id); }
+});
+test('sentences splits at a full stop followed by a capital and keeps figures and abbreviations whole', () => {
+  assert.deepEqual(plain(O.sentences('Fees rise. Check the S$1.5 fee, e.g. the HK$250,000 one. Ask the Board.')), ['Fees rise.', 'Check the S$1.5 fee, e.g. the HK$250,000 one.', 'Ask the Board.']);
+  assert.deepEqual(plain(O.sentences('One sentence')), ['One sentence']);
+});
+test('clip keeps whole sentences, always keeps the first, and ends on a full stop', () => {
+  assert.equal(O.clip('One. Two. Three.', 10), 'One. Two.');
+  assert.equal(O.clip('One. Two.', 100), 'One. Two.');
+  const long = O.clip('A very long first sentence with many words in it that cannot fit. Second.', 30);
+  assert.ok(long.length <= 30 && long.endsWith('.'), long);
+});
+test('no lookbehind in the page scripts (older Safari rejects it)', () => {
+  const fs = require('node:fs'), path = require('node:path');
+  for (const f of ['youth.html', 'mendaki.html', 'index.html', ...fs.readdirSync(path.join(__dirname, '..')).filter(n => /^serasi-.*\.js$/.test(n))])
+    assert.doesNotMatch(fs.readFileSync(path.join(__dirname, '..', f), 'utf8'), /\(\?<[=!]/, f);
+});

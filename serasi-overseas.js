@@ -1123,12 +1123,25 @@
     return out;
   }
 
-  // Cut text to at most max characters: at the last full sentence that fits, else the last word, with an ellipsis.
+  // Splits text into sentences: a full stop followed by a space and a capital letter ends one. (No lookbehind: older Safari rejects it.)
+  function sentences(text) {
+    const out = [], re = /\.\s+(?=[A-Z])/g;
+    let start = 0, m;
+    while ((m = re.exec(text))) { out.push(text.slice(start, m.index + 1)); start = m.index + m[0].length; }
+    out.push(text.slice(start));
+    return out;
+  }
+
+  // As many whole sentences of text as fit in max characters (always at least the first; if even that is too long, it is cut at a
+  // word and closed with a full stop), so the result always ends on a sentence end.
   function clip(text, max) {
     if (text.length <= max) return text;
-    const head = text.slice(0, max), stop = head.lastIndexOf('. ');
-    if (stop >= max * .5) return head.slice(0, stop + 1);
-    return head.slice(0, Math.max(head.lastIndexOf(' '), 0)).replace(/[,;:\s]+$/, '') + '…';
+    const parts = sentences(text);
+    let out = '';
+    for (const p of parts) { const next = out ? out + ' ' + p : p; if (next.length > max) break; out = next; }
+    if (out) return out;
+    const head = text.slice(0, Math.max(max - 1, 0)), cut = head.lastIndexOf(' ');
+    return (cut > 0 ? head.slice(0, cut) : head).replace(/[,;:.\s]+$/, '') + '.';
   }
 
   /* One short paragraph for the Ask Serasi payload (at most 450 characters): the best pick, its whole-course total in S$ and the watch-out;
@@ -1136,11 +1149,12 @@
   function summaryFor(role, options = OPTIONS) {
     const r = forRole(role, options);
     if (!r) return '';
-    if (r.agency) return clip(r.agency, 450);
+    const close = x => (/[.!?]$/.test(x) ? x : x + '.');
+    if (r.agency) return close(clip(r.agency, 450));
     const b = r.best, t = costOf(b).totalSgd;
-    const lead = b.country + ', ' + b.school + ': about ' + sgd(t[0], t[1]) + ' for ' + fmtYears(b.yrs) + (b.living == null ? ', before living costs' : '') + '. Watch out: ';
-    return lead + clip(b.watch, Math.max(450 - lead.length, 0));
+    const lead = b.country + ', ' + b.school + ': about ' + sgd(t[0], t[1]) + ' for ' + fmtYears(b.yrs) + (b.living == null ? ', before living costs' : ', including living costs') + '. Watch out: ';
+    return lead + close(clip(b.watch, Math.max(450 - lead.length - 1, 0)));
   }
 
-  window.SerasiOverseas = { OPTIONS, costOf, costText, forRole, forCountry, summaryFor, html };
+  window.SerasiOverseas = { OPTIONS, costOf, costText, forRole, forCountry, summaryFor, sentences, clip, html };
 })();

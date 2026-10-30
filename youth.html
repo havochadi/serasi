@@ -1716,7 +1716,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     if (cost.total) lines.push('Course fees: about ' + money(cost.total) + ' in total' + (cost.after != null ? ', or about ' + money(cost.after) + ' after help for your income band.' : ' before TTFS and bursaries.'));
     if (path.alts[0]) lines.push('Another route: ' + path.alts[0]);
     const ov = SerasiOverseas.forRole(r);
-    if (ov && ov.best) lines.push('You could also study overseas; ask “Should I study ' + t + ' overseas?”');
+    if (ov && ov.best) lines.push('You could also study overseas; ask “Should I study ' + studyName(r, ov.field) + ' overseas?”');
     const res = rank(p);
     lines.push(res.main.concat(res.more, res.stretch).some(x => x.role === r) ? 'Open ' + t + ' in your results and tap “Shortest path” for the full price breakdown, subsidies and contacts.' : 'It isn’t in your top 20, but you can still ask me about its costs, subsidies or studying overseas.');
     return lines.join('\n');
@@ -1767,6 +1767,12 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       '\nQuestions? MENDAKI: 6245 5555. MOE financial assistance: https://www.moe.gov.sg/financial-matters/financial-assistance';
   }
 
+  // What to call a course in a question: a one-word field name (nursing, medicine, law) where there is one, else the job title.
+  function studyName(role, field) {
+    const label = ((window.SerasiStudy.FIELDS[field] || {}).label || '').toLowerCase();
+    return label && !/\s/.test(label) ? label : lowerTitle(role.title);
+  }
+
   // Studying overseas, from serasi-overseas.js: the best pick for a job's field, the alternatives, and any country's options.
   const sentence = x => (/[.!?]$/.test(x) ? x : x + '.');
   const OV_NOTE = () => 'Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas, so compare total costs carefully. Costs use rough exchange rates as of ' + window.SerasiPathways.FX_ASOF + '.';
@@ -1781,7 +1787,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
 
   // Whole sentences of a watch-out, as many as fit in max characters (always the first one), to keep a chat answer readable.
   function watchText(w, max) {
-    const parts = w.split(/(?<=\.) (?=[A-Z])/);
+    const parts = SerasiOverseas.sentences(w);
     let out = parts[0];
     for (let i = 1; i < parts.length && (out + ' ' + parts[i]).length <= max; i++) out += ' ' + parts[i];
     return out;
