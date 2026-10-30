@@ -24,7 +24,7 @@
   {
     "iso": 124, "name": "Canada", "a2": "CA",
     "langs": ["English", "French"],
-    "known": ["Ice hockey, maple syrup and cold winters", "The Rocky Mountains, Niagara Falls and huge areas of wilderness", "Oil, timber and mining", "A reputation for welcoming immigrants and international students"],
+    "known": ["Ice hockey, maple syrup and cold winters", "The Rocky Mountains, Niagara Falls and huge areas of wilderness", "Oil, timber and mining", "A reputation for welcoming immigrants and international students, though study permits are now capped"],
     "facts": ["The second-largest country in the world by area.", "English and French are both official languages of the federal government; Quebec is mainly French-speaking.", "It has ten provinces and three territories, and most people live in cities in the south, near the border with the United States."],
     "orgs": ["Shopify", "Royal Bank of Canada", "Bombardier", "Lululemon", "Tim Hortons", "Air Canada"],
     "unis": [
@@ -61,7 +61,7 @@
     "iso": 840, "name": "United States", "a2": "US",
     "langs": ["English", "Spanish (widely spoken)"],
     "known": ["Technology companies and Silicon Valley", "Hollywood films, music and sport", "Leading research universities", "National parks such as Yellowstone and the Grand Canyon"],
-    "facts": ["It is a federation of 50 states and the District of Columbia, and declared independence in 1776.", "The world's largest economy, and the third most populous country.", "It has no official language at the federal level, though English is by far the most widely used."],
+    "facts": ["It is a federation of 50 states and the District of Columbia, and declared independence in 1776.", "The world's largest economy, and the third most populous country.", "English is the official language under a 2025 executive order, though federal law long had none and many languages are spoken."],
     "orgs": ["Apple", "Alphabet (Google)", "Microsoft", "Amazon", "Boeing", "NASA"],
     "unis": [
       { "n": "Massachusetts Institute of Technology (MIT)", "rank": 1, "url": "https://www.mit.edu/" },
