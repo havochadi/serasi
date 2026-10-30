@@ -25,7 +25,7 @@
 
   // construction
   note(826, 'United Kingdom', [-2, 54], {
-    construction: ['steady', 'Building output is forecast to dip 0.2% in 2026, then grow 1.8% in 2027 and 2.8% in 2028. Even so, UK construction needs about 41,200 extra workers a year to 2030, on top of 2.6 million already working in it in 2025.', ['citb-cwo-2026']],
+    construction: ['steady', 'Building output is forecast to dip 0.2% in 2026, then grow 1.8% in 2027 and 2.8% in 2028. About 41,200 workers a year will need to join the sector to 2030, about 1.6% of its 2.6 million workers in 2025.', ['citb-cwo-2026']],
   });
   note(840, 'United States of America', [-98, 39], {
     construction: ['grow', 'Construction added an average of 10,000 jobs a month in the 12 months to September 2026, and about 8.4 million Americans now work in it.', ['bls-empsit-sep26']],
@@ -33,7 +33,7 @@
 
   // energy
   note(356, 'India', [78, 22], {
-    energy: ['grow', 'Renewable energy jobs rose from about 1 million to 1.3 million in 2024. A 2026 study counted over 650,000 clean energy workers added in three years to March 2026, mostly in rooftop solar, and estimates about 4.4 million jobs by 2030.', ['irena-countries-2025', 'ceew-jobs-2026']],
+    energy: ['grow', 'About 1.3 million renewable energy jobs in 2024 (IRENA and ILO). A 2026 study counted over 650,000 clean energy workers added in three years to March 2026, mostly in rooftop solar, and estimates about 4.4 million jobs by 2030.', ['irena-countries-2025', 'ceew-jobs-2026']],
   });
   note(276, 'Germany', [10.4, 51.2], {
     energy: ['grow', 'Renewable energy jobs hit a record 436,000 in 2025, 4% above the 2023 peak; wind alone has 172,000. Solar jobs are falling as panels are made abroad, and the study warns that cutting solar support could cost jobs.', ['cew-jobs-2026']],
@@ -49,10 +49,10 @@
 
   // auto
   note(356, 'India', [78, 22], {
-    auto: ['grow', 'Vehicle sales hit a record 28.3 million in the year to March 2026, up 10.4%. Autocar Professional puts the industry’s jobs at nearly 30 million, and says skills in batteries, power electronics and software are short.', ['siam-fy26', 'autocar-workers-2026']],
+    auto: ['grow', 'Wholesale vehicle sales hit a record 28.3 million in the year to March 2026, up 10.4%. Autocar Professional (May 2026) estimates the industry supports nearly 30 million jobs, probably counting indirect ones, and says battery, power electronics and software skills are short.', ['siam-fy26', 'autocar-workers-2026']],
   });
   note(840, 'United States of America', [-98, 39], {
-    auto: ['steady', 'Car and car-parts factories employed about 968,000 people in September 2026, almost the same as a year earlier (965,000).', ['bls-empsit-sep26']],
+    auto: ['steady', 'BLS’s motor vehicles and parts factory series shows about 968,000 jobs in September 2026, almost the same as a year earlier (965,000, both not seasonally adjusted).', ['bls-empsit-sep26']],
   });
 
   // ---- Task 12: semiconductors, tech, aerospace, logistics ----

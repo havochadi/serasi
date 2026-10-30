@@ -68,7 +68,4 @@ test('each country has at most one nationwide entry', () => {
 });
 
 // Sector tasks append their DONE.push(...) and SHORT.<key> lines below this line.
-DONE.push('energy');
-DONE.push('manufacturing');
-DONE.push('auto');
-DONE.push('construction');
+DONE.push('construction', 'energy', 'manufacturing', 'auto');
