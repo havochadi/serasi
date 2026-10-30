@@ -25,6 +25,20 @@
 
   // ---- Task 12: semiconductors, tech, aerospace, logistics ----
 
+  // Aerospace (Singapore and France are already noted in serasi-pathways.js).
+  note(840, 'United States of America', [-98, 39], {
+    aero: ['grow', 'Aircraft mechanics and technicians held 159,800 US jobs in 2025, and the number is projected to grow 6% by 2035, with about 13,100 openings a year. Boeing expects North America to need 123,000 new technicians by 2044.', ['bls-aircraft-2025', 'boeing-pto-2025']],
+  });
+  note(826, 'United Kingdom', [-2, 54], {
+    aero: ['grow', 'The UK’s aerospace, defence, security and space industries directly employed 468,500 people in 2025, nearly 40% more than in 2015. The trade body says UK aerospace is ramping up production to meet record demand.', ['ads-facts-2026', 'ads-value-2026']],
+  });
+  note(356, 'India', [78, 22], {
+    aero: ['grow', 'Airbus expects India’s aircraft fleet to triple to 2,250 within a decade, and says its maintenance workforce must grow from about 11,000 to 34,000 by 2035 (January 2026).', ['aw-india-2026']],
+  });
+  note(784, 'United Arab Emirates', [54, 24], {
+    aero: ['steady', 'Emirates Group staff grew 8% to 130,919 in the year to March 2026 and recruiting continued. But the Iran war disrupted Gulf air traffic from 28 February, and Dubai International had 18.6 million passengers in January–March 2026, down from 23.4 million a year earlier.', ['emirates-2025-26', 'dxb-war-2026']],
+  });
+
   // ---- Task 13: finance, Islamic finance, health, biotech ----
 
   // ---- Task 14: care, hospitality, creative, education ----
