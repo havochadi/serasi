@@ -6,7 +6,8 @@
    tuition and living are yearly, in the currency cur; once is a one-off fee in cur. feeLabel replaces the word "Tuition" when the
    yearly figure is something else, such as "Semester fees". yrs covers everything needed to qualify (for architects, the bachelor's
    and the master's), and when the two degrees charge different fees, tuition spans both. tuitionNote says what the two ends of a
-   tuition range are (needed whenever lo and hi differ). links are CONTACTS keys.
+   tuition range are (needed whenever lo and hi differ). totalNote, when present, is printed in brackets after the total (card, alternative row,
+   cost text and summary) where the course needs study first that the total leaves out. links are CONTACTS keys.
    Exchange rates come from SerasiPathways.FX (S$ per unit), read when called. */
 (function () {
   'use strict';
@@ -208,6 +209,7 @@
         {
           country: 'Canada', school: 'University of Toronto (Leslie Dan Faculty of Pharmacy)', course: 'PharmD Doctor of Pharmacy, after two years of university study', yrs: 3,
           tuition: [57280, 57280], cur: 'CAD', living: 23448,
+          totalNote: 'for the 3 PharmD years only; the 2 university years before it are not included',
           standing: 'Ranked 12th in the world for Pharmacy and Pharmacology (QS World University Rankings by Subject 2026)',
           why: 'A top-12 pharmacy school, and its Doctor of Pharmacy is on the Singapore Pharmacy Council’s list of overseas degrees. The PharmD is now three years long, down from four, and Toronto says it puts no limit on how many of its roughly 260 places go to qualified international students.',
           env: 'Taught in English in Toronto, with practice rotations from the first year. International students need a study permit and a co-op work permit for the rotations.',
@@ -300,10 +302,11 @@
       best: {
         country: 'Canada', school: 'University of Toronto (Lawrence S. Bloomberg Faculty of Nursing)', course: 'BScN Nursing, a 2-year degree after two years of university study', yrs: 2,
         tuition: [53610, 53610], cur: 'CAD', living: 23448,
+        totalNote: 'for the 2 nursing years only; the 2 university years before it are not included',
         standing: 'Ranked 4th in the world for Nursing (QS World University Rankings by Subject 2026)',
         why: 'One of the top four nursing schools in the world, with a fast two-year degree for students who already have two years of university study. Penn (1st) is in the US. US schools are not shown: the Singapore Nursing Board has no recognition route we could check for them. King’s College London (2nd) is not priced here yet; check its own page.',
         env: 'Taught in English in Toronto. The degree is full-time and in person, with lectures, labs and clinical placements.',
-        watch: 'You need two years of university study first (10 Toronto credits, with at least a B average), and those years are not in the cost shown. Places are highly competitive. The Singapore Nursing Board publishes no list of approved overseas programmes: it assesses each one itself, so ask the Board before you apply. It also asks for a job offer from an eligible hospital here, registration and a practising licence from the country where you trained, and recent nursing practice, and then a licensure exam, a competency assessment or provisional registration. The fee is the 2026-27 international program fee, before about CAD 3,400 a year in student and course fees. The living figure is the amount Canada asks a single student to show for a study permit (from 1 September 2026), not a typical budget.',
+        watch: 'You need two years of university study first (10 Toronto credits, B average). The Singapore Nursing Board publishes no list of approved overseas programmes: it assesses each one itself, so ask the Board before you apply. Places are highly competitive. The Board also asks for a job offer from an eligible hospital here, registration and a practising licence from the country where you trained, and recent nursing practice, and then a licensure exam, a competency assessment or provisional registration. The fee is the 2026-27 international program fee, before about CAD 3,400 a year in student and course fees. The living figure is the amount Canada asks a single student to show for a study permit (from 1 September 2026), not a typical budget.',
         url: 'https://bloomberg.nursing.utoronto.ca/programs/bachelor',
         src: ['qs-nurs26', 'ut-bscn', 'ut-bscn-apply', 'ca-funds', 'snb-foreign'], links: ['snb']
       },
@@ -1165,7 +1168,7 @@
     return {
       fees,
       living: opt.living == null ? '' : 'Living costs ' + local(opt.cur, opt.living) + ' a year (about ' + sgd(c.livingSgd) + ')',
-      total: noTotal(opt) ? 'Living costs not known, so no total for ' + fmtYears(opt.yrs) : 'Roughly ' + sgd(c.totalSgd[0], c.totalSgd[1]) + ' for ' + fmtYears(opt.yrs) + (opt.living == null ? ', before living costs' : ', including living costs')
+      total: noTotal(opt) ? 'Living costs not known, so no total for ' + fmtYears(opt.yrs) : 'Roughly ' + sgd(c.totalSgd[0], c.totalSgd[1]) + ' for ' + fmtYears(opt.yrs) + (opt.living == null ? ', before living costs' : ', including living costs') + (opt.totalNote ? ' (' + opt.totalNote + ')' : '')
     };
   }
 
@@ -1197,7 +1200,7 @@
     const total = o => {
       const t = costOf(o).totalSgd, free = o.tuition[0] === 0 && o.tuition[1] === 0;
       if (noTotal(o)) return costText(o).fees + ' · living costs not known' + note(o);
-      return (free ? costText(o).fees + ' · ' : '') + 'about ' + sgd(t[0], t[1]) + (o.living == null ? ' before living costs' : ' in total') + note(o);
+      return (free ? costText(o).fees + ' · ' : '') + 'about ' + sgd(t[0], t[1]) + (o.living == null ? ' before living costs' : ' in total') + note(o) + (o.totalNote ? ' (' + o.totalNote + ')' : '');
     };
     const b = r.best, t = costText(b);
     const card = '<div class="best-card"><span class="best-badge">Best place to study this</span>' +
@@ -1259,7 +1262,7 @@
     const close = x => (/[.!?]$/.test(x) ? x : x + '.');
     if (r.agency) return close(clip(r.agency, 450));
     const b = r.best, t = costOf(b).totalSgd;
-    const lead = b.country + ', ' + b.school + ': ' + (noTotal(b) ? costText(b).fees.toLowerCase() + ' for ' + fmtYears(b.yrs) + ', living costs not known' : 'about ' + sgd(t[0], t[1]) + ' for ' + fmtYears(b.yrs) + (b.living == null ? ', before living costs' : ', including living costs')) + '. Watch out: ';
+    const lead = b.country + ', ' + b.school + ': ' + (noTotal(b) ? costText(b).fees.toLowerCase() + ' for ' + fmtYears(b.yrs) + ', living costs not known' : 'about ' + sgd(t[0], t[1]) + ' for ' + fmtYears(b.yrs) + (b.living == null ? ', before living costs' : ', including living costs')) + (b.totalNote ? ' (' + b.totalNote + ')' : '') + '. Watch out: ';
     return lead + close(clip(b.watch, Math.max(450 - lead.length - 1, 0)));
   }
 
