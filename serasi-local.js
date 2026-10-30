@@ -456,10 +456,9 @@
       '<span class="s-m">' + esc(fmtYears(c.yrs)) + ' · ' + (c.fee == null ? 'fee on the school\'s page' : esc(money(c.fee)) + ' a year') +
         (c.note ? ' (' + esc(c.note) + ')' : '') + '</span>' +
       (c.mode ? ' <span class="pill">' + esc(c.mode) + '</span>' : '') +
-      (c.note ? ' <span class="s-m">' + esc(c.note) + '</span>' : '') +
       ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">course page ↗</a></li>').join('');
     return '<ul class="schools">' + items + '</ul>' +
-      '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools\' fee pages in October 2026 (sources under the price breakdown). A note beside a fee says how it was worked out. The links go to the course pages.</p>';
+      '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools\' fee pages in October 2026 (sources below). A note beside a fee says how it was worked out. The links go to the course pages.</p>';
   }
 
   window.SerasiLocal = { SCHOOLS, COURSES, forRole, spread, html };

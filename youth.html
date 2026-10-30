@@ -903,20 +903,20 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       alts.push('The RSAF also trains its own pilots as SAF regular officers.');
       alts.push('Paying for flight school yourself is possible but very expensive, so try for a sponsored cadetship first.');
     } else if (T.custom === 'aviation') {
-      steps.push({ t: 'Apply to airlines as cabin crew', n: 'Airlines run their own paid training for new crew. Check each airline’s entry requirements before you apply.', yrs: 0, fee: 'paid' });
+      steps.push({ t: 'Apply to airlines as cabin crew', n: 'Airlines run their own paid training for new crew. Check each airline’s entry requirements before you apply.', yrs: 0, fee: 'paid', schools: role.edu });
     } else if (T.custom === 'property') {
       steps.push({ t: 'Pass the CEA Real Estate Salesperson (RES) course and exam', n: 'Take the course at an approved school, then sit the exam.', yrs: 0 });
       steps.push({ t: 'Register with a licensed estate agency', n: 'You must be registered with the Council for Estate Agencies through an agency before you can work.', yrs: 0 });
     } else if (role.trk === 'medicine' && (working || cur === 3)) {
-      steps.push({ t: 'Graduate-entry medicine at Duke-NUS (4-year MD)', n: 'Duke-NUS takes graduates from any field. With a degree you can also apply to the NUS or NTU MBBS.', yrs: 4, fee: 'check' });
+      steps.push({ t: 'Graduate-entry medicine at Duke-NUS (4-year MD)', n: 'Duke-NUS takes graduates from any field. With a degree you can also apply to the NUS or NTU MBBS.', yrs: 4, fee: 'check', schools: role.edu });
     } else if (working) {
       steps.push({ t: 'Check what you already have', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (STRICT.includes(role.trk) ? ' in this field' : '') + '. If you have it, skip the next step.', yrs: 0, done: true });
-      steps.push({ t: 'Study for it: ' + lowerFirst(course(role.edu) || 'a related course'), n: 'ITE, the polytechnics and SUSS run many part-time courses with SkillsFuture subsidies, so you can keep earning; some courses are full-time only.', yrs: yrsOf(role.edu), fee: 'pt' });
+      steps.push({ t: 'Study for it: ' + lowerFirst(course(role.edu) || 'a related course'), n: 'ITE, the polytechnics and SUSS run many part-time courses with SkillsFuture subsidies, so you can keep earning; some courses are full-time only.', yrs: yrsOf(role.edu), fee: 'pt', schools: role.edu });
     } else {
       // A diploma or degree only counts if it's in the right field, so offer the matching course as another route.
       if (cur >= role.edu) {
         const strict = STRICT.includes(role.trk);
-        steps.push({ t: 'If your ' + ['', 'ITE course', 'diploma', 'degree'][cur] + ' is in ' + (strict ? 'this field' : 'a related field') + ', you already qualify', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (strict ? ' in this field.' : ' in a related field.'), yrs: 0, done: true });
+        steps.push({ t: 'If your ' + ['', 'ITE course', 'diploma', 'degree'][cur] + ' is in ' + (strict ? 'this field' : 'a related field') + ', you already qualify', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (strict ? ' in this field.' : ' in a related field.'), yrs: 0, done: true, schools: role.edu });
         if (role.trk === 'law' && cur === 3) alts.push('With a degree in another field: the Juris Doctor (JD) at SMU, a law degree for graduates.');
         else if (role.trk !== 'public' && course(role.edu)) alts.push('If your qualification is in another field: ' + lowerFirst(course(role.edu)) + '. Graduates of other fields often take this route, and some employers sponsor it.');
       }
@@ -978,8 +978,12 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const sum = '<p class="path-sum"><span class="pill good">' + (path.years ? 'About ' + fmtYears(path.years) + ' of study or training' : path.steps.some(x => x.done) ? 'No more study if your qualification is related' : 'No more study needed') + '</span>' +
       (cost.total ? '<span class="pill">Course fees about ' + money(cost.total) + '</span>' : '') + '<span class="small muted">Starting from: ' + esc(PATH[p.pathway].label) + '</span></p>';
     const meta = st => [st.yrs ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'paid, no fees' : st.fee === 'funded' ? 'funded by MOE, no fees' : st.fee === 'pt' ? 'part-time, subsidised' : st.fee === 'check' ? 'fees differ; check the school' : st.fee ? 'about ' + money(FEES[st.fee].yr) + ' a year' : ''].filter(Boolean).join(' · ');
-    // Every public school that teaches the course at this step's level; nothing when none is listed.
-    const schools = st => { const list = st.lvl ? SerasiLocal.html(r, st.lvl, { esc, money }) : ''; return list ? '<div class="s-schools">' + list + '</div>' : ''; };
+    // Every public school that teaches the course at this step's level (lvl), or at the role's own level on a step that only points to
+    // schools (schools: level, with no fee of its own); nothing when none is listed.
+    const schools = st => {
+      const list = st.lvl || st.schools ? SerasiLocal.html(r, st.lvl || st.schools, { esc, money }) : '';
+      return list ? '<div class="s-schools">' + (st.lvl ? '' : '<p class="small muted">Schools that teach it</p>') + list + '</div>' : '';
+    };
     const steps = '<ol class="steps-path">' + path.steps.map(st => '<li' + (st.done ? ' class="done"' : '') + '><span class="s-t">' + esc(st.t) + '</span>' +
       (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') + (st.n ? '<span class="s-n">' + esc(st.n) + '</span>' : '') + schools(st) + '</li>').join('') + '</ol>';
     const extras = path.alts.concat(T.later ? [T.later] : [], T.note ? [T.note] : []);
@@ -988,10 +992,12 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const feeRows = cost.rows.filter(x => x.kind === 'fee');
     // Levels where a listed school's fee is more than $300 from the fee the table uses, and the fee sources of every listed school.
     const listed = studySteps.map(st => ({ st, list: SerasiLocal.forRole(r, st.lvl) }));
+    // Fee sources of every school shown, including steps that only list schools.
+    const shownSchools = path.steps.filter(x => !x.lvl && x.schools).flatMap(x => SerasiLocal.forRole(r, x.schools));
     const differ = listed.map(x => ({ st: x.st, sp: SerasiLocal.spread(x.list, FEES[x.st.fee].yr) })).filter(x => x.sp && x.sp.differs);
     const differNote = differ.map(x => '<p class="small muted">Fees differ by school' + (differ.length > 1 ? ' for the ' + esc(lowerFirst(FEES[x.st.fee].label)) : '') + ': ' +
       (x.sp.lo === x.sp.hi ? money(x.sp.lo) : money(x.sp.lo) + ' to ' + money(x.sp.hi)) + ' a year; the table uses ' + money(FEES[x.st.fee].yr) + '.</p>').join('');
-    const localSrc = listed.flatMap(x => x.list).flatMap(c => c.src || []);
+    const localSrc = listed.flatMap(x => x.list).concat(shownSchools).flatMap(c => c.src || []);
     if (feeRows.length) {
       const showAfter = cost.after != null || cost.ipa;
       const row = x => '<tr><th scope="row">' + esc(FEES[x.s.fee].label) + ' · ' + fmtYears(x.s.yrs) + '</th><td class="num">' + money(x.per) + '</td><td class="num">' + money(x.total) + '</td>' + (showAfter ? '<td class="num">' + (x.after == null ? '–' : money(x.after)) + '</td>' : '') + '</tr>';
@@ -1002,7 +1008,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
         feeRows.map(row).join('') +
         (cost.ipa ? '<tr><th scope="row">ITE Progression Award (into your PSEA)</th><td></td><td></td><td class="num">−' + money(cost.ipa) + '</td></tr>' : '') +
         '</tbody><tfoot><tr><th scope="row">Total</th><td></td><td class="num">' + money(cost.total) + '</td>' + (showAfter ? '<td class="num">' + money(cost.after != null ? cost.after : Math.max(0, cost.total - cost.ipa)) + '</td>' : '') + '</tr></tfoot></table></div>' +
-        '<p class="small muted">Fees are for Singapore Citizens after the MOE Tuition Grant, for students starting in 2025–26; they’re fixed for your whole course. ' +
+        '<p class="small muted">Fees are for Singapore Citizens after the MOE Tuition Grant. This table uses the usual fee for students starting in 2025–26; the school fees listed above come from each school’s own page, checked in October 2026. Fees are fixed for your whole course. ' +
           (cost.after == null && cost.local ? 'Choose your household income above to see TTFS and bursaries taken off.' : cost.after != null ? 'Estimate assumes you’re Malay and get both TTFS and the bursary for your income band; your school confirms the final amount.' : '') + '</p>' +
         differNote +
         srcLinks(uniq(feeRows.map(x => FEES[x.s.fee].src)).concat(cost.local ? ['ttfs26', 'burs-poly', 'burs-uni'] : [], localSrc));
@@ -1025,7 +1031,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     return '<div class="col">' +
       '<div><h4>Your shortest path</h4>' + sum + '</div>' + steps +
       (extras.length ? '<div><h4>Other routes and tips</h4><ul class="qa">' + extras.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') +
-      (table ? '<div><h4>Price breakdown</h4>' + table + '</div>' : '') +
+      (table ? '<div><h4>Price breakdown</h4>' + table + '</div>' : (localSrc.length ? '<div><h4>School fees</h4>' + srcLinks(localSrc) + '</div>' : '')) +
       help + payHint(r) + abroad +
       '<div><h4>Find out more</h4>' + contactList(contacts) + '</div>' +
     '</div>';

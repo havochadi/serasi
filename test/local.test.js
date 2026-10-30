@@ -63,7 +63,7 @@ test('html lists each course with school, course, years, fee, link and the fee n
   assert.match(out, /3 years/); assert.match(out, /\$3,180 a year/);
   assert.match(out, /3½ years/); assert.match(out, /\$8,250 a year/);
   assert.match(out, /<a href="https:\/\/example\.sg\/c" target="_blank" rel="noopener">course page ↗<\/a>/);
-  assert.match(out, /Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools' fee pages in October 2026 \(sources under the price breakdown\)\. A note beside a fee says how it was worked out\. The links go to the course pages\./);
+  assert.match(out, /Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools' fee pages in October 2026 \(sources below\)\. A note beside a fee says how it was worked out\. The links go to the course pages\./);
 });
 test('html says 1 year for a one-year course', () => assert.match(L.html(ROLE['data-sci'], 2, h, [course({ yrs: 1 })]), /1 year[^s]/));
 test('a course with no fee points to the school page, with no null or undefined', () => {
@@ -155,6 +155,18 @@ test('a note beside a fee says how it was worked out, and is escaped', () => {
   assert.match(out, /\$3,180 a year \(worked out as &lt;b&gt;2&lt;\/b&gt; terms\)/);
   assert.doesNotMatch(out, /<b>2<\/b>/);
   assert.doesNotMatch(L.html(ROLE['data-sci'], 2, h, [course()]), /\(worked|\(\)/);
+});
+test('a fee note appears exactly once in the school list', () => {
+  const out = L.html(ROLE['data-sci'], 2, h, [course({ note: 'worked out as 2 terms' })]);
+  assert.equal(out.split('worked out as 2 terms').length - 1, 1);
+  assert.equal(out.split('(worked out as 2 terms)').length - 1, 1);
+  for (const lvl of [1, 2, 3]) for (const role of Object.values(ROLE)) {
+    const html = L.html(role, lvl, h);
+    const list = L.forRole(role, lvl);
+    for (const note of new Set(list.map(c => c.note).filter(Boolean))) {
+      assert.equal(html.split('(' + h.esc(note) + ')').length - 1, list.filter(c => c.note === note).length, role.id + ' level ' + lvl + ': ' + note);
+    }
+  }
 });
 test('every fee that is worked out rather than published carries a note', () => {
   const noted = L.COURSES.filter(c => c.note);
