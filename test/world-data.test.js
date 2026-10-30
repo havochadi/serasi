@@ -77,3 +77,7 @@ DONE.push('islamic');
 DONE.push('health');
 DONE.push('biotech');
 DONE.push('construction', 'energy', 'manufacturing', 'auto');
+DONE.push('care');
+DONE.push('hospitality');
+DONE.push('creative');
+DONE.push('education');

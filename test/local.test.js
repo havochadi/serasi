@@ -157,7 +157,7 @@ test('a note beside a fee says how it was worked out, and is escaped', () => {
 });
 test('every fee that is worked out rather than published carries a note', () => {
   const noted = L.COURSES.filter(c => c.note);
-  for (const c of L.COURSES.filter(c => c.school === 'SIT' || (c.school === 'ITE' && /Nursing/.test(c.course)))) assert.ok(c.note, c.course);
+  for (const c of L.COURSES.filter(c => (c.school === 'SIT' && c.fee != null) || (c.school === 'ITE' && /Nursing/.test(c.course)))) assert.ok(c.note, c.course);   // a SIT course with no listed fee has nothing worked out
   for (const c of noted) assert.ok(c.note.length > 10, c.course);
 });
 

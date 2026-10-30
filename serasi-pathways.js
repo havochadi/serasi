@@ -51,7 +51,7 @@
     'kr-content': ['Korea JoongAng Daily, 2026', 'https://www.koreajoongangdaily.com/business/koreas-content-industry-exports-hit-record-high-149-billion-in-2025-buoyed-by-govt-support-initiatives/12605188'],
     'kr-tourism': ['Korea Herald, 2026', 'https://www.koreaherald.com/article/10762264'],
     'kr-ship': ['Splash247', 'https://splash247.com/south-korean-shipbuilders-hit-by-welder-crisis-as-over-1000-vietnamese-workers-denied-entry/'],
-    'unesco-teach': ['UN News, UNESCO Global Report on Teachers', 'https://news.un.org/en/node/1147067'],
+    'unesco-teach': ['UN News, UNESCO Global Report on Teachers (February 2024)', 'https://news.un.org/en/story/2024/02/1147067'],
     bca26: ['BCA, January 2026', 'https://www1.bca.gov.sg/resources/newsroom/speech-by-minister-chee-hong-tat-at-bca-redas-built-environment-and-real-estate--prospects-seminar-2026/'],
     ges25: ['Graduate Employment Survey 2025 (Human Resources Online)', 'https://www.humanresourcesonline.net/median-starting-salaries-of-fresh-graduates-from-nus-ntu-smu-sit-suss-sutd-in-2025'],
     ges25p: ['Polytechnic Graduate Employment Survey 2025 (VnExpress)', 'https://e.vnexpress.net/news/news/education/singapore-polytechnic-graduates-earn-more-in-2025-even-as-job-market-tightens-5006517.html'],
@@ -145,6 +145,28 @@
     'autocar-workers-2026': ['Autocar Professional, India’s auto workers (1 May 2026)', 'https://www.autocarpro.in/news/reskilling-the-workforce-the-new-scorecard-for-indias-3-crore-auto-workers-132377?amp=1'],
     'citb-cwo-2026': ['Construction Index, CITB Construction Workforce Outlook 2026–30 (June 2026)', 'https://www.theconstructionindex.co.uk/news/view/citb-predicts-construction-demands'],
     'ema-manpower-2025-pdf': ['Energy Market Authority, media release of 31 October 2025 (PDF)', 'https://www.ema.gov.sg/content/dam/corporate/news/media-releases/2025/20251031-Media-Release-Singapore-Energy-Workforce-Poised-to-Grow-Over-Next%20Decade.pdf.coredownload.pdf'],
+
+    // Task 14: care, hospitality, creative, education
+    'sg-65plus-2025': ['Human Resources Online, Singapore Population in Brief 2025 (October 2025)', 'https://www.humanresourcesonline.net/singapore-s-citizen-population-aged-65-and-above-is-growing-faster-than-in-the-previous-decade-nptd'],
+    'sg-hc-workforce-2025': ['Human Resources Online, Singapore healthcare workforce target (November 2025)', 'https://www.humanresourcesonline.net/more-than-900-nursing-vacancies-reported-in-singapore-s-public-hospitals-in-the-past-3-months-amid-healthcare-expansion'],
+    'sfc-vacancy-2026': ['Skills for Care, adult social care vacancy rate (June 2026)', 'https://www.skillsforcare.org.uk/news-and-events/news/adult-social-care-vacancy-rate-falls-to-lowest-level-in-a-decade-as-workforce-grows'],
+    'uk-care-visa-2025': ['GOV.UK, applying for health and social care jobs in the UK from abroad', 'https://www.gov.uk/government/publications/applying-for-health-and-social-care-jobs-in-the-uk-from-abroad/part-1-applying-for-health-and-social-care-jobs-in-the-uk-from-abroad'],
+    'bls-aides-2035': ['US Bureau of Labor Statistics, Home health and personal care aides (updated August 2026)', 'https://www.bls.gov/ooh/healthcare/home-health-aides-and-personal-care-aides.htm'],
+    'kr-care-2028': ['The Star (Korea Immigration Service Foundation), March 2026', 'https://www.thestar.com.my/aseanplus/aseanplus-news/2026/03/16/south-korea-may-need-foreign-workers-to-fill-110000-elderly-care-jobs-by-2028'],
+    'sg-tourism-2025': ['TTG Asia, Singapore visitor arrivals and tourism receipts (February 2026)', 'https://www.ttgasia.com/2026/02/03/visitor-arrivals-to-singapore-increase-as-tourism-receipts-grow/'],
+    'my-visitors-2025': ['The Star, Malaysia records 42.2 million visitors in 2025 (January 2026)', 'https://www.thestar.com.my/news/nation/2026/01/26/malaysia-records-422-million-visitors-in-2025-strengthens-collaboration-for-vm2026'],
+    'uk-hosp-2026': ['Vinetur, UKHospitality analysis of ONS data (October 2026)', 'https://www.vinetur.com/en/amp/20261008108596/britains-hospitality-industry-urges-national-insurance-cut-after-losing-100000-jobs-in-two-years.html'],
+    'moe-ges25': ['MOE, Joint Graduate Employment Survey 2025 (NUS, NTU, SMU, SUTD, SIT, SUSS)', 'https://www.moe.gov.sg/api/media/b26f8eed-8a89-47e3-b82f-c2c239786342/Joint-Web-Publication-GES-2025.pdf'],
+    'dcms-gva-2024': ['GOV.UK, DCMS Economic Estimates: GVA 2024 provisional (February 2026)', 'https://www.gov.uk/government/statistics/dcms-economic-estimates-gva-2024-provisional'],
+    'ukie-census-2026': ['Game World Observer, UKIE survey of UK games workers (July 2026)', 'https://gameworldobserver.com/2026/07/20/nearly-a-quarter-of-surveyed-british-developers-have-lost-their-jobs-in-the-past-three-years'],
+    'filmla-2025': ['FilmLA, Los Angeles shoot days in 2025 (January 2026)', 'https://filmla.com/rising-california-film-tv-tax-credit-productions-signal-growing-industry-momentum-amid-2025-production-losses/'],
+    'cn-games-2025': ['China Daily, China Game Industry Annual Report (December 2025)', 'https://www.chinadaily.com.cn/a/202512/19/WS69454c69a310d6866eb2f917.html'],
+    'nie-hire-2025': ['NIE news, Singapore to hire more than 1,000 new educators a year (July 2025)', 'https://www.ntu.edu.sg/nie/news-events/news/detail/singapore-to-hire-more-than-1-000-new-educators-annually-in-the-next-few-years--up-from-700'],
+    'mext-teach-2025': ['MEXT, public school teacher recruitment exams for April 2025 hiring (Board of Education Monthly Report, February 2026)', 'https://www.mext.go.jp/content/20260209-mxt_syoto01-000047272_07.pdf'],
+    'kr-teach-2030': ['The Herald Business, Korea teacher supply plan 2027-2030 (June 2026)', 'https://mbiz.heraldcorp.com/article/10787643'],
+    'cn-preschool-2025': ['Yicai, China’s kindergarten teachers fall by over 219,000 in 2025 (August 2026)', 'https://www.yicaiglobal.com/news/chinas-number-of-kindergarten-teachers-drops-by-over-219000-in-2025'],
+    'dfe-itt-2025': ['Department for Education, Initial Teacher Training Census 2025/26', 'https://explore-education-statistics.service.gov.uk/find-statistics/initial-teacher-training-census/2025-26'],
+    'moe-teach-award': ['MOE, teaching scholarship and award details (bond lengths)', 'https://www.moe.gov.sg/careers/teaching-scholarships-sponsorships/moe-teaching-scholarships-full-term/scholarship-and-award-details']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -185,8 +207,11 @@
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
       biotech: ['steady', 'Biomedical manufacturing made up 30.8% of the S$14.2 billion in fixed asset investment commitments for 2025, second to electronics (33%). But jobs are less certain: EDB expects 15,700 new jobs across all industries over five years, its lowest projection since at least 2006.', ['sg-edb-yir25', 'sg-edb-vp25', 'sg-edb-fmt26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
-      education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
       semis: ['grow', 'Semiconductors employ over 35,000 people and make up nearly 6% of Singapore’s GDP (EDB, 2025). UMC’s new wafer plant, unveiled in 2025, will add 700 jobs, and semiconductor engineers joined the Shortage Occupation List in November 2024.', ['edb-semi-talent-2025', 'edb-semi-jobs-2026']],
+      education: ['grow', 'In July 2025 the Education Minister said MOE will hire more than 1,000 new educators a year, up from about 700. Fresh diploma holders in teaching typically start at $3,110 (MOE, 2026).', ['nie-hire-2025', 'moe-diped']],
+      care: ['grow', 'Citizens aged 65 and over rose from 13.1% in 2015 to 20.7% in 2025, and are projected to reach 23.9% by 2030. The government aims to grow the national healthcare workforce by 20% by 2030.', ['sg-65plus-2025', 'sg-hc-workforce-2025']],
+      hospitality: ['grow', 'Visitors rose 2.3% to 16.9 million in 2025, and tourism receipts reached S$23.9 billion in January to September, up 6.5%. The Tourism Board forecasts 17 to 18 million visitors in 2026.', ['sg-tourism-2025']],
+      creative: ['decline', 'A fresh-graduate measure: only 50.0% of 2025 university arts, design and media graduates in the labour force had a full-time permanent job six months after finishing (66.7% in 2023, the lowest of eight course groups). 77.5% were working in some form; freelance and part-time work do not count as full-time permanent. Median pay was $3,840.', ['moe-ges25']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
@@ -369,7 +394,7 @@
     'ah-spon': { t: 'Allied health sponsorships (MOH Holdings)', d: 'Sponsor local diplomas and degrees such as physiotherapy, occupational therapy, radiography, pharmacy and dietetics, in return for a bond.', c: 'ahspon', src: [] },
     ncss: { t: 'NCSS Social Service Scholarship', d: 'Full tuition plus allowances for social work, occupational therapy, physiotherapy and speech therapy degrees. Bond: 4 years for local study, 6 for overseas.', c: 'ncss', src: [] },
     ecda: { t: 'ECDA Training Award', d: 'Pays full course fees plus a monthly allowance ($800 at polytechnic, $500 at ITE) for early childhood courses. You then work one year in the sector for each year of support.', c: 'ecda', src: [] },
-    'moe-teach': { t: 'Paid teacher training', d: 'MOE pays you while you train at NIE. Diploma holders typically start at about $2,970 a month and serve a 3-year bond in a primary school. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond.', c: 'moeTeach', src: ['moe-diped'] },
+    'moe-teach': { t: 'MOE-funded teacher training', d: 'Diploma holders first do a compulsory contract teaching stint. If it goes well, MOE fully funds your training at NIE, and you then serve a 3-year bond in a primary school. Fresh diploma holders typically start at $3,110. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond for local study.', c: 'moeTeach', src: ['moe-diped', 'moe-teach-award'] },
     'paid-train': { t: 'Paid from day one', d: 'Home Team and SAF recruits draw a salary during training and pay no course fees. Ask about sponsored study for a diploma or degree later.', c: 'careersgov', src: [] },
     sfc: { t: 'SkillsFuture Credit', d: 'Singaporeans aged 25 and above get $500 of SkillsFuture Credit for approved courses.', c: 'ssg', src: [] },
     pt: { t: 'Part-time study', d: 'Part-time Higher Nitec modules at ITE cost about $71 each for Singapore Citizens after SkillsFuture funding. Polytechnics and SUSS run subsidised part-time diplomas and degrees.', c: 'ssg', src: [] }
