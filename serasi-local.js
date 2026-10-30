@@ -87,6 +87,75 @@
     { school: 'Temasek Polytechnic', course: 'Diploma in Psychology Studies', lvl: 2, yrs: 3, fee: 3183.15, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/hss/psychology-studies.html', src: ['fee-tp26'] }
   ];
 
+  /* Tech, engineering and aviation fields. Added with push so the lines above stay untouched. ITE entries are the 2-year Higher Nitec at the AY2026
+     rate ($283 a term, $566 a year, source 'fee-ite26'); most of them also have a 3-year version, which is not listed. ITE is listed only for fields
+     that have a role reachable from ITE. The polytechnics charge one rate for every full-time diploma (checked October 2026): Singapore Polytechnic
+     $3,177.52, Ngee Ann $3,167.50, Nanyang $3,188.09, Republic $3,186.50, Temasek $3,183.15. */
+  COURSES.push(
+    // Computing and software. The ITE Immersive Applications & Game and Temasek's Immersive Media & Game Development are tied to the game developer.
+    { school: 'ITE', course: 'Higher Nitec in IT Systems & Networks', lvl: 1, yrs: 2, fee: 566, fields: ['computing'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-it-systems-and-networks/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in IT Applications Development', lvl: 1, yrs: 2, fee: 566, fields: ['computing'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-it-applications-development/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Immersive Applications & Game', lvl: 1, yrs: 2, fee: 566, fields: ['computing'], roles: ['game-dev'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-immersive-applications-and-game/', src: ['fee-ite26'] },
+    { school: 'Singapore Polytechnic', course: 'Diploma in Computer Science', lvl: 2, yrs: 3, fee: 3177.52, fields: ['computing'], url: 'https://www.sp.edu.sg/courses/schools/soc/computer-science', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Information Technology', lvl: 2, yrs: 3, fee: 3167.5, fields: ['computing'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-infocomm-technology/diploma-in-information-technology', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Computing', lvl: 2, yrs: 3, fee: 3188.09, fields: ['computing'], url: 'https://www.nyp.edu.sg/student/study/schools/information-technology/diploma-computing', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Information Technology', lvl: 2, yrs: 3, fee: 3186.5, fields: ['computing'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-information-technology/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Information Technology', lvl: 2, yrs: 3, fee: 3183.15, fields: ['computing'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/iit/information-technology.html', src: ['fee-tp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Immersive Media & Game Development', lvl: 2, yrs: 3, fee: 3183.15, fields: ['computing'], roles: ['game-dev'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/iit/immersive-media-and-game-development.html', src: ['fee-tp26'] },
+
+    // Data and AI, diplomas. Nanyang's AI & Data Engineering sits in its School of Engineering; the other seven are in the polytechnics' infocomm schools.
+    { school: 'Singapore Polytechnic', course: 'Diploma in Applied AI & Analytics', lvl: 2, yrs: 3, fee: 3177.52, fields: ['data-ai'], url: 'https://www.sp.edu.sg/courses/schools/soc/applied-ai-analytics', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Applied AI & Analytics', lvl: 2, yrs: 3, fee: 3167.5, fields: ['data-ai'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-infocomm-technology/diploma-in-applied-ai-analytics', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Applied AI & Analytics', lvl: 2, yrs: 3, fee: 3188.09, fields: ['data-ai'], url: 'https://www.nyp.edu.sg/student/study/schools/information-technology/diploma-applied-AI-analytics', src: ['fee-nyp26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in AI & Data Engineering', lvl: 2, yrs: 3, fee: 3188.09, fields: ['data-ai'], url: 'https://www.nyp.edu.sg/student/study/schools/engineering/diploma-AI-data-engineering', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Applied AI & Analytics', lvl: 2, yrs: 3, fee: 3186.5, fields: ['data-ai'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-applied-ai-and-analytics/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Applied Artificial Intelligence', lvl: 2, yrs: 3, fee: 3183.15, fields: ['data-ai'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/iit/applied-artificial-intelligence.html', src: ['fee-tp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Big Data & Analytics', lvl: 2, yrs: 3, fee: 3183.15, fields: ['data-ai'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/iit/big-data-analytics.html', src: ['fee-tp26'] },
+
+    // Cybersecurity. All five polytechnics run a Cybersecurity & Digital Forensics diploma.
+    { school: 'Singapore Polytechnic', course: 'Diploma in Cybersecurity & Digital Forensics', lvl: 2, yrs: 3, fee: 3177.52, fields: ['cybersecurity'], url: 'https://www.sp.edu.sg/courses/schools/soc/cybersecurity-digital-forensics', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Cybersecurity & Digital Forensics', lvl: 2, yrs: 3, fee: 3167.5, fields: ['cybersecurity'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-infocomm-technology/diploma-in-cybersecurity-digital-forensic', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Cybersecurity & Digital Forensics', lvl: 2, yrs: 3, fee: 3188.09, fields: ['cybersecurity'], url: 'https://www.nyp.edu.sg/student/study/schools/information-technology/diploma-cybersecurity-digital-forensics', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Cybersecurity & Digital Forensics', lvl: 2, yrs: 3, fee: 3186.5, fields: ['cybersecurity'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-cybersecurity-and-digital-forensics/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Cybersecurity & Digital Forensics', lvl: 2, yrs: 3, fee: 3183.15, fields: ['cybersecurity'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/iit/cybersecurity-digital-forensics.html', src: ['fee-tp26'] },
+
+    // Civil engineering. Singapore Polytechnic is the only polytechnic with a civil engineering diploma, and none runs a quantity surveying one, so the
+    // quantity surveyor has no diploma listed.
+    { school: 'Singapore Polytechnic', course: 'Diploma in Civil Engineering', lvl: 2, yrs: 3, fee: 3177.52, fields: ['civil-eng'], roles: ['civil-eng'], url: 'https://www.sp.edu.sg/courses/schools/abe/civil-engineering', src: ['fee-poly'] },
+
+    // Mechanical engineering. Only Singapore Polytechnic and Ngee Ann have a diploma of this name.
+    { school: 'Singapore Polytechnic', course: 'Diploma in Mechanical Engineering', lvl: 2, yrs: 3, fee: 3177.52, fields: ['mechanical-eng'], url: 'https://www.sp.edu.sg/courses/schools/mae/mechanical-engineering', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Mechanical Engineering', lvl: 2, yrs: 3, fee: 3167.5, fields: ['mechanical-eng'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-engineering/diploma-in-mechanical-engineering', src: ['fee-np26'] },
+
+    // Electrical engineering, diplomas.
+    { school: 'Singapore Polytechnic', course: 'Diploma in Electrical & Electronic Engineering', lvl: 2, yrs: 3, fee: 3177.52, fields: ['electrical-eng'], url: 'https://www.sp.edu.sg/courses/schools/eee/electrical-electronic-engineering', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Electrical Engineering', lvl: 2, yrs: 3, fee: 3167.5, fields: ['electrical-eng'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-engineering/diploma-in-electrical-engineering', src: ['fee-np26'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Electronic & Computer Engineering', lvl: 2, yrs: 3, fee: 3167.5, fields: ['electrical-eng'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-engineering/diploma-in-electronic-computer-engineering', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Electronic & Computer Engineering', lvl: 2, yrs: 3, fee: 3188.09, fields: ['electrical-eng'], url: 'https://www.nyp.edu.sg/student/study/schools/engineering/diploma-electronic-computer-engineering', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Electrical & Electronic Engineering', lvl: 2, yrs: 3, fee: 3186.5, fields: ['electrical-eng'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-electrical-and-electronic-engineering/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Electrical & Electronic Engineering', lvl: 2, yrs: 3, fee: 3183.15, fields: ['electrical-eng'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/eng/electronics.html', src: ['fee-tp26'] },
+
+    // Engineering technology (ITE only).
+    { school: 'ITE', course: 'Higher Nitec in Mechanical Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['engineering'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-mechanical-engineering/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Mechatronics Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['engineering'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-mechatronics-engineering/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Precision Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['engineering'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-precision-engineering/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Advanced Manufacturing', lvl: 1, yrs: 2, fee: 566, fields: ['engineering'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-advanced-manufacturing/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Electronics Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['engineering'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-electronics-engineering/', src: ['fee-ite26'] },
+
+    // Technical trades (ITE only). Each course is tied to the trades it trains for.
+    { school: 'ITE', course: 'Higher Nitec in Electrical Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['trades'], roles: ['electrician', 'solar-tech'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-electrical-engineering/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Automotive Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['trades'], roles: ['ev-tech'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-automotive-engineering/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Facilities Management & Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['trades'], roles: ['facilities-tech'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-facilities-management-and-engineering/', src: ['fee-ite26'] },
+
+    // Aircraft maintenance (ITE only). ITE College Central runs it as a Singapore Airworthiness Requirements Part-147 course approved by CAAS.
+    { school: 'ITE', course: 'Higher Nitec in Aerospace Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['aero'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-aerospace-engineering/', src: ['fee-ite26'] },
+
+    // Maritime and port operations. Singapore Polytechnic's Singapore Maritime Academy is the only school with a marine engineering diploma.
+    { school: 'ITE', course: 'Higher Nitec in Logistics & Supply Chain Management', lvl: 1, yrs: 2, fee: 566, fields: ['maritime'], roles: ['port-ops'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-logistics-and-supply-chain-management/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Marine & Offshore Engineering', lvl: 1, yrs: 2, fee: 566, fields: ['maritime'], roles: ['marine-eng'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-marine-offshore-engineering/', src: ['fee-ite26'] },
+    { school: 'Singapore Polytechnic', course: 'Diploma in Marine Engineering', lvl: 2, yrs: 3, fee: 3177.52, fields: ['maritime'], roles: ['marine-eng'], url: 'https://www.sp.edu.sg/courses/schools/sma/marine-engineering', src: ['fee-poly'] },
+  );
+
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');
 
   // The courses for a role at a level (1 = ITE, 2 = diploma, 3 = degree), in the order of SCHOOLS.
