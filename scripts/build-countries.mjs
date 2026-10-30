@@ -95,11 +95,52 @@ export function parseWb(json) {
   return out;
 }
 
+// The World Bank paging block of a response ([paging, rows]) says how many pages there are; a page past the first is fetched too.
+export function pagesOf(json) {
+  const paging = Array.isArray(json) ? json[0] : null;
+  const pages = paging && Number(paging.pages);
+  if (!Number.isInteger(pages) || pages < 1) throw new Error('Unexpected World Bank response: no paging.pages in ' + JSON.stringify(paging));
+  return pages;
+}
+
 async function fetchWb(indicator) {
-  const url = 'https://api.worldbank.org/v2/country/all/indicator/' + indicator + '?format=json&mrnev=1&per_page=20000';
-  const res = await fetch(url, { signal: AbortSignal.timeout(60000) });
-  if (!res.ok) throw new Error('World Bank ' + indicator + ': HTTP ' + res.status);
-  return parseWb(await res.json());
+  const base = 'https://api.worldbank.org/v2/country/all/indicator/' + indicator + '?format=json&mrnev=1&per_page=20000';
+  const get = async page => {
+    const res = await fetch(base + '&page=' + page, { signal: AbortSignal.timeout(60000) });
+    if (!res.ok) throw new Error('World Bank ' + indicator + ': HTTP ' + res.status);
+    return res.json();
+  };
+  const first = await get(1);
+  const pages = pagesOf(first);
+  const merged = parseWb(first);
+  for (let page = 2; page <= pages; page++) {
+    for (const [code, got] of parseWb(await get(page))) if (!merged.has(code) || merged.get(code).yr < got.yr) merged.set(code, got);
+  }
+  return merged;
+}
+
+// ---- Refusing a bad download ----
+
+// The World Bank reports about 200 countries a figure. Under this many in one indicator means the response was cut short or empty.
+export const MIN_WB_COUNTRIES = 100;
+// The most figures (of countries x 3) that may be missing after fallbacks before the file is not written.
+export const MAX_MISSING_SHARE = 0.25;
+
+// Throws when an indicator in wb ({ pop, gdp, gdppc } Maps from parseWb) holds fewer than MIN_WB_COUNTRIES countries.
+export function checkWbSize(wb) {
+  for (const [key, code] of Object.entries(INDICATORS)) {
+    const n = wb[key] ? wb[key].size : 0;
+    if (n < MIN_WB_COUNTRIES) throw new Error('World Bank ' + code + ' (' + key + ') returned ' + n + ' countries, fewer than ' + MIN_WB_COUNTRIES + '. Not writing ' + path.basename(OUT) + '; try again later.');
+  }
+}
+
+// Throws when more than a quarter of the assembled figures have no value. Returns the missing ones as "Country key" texts.
+export function checkMissing(data) {
+  const missing = [];
+  let total = 0;
+  for (const c of Object.values(data.byIso)) for (const key of Object.keys(INDICATORS)) { total++; if (c[key].v === null) missing.push(c.name + ' ' + key); }
+  if (total && missing.length / total > MAX_MISSING_SHARE) throw new Error(missing.length + ' of ' + total + ' figures have no value, more than a quarter. Not writing ' + path.basename(OUT) + '; the World Bank data looks incomplete.');
+  return missing;
 }
 
 // ---- Putting it together ----
@@ -150,10 +191,10 @@ async function main() {
   const meta = readMeta();
   const wb = {};
   for (const [key, code] of Object.entries(INDICATORS)) wb[key] = await fetchWb(code);
+  checkWbSize(wb);
   const data = assemble({ regions, meta, wb, asof: new Date().toISOString().slice(0, 10) });
+  const missing = checkMissing(data);
   fs.writeFileSync(OUT, render(data));
-  const missing = [];
-  for (const c of Object.values(data.byIso)) for (const key of Object.keys(INDICATORS)) if (c[key].v === null) missing.push(c.name + ' ' + key);
   console.log('Wrote ' + path.relative(ROOT, OUT) + ': ' + Object.keys(data.byIso).length + ' countries from ' + Object.keys(regions).join(', ') + '; QS edition ' + meta.qsEdition + '.');
   if (missing.length) console.log('No World Bank figure and no fallback for: ' + missing.join('; '));
 }

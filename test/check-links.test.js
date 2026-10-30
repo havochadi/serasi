@@ -70,3 +70,13 @@ test('the script still runs when it is started through a symlink', () => {
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('collectUrls skips the World Bank country page when all three figures carry their own source', async () => {
+  const { collectUrls } = await checker;
+  const own = n => ({ v: n, yr: 2024, src: 'National statistics office', srcUrl: 'https://stat.example/' + n });
+  const wb = { v: 1, yr: 2024 };
+  const pages = byIso => collectUrls({ SerasiCountryData: { byIso } }).map(l => l.url).filter(u => u.includes('worldbank'));
+  assert.deepEqual(pages({ 158: { a2: 'TW', pop: own(1), gdp: own(2), gdppc: own(3) } }), []);
+  assert.deepEqual(pages({ 158: { a2: 'TW', pop: own(1), gdp: own(2), gdppc: wb } }), ['https://data.worldbank.org/country/TW']);
+  assert.deepEqual(pages({ 158: { a2: 'TW', pop: own(1), gdp: own(2), gdppc: { v: null, why: 'x' } } }), ['https://data.worldbank.org/country/TW']);
+});

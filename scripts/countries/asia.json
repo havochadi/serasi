@@ -156,7 +156,7 @@
     "langs": ["Lao"],
     "known": ["Luang Prabang's temples and the Mekong River", "Hydropower, selling electricity to its neighbours", "Sticky rice and Beerlao"],
     "facts": ["It is the only landlocked country in Southeast Asia.", "A railway between Vientiane and Kunming in China opened in December 2021.", "The capital is Vientiane."],
-    "orgs": ["Beerlao (Lao Brewery)", "Lao Airlines", "Electricite du Laos", "Banque pour le Commerce Exterieur Lao (BCEL)"],
+    "orgs": ["Beerlao (Lao Brewery)", "Lao Airlines", "Électricité du Laos", "Banque pour le Commerce Extérieur Lao (BCEL)"],
     "unis": [
       { "n": "National University of Laos", "url": "https://nuol.edu.la/" }
     ]
@@ -259,7 +259,7 @@
     "langs": ["Tetum", "Portuguese", "Indonesian", "English"],
     "known": ["Coffee grown in the highlands", "Offshore oil and gas in the Timor Sea", "Being one of the world's youngest countries"],
     "facts": ["It became independent in 2002 after Indonesian rule and a period run by the United Nations.", "Timor-Leste joined ASEAN in 2025 as its 11th member.", "Oil revenue is kept in a national Petroleum Fund."],
-    "orgs": ["Banco Nacional de Comercio de Timor-Leste", "TIMOR GAP", "Timor Telecom", "Cooperativa Cafe Timor"],
+    "orgs": ["Banco Nacional de Comercio de Timor-Leste", "TIMOR GAP", "Timor Telecom", "Cooperativa Café Timor"],
     "unis": [
       { "n": "Universidade Nacional Timor Lorosa'e (UNTL)", "url": "https://www.untl.edu.tl/" }
     ]
@@ -268,13 +268,13 @@
     "iso": 792, "name": "Turkey", "a2": "TR",
     "langs": ["Turkish"],
     "known": ["Istanbul, a city on two continents", "Textiles, cars and home appliances", "Kebabs, baklava, tea and coffee", "Cappadocia and the Hagia Sophia"],
-    "facts": ["The capital is Ankara, not Istanbul.", "Istanbul sits on both sides of the Bosphorus, so part of it is in Europe and part in Asia.", "The republic was founded in 1923 by Mustafa Kemal Ataturk.", "The country uses the name Turkiye internationally, and the United Nations adopted it in 2022."],
-    "orgs": ["Turkish Airlines", "Koc Holding", "Sabanci Holding", "Arcelik", "Baykar"],
+    "facts": ["The capital is Ankara, not Istanbul.", "Istanbul sits on both sides of the Bosphorus, so part of it is in Europe and part in Asia.", "The republic was founded in 1923 by Mustafa Kemal Atatürk.", "The country uses the name Türkiye internationally, and the United Nations adopted it in 2022."],
+    "orgs": ["Turkish Airlines", "Koç Holding", "Sabancı Holding", "Arçelik", "Baykar"],
     "unis": [
       { "n": "Istanbul Technical University", "rank": 279, "url": "https://www.itu.edu.tr/en" },
       { "n": "Middle East Technical University", "rank": 305, "url": "https://www.metu.edu.tr/" },
-      { "n": "Koc University", "rank": 329, "url": "https://www.ku.edu.tr/en/" },
-      { "n": "Bogazici University", "rank": 345, "url": "https://www.boun.edu.tr/" }
+      { "n": "Koç University", "rank": 329, "url": "https://www.ku.edu.tr/en/" },
+      { "n": "Boğaziçi University", "rank": 345, "url": "https://www.boun.edu.tr/" }
     ]
   },
   {

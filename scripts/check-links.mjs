@@ -55,7 +55,8 @@ export function collectUrls(window) {
     for (const fig of [c.pop, c.gdp, c.gdppc]) if (fig) add(fig.srcUrl, 'COUNTRY ' + iso + ' figure source link');
     if (typeof c.a2 === 'string' && c.a2) {
       add(FLAGS + c.a2.toLowerCase() + '.svg', 'COUNTRY ' + iso + ' flag');
-      add('https://data.worldbank.org/country/' + c.a2.toUpperCase(), 'COUNTRY ' + iso + ' World Bank page');
+      // The World Bank country page backs a profile only when one of its figures comes from the World Bank (a figure with its own src does not).
+      if (![c.pop, c.gdp, c.gdppc].every(fig => fig && fig.src)) add('https://data.worldbank.org/country/' + c.a2.toUpperCase(), 'COUNTRY ' + iso + ' World Bank page');
     }
   }
 
