@@ -47,4 +47,15 @@
   note(826, 'United Kingdom', [-1.5, 52.5], {
     hospitality: ['decline', 'UKHospitality says its analysis of official ONS figures shows the sector lost about 100,000 jobs in the two years to October 2026, 45% of all UK job losses. The sector gives 31% of first jobs to 16 to 24 year olds.', ['uk-hosp-2026']],
   });
+
+  // creative
+  note(826, 'United Kingdom', [-1.5, 52.5], {
+    creative: ['steady', 'Creative industries’ output grew 4.6% in 2024, against 1.0% for the whole UK economy. But games jobs are falling: game development employment dropped 4.5% from May 2024 to September 2025, and 22% of surveyed games workers were out of work at least once in 2023 to 2025.', ['dcms-gva-2024', 'ukie-census-2026']],
+  });
+  note(840, 'United States of America', [-98, 39], {
+    creative: ['decline', 'Film and TV shoot days in the Los Angeles area fell 16.1% in 2025, to 19,694. California’s expanded tax credit backed about 13% of shoot days in late 2025.', ['filmla-2025']],
+  });
+  note(156, 'China', [104, 35], {
+    creative: ['grow', 'China’s game industry sales hit a record 350.79 billion yuan in 2025, up 7.68%, with 683 million players. Chinese games sold US$20.46 billion overseas, up 10.23%.', ['cn-games-2025']],
+  });
 })();

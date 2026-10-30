@@ -86,7 +86,12 @@
     'kr-care-2028': ['The Star (Korea Immigration Service Foundation), March 2026', 'https://www.thestar.com.my/aseanplus/aseanplus-news/2026/03/16/south-korea-may-need-foreign-workers-to-fill-110000-elderly-care-jobs-by-2028'],
     'sg-tourism-2025': ['TTG Asia, Singapore visitor arrivals and tourism receipts (February 2026)', 'https://www.ttgasia.com/2026/02/03/visitor-arrivals-to-singapore-increase-as-tourism-receipts-grow/'],
     'my-visitors-2025': ['The Star, Malaysia records 42.2 million visitors in 2025 (January 2026)', 'https://www.thestar.com.my/news/nation/2026/01/26/malaysia-records-422-million-visitors-in-2025-strengthens-collaboration-for-vm2026'],
-    'uk-hosp-2026': ['Vinetur, UKHospitality analysis of ONS data (October 2026)', 'https://www.vinetur.com/en/amp/20261008108596/britains-hospitality-industry-urges-national-insurance-cut-after-losing-100000-jobs-in-two-years.html']
+    'uk-hosp-2026': ['Vinetur, UKHospitality analysis of ONS data (October 2026)', 'https://www.vinetur.com/en/amp/20261008108596/britains-hospitality-industry-urges-national-insurance-cut-after-losing-100000-jobs-in-two-years.html'],
+    'moe-ges25': ['MOE, Joint Graduate Employment Survey 2025 (NUS, NTU, SMU, SUTD, SIT, SUSS)', 'https://www.moe.gov.sg/api/media/b26f8eed-8a89-47e3-b82f-c2c239786342/Joint-Web-Publication-GES-2025.pdf'],
+    'dcms-gva-2024': ['GOV.UK, DCMS Economic Estimates: GVA 2024 provisional (February 2026)', 'https://www.gov.uk/government/statistics/dcms-economic-estimates-gva-2024-provisional'],
+    'ukie-census-2026': ['Game World Observer, UKIE survey of UK games workers (July 2026)', 'https://gameworldobserver.com/2026/07/20/nearly-a-quarter-of-surveyed-british-developers-have-lost-their-jobs-in-the-past-three-years'],
+    'filmla-2025': ['FilmLA, Los Angeles shoot days in 2025 (January 2026)', 'https://filmla.com/rising-california-film-tv-tax-credit-productions-signal-growing-industry-momentum-amid-2025-production-losses/'],
+    'cn-games-2025': ['China Daily, China Game Industry Annual Report (December 2025)', 'https://www.chinadaily.com.cn/a/202512/19/WS69454c69a310d6866eb2f917.html']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -126,6 +131,7 @@
       education: ['steady', 'Diploma holders do a compulsory contract teaching stint first; MOE then fully funds the 2-year Diploma in Education at NIE. Fresh diploma holders typically start at $3,110 (MOE, 2026).', ['moe-diped']],
       care: ['grow', 'Citizens aged 65 and over rose from 13.1% in 2015 to 20.7% in 2025, and are projected to reach 23.9% by 2030. The government aims to grow the national healthcare workforce by 20% by 2030.', ['sg-65plus-2025', 'sg-hc-workforce-2025']],
       hospitality: ['grow', 'Visitors rose 2.3% to 16.9 million in 2025, and tourism receipts reached S$23.9 billion in January to September, up 6.5%. The Tourism Board forecasts 17 to 18 million visitors in 2026.', ['sg-tourism-2025']],
+      creative: ['decline', 'Only 50.0% of 2025 university graduates in arts, design and media who were looking for work had a full-time permanent job six months after finishing, down from 66.7% in 2023 and the lowest of the eight course groups. Their median pay was $3,840.', ['moe-ges25']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
