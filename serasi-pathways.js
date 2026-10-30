@@ -10,7 +10,7 @@
     gfci38: ['Z/Yen, Global Financial Centres Index 38 (Sept 2025)', 'https://www.zyen.com/publications/public-reports/the-global-financial-centres-index-38/'],
     'caixin-cn': ['Caixin Global, May 2025', 'https://www.caixinglobal.com/2025-05-15/as-chinas-rural-migrants-leave-construction-those-who-stay-are-earning-more-102319992.html'],
     'scmp-prop': ['South China Morning Post, 2025', 'https://www.scmp.com/opinion/china-opinion/article/3323176/why-beijing-letting-parts-chinas-property-sector-fail'],
-    'cntech-ai': ['CnTechPost, March 2026', 'https://cntechpost.com/2026/03/10/china-tech-giants-spark-fierce-ai-talent-war-massive-hiring-drives'],
+    'cntech-ai': ['China Daily, March 2026', 'https://www.chinadaily.com.cn/a/202603/19/WS69bb633fa310d6866eb3eacf.html'],
     'chinadaily-ai': ['China Daily, April 2026', 'https://mobile.chinadaily.com.cn/html5/2026-04/17/content_003_69e12668ed50be540e72ea0b.htm'],
     'byd-shenzhen': ['Asia Business Daily, inside BYD’s Shenzhen headquarters, July 2025', 'https://www.asiae.co.kr/en/article/2025063014164060494'],
     'hk-fin': ['South China Morning Post, 2026', 'https://www.scmp.com/business/article/3344131/hong-kong-finance-hiring-rises-ipo-revival-cost-cuts-persist'],
@@ -76,7 +76,30 @@
     'my-fees': ['Universiti Teknologi PETRONAS, international fees', 'https://utp.edu.my/Pages/Admission/Undergraduate/International/Tuition-fees.aspx'],
     'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/'],
     'fx-ecb': ['European Central Bank, euro foreign exchange reference rates, 28 October 2026', 'https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html'],
-    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com']
+    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com'],
+    // Task 12: semiconductors, tech, aerospace, logistics
+    'boeing-pto-2025': ['Boeing Pilot and Technician Outlook 2025 (Aviation Business News, July 2025)', 'https://www.aviationbusinessnews.com/mro/latest-news-mro/boeing-forecasts-710000-new-aircraft-technicians-needed-by-2044'],
+    'bls-aircraft-2025': ['US Bureau of Labor Statistics, aircraft mechanics and technicians, projections 2025–35', 'https://www.bls.gov/ooh/installation-maintenance-and-repair/aircraft-and-avionics-equipment-mechanics-and-technicians.htm'],
+    'ads-facts-2026': ['ADS Group, UK aerospace, defence, security and space facts and figures, 2026', 'https://www.adsgroup.org.uk/knowledge/facts-figures/'],
+    'ads-value-2026': ['ADS Group, value of the sectors to the UK, July 2026', 'https://www.adsgroup.org.uk/knowledge/value-of-aerospace-defence-security-and-space-to-the-uk-grew-two-thirds-since-2015-ads-finds/'],
+    'aw-india-2026': ['Aviation Week, Airbus on India’s fleet boom, January 2026', 'https://aviationweek.com/mro/workforce-training/airbus-indias-fleet-boom-will-triple-demand-mro-engineers-capacity'],
+    'emirates-2025-26': ['Dubai Media Office, Emirates Group results 2025–26, May 2026', 'https://mediaoffice.ae/en/news/2026/may/07-05/emirates-group-achieves-record-profit-in-2025-26'],
+    'dxb-war-2026': ['BusinessDay, Dubai airports after the war disruption, May 2026', 'https://www.businessday.co.za/world/international-companies/2026-05-04-dubai-airports-ramp-up-as-airspace-reopens-after-war-disruption/'],
+    'edb-aero-2024': ['EDB, Singapore aerospace investment commitments and jobs, February 2024', 'https://www.edb.gov.sg/en/news-and-insights/singapore-bags-s750-million-in-aerospace-investment-commitments-2500-jobs-to-be-filled-edb'],
+    'meti-airshow-2026': ['MTI, Deputy Prime Minister Gan Kim Yong at the Singapore Airshow 2026 opening, 2 February 2026', 'https://www.meti.gov.sg/newsroom/speech-by-deputy-prime-minister-and-minister-for-trade-and-industry-gan-kim-yong-at-the-singapore-airshow-2026-opening-ceremony'],
+    'bls-logisticians-2025': ['US Bureau of Labor Statistics, logisticians, projections 2025–35', 'https://www.bls.gov/ooh/business-and-financial/logisticians.htm'],
+    'lssc-india-2026': ['News Arena India, Logistics Sector Skill Council at LogiMAT India, February 2026', 'https://newsarenaindia.com/economy/india-needs-big-time-reforms-to-bridge-workforce-gap-in-logistics/69285'],
+    'vneconomy-strategy-2025': ['VnEconomy, National Logistics Development Strategy approved, November 2025', 'https://en.vneconomy.vn/national-logistics-development-strategy-approved.htm'],
+    'vneconomy-logistics-2026': ['VnEconomy, securing a workforce for logistics, January 2026', 'https://en.vneconomy.vn/to-secure-a-workforce-for-logistics-industry.htm'],
+    'rotterdam-2025': ['Container News, Rotterdam port throughput 2025, February 2026', 'https://container-news.com/rotterdam-port-throughput-falls-1-7-in-2025/'],
+    'rotterdam-h1-2025': ['Dry Cargo Magazine, Port of Rotterdam first half 2025', 'https://www.drycargomag.com/throughput-in-the-port-of-rotterdam-declines-in-h1'],
+    'dpworld-h1-2026': ['Semafor, Hormuz closure dents DP World earnings, August 2026', 'https://semafor.com/article/08/13/2026/hormuz-closure-dents-dp-world-earnings'],
+    'edb-semi-talent-2025': ['EDB, how Singapore develops semiconductor talent, February 2025', 'https://www.edb.gov.sg/en/news-and-insights/how-is-singapore-developing-semiconductor-talent-to-meet-industry-needs'],
+    'edb-semi-jobs-2026': ['EDB, semiconductor manufacturing jobs for young graduates, February 2026', 'https://www.edb.gov.sg/news-and-insights/insights/jobs-in-singapore-why-semiconductor-manufacturing-offers-good-opportunities-for-young-graduates-today'],
+    'bls-software-2025': ['US Bureau of Labor Statistics, software developers, projections 2025–35', 'https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm'],
+    'stanford-canaries-2026': ['Stanford Digital Economy Lab, AI employment gap for young workers (Canaries update), 12 August 2026', 'https://digitaleconomy.stanford.edu/news/canariesaug26/'],
+    'dsit-entry-2026': ['UK Department for Science, Innovation and Technology, entry-level hiring snapshot, June 2026', 'https://www.gov.uk/government/publications/entry-level-hiring-in-the-uk-a-snapshot'],
+    'chinadaily-grad-ai-2026': ['China Daily, AI roles in graduate hiring, July 2026', 'https://www.chinadaily.com.cn/a/202607/03/WS6a479ddda310986e2b46370d.html'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -109,11 +132,12 @@
       construction: ['grow', 'Construction demand is forecast at S$47–53 billion for 2026, led by Changi Terminal 5, Tuas Port and new hospitals.', ['bca26']],
       finance: ['grow', '4th in the Global Financial Centres Index, within a point of New York.', ['gfci38']],
       tech: ['grow', '9th in the 2025 start-up hub ranking. IT graduates had the highest median starting pay in 2025, at S$5,500.', ['gser25', 'ges25']],
-      aero: ['grow', 'A major aircraft repair hub in Asia, the region that needs 44% of the world’s new aircraft technicians.', ['mro-tech']],
+      aero: ['grow', 'By early 2024 aerospace jobs had grown by almost 3,000 to over 21,000, and firms planned to hire over 2,500 more within three to five years. In February 2026 the government said new investment (over S$750 million) should create close to 600 jobs over five years.', ['edb-aero-2024', 'meti-airshow-2026', 'mro-tech']],
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
       education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
+      semis: ['grow', 'Semiconductors employ over 35,000 people and make up nearly 6% of Singapore’s GDP (EDB, 2025). UMC’s new wafer plant, unveiled in 2025, will add 700 jobs, and semiconductor engineers joined the Shortage Occupation List in November 2024.', ['edb-semi-talent-2025', 'edb-semi-jobs-2026']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
@@ -127,7 +151,7 @@
       finance: ['steady', '9th in the Global Financial Centres Index.', ['gfci38']]
     } },
     { id: 'hangzhou', place: 'Hangzhou', country: 'China', iso: 156, ll: [120.15, 30.27], ind: {
-      tech: ['grow', 'Base of Alibaba and Ant Group. 85% of Ant’s 2026 graduate hiring was for technical roles, most of them tied to AI.', ['cntech-ai']]
+      tech: ['grow', 'Base of Alibaba and Ant Group. In March 2026 Ant said 85% of its openings were technical roles, and over 70% of those were AI-related.', ['cntech-ai']]
     } },
     { id: 'beijing', place: 'Beijing', country: 'China', iso: 156, ll: [116.4, 39.9], ind: {
       tech: ['grow', 'Rose three places to joint 5th in the 2025 start-up hub ranking; China’s main AI research centre.', ['gser25']]
