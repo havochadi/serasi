@@ -36,7 +36,7 @@
     'wales-nurse': ['Deeside.com, June 2026', 'https://www.deeside.com/nearly-400-nursing-and-midwifery-graduates-left-without-nhs-wales-jobs-after-summer-matching-process/'],
     'de-auto': ['The Local Germany, January 2026', 'https://www.thelocal.de/20260128/which-major-german-companies-are-cutting-jobs-this-year'],
     'de-auto2': ['news.am, 2026', 'https://news.am/en/news/1055808'],
-    'airbus-hire': ['ATW, Airbus recruitment', 'https://atwonline.com/air-transport/location/airbus-target-recruit-over-13000-year'],
+    'airbus-hire': ['Aviation Week, Airbus recruitment (June 2023)', 'https://aviationweek.com/air-transport/location/airbus-target-recruit-over-13000-year'],
     'mro-tech': ['GBP Aerospace and Defence, citing Airbus', 'https://gbp.com.sg/stories/shortage-of-skilled-technicians-poses-challenge-for-mro-industry/'],
     'bls-proj': ['US Bureau of Labor Statistics, projections 2024–34', 'https://www.bls.gov/news.release/ecopro.nr0.htm'],
     'bls-wind': ['US Bureau of Labor Statistics, 2026', 'https://www.bls.gov/opub/ted/2026/wind-turbine-service-technicians-employment-projected-to-grow-49-9-percent-from-2024-to-2034.htm'],
