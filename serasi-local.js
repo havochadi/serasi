@@ -18,6 +18,12 @@
     'fee-sit26': ['SIT, undergraduate tuition fees for AY2026 (each degree page gives its fee per credit)', 'https://www.singaporetech.edu.sg/admissions/tuition-fees']
   });
 
+  /* Fee pages for the business and services courses (Task 9), checked in October 2026. NUS (fee-nus26), NTU (fee-ntu) and the
+     polytechnics are above; SMU publishes its fees in its admissions leaflet, so that leaflet is the source. */
+  Object.assign(window.SerasiPathways.SOURCES, {
+    'fee-smu26': ['SMU, annual tuition fees for AY2026/27 entering freshmen (admissions leaflet, accurate as of June 2026)', 'https://admissions.smu.edu.sg/sites/admissions.smu.edu.sg/files/brochures/2026/International%20Leaflet%202026%20Web.pdf']
+  });
+
   // Publicly funded institutions only, in the order they are listed.
   const SCHOOLS = [
     'ITE', 'Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic', 'Temasek Polytechnic',
@@ -86,6 +92,38 @@
     { school: 'Nanyang Polytechnic', course: 'Diploma in Social Work', lvl: 2, yrs: 3, fee: 3188.09, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.nyp.edu.sg/student/study/schools/health-social-sciences/diploma-social-work', src: ['fee-nyp26'] },
     { school: 'Temasek Polytechnic', course: 'Diploma in Psychology Studies', lvl: 2, yrs: 3, fee: 3183.15, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/hss/psychology-studies.html', src: ['fee-tp26'] }
   ];
+
+  /* Business and services courses (Task 9). Added as their own block, after the array above, so that the lines other fields add to the
+     array never touch these; the entries are the same shape. Every ITE Higher Nitec has a 2-year course (O-level entry) and a 3-year
+     course (N-level entry); both are listed, at the same $566 a year. */
+  COURSES.push(
+    // Business: the ITE route for the customer-facing roles (customer service, retail, sales).
+    { school: 'ITE', course: 'Higher Nitec in Business Administration', lvl: 1, yrs: 2, fee: 566, fields: ['business'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-business-administration/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Business Administration (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['business'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-business-administration-3-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Customer Experience', lvl: 1, yrs: 2, fee: 566, fields: ['business'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-customer-experience/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Customer Experience (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['business'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-customer-experience-3-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Retail & Online Business', lvl: 1, yrs: 2, fee: 566, fields: ['business'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-retail-and-online-business/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Retail & Online Business (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['business'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-retail-and-online-business-3-year/', src: ['fee-ite26'] },
+    // Business diplomas. The Common Business Programme (a shared first year at Ngee Ann, Republic and Temasek) is not a diploma, so it is left out, as are
+    // Nanyang's Media & Communication Management and Republic's Consumer Insights & Psychology. Nanyang's Business & Financial Technology (new for 2027
+    // entry) has no course page yet. Republic's Business Process & Engineering Management is an engineering-school course. Fees are the same for every
+    // diploma at a polytechnic: each fee page gives one figure.
+    { school: 'Singapore Polytechnic', course: 'Diploma in Business Administration', lvl: 2, yrs: 3, fee: 3177.52, fields: ['business'], url: 'https://www.sp.edu.sg/courses/schools/sb/business-administration', src: ['fee-poly'] },
+    { school: 'Singapore Polytechnic', course: 'Diploma in Human Resource Management with Psychology', lvl: 2, yrs: 3, fee: 3177.52, fields: ['business'], roles: ['hr'], url: 'https://www.sp.edu.sg/courses/schools/sb/human-resource-management-with-psychology', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Business Studies', lvl: 2, yrs: 3, fee: 3167.5, fields: ['business'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-business-accountancy/diploma-in-business-studies', src: ['fee-np26'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in International Trade & Business', lvl: 2, yrs: 3, fee: 3167.5, fields: ['business'], roles: ['bizdev', 'ops-exec'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-business-accountancy/diploma-in-international-trade-business', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Business Management', lvl: 2, yrs: 3, fee: 3188.09, fields: ['business'], url: 'https://www.nyp.edu.sg/student/study/schools/business-management/diploma-business-management', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Business', lvl: 2, yrs: 3, fee: 3186.5, fields: ['business'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-business/', src: ['fee-rp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Human Resource Management with Psychology', lvl: 2, yrs: 3, fee: 3186.5, fields: ['business'], roles: ['hr'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-human-resource-management-with-psychology/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Business', lvl: 2, yrs: 3, fee: 3183.15, fields: ['business'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/business.html', src: ['fee-tp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Marketing', lvl: 2, yrs: 3, fee: 3183.15, fields: ['business'], roles: ['marketing', 'ecommerce'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/marketing.html', src: ['fee-tp26'] },
+    // Business degrees. Only the sustainability analyst needs one (edu 3), and its track names "a business degree", so the flagship business degree of
+    // each university is tied to that role. NUS's BBA is also the degree for the finance, risk and supply chain roles (it has Finance and Operations &
+    // Supply Chain Management majors). The fee is the "Business" band at NUS ($9,700), the business-related band at NTU ($9,500) and SMU's own figure.
+    { school: 'NUS', course: 'Bachelor of Business Administration (Honours)', lvl: 3, yrs: 4, fee: 9700, fields: ['business', 'finance-risk', 'logistics'], roles: ['sustainability', 'compliance', 'risk-analyst', 'supply-chain'], url: 'https://bba.nus.edu.sg/introduction/', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Business (Honours)', lvl: 3, yrs: 4, fee: 9500, fields: ['business'], roles: ['sustainability'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-business', src: ['fee-ntu'] },
+    { school: 'SMU', course: 'Bachelor of Business Management', lvl: 3, yrs: 4, fee: 11550, fields: ['business'], roles: ['sustainability'], url: 'https://business.smu.edu.sg/programmes/bachelor-business-management', src: ['fee-smu26'] }
+  );
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');
 
