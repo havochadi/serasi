@@ -735,7 +735,11 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .country-btn .pill { justify-self: end; }
 .country-note { grid-column: 1 / -1; color: var(--muted); font-size: .74rem; line-height: 1.4; }
 .country-rest { border-top: 1px solid var(--line); padding-top: 4px; }
-.country-rest summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; color: var(--ink); }
+.country-rest summary { min-height: 44px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--ink); list-style: none; }
+.country-rest summary::-webkit-details-marker { display: none; }
+.country-rest summary::before { content: ''; flex: none; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .15s; }
+.country-rest[open] summary::before { transform: rotate(45deg); }
+#world-panel .btn.link { min-height: 44px; }
 .country-rest .country-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr)); margin-top: 4px; }
 .country-head { display: flex; align-items: center; gap: 12px; }
 .country-head > div { min-width: 0; }
