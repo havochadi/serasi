@@ -423,6 +423,11 @@
      (the route page says so), not by a school. Ngee Ann's Diploma in Real Estate Business and NUS's BBA (Real Estate) exist but no role in the field needs
      them, so nothing is listed and the coverage test may expect none. */
 
+  /* Islamic religious studies (religious): no public school on the list offers an Islamic studies diploma or degree. NUS's Malay Studies is not Islamic
+     studies, and no polytechnic or ITE course page names it. A Singapore College of Islamic Studies is reported in the news (Mothership, November 2024)
+     to open in 2028, but it has no course page yet and is not one of the publicly funded schools, so nothing is listed and the coverage test names
+     `religious` as an exception. Until then the asatizah route is overseas study (see serasi-overseas.js) plus MUIS's Asatizah Recognition Scheme. */
+
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');
 
   // The courses for a role at a level (1 = ITE, 2 = diploma, 3 = degree), in the order of SCHOOLS.
