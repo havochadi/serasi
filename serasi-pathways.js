@@ -1,4 +1,4 @@
-/* Serasi pathways and world data: study routes, fees, subsidies, overseas options, contacts and the world map.
+/* Serasi pathways and world data: study routes, fees, subsidies, contacts and the world map.
    Loaded by youth.html after serasi-core.js. Figures were checked in October 2026; each links to its source in SOURCES.
    Review them each academic year: TTFS tiers, bursaries and overseas fees change often. */
 (function () {
@@ -10,8 +10,9 @@
     gfci38: ['Z/Yen, Global Financial Centres Index 38 (Sept 2025)', 'https://www.zyen.com/publications/public-reports/the-global-financial-centres-index-38/'],
     'caixin-cn': ['Caixin Global, May 2025', 'https://www.caixinglobal.com/2025-05-15/as-chinas-rural-migrants-leave-construction-those-who-stay-are-earning-more-102319992.html'],
     'scmp-prop': ['South China Morning Post, 2025', 'https://www.scmp.com/opinion/china-opinion/article/3323176/why-beijing-letting-parts-chinas-property-sector-fail'],
-    'cntech-ai': ['CnTechPost, March 2026', 'https://cntechpost.com/2026/03/10/china-tech-giants-spark-fierce-ai-talent-war-massive-hiring-drives'],
+    'cntech-ai': ['China Daily, March 2026', 'https://www.chinadaily.com.cn/a/202603/19/WS69bb633fa310d6866eb3eacf.html'],
     'chinadaily-ai': ['China Daily, April 2026', 'https://mobile.chinadaily.com.cn/html5/2026-04/17/content_003_69e12668ed50be540e72ea0b.htm'],
+    'byd-shenzhen': ['Asia Business Daily, inside BYD’s Shenzhen headquarters, July 2025', 'https://www.asiae.co.kr/en/article/2025063014164060494'],
     'hk-fin': ['South China Morning Post, 2026', 'https://www.scmp.com/business/article/3344131/hong-kong-finance-hiring-rises-ipo-revival-cost-cuts-persist'],
     'tsmc-jp': ['Tribune India, 2026', 'https://www.tribuneindia.com/news/business/tsmcs-japan-unit-fab-swings-to-profit-in-q1/'],
     'tsmc-az': ['Tribune India, 2026', 'https://www.tribuneindia.com/news/arizona/tsmc-accelerates-us-expansion-eyes-arizona-as-global-semiconductor-hub'],
@@ -22,6 +23,7 @@
     'vn-fdi': ['Bac Ninh Newspaper, citing Savills, 2026', 'https://en.baobacninhtv.vn/northern-vietnam-attracts-80-5-of-new-manufacturing-fdi-in-first-half.bbg'],
     'my-johor': ['EdgeProp, citing DBS', 'https://edgeprop.sg/property-news/data-centres-electronics-among-sectors-benefit-johor-singapore-special-economic-zone-dbs'],
     'my-jsez': ['New Straits Times, February 2026', 'https://www.nst.com.my/amp/business/economy/2026/02/1370164/js-sez-embeds-rm911bil-growth-deep-johors-local-economy'],
+    'my-penang-osat': ['iConnect007, Chipbond’s new Penang plant, February 2026', 'https://iconnect007.com/article/148910/chipbond-boosts-malaysias-semiconductor-ecosystem-with-new-penang-facility/148907/smt'],
     'id-ikn': ['New Straits Times (AFP), September 2025', 'https://www.nst.com.my/amp/world/region/2025/09/1271575/indonesias-new-capital-nusantara-risks-fading-white-elephant'],
     'lseg-ifdi': ['LSEG and ICD, Islamic Finance Development Indicator', 'https://mondovisione.com/media-and-resources/news/lseg-and-icd-announce-findings-of-the-2025-islamic-finance-development-indicator-20251014/'],
     'lseg-assets': ['Arab News, October 2025', 'https://www.arabnews.pk/node/2618992/business-economy'],
@@ -36,10 +38,11 @@
     'wales-nurse': ['Deeside.com, June 2026', 'https://www.deeside.com/nearly-400-nursing-and-midwifery-graduates-left-without-nhs-wales-jobs-after-summer-matching-process/'],
     'de-auto': ['The Local Germany, January 2026', 'https://www.thelocal.de/20260128/which-major-german-companies-are-cutting-jobs-this-year'],
     'de-auto2': ['news.am, 2026', 'https://news.am/en/news/1055808'],
-    'airbus-hire': ['ATW, Airbus recruitment', 'https://atwonline.com/air-transport/location/airbus-target-recruit-over-13000-year'],
-    'mro-tech': ['GBP Aerospace and Defence, citing Airbus', 'https://gbp.com.sg/stories/shortage-of-skilled-technicians-poses-challenge-for-mro-industry/'],
-    'bls-proj': ['US Bureau of Labor Statistics, projections 2024–34', 'https://www.bls.gov/news.release/ecopro.nr0.htm'],
-    'bls-wind': ['US Bureau of Labor Statistics, 2026', 'https://www.bls.gov/opub/ted/2026/wind-turbine-service-technicians-employment-projected-to-grow-49-9-percent-from-2024-to-2034.htm'],
+    'airbus-hire': ['Aviation Week, Airbus recruitment (June 2023)', 'https://aviationweek.com/air-transport/location/airbus-target-recruit-over-13000-year'],
+    'mro-tech': ['GBP Aerospace and Defence, citing Airbus (September 2022)', 'https://gbp.com.sg/stories/shortage-of-skilled-technicians-poses-challenge-for-mro-industry/'],
+    'bls-proj': ['US Bureau of Labor Statistics, employment projections 2025–35 (27 August 2026)', 'https://www.bls.gov/news.release/ecopro.nr0.htm'],
+    'bls-wind': ['US Bureau of Labor Statistics, wind turbine technicians, projections 2025–35', 'https://www.bls.gov/ooh/installation-maintenance-and-repair/wind-turbine-technicians.htm'],
+    'bls-solar': ['US Bureau of Labor Statistics, solar photovoltaic installers, projections 2025–35', 'https://www.bls.gov/ooh/construction-and-extraction/solar-photovoltaic-installers.htm'],
     'boston-bio': ['PharmaVoice, 2025', 'https://www.pharmavoice.com/news/massachusetts-biotech-limping-layoffs-investment-boston-massbio/803581/'],
     irena25: ['IRENA and ILO, Renewable Energy and Jobs 2025', 'https://www.ilo.org/publications/renewable-energy-and-jobs-annual-review-2025'],
     'who-nursing': ['WHO, State of the World’s Nursing 2025', 'https://www.who.int/news/item/11-05-2025-nursing-workforce-grows--but-inequities-threaten-global-health-goals'],
@@ -49,7 +52,7 @@
     'kr-content': ['Korea JoongAng Daily, 2026', 'https://www.koreajoongangdaily.com/business/koreas-content-industry-exports-hit-record-high-149-billion-in-2025-buoyed-by-govt-support-initiatives/12605188'],
     'kr-tourism': ['Korea Herald, 2026', 'https://www.koreaherald.com/article/10762264'],
     'kr-ship': ['Splash247', 'https://splash247.com/south-korean-shipbuilders-hit-by-welder-crisis-as-over-1000-vietnamese-workers-denied-entry/'],
-    'unesco-teach': ['UN News, UNESCO Global Report on Teachers', 'https://news.un.org/en/node/1147067'],
+    'unesco-teach': ['UN News, UNESCO Global Report on Teachers (February 2024)', 'https://news.un.org/en/story/2024/02/1147067'],
     bca26: ['BCA, January 2026', 'https://www1.bca.gov.sg/resources/newsroom/speech-by-minister-chee-hong-tat-at-bca-redas-built-environment-and-real-estate--prospects-seminar-2026/'],
     ges25: ['Graduate Employment Survey 2025 (Human Resources Online)', 'https://www.humanresourcesonline.net/median-starting-salaries-of-fresh-graduates-from-nus-ntu-smu-sit-suss-sutd-in-2025'],
     ges25p: ['Polytechnic Graduate Employment Survey 2025 (VnExpress)', 'https://e.vnexpress.net/news/news/education/singapore-polytechnic-graduates-earn-more-in-2025-even-as-job-market-tightens-5006517.html'],
@@ -72,7 +75,99 @@
     'de-block': ['Expatrio, blocked account 2026', 'https://www.expatrio.com/about-germany/blocked-amount-2025'],
     'jp-fees': ['Shizuoka University fees', 'https://www.shizuoka.ac.jp/english/campuslife/tuition/list/'],
     'my-fees': ['Universiti Teknologi PETRONAS, international fees', 'https://utp.edu.my/Pages/Admission/Undergraduate/International/Tuition-fees.aspx'],
-    'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/']
+    'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/'],
+    'fx-ecb': ['European Central Bank, euro foreign exchange reference rates, 28 October 2026', 'https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html'],
+    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com'],
+    // Task 12: semiconductors, tech, aerospace, logistics
+    'boeing-pto-2025': ['Boeing Pilot and Technician Outlook 2025 (Aviation Business News, July 2025)', 'https://www.aviationbusinessnews.com/mro/latest-news-mro/boeing-forecasts-710000-new-aircraft-technicians-needed-by-2044'],
+    'bls-aircraft-2025': ['US Bureau of Labor Statistics, aircraft mechanics and technicians, projections 2025–35', 'https://www.bls.gov/ooh/installation-maintenance-and-repair/aircraft-and-avionics-equipment-mechanics-and-technicians.htm'],
+    'ads-facts-2026': ['ADS Group, UK aerospace, defence, security and space facts and figures, 2026', 'https://www.adsgroup.org.uk/knowledge/facts-figures/'],
+    'ads-value-2026': ['ADS Group, value of the sectors to the UK, July 2026', 'https://www.adsgroup.org.uk/knowledge/value-of-aerospace-defence-security-and-space-to-the-uk-grew-two-thirds-since-2015-ads-finds/'],
+    'aw-india-2026': ['Aviation Week, Airbus on India’s fleet boom, January 2026', 'https://aviationweek.com/mro/workforce-training/airbus-indias-fleet-boom-will-triple-demand-mro-engineers-capacity'],
+    'emirates-2025-26': ['Dubai Media Office, Emirates Group results 2025–26, May 2026', 'https://mediaoffice.ae/en/news/2026/may/07-05/emirates-group-achieves-record-profit-in-2025-26'],
+    'dxb-war-2026': ['BusinessDay, Dubai airports after the war disruption, May 2026', 'https://www.businessday.co.za/world/international-companies/2026-05-04-dubai-airports-ramp-up-as-airspace-reopens-after-war-disruption/'],
+    'edb-aero-2024': ['EDB, Singapore aerospace investment commitments and jobs, February 2024', 'https://www.edb.gov.sg/en/news-and-insights/singapore-bags-s750-million-in-aerospace-investment-commitments-2500-jobs-to-be-filled-edb'],
+    'meti-airshow-2026': ['MTI, Deputy Prime Minister Gan Kim Yong at the Singapore Airshow 2026 opening, 2 February 2026', 'https://www.meti.gov.sg/newsroom/speech-by-deputy-prime-minister-and-minister-for-trade-and-industry-gan-kim-yong-at-the-singapore-airshow-2026-opening-ceremony'],
+    'bls-logisticians-2025': ['US Bureau of Labor Statistics, logisticians, projections 2025–35', 'https://www.bls.gov/ooh/business-and-financial/logisticians.htm'],
+    'lssc-india-2026': ['News Arena India, Logistics Sector Skill Council at LogiMAT India, February 2026', 'https://newsarenaindia.com/economy/india-needs-big-time-reforms-to-bridge-workforce-gap-in-logistics/69285'],
+    'vneconomy-strategy-2025': ['VnEconomy, National Logistics Development Strategy approved, November 2025', 'https://en.vneconomy.vn/national-logistics-development-strategy-approved.htm'],
+    'vneconomy-logistics-2026': ['VnEconomy, securing a workforce for logistics, January 2026', 'https://en.vneconomy.vn/to-secure-a-workforce-for-logistics-industry.htm'],
+    'rotterdam-2025': ['Container News, Rotterdam port throughput 2025, February 2026', 'https://container-news.com/rotterdam-port-throughput-falls-1-7-in-2025/'],
+    'rotterdam-h1-2025': ['Dry Cargo Magazine, Port of Rotterdam first half 2025', 'https://www.drycargomag.com/throughput-in-the-port-of-rotterdam-declines-in-h1'],
+    'dpworld-h1-2026': ['Semafor, Hormuz closure dents DP World earnings, August 2026', 'https://semafor.com/article/08/13/2026/hormuz-closure-dents-dp-world-earnings'],
+    'edb-semi-talent-2025': ['EDB, how Singapore develops semiconductor talent, February 2025', 'https://www.edb.gov.sg/en/news-and-insights/how-is-singapore-developing-semiconductor-talent-to-meet-industry-needs'],
+    'edb-semi-jobs-2026': ['EDB, semiconductor manufacturing jobs for young graduates, February 2026', 'https://www.edb.gov.sg/news-and-insights/insights/jobs-in-singapore-why-semiconductor-manufacturing-offers-good-opportunities-for-young-graduates-today'],
+    'bls-software-2025': ['US Bureau of Labor Statistics, software developers, projections 2025–35', 'https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm'],
+    'stanford-canaries-2026': ['Stanford Digital Economy Lab, AI employment gap for young workers (Canaries update), 12 August 2026', 'https://digitaleconomy.stanford.edu/news/canariesaug26/'],
+    'dsit-entry-2026': ['UK Department for Science, Innovation and Technology, entry-level hiring snapshot, June 2026', 'https://www.gov.uk/government/publications/entry-level-hiring-in-the-uk-a-snapshot'],
+    'chinadaily-grad-ai-2026': ['China Daily, AI roles in graduate hiring, July 2026', 'https://www.chinadaily.com.cn/a/202607/03/WS6a479ddda310986e2b46370d.html'],
+
+    // Task 13: finance, Islamic finance, health, biotech
+    'my-bnm-fin24': ['Bank Negara Malaysia Governor, speech on financial-sector skills, 22 July 2024 (BIS)', 'https://www.bis.org/review/r240722a.pdf'],
+    'in-bfsi-taggd25': ['Tribune India, CII–Taggd India Decoding Jobs 2026, November 2025', 'https://www.tribuneindia.com/news/business/indias-hiring-intent-rebounds-to-11-for-2026-led-by-bfsi-and-tech-driven-roles-report'],
+    'in-gift-gfci40': ['Business Today, GIFT City in the Global Financial Centres Index 40, September 2026', 'https://www.businesstoday.in/markets/story/gift-city-climbs-nine-places-to-37th-in-global-financial-centres-index-556209-2026-09-17'],
+    'ch-sba-staff26': ['Swiss Bankers Association, Banking Barometer 2026: staff at banks in Switzerland', 'https://publications.swissbanking.ch/banking-barometer-2026-en/number-of-staff-at-banks-in-switzerland'],
+    'ch-ubs-cuts26': ['Swissinfo (Keystone-SDA), UBS redundancies, 4 February 2026', 'https://www.swissinfo.ch/eng/various/ubs-redundancies-mainly-in-the-second-half-of-the-year/90889822'],
+
+    // Task 13: Islamic finance
+    'lseg-ifdr26': ['LSEG and ICD, Islamic Finance Development Report 2026', 'https://www.lseg.com/en/data-analytics/islamic-finance/islamic-market-intelligence/islamic-finance-development-report-2026'],
+    'intfin-ifdr26': ['International Finance, LSEG–ICD report, 27 October 2026', 'https://internationalfinance.com/islamic-finance/islamic-finance-assets-to-reach-usd-10-5-trillion-by-2030-states-lseg-icd-report/'],
+    'pk-ibank-br26': ['ProPakistani, Islamic banking branch share crosses 40% (State Bank of Pakistan data), 6 March 2026', 'https://propakistani.pk/2026/03/06/islamic-banking-branch-share-crosses-40-in-pakistan/'],
+    'tr-tkbb-q125': ['Participation Banks Association of Türkiye (TKBB), financial performance of participation banks, Q1 2025', 'https://en.tkbb.org.tr/news/turkiye-financial-performance-of-the-participation-banking-sector'],
+    'tr-tkbb-sep25': ['Participation Banks Association of Türkiye (TKBB), participation finance, September 2025 data', 'https://en.tkbb.org.tr/news/new-horizons-in-participation-finance-a-sustainable-and-digital-future'],
+
+    // Task 13: health
+    'my-nurse-vac26': ['CodeBlue, Health Ministry nursing vacancies, 27 July 2026', 'https://codeblue.galencentre.org/2026/07/health-ministrys-nursing-vacancies-rise-now-exceed-15000/'],
+    'de-ba-pflege26': ['Deutsches Ärzteblatt (in German), Federal Employment Agency on shortage occupations, 2 September 2026', 'https://www.aerzteblatt.de/news/jobs-in-pflege-und-gesundheit-zahlen-weiter-zu-engpassberufen-3c72c400-da5a-4adc-ba7d-360676f21840'],
+
+    // Task 13: biotech
+    'sg-edb-yir25': ['EDB, Year 2025 in Review, 9 February 2026', 'https://www.edb.gov.sg/en/about-edb/media-releases-publications/edb-year-2025-in-review.html'],
+    'sg-edb-vp25': ['Vulcan Post, EDB 2025 in review, 9 February 2026', 'https://vulcanpost.com/909095/singapore-edb-2025-year-in-review/'],
+    'cn-zhaopin-bio26': ['Caixin Global, China’s biopharma job market rebounds (Zhaopin data), 4 September 2026', 'https://www.caixinglobal.com/2026-09-04/chinas-biopharma-job-market-rebounds-on-ai-and-smart-device-boom-102481639.html'],
+    'kr-sambio26': ['Herald Business (in Korean), Samsung Biologics hiring, 9 September 2026', 'https://biz.heraldcorp.com/article/10866064'],
+    'dk-novo-pe25': ['Pharmaceutical Executive, Novo Nordisk to cut 9,000 jobs, 10 September 2025', 'https://www.pharmexec.com/view/novo-nordisk-cut-9-000-jobs-global-restructuring-effort'],
+    'dk-novo-cbs25': ['CBS News, Novo Nordisk job cuts, 10 September 2025', 'https://www.cbsnews.com/news/novo-nordisk-nvo-stock-9000-job-cuts-wegovy'],
+    'wbur-massbio26': ['WBUR, MassBio 2026 industry snapshot, 25 August 2026', 'https://www.wbur.org/news/2026/08/25/massbio-industry-2026-snapshot-jobs-funding'],
+    'sg-edb-fmt26': ['Free Malaysia Today, Singapore sees fewer jobs created even with more investments, 9 February 2026', 'https://www.freemalaysiatoday.com/category/business/2026/02/09/singapore-sees-fewer-jobs-created-even-with-more-investments'],
+    'cn-cctv-lic26': ['The Standard (Hong Kong), citing CCTV: China out-licensing deal value, first half of 2026', 'https://www.thestandard.com.hk/finance/article/337073/China-innovative-drug-out-licensing-deal-value-reaches-new-high-in-first-half-of-2026-says-CCTV'],
+
+    // Task 11: construction, energy, manufacturing, auto
+    'irena-countries-2025': ['Bioenergy International, IRENA and ILO jobs review by country (2024 figures), January 2026', 'https://bioenergyinternational.com/jobs-in-renewables-sees-slump-despite-global-deployment-growth-irena/'],
+    'pv-jobs-2024': ['pv magazine, IRENA solar jobs in 2024, January 2026', 'https://www.pv-magazine.com/2026/01/14/solar-accounted-for-7-24-million-jobs-in-2024/'],
+    'ema-manpower-2025': ['Energy Market Authority, Energy Sector Manpower Survey 2024 (October 2025)', 'https://ema.gov.sg/news-events/news/media-releases/2025/sg-energy-workforce-poised-to-grow-over-the-next-decade'],
+    'ceew-jobs-2026': ['Construction World, CEEW and NRDC clean energy jobs study, June 2026', 'https://www.constructionworld.in/amp/energy-infrastructure/power-and-renewable-energy/india-clean-energy-push-could-create-four-point-four-million-jobs-by-2030/92991'],
+    'cew-jobs-2026': ['Clean Energy Wire, Bertelsmann Foundation renewable jobs report, June 2026', 'https://www.cleanenergywire.org/news/government-policies-put-record-renewable-energy-jobs-risk-germany-report'],
+    'pso-plan-2025': ['ESD News, Powering Skills Organisation 2025 Workforce Plan, August 2025', 'https://esdnews.com.au/net-zero-journey-could-stall-without-skilled-energy-trades/'],
+    'edb-yir-2025': ['EDB, Singapore to create 15,700 jobs over five years (February 2026)', 'https://www.edb.gov.sg/en/news-and-insights/singapore-to-create-15700-jobs-over-five-years-with-two-thirds-paying-above-s5000-edb'],
+    'bls-empsit-sep26': ['US Bureau of Labor Statistics, Employment Situation, September 2026', 'https://www.bls.gov/news.release/archives/empsit_10022026.htm'],
+    'ba-manufacturing-2026': ['German Federal Employment Agency, press release 26/2026 (15 July 2026)', 'https://www.arbeitsagentur.de/en/press/2026-26-employment-in-the-manufacturing-sector-fell-by-177000'],
+    'mot-ev-pathway-2026': ['Ministry of Transport, Skills pathway for EV technical specialists (4 March 2026)', 'https://www.mot.gov.sg/news-resources/newsroom/launch-of-skills-pathway-for-ev-technical-specialists/'],
+    'siam-fy26': ['Millennium Post, SIAM vehicle sales for 2025–26 (April 2026)', 'https://www.millenniumpost.in/business/automobile-wholesales-up-104-to-283-crore-units-in-fy26-siam-656006'],
+    'autocar-workers-2026': ['Autocar Professional, India’s auto workers (1 May 2026)', 'https://www.autocarpro.in/news/reskilling-the-workforce-the-new-scorecard-for-indias-3-crore-auto-workers-132377?amp=1'],
+    'citb-cwo-2026': ['Construction Index, CITB Construction Workforce Outlook 2026–30 (June 2026)', 'https://www.theconstructionindex.co.uk/news/view/citb-predicts-construction-demands'],
+    'ema-manpower-2025-pdf': ['Energy Market Authority, media release of 31 October 2025 (PDF)', 'https://www.ema.gov.sg/content/dam/corporate/news/media-releases/2025/20251031-Media-Release-Singapore-Energy-Workforce-Poised-to-Grow-Over-Next%20Decade.pdf.coredownload.pdf'],
+
+    // Task 14: care, hospitality, creative, education
+    'sg-65plus-2025': ['Human Resources Online, Singapore Population in Brief 2025 (October 2025)', 'https://www.humanresourcesonline.net/singapore-s-citizen-population-aged-65-and-above-is-growing-faster-than-in-the-previous-decade-nptd'],
+    'sg-hc-workforce-2025': ['Human Resources Online, Singapore healthcare workforce target (November 2025)', 'https://www.humanresourcesonline.net/more-than-900-nursing-vacancies-reported-in-singapore-s-public-hospitals-in-the-past-3-months-amid-healthcare-expansion'],
+    'sfc-vacancy-2026': ['Skills for Care, adult social care vacancy rate (June 2026)', 'https://www.skillsforcare.org.uk/news-and-events/news/adult-social-care-vacancy-rate-falls-to-lowest-level-in-a-decade-as-workforce-grows'],
+    'uk-care-visa-2025': ['GOV.UK, applying for health and social care jobs in the UK from abroad', 'https://www.gov.uk/government/publications/applying-for-health-and-social-care-jobs-in-the-uk-from-abroad/part-1-applying-for-health-and-social-care-jobs-in-the-uk-from-abroad'],
+    'bls-aides-2035': ['US Bureau of Labor Statistics, Home health and personal care aides (updated August 2026)', 'https://www.bls.gov/ooh/healthcare/home-health-aides-and-personal-care-aides.htm'],
+    'kr-care-2028': ['The Star (Korea Immigration Service Foundation), March 2026', 'https://www.thestar.com.my/aseanplus/aseanplus-news/2026/03/16/south-korea-may-need-foreign-workers-to-fill-110000-elderly-care-jobs-by-2028'],
+    'sg-tourism-2025': ['TTG Asia, Singapore visitor arrivals and tourism receipts (February 2026)', 'https://www.ttgasia.com/2026/02/03/visitor-arrivals-to-singapore-increase-as-tourism-receipts-grow/'],
+    'my-visitors-2025': ['The Star, Malaysia records 42.2 million visitors in 2025 (January 2026)', 'https://www.thestar.com.my/news/nation/2026/01/26/malaysia-records-422-million-visitors-in-2025-strengthens-collaboration-for-vm2026'],
+    'uk-hosp-2026': ['Vinetur, UKHospitality analysis of ONS data (October 2026)', 'https://www.vinetur.com/en/amp/20261008108596/britains-hospitality-industry-urges-national-insurance-cut-after-losing-100000-jobs-in-two-years.html'],
+    'moe-ges25': ['MOE, Joint Graduate Employment Survey 2025 (NUS, NTU, SMU, SUTD, SIT, SUSS)', 'https://www.moe.gov.sg/api/media/b26f8eed-8a89-47e3-b82f-c2c239786342/Joint-Web-Publication-GES-2025.pdf'],
+    'dcms-gva-2024': ['GOV.UK, DCMS Economic Estimates: GVA 2024 provisional (February 2026)', 'https://www.gov.uk/government/statistics/dcms-economic-estimates-gva-2024-provisional'],
+    'ukie-census-2026': ['Game World Observer, UKIE survey of UK games workers (July 2026)', 'https://gameworldobserver.com/2026/07/20/nearly-a-quarter-of-surveyed-british-developers-have-lost-their-jobs-in-the-past-three-years'],
+    'filmla-2025': ['FilmLA, Los Angeles shoot days in 2025 (January 2026)', 'https://filmla.com/rising-california-film-tv-tax-credit-productions-signal-growing-industry-momentum-amid-2025-production-losses/'],
+    'cn-games-2025': ['China Daily, China Game Industry Annual Report (December 2025)', 'https://www.chinadaily.com.cn/a/202512/19/WS69454c69a310d6866eb2f917.html'],
+    'nie-hire-2025': ['NIE news, Singapore to hire more than 1,000 new educators a year (July 2025)', 'https://www.ntu.edu.sg/nie/news-events/news/detail/singapore-to-hire-more-than-1-000-new-educators-annually-in-the-next-few-years--up-from-700'],
+    'mext-teach-2025': ['MEXT, public school teacher recruitment exams for April 2025 hiring (Board of Education Monthly Report, February 2026)', 'https://www.mext.go.jp/content/20260209-mxt_syoto01-000047272_07.pdf'],
+    'kr-teach-2030': ['The Herald Business, Korea teacher supply plan 2027-2030 (June 2026)', 'https://mbiz.heraldcorp.com/article/10787643'],
+    'cn-preschool-2025': ['Yicai, China’s kindergarten teachers fall by over 219,000 in 2025 (August 2026)', 'https://www.yicaiglobal.com/news/chinas-number-of-kindergarten-teachers-drops-by-over-219000-in-2025'],
+    'dfe-itt-2025': ['Department for Education, Initial Teacher Training Census 2025/26', 'https://explore-education-statistics.service.gov.uk/find-statistics/initial-teacher-training-census/2025-26'],
+    'moe-teach-award': ['MOE, teaching scholarship and award details (bond lengths)', 'https://www.moe.gov.sg/careers/teaching-scholarships-sponsorships/moe-teaching-scholarships-full-term/scholarship-and-award-details']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -81,14 +176,14 @@
     { k: 'semis', label: 'Semiconductors and electronics', global: 'New chip plants are opening in the US, Japan, Germany, Vietnam and India. About half the new plant jobs in the US are technician roles, many of which don’t need a degree.', src: ['kbtx-semi'] },
     { k: 'manufacturing', label: 'Engineering, manufacturing and shipbuilding', global: 'Shipyards and electronics plants in Asia are short of skilled workers, while Germany’s industrial suppliers are cutting jobs.', src: ['kr-ship', 'de-auto'] },
     { k: 'auto', label: 'Automotive and EVs', global: 'Car-making is shifting towards China’s electric-vehicle makers. Germany’s car industry is at its lowest employment since 2005, and Volkswagen blames Chinese competition, US tariffs and high costs for more cuts.', src: ['de-auto', 'de-auto2'] },
-    { k: 'aero', label: 'Aerospace and aviation', global: 'Airbus estimates the industry needs 635,000 new maintenance technicians by 2037, and 44% of them in Asia.', src: ['mro-tech'] },
+    { k: 'aero', label: 'Aerospace and aviation', global: 'An older estimate: in an article of September 2022, Airbus said the industry would need 635,000 new maintenance technicians by 2037, 44% of them in Asia.', src: ['mro-tech'] },
     { k: 'construction', label: 'Construction and property', global: 'Building work rises and falls by place. Singapore, Australia and Johor are busy; China’s property slump and cuts to Saudi Arabia’s NEOM and Indonesia’s new capital have shrunk work there.', src: ['bca26', 'caixin-cn', 'semafor-neom'] },
     { k: 'energy', label: 'Clean energy', global: 'Renewable energy employs at least 16.6 million people, but growth slowed to 2.3% in the latest count and five countries hold over 85% of the jobs.', src: ['irena25'] },
     { k: 'health', label: 'Healthcare', global: 'The world was short of 5.8 million nurses in 2023, and rich countries recruit from abroad. Demand differs by country: Australia and the US are hiring, while many new UK nursing graduates can’t find NHS jobs.', src: ['who-nursing', 'rcn-uk'] },
     { k: 'care', label: 'Social and aged care', global: 'Ageing societies need many more carers. Japan expects to be short of about 250,000 care workers in 2026.', src: ['jp-care'] },
     { k: 'biotech', label: 'Biotech and life sciences', global: 'Biotech funding has been weak since 2021. Boston, the biggest hub, had its lowest venture funding since 2017 in early 2025.', src: ['boston-bio'] },
     { k: 'finance', label: 'Finance and business services', global: 'New York, London, Hong Kong and Singapore are within one rating point of each other at the top of the Global Financial Centres Index.', src: ['gfci38'] },
-    { k: 'islamic', label: 'Islamic finance', global: 'Islamic finance assets grew 9% to about US$6.5 trillion in 2025. Malaysia, Saudi Arabia, the UAE, Indonesia and Pakistan are the most developed markets.', src: ['lseg-ifdi'] },
+    { k: 'islamic', label: 'Islamic finance', global: 'Islamic finance assets grew 9% to about US$6.5 trillion in 2025. Malaysia, Saudi Arabia, the UAE, Indonesia and Pakistan are the most developed markets.', src: ['lseg-ifdr26', 'intfin-ifdr26'] },
     { k: 'creative', label: 'Media, design and games', global: 'Korean content exports hit a record US$14.9 billion in 2025. Japan’s anime market also set a record, but most studios call it a “profitless boom” with low pay.', src: ['kr-content', 'jp-anime'] },
     { k: 'hospitality', label: 'Tourism, hospitality and retail', global: 'Tourism is booming in Japan and South Korea, where hotels are short of staff. The 2026 Iran war has hit Gulf tourism and flights hard.', src: ['jp-hotel', 'kr-tourism', 'cnbc-uae'] },
     { k: 'logistics', label: 'Logistics and maritime', global: 'Asia’s ports and shipyards are busy. Singapore is adding berths at Tuas, and Korean shipyards have record orders but too few welders.', src: ['bca26', 'kr-ship'] },
@@ -103,27 +198,35 @@
   const WORLD = [
     { id: 'sg', place: 'Singapore', country: 'Singapore', iso: 702, ll: [103.82, 1.35], ind: {
       construction: ['grow', 'Construction demand is forecast at S$47–53 billion for 2026, led by Changi Terminal 5, Tuas Port and new hospitals.', ['bca26']],
+      auto: ['steady', 'No hiring count has been published yet; the Ministry of Transport says demand for skilled EV workers is growing. A four-level EV technician pathway, from technical specialist up to engineer, launched in March 2026. Eligible learners get at least 50% course fee subsidies.', ['mot-ev-pathway-2026']],
+      manufacturing: ['steady', 'Investment won in 2025 will create 15,700 jobs over five years across all sectors, 37% of them in manufacturing. That is 16% fewer than the year before and the lowest in a decade; EDB says firms are cautious and automating more.', ['edb-yir-2025']],
+      energy: ['grow', 'Clean energy employers are expected to add about 1,000 workers (up 60%) over the next ten years, mainly in solar, energy storage and low-carbon electricity imports. Energy-sector headcount already rose 4% (310 workers) from 2022 to 2024.', ['ema-manpower-2025', 'ema-manpower-2025-pdf']],
       finance: ['grow', '4th in the Global Financial Centres Index, within a point of New York.', ['gfci38']],
       tech: ['grow', '9th in the 2025 start-up hub ranking. IT graduates had the highest median starting pay in 2025, at S$5,500.', ['gser25', 'ges25']],
-      aero: ['grow', 'A major aircraft repair hub in Asia, the region that needs 44% of the world’s new aircraft technicians.', ['mro-tech']],
+      aero: ['grow', 'By early 2024 aerospace jobs had grown by almost 3,000 to over 21,000, and firms planned to hire over 2,500 more within three to five years. In February 2026 the government said new investment (over S$750 million) should create close to 600 jobs over five years.', ['edb-aero-2024', 'meti-airshow-2026', 'mro-tech']],
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
+      biotech: ['steady', 'Biomedical manufacturing made up 30.8% of the S$14.2 billion in fixed asset investment commitments for 2025, second to electronics (33%). But jobs are less certain: EDB expects 15,700 new jobs across all industries over five years, its lowest projection since at least 2006.', ['sg-edb-yir25', 'sg-edb-vp25', 'sg-edb-fmt26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
-      education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
+      semis: ['grow', 'Semiconductors employ over 35,000 people and make up nearly 6% of Singapore’s GDP (EDB, 2025). UMC’s new wafer plant, unveiled in 2025, will add 700 jobs, and semiconductor engineers joined the Shortage Occupation List in November 2024.', ['edb-semi-talent-2025', 'edb-semi-jobs-2026']],
+      education: ['grow', 'In July 2025 the Education Minister said MOE will hire more than 1,000 new educators a year, up from about 700. Fresh diploma holders in teaching typically start at $3,110 (MOE, 2026).', ['nie-hire-2025', 'moe-diped']],
+      care: ['grow', 'Citizens aged 65 and over rose from 13.1% in 2015 to 20.7% in 2025, and are projected to reach 23.9% by 2030. The government aims to grow the national healthcare workforce by 20% by 2030.', ['sg-65plus-2025', 'sg-hc-workforce-2025']],
+      hospitality: ['grow', 'Visitors rose 2.3% to 16.9 million in 2025, and tourism receipts reached S$23.9 billion in January to September, up 6.5%. The Tourism Board forecasts 17 to 18 million visitors in 2026.', ['sg-tourism-2025']],
+      creative: ['decline', 'A fresh-graduate measure: only 50.0% of 2025 university arts, design and media graduates in the labour force had a full-time permanent job six months after finishing (66.7% in 2023, the lowest of eight course groups). 77.5% were working in some form; freelance and part-time work do not count as full-time permanent. Median pay was $3,840.', ['moe-ges25']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {
       construction: ['decline', 'Property investment fell 10.6% in 2024 and 11.2% in the first half of 2025. Construction’s share of migrant workers fell to its lowest since 2008.', ['caixin-cn', 'scmp-prop']],
-      energy: ['grow', 'Holds the largest share of the world’s renewable energy jobs.', ['irena25']],
+      energy: ['steady', 'About 7.3 million renewable energy jobs in 2024, 44% of the world’s total. But solar jobs fell about 8%, from 4.59 million to just over 4.2 million, as factories needed fewer workers per panel.', ['irena-countries-2025', 'pv-jobs-2024']],
       auto: ['grow', 'Chinese electric-vehicle makers are winning market share; German car makers name them as a reason for job cuts.', ['de-auto']]
     } },
     { id: 'shenzhen', place: 'Shenzhen', country: 'China', iso: 156, ll: [114.06, 22.54], ind: {
       tech: ['grow', 'One of the four Chinese cities drawing the most tech job applicants, and climbing the start-up hub ranking.', ['chinadaily-ai', 'gser25']],
-      auto: ['grow', 'Home of BYD, one of the world’s biggest electric-vehicle makers.', []],
+      auto: ['grow', 'Home of BYD, one of the world’s biggest electric-vehicle makers.', ['byd-shenzhen']],
       finance: ['steady', '9th in the Global Financial Centres Index.', ['gfci38']]
     } },
     { id: 'hangzhou', place: 'Hangzhou', country: 'China', iso: 156, ll: [120.15, 30.27], ind: {
-      tech: ['grow', 'Base of Alibaba and Ant Group. 85% of Ant’s 2026 graduate hiring was for technical roles, most of them tied to AI.', ['cntech-ai']]
+      tech: ['grow', 'Base of Alibaba and Ant Group. In March 2026 Ant said 85% of its openings were technical roles, and over 70% of those were AI-related.', ['cntech-ai']]
     } },
     { id: 'beijing', place: 'Beijing', country: 'China', iso: 156, ll: [116.4, 39.9], ind: {
       tech: ['grow', 'Rose three places to joint 5th in the 2025 start-up hub ranking; China’s main AI research centre.', ['gser25']]
@@ -181,7 +284,7 @@
       construction: ['grow', 'Record approved investment (RM91.1 billion by late 2025) is driving data-centre and factory building.', ['my-jsez']]
     } },
     { id: 'penang', place: 'Penang', country: 'Malaysia', iso: 458, ll: [100.33, 5.41], ind: {
-      semis: ['steady', 'A long-established centre for chip assembly and testing.', []]
+      semis: ['steady', 'A mature centre for chip assembly and testing.', ['my-penang-osat']]
     } },
     { id: 'jakarta', place: 'Jakarta', country: 'Indonesia', iso: 360, ll: [106.85, -6.21], ind: {
       islamic: ['grow', 'Indonesia is one of the five most developed Islamic finance markets.', ['lseg-ifdi']]
@@ -219,7 +322,7 @@
     } },
     { id: 'de', place: 'Germany (nationwide)', country: 'Germany', iso: 276, ll: [10.4, 51.2], scope: 'country', ind: {
       auto: ['decline', 'Car industry jobs fell by 42,300 in a year, to the lowest level since 2005, and Volkswagen plans 50,000 more cuts by 2030.', ['de-auto2', 'de-auto']],
-      manufacturing: ['decline', 'Suppliers such as Bosch and ZF are cutting thousands of jobs.', ['de-auto']]
+      manufacturing: ['decline', 'Manufacturing employment fell by 177,000 in 2025, to 6.5 million. Car and car-parts makers lost 52,000, machinery makers 28,000 and metal products 24,000. Suppliers such as Bosch and ZF are cutting thousands more.', ['ba-manufacturing-2026', 'de-auto']]
     } },
     { id: 'stuttgart', place: 'Stuttgart', country: 'Germany', iso: 276, ll: [9.18, 48.78], ind: {
       auto: ['decline', 'Home of Bosch and Porsche, which are both cutting jobs.', ['de-auto']]
@@ -231,8 +334,8 @@
       aero: ['grow', 'Airbus’s home is raising aircraft production and has been hiring thousands of people a year.', ['airbus-hire']]
     } },
     { id: 'us', place: 'United States (nationwide)', country: 'United States', iso: 840, ll: [-98, 39], scope: 'country', ind: {
-      health: ['grow', 'Healthcare is projected to drive most US job growth to 2034; nurse practitioners are among the fastest-growing jobs.', ['bls-proj']],
-      energy: ['grow', 'Wind turbine technician is the fastest-growing US job in official projections, at about 50% to 2034.', ['bls-wind']]
+      health: ['grow', 'Healthcare and social assistance is projected to add over 2.2 million jobs from 2025 to 2035, about 37% of all new US jobs. Nurse practitioner is the fastest-growing job, at 41%.', ['bls-proj']],
+      energy: ['grow', 'Solar installers (about 37%) and wind turbine technicians (about 30%) are among the fastest-growing US jobs in official projections from 2025 to 2035.', ['bls-solar', 'bls-wind']]
     } },
     { id: 'sf', place: 'San Francisco Bay Area', country: 'United States', iso: 840, ll: [-122.42, 37.77], ind: {
       tech: ['grow', '1st in the 2025 start-up hub ranking, led by AI.', ['gser25']],
@@ -243,7 +346,7 @@
       tech: ['grow', '2nd in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'boston', place: 'Boston', country: 'United States', iso: 840, ll: [-71.06, 42.36], ind: {
-      biotech: ['decline', 'Venture funding fell to its lowest since 2017, and over 4,100 biotech jobs were cut in 2025 by September.', ['boston-bio']],
+      biotech: ['decline', 'Massachusetts biopharma cut about 3,600 jobs in 2025, its first yearly fall in over 20 years of records. The cuts were mostly in research and development, while biomanufacturing gained some jobs. Venture funding is up 25% in the first half of 2026 ($3.45 billion), but jobs haven’t come back yet.', ['wbur-massbio26']],
       tech: ['grow', 'Joint 5th in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'phoenix', place: 'Phoenix, Arizona', country: 'United States', iso: 840, ll: [-112.07, 33.45], ind: {
@@ -292,7 +395,7 @@
     'ah-spon': { t: 'Allied health sponsorships (MOH Holdings)', d: 'Sponsor local diplomas and degrees such as physiotherapy, occupational therapy, radiography, pharmacy and dietetics, in return for a bond.', c: 'ahspon', src: [] },
     ncss: { t: 'NCSS Social Service Scholarship', d: 'Full tuition plus allowances for social work, occupational therapy, physiotherapy and speech therapy degrees. Bond: 4 years for local study, 6 for overseas.', c: 'ncss', src: [] },
     ecda: { t: 'ECDA Training Award', d: 'Pays full course fees plus a monthly allowance ($800 at polytechnic, $500 at ITE) for early childhood courses. You then work one year in the sector for each year of support.', c: 'ecda', src: [] },
-    'moe-teach': { t: 'Paid teacher training', d: 'MOE pays you while you train at NIE. Diploma holders typically start at about $2,970 a month and serve a 3-year bond in a primary school. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond.', c: 'moeTeach', src: ['moe-diped'] },
+    'moe-teach': { t: 'MOE-funded teacher training', d: 'Diploma holders first do a compulsory contract teaching stint. If it goes well, MOE fully funds your training at NIE, and you then serve a 3-year bond in a primary school. Fresh diploma holders typically start at $3,110. The MOE Teaching Award pays degree fees and an allowance, with a 4-year bond for local study.', c: 'moeTeach', src: ['moe-diped', 'moe-teach-award'] },
     'paid-train': { t: 'Paid from day one', d: 'Home Team and SAF recruits draw a salary during training and pay no course fees. Ask about sponsored study for a diploma or degree later.', c: 'careersgov', src: [] },
     sfc: { t: 'SkillsFuture Credit', d: 'Singaporeans aged 25 and above get $500 of SkillsFuture Credit for approved courses.', c: 'ssg', src: [] },
     pt: { t: 'Part-time study', d: 'Part-time Higher Nitec modules at ITE cost about $71 each for Singapore Citizens after SkillsFuture funding. Polytechnics and SUSS run subsidised part-time diplomas and degrees.', c: 'ssg', src: [] }
@@ -310,7 +413,7 @@
     ipa: { n: 'ITE Progression Award (MOE)', url: 'https://www.moe.gov.sg/financial-matters/awards-scholarships/ite-progression-award-ipa', w: 'Who qualifies and how it’s paid' },
     wsdip: { n: 'Work-Study Diploma (ITE)', url: 'https://ite.edu.sg/courses/work-study-diploma', w: 'Earn while you study for a diploma' },
     hcspon: { n: 'Public healthcare sponsorships', url: 'https://www.nuhs.edu.sg/careers/healthcare-scholarships-and-sponsorships', w: 'Nursing and healthcare study awards' },
-    ahspon: { n: 'MOH Holdings allied health sponsorships', url: 'https://www.ahp.mohh.com.sg/sponsorships/study-sponsorships', w: 'Allied health diplomas and degrees' },
+    ahspon: { n: 'MOH Holdings Healthcare Professionals Scholarship', url: 'https://www.healthcarescholarships.sg/scholarships/healthcare-professionals-scholarship.html', w: 'Nursing and allied health degree scholarships, including a degree-conversion route for Diploma in Nursing students' },
     snb: { n: 'Singapore Nursing Board', url: 'https://www.healthprofessionals.gov.sg/snb', w: 'Nurse registration, including overseas degrees' },
     ahpc: { n: 'Allied Health Professions Council', url: 'https://www.healthprofessionals.gov.sg/ahpc', w: 'Registration for allied health professionals' },
     smc: { n: 'Singapore Medical Council', url: 'https://www.healthprofessionals.gov.sg/smc', w: 'Doctor registration and recognised medical schools' },
@@ -337,53 +440,44 @@
     mcf: { n: 'MyCareersFuture', url: 'https://www.mycareersfuture.gov.sg', w: 'Job ads with salary ranges' }
   };
 
-  // Rough exchange rates for showing overseas costs in Singapore dollars.
-  const FX = { AUD: .85, GBP: 1.72, EUR: 1.49, JPY: .0088, MYR: .3 };
-  const ABROAD = {
-    'au-nurse': { c: 'Australia', course: 'Bachelor of Nursing', yrs: 3, fee: [32000, 42000], cur: 'AUD', living: 29710, why: 'Nurses in aged care, children’s and mental health are in national shortage, so graduates are in demand.', watch: 'Fees rise most years. If you plan to work here later, check the Singapore Nursing Board recognises the course first.', src: ['rmit', 'jsa-osl', 'au-visa'], links: ['studyau', 'snb'] },
-    'uk-nurse': { c: 'United Kingdom', course: 'BSc Nursing', yrs: 3, fee: [14500, 26000], cur: 'GBP', why: 'Three-year degrees with hospital placements built in.', watch: 'In 2026 many new UK nursing graduates couldn’t find NHS jobs (35% unplaced in Wales). Check Singapore Nursing Board recognition first.', src: ['uk-nfees', 'wales-nurse'], links: ['ukvisa', 'snb'] },
-    'au-allied': { c: 'Australia', course: 'Allied health degree (physiotherapy, OT, radiography)', yrs: 4, fee: [32000, 42000], cur: 'AUD', living: 29710, why: 'Many universities offer these degrees, and health professionals are in shortage in Australia.', watch: 'Check that Singapore’s Allied Health Professions Council recognises the degree before you enrol.', src: ['rmit', 'jsa-osl'], links: ['studyau', 'ahpc'] },
-    'au-gen': { c: 'Australia', course: 'Bachelor’s degree', yrs: 3, fee: [36000, 50000], cur: 'AUD', living: 29710, why: 'Many degrees take three years, and graduates can apply to stay and work for a while.', watch: 'Australia manages international places (295,000 new places for 2026), and fees rise most years.', src: ['rmit', 'au-npl', 'au-visa'], links: ['studyau'] },
-    'de-eng': { c: 'Germany', course: 'Bachelor’s in engineering or computing at a public university', yrs: 3.5, fee: [200, 700], cur: 'EUR', living: 11904, why: 'Most public universities charge no tuition, even for non-EU students: just a semester fee of about €100–350.', watch: 'Most bachelor’s degrees are taught in German. Baden-Württemberg charges non-EU students €1,500 a semester and TUM in Munich charges too. Germany’s car industry is cutting jobs.', src: ['de-fees', 'de-block'], links: ['daad'] },
-    'jp-gen': { c: 'Japan', course: 'Bachelor’s at a national university', yrs: 4, fee: [535800, 535800], once: 282000, cur: 'JPY', why: 'National universities charge everyone the same fees. The MEXT scholarship pays full fees, a monthly allowance and flights for 5 years, including a year of Japanese.', watch: 'Apply for MEXT through the Embassy of Japan in Singapore, usually around May–June. Most courses are taught in Japanese.', src: ['jp-fees'], links: ['embjp', 'jasso'] },
-    'jp-anime': { c: 'Japan', course: 'Animation, design or media at a national university', yrs: 4, fee: [535800, 535800], once: 282000, cur: 'JPY', why: 'Japan is the centre of the anime industry, and studios are short of animators. MEXT scholarships cover fees and living costs.', watch: 'Studios report a “profitless boom”: record sales, but low pay and rising closures.', src: ['jp-fees', 'jp-anime'], links: ['embjp', 'jasso'] },
-    'my-tech': { c: 'Malaysia', course: 'Computing degree at a private university', yrs: 3, total: [77400, 141720], cur: 'MYR', why: 'Close to home and much cheaper. 2026 totals for a 3-year computing degree range from about RM77,400 (UTP) to RM141,720 (Monash Malaysia).', watch: 'International fees include 6% service tax. Check that employers you want recognise the university.', src: ['my-fees', 'my-monash'], links: ['emgs'] },
-    'my-biz': { c: 'Malaysia', course: 'Business or accounting degree at a private university', yrs: 3, cur: 'MYR', why: 'Close to home, and some Australian and UK universities run Malaysian campuses at lower fees.', watch: 'Fees vary a lot; check each university’s international fee page.', src: ['my-monash'], links: ['emgs'] },
-    'my-islamic': { c: 'Malaysia', course: 'Islamic finance degree in Kuala Lumpur', yrs: 3, cur: 'MYR', why: 'Malaysia leads the world’s Islamic Finance Development Indicator, and Kuala Lumpur is the industry’s hub.', watch: 'Fees vary by university; check before you apply.', src: ['lseg-ifdi'], links: ['emgs'] },
-    'my-religious': { c: 'Malaysia', course: 'Islamic studies at the International Islamic University Malaysia (IIUM)', yrs: 4, cur: 'MYR', why: 'Taught in English and Arabic, close to home.', watch: 'Check that MUIS recognises the qualification under the Asatizah Recognition Scheme.', src: [], links: ['muis', 'emgs'] },
-    'eg-religious': { c: 'Egypt', course: 'Islamic studies at Al-Azhar University', yrs: 4, cur: 'EGP', why: 'One of the oldest centres of Islamic learning in the world.', watch: 'Teaching is in Arabic. Check MUIS recognition, travel advice and visa rules first.', src: [], links: ['muis'] },
-    'uk-design': { c: 'United Kingdom', course: 'Design, media or games degree', yrs: 3, fee: [17100, 29800], cur: 'GBP', why: 'Three-year degrees, and London is a major creative centre.', watch: 'International fees vary widely, and living in London costs much more.', src: ['uk-fees'], links: ['ukvisa'] },
-    'uk-law': { c: 'United Kingdom', course: 'Law degree (LLB)', yrs: 3, fee: [17100, 29800], cur: 'GBP', why: 'A three-year degree instead of four.', watch: 'Only degrees from universities approved by Singapore’s Ministry of Law count towards practising here, and extra steps apply.', src: ['uk-fees'], links: ['minlaw', 'ukvisa'] },
-    'med-abroad': { c: 'Overseas', course: 'Medicine abroad', yrs: 5, cur: '', why: 'An option if you miss a local place.', watch: 'Singapore registers doctors only from medical schools on the Singapore Medical Council’s recognised list, and fees abroad are high.', src: [], links: ['smc'] }
+  /* Rough exchange rates for showing overseas costs in Singapore dollars: S$ per one unit of each currency, to 4 figures.
+     Most are the ECB euro reference rates of 28 October 2026 (1 EUR = 1.4274 SGD) crossed through the euro (source 'fx-ecb').
+     AED and SAR are fixed to the US dollar (3.6725 and 3.75), so they come from the same USD rate.
+     EGP is not an ECB currency: it comes from ExchangeRate-API on 29 October 2026 (source 'fx-egp'). */
+  const FX_ASOF = 'October 2026';
+  const FX = {
+    AUD: .9017, GBP: 1.704, EUR: 1.427, JPY: .008117, MYR: .3145,
+    CHF: 1.544, DKK: .191, SEK: .1291, NOK: .1379, CAD: .9128, USD: 1.282, NZD: .7197,
+    KRW: .0009565, CNY: .1923, HKD: .1634, AED: .3491, EGP: .02286, TRY: .02573, SAR: .3419
   };
 
-  /* Study tracks: the courses at each level (ite, dip, deg), any licence, the help and overseas options, and contacts.
+  /* Study tracks: the courses at each level (ite, dip, deg), any licence, the help and contacts.
      A role's pc can override a course name or the licence. Tracks with a custom route build their own steps. */
   const TRACKS = {
-    nursing: { ite: 'Nitec in Nursing at ITE (2 years). You can work as an enrolled nurse.', dip: 'Diploma in Nursing at Nanyang or Ngee Ann Polytechnic (3 years)', deg: 'Nursing degree at NUS or SIT', licence: 'Register with the Singapore Nursing Board before you practise.', later: 'Enrolled nurses can go on to a nursing diploma, and diploma nurses to a degree, often with hospital sponsorship.', help: ['nurse-spon'], abroad: ['au-nurse', 'uk-nurse'], contacts: ['hcspon', 'snb'] },
-    allied: { dip: 'Diploma in Health Sciences or a related diploma (3 years)', deg: 'Allied health degree at SIT', licence: 'Register with the Allied Health Professions Council before you practise.', help: ['ah-spon', 'ncss'], abroad: ['au-allied'], contacts: ['ahspon', 'ahpc'] },
-    medicine: { dip: 'A related diploma, such as Biomedical or Health Sciences (3 years)', deg: 'Medicine (MBBS) at NUS or NTU (5 years)', degFee: 'med', degYrs: 5, licence: 'Register with the Singapore Medical Council and complete your first postgraduate year in a public hospital.', note: 'Most medical students enter with A-levels or the IB. Polytechnic graduates can apply, but places are very limited.', abroad: ['med-abroad'], contacts: ['smc'] },
-    bio: { dip: 'Diploma in Biomedical, Chemical or Pharmaceutical Science (3 years)', deg: 'Life sciences degree (NUS, NTU or SIT)', abroad: ['au-gen', 'jp-gen'], contacts: ['msf'] },
-    tech: { ite: 'Higher Nitec in IT or cybersecurity at ITE (2 years)', dip: 'Diploma in IT, Computer Science or a related field (3 years)', deg: 'Computing degree (NUS, NTU, SMU, SIT or SUTD)', degKey: 'it', note: 'Many tech employers also hire from strong portfolios and certifications.', help: ['wsdip'], abroad: ['de-eng', 'my-tech'], contacts: ['msf', 'e2i'] },
-    engineering: { ite: 'Nitec in Electrical, Electronics or Mechanical Technology at ITE (2 years)', dip: 'Diploma in Engineering (3 years)', deg: 'Engineering degree (NUS, NTU, SIT or SUTD)', degKey: 'eng', help: ['wsdip'], abroad: ['de-eng', 'jp-gen'], contacts: ['msf'] },
+    nursing: { ite: 'Nitec in Nursing at ITE (2 years). You can work as an enrolled nurse.', dip: 'Diploma in Nursing at Nanyang or Ngee Ann Polytechnic (3 years)', deg: 'Nursing degree at NUS or SIT', licence: 'Register with the Singapore Nursing Board before you practise.', later: 'Enrolled nurses can go on to a nursing diploma, and diploma nurses to a degree, often with hospital sponsorship.', help: ['nurse-spon'], contacts: ['hcspon', 'snb'] },
+    allied: { dip: 'Diploma in Health Sciences or a related diploma (3 years)', deg: 'Allied health degree at SIT', licence: 'Register with the Allied Health Professions Council before you practise.', help: ['ah-spon', 'ncss'], contacts: ['ahspon', 'ahpc'] },
+    medicine: { dip: 'A related diploma, such as Biomedical or Health Sciences (3 years)', deg: 'Medicine (MBBS) at NUS or NTU (5 years)', degFee: 'med', degYrs: 5, licence: 'Register with the Singapore Medical Council and complete your first postgraduate year in a public hospital.', note: 'Most medical students enter with A-levels or the IB. Polytechnic graduates can apply, but places are very limited.', contacts: ['smc'] },
+    bio: { dip: 'Diploma in Biomedical, Chemical or Pharmaceutical Science (3 years)', deg: 'Life sciences degree (NUS or NTU)', contacts: ['msf'] },
+    tech: { ite: 'Higher Nitec in IT or cybersecurity at ITE (2 years)', dip: 'Diploma in IT, Computer Science or a related field (3 years)', deg: 'Computing degree (NUS, NTU, SMU, SIT or SUTD)', degKey: 'it', note: 'Many tech employers also hire from strong portfolios and certifications.', help: ['wsdip'], contacts: ['msf', 'e2i'] },
+    engineering: { ite: 'Nitec in Electrical, Electronics or Mechanical Technology at ITE (2 years)', dip: 'Diploma in Engineering (3 years)', deg: 'Engineering degree (NUS, NTU, SIT or SUTD)', degKey: 'eng', help: ['wsdip'], contacts: ['msf'] },
     trades: { ite: 'Nitec in Electrical Technology at ITE (2 years)', dip: 'Diploma in Electrical or Mechanical Engineering (3 years)', licence: 'Electricians need an Energy Market Authority licence for most electrical work.', help: ['wsdip'], contacts: ['ite', 'ema'] },
     aero: { ite: 'Nitec in Aerospace Technology at ITE (2 years)', dip: 'Diploma in Aerospace Engineering (3 years)', licence: 'Licensed aircraft engineers hold a CAAS Aircraft Maintenance Licence, earned through exams and experience.', help: ['wsdip'], contacts: ['caas', 'ite'] },
     aviation: { custom: 'aviation', contacts: ['mcf'] },
     atc: { custom: 'atc', contacts: ['caas'] },
     pilot: { custom: 'pilot', dip: 'A diploma in any field (3 years)', licence: 'Cadet programmes lead to a commercial pilot licence recognised by CAAS.', contacts: ['caas', 'saf'] },
     culinary: { ite: 'Nitec or Higher Nitec in culinary arts at ITE (2 years)', dip: 'Diploma in Culinary and Catering Management at Temasek Polytechnic (3 years)', note: 'For halal kitchens, learn the MUIS halal certification rules.', contacts: ['ite', 'muis'] },
-    hospitality: { ite: 'Nitec in hospitality or retail at ITE (2 years)', dip: 'Diploma in Hospitality and Tourism Management (3 years)', deg: 'Hospitality business degree at SIT', abroad: ['au-gen'], contacts: ['msf'] },
-    business: { ite: 'Nitec in Business Services at ITE (2 years)', dip: 'Diploma in Business, Accountancy or Banking and Finance (3 years)', deg: 'Business, accountancy or economics degree (NUS, NTU, SMU, SIT or SUSS)', degFee: 'biz', abroad: ['au-gen', 'my-biz'], contacts: ['msf'] },
-    islamicfin: { ite: 'Nitec in Business Services at ITE (2 years)', dip: 'Diploma in Banking and Finance (3 years)', deg: 'Business or finance degree, plus an Islamic finance certificate', degFee: 'biz', note: 'Kuala Lumpur, a short trip away, is the world’s leading Islamic finance market.', abroad: ['my-islamic'], contacts: ['msf'] },
-    logistics: { ite: 'Nitec in Business Services or a logistics course at ITE (2 years)', dip: 'Diploma in Supply Chain Management or Logistics (3 years)', deg: 'Supply chain, logistics or business degree', abroad: ['au-gen'], contacts: ['msf'] },
+    hospitality: { ite: 'Nitec in hospitality or retail at ITE (2 years)', dip: 'Diploma in Hospitality and Tourism Management (3 years)', deg: 'Hospitality business degree at SIT', contacts: ['msf'] },
+    business: { ite: 'Nitec in Business Services at ITE (2 years)', dip: 'Diploma in Business, Accountancy or Banking and Finance (3 years)', deg: 'Business, accountancy or economics degree (NUS, NTU, SMU, SIT or SUSS)', degFee: 'biz', contacts: ['msf'] },
+    islamicfin: { ite: 'Nitec in Business Services at ITE (2 years)', dip: 'Diploma in Banking and Finance (3 years)', deg: 'Business or finance degree, plus an Islamic finance certificate', degFee: 'biz', note: 'Kuala Lumpur, a short trip away, is the world’s leading Islamic finance market.', contacts: ['msf'] },
+    logistics: { ite: 'Nitec in Business Services or a logistics course at ITE (2 years)', dip: 'Diploma in Supply Chain Management or Logistics (3 years)', deg: 'Supply chain, logistics or business degree', contacts: ['msf'] },
     maritime: { ite: 'Nitec in Mechanical or Marine Technology at ITE (2 years)', dip: 'Diploma in Maritime Business or Marine Engineering at Singapore Polytechnic (3 years)', deg: 'Maritime Studies degree at NTU', contacts: ['msf'] },
-    design: { ite: 'Nitec in Visual Communication or Interactive Design at ITE (2 years)', dip: 'Diploma in Design (3 years) at a polytechnic, LASALLE or NAFA', deg: 'Design degree (NTU, SUTD or the University of the Arts Singapore)', note: 'For most design jobs, a strong portfolio matters more than grades. LASALLE and NAFA fees differ from polytechnic fees.', abroad: ['uk-design', 'jp-anime'], contacts: ['msf'] },
-    media: { ite: 'Nitec in Interactive or Broadcast Media at ITE (2 years)', dip: 'Diploma in Mass Communication or Media (3 years)', deg: 'Communication, journalism or media degree (NTU, NUS or SUSS)', note: 'Build a portfolio of published work; editors often hire from it.', abroad: ['uk-design'], contacts: ['msf'] },
-    law: { dip: 'Diploma in Law and Management at Temasek Polytechnic (3 years)', deg: 'Law degree (LLB) at NUS, SMU or SUSS', degFee: 'law', licence: 'After the degree, take the Part B course and practice training before admission to the Bar.', abroad: ['uk-law'], contacts: ['minlaw'] },
+    design: { ite: 'Nitec in Visual Communication or Interactive Design at ITE (2 years)', dip: 'Diploma in Design (3 years) at a polytechnic, LASALLE or NAFA', deg: 'Design degree (NTU, SUTD or the University of the Arts Singapore)', note: 'For most design jobs, a strong portfolio matters more than grades. LASALLE and NAFA fees differ from polytechnic fees.', contacts: ['msf'] },
+    media: { ite: 'Nitec in Interactive or Broadcast Media at ITE (2 years)', dip: 'Diploma in Mass Communication or Media (3 years)', deg: 'Communication, journalism or media degree (NTU, NUS or SUSS)', note: 'Build a portfolio of published work; editors often hire from it.', contacts: ['msf'] },
+    law: { dip: 'Diploma in Law and Management at Temasek Polytechnic (3 years)', deg: 'Law degree (LLB) at NUS, SMU or SUSS', degFee: 'law', licence: 'After the degree, take the Part B course and practice training before admission to the Bar.', contacts: ['minlaw'] },
     earlychild: { ite: 'Higher Nitec in Early Childhood Education at ITE (2 years)', dip: 'Diploma in Early Childhood Development and Education at Ngee Ann or Temasek Polytechnic (3 years)', deg: 'Early childhood degree at SUSS', help: ['ecda'], contacts: ['ecda'] },
     teaching: { custom: 'teaching', dip: 'A diploma in any field (3 years)', help: ['moe-teach'], contacts: ['moeTeach'] },
-    religious: { dip: 'Diploma in Islamic studies, locally or overseas', deg: 'Islamic studies degree, locally or overseas', licence: 'Register under MUIS’s Asatizah Recognition Scheme before you teach.', abroad: ['my-religious', 'eg-religious'], contacts: ['muis'] },
-    socialwork: { ite: 'Nitec in Community Care and Social Services at ITE (2 years)', dip: 'Diploma in Social Sciences, Psychology or Community Development (3 years)', deg: 'Social work degree at SUSS or NUS', help: ['ncss'], contacts: ['ncss'] },
+    religious: { dip: 'Diploma in Islamic studies (overseas; no public school in Singapore offers one)', deg: 'Islamic studies degree (overseas; no public school in Singapore offers one)', licence: 'Register under MUIS’s Asatizah Recognition Scheme before you teach.', contacts: ['muis'] },
+    socialwork: { ite: 'Higher Nitec in Community Care and Social Services at ITE (3 years)', dip: 'Diploma in Social Sciences, Psychology or Community Development (3 years)', deg: 'Social work degree at SUSS or NUS', help: ['ncss'], contacts: ['ncss'] },
     beauty: { ite: 'A hairdressing course at ITE or a private academy. SkillsFuture funds many WSQ hairdressing courses.', contacts: ['msf', 'ssg'] },
     sport: { dip: 'Diploma in Sport and Exercise Sciences (3 years)', deg: 'Sport science degree (NIE or SUSS)', note: 'Most gyms also ask for a recognised personal trainer certificate.', contacts: ['msf'] },
     vet: { dip: 'Diploma in Veterinary Technology at Temasek Polytechnic (3 years)', contacts: ['msf'] },
@@ -414,7 +508,7 @@
     HELP,
     CONTACTS,
     FX,
-    ABROAD,
+    FX_ASOF,
     TRACKS,
     PAY
   };

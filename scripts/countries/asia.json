@@ -1,0 +1,304 @@
+[
+  {
+    "iso": 50, "name": "Bangladesh", "a2": "BD",
+    "langs": ["Bangla (Bengali)"],
+    "known": ["Ready-made garments, one of the world's largest clothing exporters", "Microfinance, started by Grameen Bank and BRAC", "The Sundarbans mangrove forest and the Ganges-Brahmaputra delta"],
+    "facts": ["Independent since 1971, after a war of liberation from Pakistan.", "Much of the land is a low river delta, so floods and cyclones are a regular risk.", "21 February, the day of the 1952 Bengali Language Movement, is marked worldwide as International Mother Language Day."],
+    "orgs": ["Grameen Bank", "BRAC", "Square Group", "Beximco", "Biman Bangladesh Airlines"],
+    "unis": [
+      { "n": "University of Dhaka", "rank": 600, "url": "https://www.du.ac.bd/" },
+      { "n": "Bangladesh University of Engineering and Technology (BUET)", "url": "https://buet.ac.bd/" }
+    ]
+  },
+  {
+    "iso": 96, "name": "Brunei", "a2": "BN",
+    "langs": ["Malay", "English"],
+    "known": ["Oil and gas wealth", "Being ruled by a sultan under an Islamic monarchy", "Kampong Ayer, a large village built over the water"],
+    "facts": ["The country is split into two parts by the Limbang district of Malaysia's Sarawak.", "Sultan Hassanal Bolkiah is both head of state and prime minister.", "Brunei has no personal income tax."],
+    "orgs": ["Brunei Shell Petroleum", "Brunei LNG", "Royal Brunei Airlines", "Baiduri Bank", "Brunei Investment Agency"],
+    "unis": [
+      { "n": "Universiti Brunei Darussalam", "rank": 345, "url": "https://ubd.edu.bn/" }
+    ]
+  },
+  {
+    "iso": 116, "name": "Cambodia", "a2": "KH",
+    "langs": ["Khmer"],
+    "known": ["Angkor Wat, the largest religious monument in the world", "Garment and footwear exports", "The Tonle Sap lake and the Mekong"],
+    "facts": ["Both the riel and the US dollar are widely used for everyday payments.", "The Tonle Sap river reverses direction between the wet and dry seasons.", "The capital is Phnom Penh."],
+    "orgs": ["ACLEDA Bank", "Cambodia Angkor Air", "Cellcard", "Wing Bank"],
+    "unis": [
+      { "n": "Royal University of Phnom Penh", "url": "https://www.rupp.edu.kh/" }
+    ]
+  },
+  {
+    "iso": 156, "name": "China", "a2": "CN",
+    "langs": ["Mandarin Chinese"],
+    "known": ["Being the world's largest manufacturer and exporter", "Electric cars, solar panels and high-speed rail", "The Great Wall, the Forbidden City and a very long history"],
+    "facts": ["The second most populous country, after India overtook it in 2023.", "It has the world's longest high-speed rail network.", "The whole country runs on one time zone, Beijing time, though it is about as wide as five zones."],
+    "orgs": ["Huawei", "Alibaba", "Tencent", "BYD", "Xiaomi", "CATL"],
+    "unis": [
+      { "n": "Peking University", "rank": 13, "url": "https://english.pku.edu.cn/" },
+      { "n": "Tsinghua University", "rank": 14, "url": "https://www.tsinghua.edu.cn/en/" },
+      { "n": "Fudan University", "rank": 26, "url": "https://www.fudan.edu.cn/en/" },
+      { "n": "Shanghai Jiao Tong University", "rank": 36, "url": "https://en.sjtu.edu.cn/" }
+    ]
+  },
+  {
+    "iso": 344, "name": "Hong Kong", "a2": "HK",
+    "langs": ["Chinese (Cantonese)", "English"],
+    "known": ["Being a major international financial centre", "The skyline around Victoria Harbour", "Dim sum and street food", "A busy port and air cargo hub"],
+    "facts": ["It is a Special Administrative Region of China, with its own currency (the Hong Kong dollar) and legal system under 'one country, two systems'.", "It returned to Chinese sovereignty in 1997 after more than 150 years as a British territory.", "The territory covers about 1,100 square kilometres, and much of it is hills and country parks."],
+    "orgs": ["HSBC", "AIA Group", "Cathay Pacific", "Hong Kong Exchanges and Clearing", "MTR Corporation", "Hang Seng Bank"],
+    "unis": [
+      { "n": "The University of Hong Kong", "rank": 11, "url": "https://www.hku.hk/" },
+      { "n": "The Chinese University of Hong Kong", "rank": 18, "url": "https://www.cuhk.edu.hk/" },
+      { "n": "The Hong Kong University of Science and Technology", "rank": 33, "url": "https://hkust.edu.hk/" },
+      { "n": "The Hong Kong Polytechnic University", "rank": 50, "url": "https://www.polyu.edu.hk/" }
+    ]
+  },
+  {
+    "iso": 144, "name": "Sri Lanka", "a2": "LK",
+    "langs": ["Sinhala", "Tamil", "English"],
+    "known": ["Ceylon tea", "Beaches, ancient cities and wild elephants", "Cinnamon, gems and rubber"],
+    "facts": ["Known as Ceylon until 1972.", "Colombo is the largest city and business centre; the official capital is Sri Jayawardenepura Kotte.", "The country went through a severe economic crisis in 2022 and has been recovering since."],
+    "orgs": ["Dilmah", "John Keells Holdings", "MAS Holdings", "SriLankan Airlines", "Commercial Bank of Ceylon"],
+    "unis": [
+      { "n": "University of Colombo", "url": "https://cmb.ac.lk/" },
+      { "n": "University of Peradeniya", "url": "https://www.pdn.ac.lk/" }
+    ]
+  },
+  {
+    "iso": 158, "name": "Taiwan", "a2": "TW",
+    "langs": ["Mandarin Chinese", "Taiwanese Hokkien", "Hakka"],
+    "known": ["Making most of the world's most advanced computer chips", "Night markets and bubble tea", "Mountains, hot springs and a dense, modern capital"],
+    "facts": ["Taiwan is governed separately from mainland China, and its political status is disputed.", "Taipei 101 was the world's tallest building from 2004 to 2010.", "Mountains run down the middle of the main island, which is about 36,000 square kilometres."],
+    "orgs": ["TSMC", "Foxconn (Hon Hai)", "MediaTek", "Acer", "ASUS", "Evergreen Marine"],
+    "unis": [
+      { "n": "National Taiwan University", "rank": 54, "url": "https://www.ntu.edu.tw/english/" },
+      { "n": "National Tsing Hua University", "rank": 142, "url": "https://www.nthu.edu.tw/" },
+      { "n": "National Yang Ming Chiao Tung University", "rank": 177, "url": "https://www.nycu.edu.tw/en/" }
+    ],
+    "fallback": {
+      "pop": { "v": 23299000, "yr": 2025, "src": "IMF World Economic Outlook database, Taiwan Province of China (population), accessed October 2026", "srcUrl": "https://www.imf.org/external/datamapper/LP@WEO/TWN" },
+      "gdp": { "v": 920585000000, "yr": 2025, "src": "IMF World Economic Outlook database, Taiwan Province of China (GDP, current US$), accessed October 2026", "srcUrl": "https://www.imf.org/external/datamapper/NGDPD@WEO/TWN" },
+      "gdppc": { "v": 39511.56, "yr": 2025, "src": "IMF World Economic Outlook database, Taiwan Province of China (GDP per capita, current US$), accessed October 2026", "srcUrl": "https://www.imf.org/external/datamapper/NGDPDPC@WEO/TWN" }
+    }
+  },
+  {
+    "iso": 356, "name": "India", "a2": "IN",
+    "langs": ["Hindi", "English", "Bengali", "Marathi", "Telugu", "Tamil", "Urdu"],
+    "known": ["Software, IT services and a huge young workforce", "Bollywood films and cricket", "Spices and regional food, from dosa to biryani", "Low-cost space missions"],
+    "facts": ["The world's most populous country, ahead of China since 2023.", "It has 28 states and 8 union territories, and the capital is New Delhi.", "In 2023 India's Chandrayaan-3 became the first spacecraft to land near the Moon's south pole."],
+    "orgs": ["Tata Group", "Reliance Industries", "Infosys", "HDFC Bank", "Wipro", "Indian Railways"],
+    "unis": [
+      { "n": "Indian Institute of Technology Delhi", "rank": 118, "url": "https://home.iitd.ac.in/" },
+      { "n": "Indian Institute of Technology Bombay", "rank": 134, "url": "https://www.iitb.ac.in/" },
+      { "n": "Indian Institute of Technology Madras", "rank": 170, "url": "https://www.iitm.ac.in/" }
+    ]
+  },
+  {
+    "iso": 360, "name": "Indonesia", "a2": "ID",
+    "langs": ["Indonesian (Bahasa Indonesia)", "Javanese"],
+    "known": ["Thousands of islands, volcanoes and Bali", "Nickel, coal, palm oil and coffee", "Batik, gamelan and wayang shadow puppets", "The Komodo dragon"],
+    "facts": ["An archipelago of more than 17,000 islands.", "The world's largest Muslim-majority country.", "It spans three time zones, and more than 700 local languages are spoken.", "A new capital, Nusantara, is being built in East Kalimantan to replace Jakarta."],
+    "orgs": ["Pertamina", "Bank Central Asia (BCA)", "Telkom Indonesia", "GoTo (Gojek and Tokopedia)", "Garuda Indonesia", "Astra International"],
+    "unis": [
+      { "n": "Universitas Indonesia", "rank": 191, "url": "https://www.ui.ac.id/en/" },
+      { "n": "Universitas Gadjah Mada", "rank": 206, "url": "https://ugm.ac.id/en/" }
+    ]
+  },
+  {
+    "iso": 104, "name": "Myanmar", "a2": "MM",
+    "langs": ["Burmese (Myanmar language)"],
+    "known": ["The temples of Bagan and the Shwedagon Pagoda", "Jade, rubies and teak", "The Irrawaddy River and rice farming"],
+    "facts": ["Also called Burma; it was a British colony until 1948.", "The capital is Naypyidaw (since 2006), and Yangon is the biggest city.", "The military took power in February 2021, and fighting and sanctions have hit the economy since."],
+    "orgs": ["KBZ Bank", "Yoma Group", "Myanma Oil and Gas Enterprise", "Myanmar National Airlines"],
+    "unis": [
+      { "n": "University of Yangon", "url": "https://www.uy.edu.mm/" }
+    ]
+  },
+  {
+    "iso": 392, "name": "Japan", "a2": "JP",
+    "langs": ["Japanese"],
+    "known": ["Cars, robots and precision engineering", "Anime, manga and video games", "Sushi, ramen and a rich food culture", "Bullet trains (shinkansen)"],
+    "facts": ["An island country of about 14,000 islands, with most people on the four main ones: Honshu, Hokkaido, Kyushu and Shikoku.", "More than a quarter of its people are 65 or older, one of the oldest populations in the world.", "The first shinkansen line opened in 1964, in time for the Tokyo Olympics."],
+    "orgs": ["Toyota", "Sony", "Nintendo", "Mitsubishi UFJ Financial Group", "Honda", "SoftBank Group"],
+    "unis": [
+      { "n": "The University of Tokyo", "rank": 39, "url": "https://www.u-tokyo.ac.jp/en/" },
+      { "n": "Kyoto University", "rank": 64, "url": "https://www.kyoto-u.ac.jp/en" },
+      { "n": "The University of Osaka", "rank": 95, "url": "https://www.osaka-u.ac.jp/en" },
+      { "n": "Institute of Science Tokyo", "rank": 97, "url": "https://www.isct.ac.jp/en" }
+    ]
+  },
+  {
+    "iso": 400, "name": "Jordan", "a2": "JO",
+    "langs": ["Arabic", "English"],
+    "known": ["Petra, the rose-red city carved into rock", "The Dead Sea and the desert of Wadi Rum", "Phosphate and potash exports"],
+    "facts": ["The Dead Sea shore is the lowest dry land on Earth, about 430 metres below sea level.", "Petra is a UNESCO World Heritage Site and one of the New Seven Wonders of the World.", "The Hashemite Kingdom has been independent since 1946."],
+    "orgs": ["Arab Bank", "Royal Jordanian", "Arab Potash Company", "Jordan Phosphate Mines Company"],
+    "unis": [
+      { "n": "University of Jordan", "rank": 326, "url": "https://www.ju.edu.jo/" },
+      { "n": "Jordan University of Science and Technology", "rank": 449, "url": "https://www.just.edu.jo/" }
+    ]
+  },
+  {
+    "iso": 414, "name": "Kuwait", "a2": "KW",
+    "langs": ["Arabic", "English"],
+    "known": ["Large oil reserves", "A sovereign wealth fund, the Kuwait Investment Authority", "The Kuwaiti dinar, one of the highest-valued currencies"],
+    "facts": ["Kuwait became independent from Britain in 1961.", "Iraq invaded in 1990, and a coalition freed the country in 1991.", "Most people living in Kuwait are foreign workers."],
+    "orgs": ["Kuwait Petroleum Corporation", "Kuwait Investment Authority", "National Bank of Kuwait", "Zain", "Kuwait Airways"],
+    "unis": [
+      { "n": "Kuwait University", "url": "https://www.ku.edu.kw/" }
+    ]
+  },
+  {
+    "iso": 418, "name": "Laos", "a2": "LA",
+    "langs": ["Lao"],
+    "known": ["Luang Prabang's temples and the Mekong River", "Hydropower, selling electricity to its neighbours", "Sticky rice and Beerlao"],
+    "facts": ["It is the only landlocked country in Southeast Asia.", "A railway between Vientiane and Kunming in China opened in December 2021.", "The capital is Vientiane."],
+    "orgs": ["Beerlao (Lao Brewery)", "Lao Airlines", "Électricité du Laos", "Banque pour le Commerce Extérieur Lao (BCEL)"],
+    "unis": [
+      { "n": "National University of Laos", "url": "https://nuol.edu.la/" }
+    ]
+  },
+  {
+    "iso": 458, "name": "Malaysia", "a2": "MY",
+    "langs": ["Malay (Bahasa Malaysia)", "English", "Mandarin", "Tamil"],
+    "known": ["Palm oil, rubber and electronics", "The Petronas Twin Towers in Kuala Lumpur", "Nasi lemak and food from Malay, Chinese and Indian kitchens", "Rainforests and islands, from Langkawi to Borneo"],
+    "facts": ["A federation of 13 states and 3 federal territories, split between Peninsular Malaysia and Borneo (Sabah and Sarawak).", "Kuala Lumpur is the capital; Putrajaya is the administrative centre.", "The Petronas Twin Towers were the world's tallest buildings from 1998 to 2004."],
+    "orgs": ["Petronas", "Maybank", "CIMB", "Tenaga Nasional", "AirAsia", "Genting"],
+    "unis": [
+      { "n": "Universiti Malaya", "rank": 56, "url": "https://www.um.edu.my/" },
+      { "n": "Universiti Sains Malaysia", "rank": 128, "url": "https://www.usm.my/" },
+      { "n": "Universiti Kebangsaan Malaysia", "rank": 130, "url": "https://www.ukm.my/" },
+      { "n": "Universiti Putra Malaysia", "rank": 138, "url": "https://www.upm.edu.my/" }
+    ]
+  },
+  {
+    "iso": 586, "name": "Pakistan", "a2": "PK",
+    "langs": ["Urdu", "English", "Punjabi", "Sindhi", "Pashto"],
+    "known": ["Cricket", "Textiles, cotton and rice", "The Karakoram mountains and K2", "Biryani, kebabs and decorated truck art"],
+    "facts": ["Created in 1947 when British India was partitioned.", "K2, the world's second-highest mountain, stands on its border with China.", "Islamabad is the capital and Karachi is the biggest city.", "One of the five most populous countries in the world."],
+    "orgs": ["Habib Bank Limited (HBL)", "Engro Corporation", "Pakistan International Airlines", "Lucky Cement", "Oil and Gas Development Company"],
+    "unis": [
+      { "n": "Quaid-i-Azam University", "rank": 381, "url": "https://qau.edu.pk/" },
+      { "n": "National University of Sciences and Technology (NUST)", "rank": 384, "url": "https://nust.edu.pk/" }
+    ]
+  },
+  {
+    "iso": 608, "name": "Philippines", "a2": "PH",
+    "langs": ["Filipino", "English", "Cebuano"],
+    "known": ["Business process outsourcing and call centres", "Nurses, seafarers and other workers abroad sending money home", "Beaches and islands such as Palawan and Boracay", "Jeepneys, adobo and basketball"],
+    "facts": ["An archipelago of more than 7,600 islands.", "One of the largest English-speaking populations in Asia.", "With Timor-Leste, it is one of the two mainly Catholic countries in Asia."],
+    "orgs": ["Ayala Corporation", "SM Group", "Jollibee Foods", "San Miguel Corporation", "PLDT", "BDO Unibank"],
+    "unis": [
+      { "n": "University of the Philippines", "rank": 402, "url": "https://up.edu.ph/" },
+      { "n": "Ateneo de Manila University", "rank": 581, "url": "https://www.ateneo.edu/" }
+    ]
+  },
+  {
+    "iso": 634, "name": "Qatar", "a2": "QA",
+    "langs": ["Arabic", "English"],
+    "known": ["Natural gas, one of the biggest exporters of LNG", "Hosting the FIFA World Cup in 2022", "Al Jazeera"],
+    "facts": ["It hosted the first men's World Cup held in the Middle East, in 2022.", "Qatar is a small peninsula whose only land border is with Saudi Arabia.", "Most people living in Qatar are foreign workers."],
+    "orgs": ["QatarEnergy", "Qatar Airways", "Qatar National Bank (QNB)", "Al Jazeera Media Network", "Qatar Foundation", "Ooredoo"],
+    "unis": [
+      { "n": "Qatar University", "rank": 109, "url": "https://www.qu.edu.qa/" }
+    ]
+  },
+  {
+    "iso": 682, "name": "Saudi Arabia", "a2": "SA",
+    "langs": ["Arabic"],
+    "known": ["Oil, as one of the world's largest producers and exporters", "Makkah and Madinah, the holiest cities in Islam, and the Hajj", "Vision 2030 projects such as NEOM and the Red Sea developments"],
+    "facts": ["The largest country in the Middle East, covering most of the Arabian Peninsula.", "Saudi Arabia will host the FIFA World Cup in 2034 and Expo 2030 in Riyadh.", "Women have been allowed to drive since 2018."],
+    "orgs": ["Saudi Aramco", "SABIC", "Saudi Telecom Company (stc)", "Saudia", "Al Rajhi Bank", "Ma'aden"],
+    "unis": [
+      { "n": "King Fahd University of Petroleum and Minerals", "rank": 63, "url": "https://www.kfupm.edu.sa/" },
+      { "n": "King Saud University", "rank": 107, "url": "https://ksu.edu.sa/en" },
+      { "n": "King Abdulaziz University", "rank": 200, "url": "https://www.kau.edu.sa/" }
+    ]
+  },
+  {
+    "iso": 702, "name": "Singapore", "a2": "SG",
+    "langs": ["English", "Malay", "Mandarin", "Tamil"],
+    "known": ["Being a world hub for finance, shipping and aviation", "A clean, safe and carefully planned city-state", "Hawker food and Changi Airport"],
+    "facts": ["A city-state of about 735 square kilometres, one of the most densely populated countries in the world.", "Malay is the national language, and English, Mandarin and Tamil are also official.", "It became independent in 1965 after leaving Malaysia."],
+    "orgs": ["Singapore Airlines", "DBS Bank", "Temasek Holdings", "Grab", "Sea Limited", "PSA International"],
+    "unis": [
+      { "n": "National University of Singapore", "rank": 10, "url": "https://www.nus.edu.sg/" },
+      { "n": "Nanyang Technological University", "rank": 12, "url": "https://www.ntu.edu.sg/" },
+      { "n": "Singapore University of Technology and Design", "rank": 266, "url": "https://www.sutd.edu.sg/" },
+      { "n": "Singapore Management University", "rank": 411, "url": "https://www.smu.edu.sg/" }
+    ]
+  },
+  {
+    "iso": 410, "name": "South Korea", "a2": "KR",
+    "langs": ["Korean"],
+    "known": ["K-pop, K-dramas and Korean film", "Semiconductors and smartphones", "Cars and shipbuilding", "Kimchi and Korean barbecue"],
+    "facts": ["Hangul, the Korean alphabet, was created in the 15th century under King Sejong.", "About half of the population lives in the Seoul area.", "The Korean War ended in 1953 with an armistice, not a peace treaty, so the peninsula stays divided."],
+    "orgs": ["Samsung Electronics", "Hyundai Motor Group", "SK hynix", "LG", "Naver", "HYBE"],
+    "unis": [
+      { "n": "Seoul National University", "rank": 38, "url": "https://en.snu.ac.kr/" },
+      { "n": "Yonsei University", "rank": 42, "url": "https://www.yonsei.ac.kr/en_sc/index.do" },
+      { "n": "Korea University", "rank": 52, "url": "https://www.korea.edu/" },
+      { "n": "KAIST", "rank": 65, "url": "https://www.kaist.ac.kr/en/" }
+    ]
+  },
+  {
+    "iso": 764, "name": "Thailand", "a2": "TH",
+    "langs": ["Thai"],
+    "known": ["Tourism: beaches, temples and Bangkok", "Pad thai, tom yum and street food", "Rice exports and car assembly", "Muay Thai"],
+    "facts": ["It is the only Southeast Asian country that was never colonised by a European power.", "A constitutional monarchy, with King Vajiralongkorn on the throne since 2016.", "Bangkok's ceremonial name is one of the longest place names in the world."],
+    "orgs": ["PTT", "Siam Commercial Bank", "CP Group (Charoen Pokphand)", "Thai Airways", "Siam Cement Group", "Central Group"],
+    "unis": [
+      { "n": "Chulalongkorn University", "rank": 212, "url": "https://www.chula.ac.th/en/" }
+    ]
+  },
+  {
+    "iso": 626, "name": "Timor-Leste", "a2": "TL",
+    "langs": ["Tetum", "Portuguese", "Indonesian", "English"],
+    "known": ["Coffee grown in the highlands", "Offshore oil and gas in the Timor Sea", "Being one of the world's youngest countries"],
+    "facts": ["It became independent in 2002 after Indonesian rule and a period run by the United Nations.", "Timor-Leste joined ASEAN in 2025 as its 11th member.", "Oil revenue is kept in a national Petroleum Fund."],
+    "orgs": ["Banco Nacional de Comercio de Timor-Leste", "TIMOR GAP", "Timor Telecom", "Cooperativa Café Timor"],
+    "unis": [
+      { "n": "Universidade Nacional Timor Lorosa'e (UNTL)", "url": "https://www.untl.edu.tl/" }
+    ]
+  },
+  {
+    "iso": 792, "name": "Turkey", "a2": "TR",
+    "langs": ["Turkish"],
+    "known": ["Istanbul, a city on two continents", "Textiles, cars and home appliances", "Kebabs, baklava, tea and coffee", "Cappadocia and the Hagia Sophia"],
+    "facts": ["The capital is Ankara, not Istanbul.", "Istanbul sits on both sides of the Bosphorus, so part of it is in Europe and part in Asia.", "The republic was founded in 1923 by Mustafa Kemal Atatürk.", "The country uses the name Türkiye internationally, and the United Nations adopted it in 2022."],
+    "orgs": ["Turkish Airlines", "Koç Holding", "Sabancı Holding", "Arçelik", "Baykar"],
+    "unis": [
+      { "n": "Istanbul Technical University", "rank": 279, "url": "https://www.itu.edu.tr/en" },
+      { "n": "Middle East Technical University", "rank": 305, "url": "https://www.metu.edu.tr/" },
+      { "n": "Koç University", "rank": 329, "url": "https://www.ku.edu.tr/en/" },
+      { "n": "Boğaziçi University", "rank": 345, "url": "https://www.boun.edu.tr/" }
+    ]
+  },
+  {
+    "iso": 784, "name": "United Arab Emirates", "a2": "AE",
+    "langs": ["Arabic", "English"],
+    "known": ["Dubai's Burj Khalifa, malls and airport", "Abu Dhabi's oil wealth and museums", "Being an air, sea and trade hub between East and West"],
+    "facts": ["A federation of seven emirates: Abu Dhabi, Dubai, Sharjah, Ajman, Umm Al Quwain, Ras Al Khaimah and Fujairah.", "The country was formed in 1971.", "Most people living in the UAE were born abroad.", "The Burj Khalifa, at 828 metres, is the tallest building in the world."],
+    "orgs": ["Emirates", "ADNOC", "Emaar Properties", "Etihad Airways", "DP World", "First Abu Dhabi Bank"],
+    "unis": [
+      { "n": "Khalifa University", "rank": 147, "url": "https://www.ku.ac.ae/" },
+      { "n": "United Arab Emirates University", "rank": 217, "url": "https://www.uaeu.ac.ae/" },
+      { "n": "American University of Sharjah", "rank": 258, "url": "https://www.aus.edu/" },
+      { "n": "University of Sharjah", "rank": 283, "url": "https://www.sharjah.ac.ae/" }
+    ]
+  },
+  {
+    "iso": 704, "name": "Vietnam", "a2": "VN",
+    "langs": ["Vietnamese"],
+    "known": ["Pho, banh mi and strong coffee", "Making phones, electronics and clothes for export", "Ha Long Bay, Hoi An and terraced rice fields"],
+    "facts": ["The world's second-largest coffee exporter, after Brazil.", "North and South Vietnam were reunified in 1976, and the Doi Moi reforms of 1986 opened up the economy.", "Vietnamese is written in the Latin alphabet, developed by European missionaries in the 17th century."],
+    "orgs": ["Vingroup (VinFast)", "Vietcombank", "Viettel", "Vinamilk", "FPT Corporation", "Vietnam Airlines"],
+    "unis": [
+      { "n": "Vietnam National University, Hanoi", "url": "https://vnu.edu.vn/eng/" },
+      { "n": "Vietnam National University, Ho Chi Minh City", "url": "https://vnuhcm.edu.vn/" }
+    ]
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "iso": 818, "name": "Egypt", "a2": "EG",
+    "langs": ["Arabic"],
+    "known": ["The pyramids of Giza and ancient Egypt", "The River Nile", "The Suez Canal, a shortcut between Europe and Asia", "Tourism and cotton"],
+    "facts": ["Most of the country is desert, so nearly everyone lives along the Nile and its delta.", "The Suez Canal links the Mediterranean and the Red Sea and carries a large share of the world's shipping.", "Cairo is one of the largest cities in Africa and the Arab world."],
+    "orgs": ["Suez Canal Authority", "Commercial International Bank (CIB)", "Orascom", "EgyptAir", "Telecom Egypt", "Elsewedy Electric"],
+    "unis": [
+      { "n": "Cairo University", "rank": 363, "url": "https://cu.edu.eg/" },
+      { "n": "The American University in Cairo", "rank": 390, "url": "https://www.aucegypt.edu/" },
+      { "n": "Ain Shams University", "rank": 551, "url": "https://www.asu.edu.eg/" },
+      { "n": "Alexandria University", "url": "https://www.alexu.edu.eg/" }
+    ]
+  },
+  {
+    "iso": 231, "name": "Ethiopia", "a2": "ET",
+    "langs": ["Amharic", "Oromo", "Tigrinya", "Somali"],
+    "known": ["Being the birthplace of coffee", "Long-distance running champions", "Lalibela's churches carved out of rock", "Ethiopian Airlines, Africa's largest airline"],
+    "facts": ["It was never colonised, apart from a short Italian occupation from 1936 to 1941.", "Addis Ababa is the home of the African Union.", "Ethiopia uses its own calendar, with 13 months, about seven to eight years behind the Gregorian one.", "It is one of the most populous countries in Africa and has no coastline."],
+    "orgs": ["Ethiopian Airlines", "Commercial Bank of Ethiopia", "Ethio Telecom", "Ethiopian Electric Power"],
+    "unis": [
+      { "n": "Addis Ababa University", "url": "https://www.aau.edu.et/" }
+    ]
+  },
+  {
+    "iso": 288, "name": "Ghana", "a2": "GH",
+    "langs": ["English", "Akan (Twi)", "Ewe", "Ga"],
+    "known": ["Gold and cocoa", "Being the first country in sub-Saharan Africa to win independence from colonial rule, in 1957", "Kente cloth and highlife music", "Football and the national team, the Black Stars"],
+    "facts": ["The capital is Accra, on the Atlantic coast.", "Lake Volta, created by the Akosombo Dam, is one of the largest man-made lakes in the world by surface area.", "English is the official language, but most people also speak a local language such as Akan."],
+    "orgs": ["COCOBOD", "GCB Bank", "MTN Ghana", "Ghana National Petroleum Corporation (GNPC)", "Volta River Authority"],
+    "unis": [
+      { "n": "University of Ghana", "url": "https://www.ug.edu.gh/" }
+    ]
+  },
+  {
+    "iso": 404, "name": "Kenya", "a2": "KE",
+    "langs": ["Swahili", "English"],
+    "known": ["Safaris in the Maasai Mara and the wildebeest migration", "World-class long-distance runners", "Tea, coffee and cut flowers", "M-Pesa, a pioneer of mobile money"],
+    "facts": ["Nairobi is a regional tech and business hub, nicknamed the Silicon Savannah.", "Mount Kenya, the country's namesake, is the second-highest mountain in Africa.", "It became independent from Britain in 1963."],
+    "orgs": ["Safaricom", "Kenya Airways", "Equity Bank", "KCB Group", "East African Breweries"],
+    "unis": [
+      { "n": "University of Nairobi", "url": "https://www.uonbi.ac.ke/" }
+    ]
+  },
+  {
+    "iso": 504, "name": "Morocco", "a2": "MA",
+    "langs": ["Arabic", "Amazigh (Berber)", "French (widely used in business)"],
+    "known": ["The old cities of Marrakech and Fes", "Phosphates, of which it holds the world's largest reserves", "Car and aircraft-parts factories serving Europe", "Football: a World Cup semi-finalist in 2022 and a co-host of the 2030 tournament"],
+    "facts": ["The capital is Rabat; the largest city and main business centre is Casablanca.", "The country has coasts on both the Atlantic and the Mediterranean, the Atlas Mountains and part of the Sahara.", "The University of al-Qarawiyyin in Fes, founded in 859, is often described as one of the oldest universities still operating."],
+    "orgs": ["OCP Group", "Royal Air Maroc", "Attijariwafa Bank", "Maroc Telecom", "Tanger Med", "Managem"],
+    "unis": [
+      { "n": "Mohammed V University of Rabat", "url": "https://www.um5.ac.ma/" },
+      { "n": "Cadi Ayyad University", "url": "https://www.uca.ma/" },
+      { "n": "Mohammed VI Polytechnic University (UM6P)", "url": "https://um6p.ma/" }
+    ]
+  },
+  {
+    "iso": 566, "name": "Nigeria", "a2": "NG",
+    "langs": ["English", "Hausa", "Yoruba", "Igbo"],
+    "known": ["Nollywood, one of the world's biggest film industries by number of films", "Afrobeats music", "Oil exports", "A fast-growing technology and fintech scene in Lagos"],
+    "facts": ["It is the most populous country in Africa.", "Lagos is the biggest city; the capital has been Abuja since 1991.", "It became independent from Britain in 1960, and more than 250 ethnic groups live there."],
+    "orgs": ["Dangote Group", "NNPC", "Access Bank", "Flutterwave", "MTN Nigeria"],
+    "unis": [
+      { "n": "University of Ibadan", "url": "https://www.ui.edu.ng/" },
+      { "n": "University of Lagos", "url": "https://unilag.edu.ng/" }
+    ]
+  },
+  {
+    "iso": 710, "name": "South Africa", "a2": "ZA",
+    "langs": ["Zulu", "Xhosa", "Afrikaans", "English"],
+    "known": ["Safaris and wildlife, such as Kruger National Park", "Gold, platinum and diamond mining", "Table Mountain and Cape Town", "Nelson Mandela and the end of apartheid"],
+    "facts": ["It has three capitals: Pretoria (government), Cape Town (parliament) and Bloemfontein (courts).", "Eleven spoken languages are official, and South African Sign Language became the twelfth in 2023.", "The first fully democratic election was held in 1994."],
+    "orgs": ["Naspers (Prosus)", "Standard Bank", "MTN Group", "Sasol", "Shoprite", "Discovery"],
+    "unis": [
+      { "n": "University of Cape Town", "rank": 184, "url": "https://www.uct.ac.za/" },
+      { "n": "University of Johannesburg", "rank": 292, "url": "https://www.uj.ac.za/" },
+      { "n": "Stellenbosch University", "rank": 296, "url": "https://www.sun.ac.za/" },
+      { "n": "University of the Witwatersrand", "rank": 302, "url": "https://www.wits.ac.za/" },
+      { "n": "University of Pretoria", "rank": 326, "url": "https://www.up.ac.za/" }
+    ]
+  }
+]
