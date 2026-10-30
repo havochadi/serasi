@@ -35,3 +35,47 @@ test('business: the sustainability analyst gets the NUS, NTU and SMU business de
   assert.deepEqual(list.map(c => c.fee), [9700, 9500, 11550]);
 });
 test('SMU fees come from SMU\'s own leaflet', () => assert.match(P.SOURCES['fee-smu26'][1], /^https:\/\/admissions\.smu\.edu\.sg\/.*\.pdf$/));
+
+test('accounting: four polytechnic diplomas, and the NUS, NTU, SMU, SIT and SUSS degrees for the auditor', () => {
+  assert.deepEqual(schoolsFor('accounts-exec', 2), ['Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Temasek Polytechnic']);
+  assert.deepEqual(schoolsFor('auditor', 3), ['NUS', 'NTU', 'SMU', 'SIT', 'SUSS']);
+  assert.deepEqual(plain(L.forRole(ROLE.auditor, 3).map(c => c.fee)), [9700, 9500, 11550, null, null]);
+});
+test('finance-risk and islamicfin share the banking and finance diplomas, and the compliance and risk roles get the NUS and SMU business degrees', () => {
+  assert.deepEqual(schoolsFor('bank-ops', 2), ['Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic']);
+  assert.deepEqual(schoolsFor('islamic-banking', 2), ['Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic']);
+  assert.deepEqual(schoolsFor('takaful', 2), schoolsFor('islamic-banking', 2));
+  assert.deepEqual(schoolsFor('compliance', 3), ['NUS', 'SMU']);
+  assert.deepEqual(schoolsFor('risk-analyst', 3), ['NUS', 'SMU']);
+});
+test('logistics: the ITE course at both lengths for the coordinator, two diplomas and three degrees for the supply chain analyst', () => {
+  assert.deepEqual(plain(L.forRole(ROLE.logistics, 1).map(c => c.yrs)), [2, 3]);
+  assert.deepEqual(schoolsFor('supply-chain', 2), ['Republic Polytechnic', 'Temasek Polytechnic']);
+  assert.deepEqual(schoolsFor('supply-chain', 3), ['NUS', 'SIT', 'SUSS']);
+});
+test('law: Temasek for the legal executive, and the NUS, SMU and SUSS LLBs with the SUSS one part-time and priced by the credit', () => {
+  assert.deepEqual(schoolsFor('paralegal', 2), ['Temasek Polytechnic']);
+  const llb = L.forRole(ROLE.lawyer, 3);
+  assert.deepEqual(plain(llb.map(c => c.school)), ['NUS', 'SMU', 'SUSS']);
+  assert.deepEqual(plain(llb.map(c => c.fee)), [12750, 12750, null]);
+  assert.equal(llb[2].mode, 'part-time');
+});
+test('hospitality: ITE for the restaurant supervisor, and the diplomas for the hotel and events roles', () => {
+  assert.deepEqual(schoolsFor('fnb', 1), ['ITE', 'ITE']);
+  assert.deepEqual(schoolsFor('hotel', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic', 'Republic Polytechnic', 'Temasek Polytechnic']);
+  assert.ok(namesFor('events', 2).includes('Diploma in Events & Project Management') && !namesFor('hotel', 2).includes('Diploma in Events & Project Management'));
+});
+test('ite-only fields have level 1 courses at ITE and nothing above', () => {
+  const ite = { chef: 2, pastry: 2, 'cabin-crew': 2, hair: 4, fitness: 2 };
+  for (const [id, n] of Object.entries(ite)) {
+    const list = L.forRole(ROLE[id], 1);
+    assert.equal(list.length, n, id);
+    assert.ok(list.every(c => c.school === 'ITE' && c.fee === 566), id);
+    assert.deepEqual(plain(L.forRole(ROLE[id], 2)), [], id);
+  }
+});
+test('property has no public course', () => assert.deepEqual(plain(L.forRole(ROLE['real-estate'], 1)), []));
+test('a course in these fields with no fee is a SIT or SUSS degree, whose fee pages are closed to scripts', () => {
+  const fields = ['business', 'accounting', 'finance-risk', 'islamicfin', 'logistics', 'law', 'hospitality', 'culinary', 'aviation', 'beauty', 'sport'];
+  for (const c of L.COURSES.filter(c => c.fields.some(f => fields.includes(f)))) if (c.fee === null) assert.ok(['SIT', 'SUSS'].includes(c.school), c.school + ' ' + c.course);
+});

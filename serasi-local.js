@@ -122,8 +122,114 @@
     // Supply Chain Management majors). The fee is the "Business" band at NUS ($9,700), the business-related band at NTU ($9,500) and SMU's own figure.
     { school: 'NUS', course: 'Bachelor of Business Administration (Honours)', lvl: 3, yrs: 4, fee: 9700, fields: ['business', 'finance-risk', 'logistics'], roles: ['sustainability', 'compliance', 'risk-analyst', 'supply-chain'], url: 'https://bba.nus.edu.sg/introduction/', src: ['fee-nus26'] },
     { school: 'NTU', course: 'Bachelor of Business (Honours)', lvl: 3, yrs: 4, fee: 9500, fields: ['business'], roles: ['sustainability'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-business', src: ['fee-ntu'] },
-    { school: 'SMU', course: 'Bachelor of Business Management', lvl: 3, yrs: 4, fee: 11550, fields: ['business'], roles: ['sustainability'], url: 'https://business.smu.edu.sg/programmes/bachelor-business-management', src: ['fee-smu26'] }
+    // SMU's BBM has Finance and Quantitative Finance majors, so it is also a degree for the compliance and risk roles.
+    { school: 'SMU', course: 'Bachelor of Business Management', lvl: 3, yrs: 4, fee: 11550, fields: ['business', 'finance-risk'], roles: ['sustainability', 'compliance', 'risk-analyst'], url: 'https://business.smu.edu.sg/programmes/bachelor-business-management', src: ['fee-smu26'] }
   );
+
+  /* Accounting and audit. NUS's accountancy degree is its own BBA (Accountancy); NTU's is a 3-year direct honours degree. SIT's page could not be read by
+     a script, so its degree has no fee and links to SIT's business and management list; its title is SIT's listing name ("Accountancy", 3 years, 180
+     credits). SUSS's Bachelor of Accountancy is a 4-year direct honours degree by the Ministry of Education's course finder; SUSS's fee page is closed to
+     scripts, so it has no fee either. Republic Polytechnic has no accountancy diploma. */
+  COURSES.push(
+    { school: 'Singapore Polytechnic', course: 'Diploma in Accountancy', lvl: 2, yrs: 3, fee: 3177.52, fields: ['accounting'], url: 'https://www.sp.edu.sg/courses/schools/sb/accountancy', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Accountancy', lvl: 2, yrs: 3, fee: 3167.5, fields: ['accounting'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-business-accountancy/diploma-in-accountancy', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Accountancy & Finance', lvl: 2, yrs: 3, fee: 3188.09, fields: ['accounting'], url: 'https://www.nyp.edu.sg/student/study/schools/business-management/diploma-accountancy-finance', src: ['fee-nyp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Accountancy & Finance', lvl: 2, yrs: 3, fee: 3183.15, fields: ['accounting'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/accountancy-finance.html', src: ['fee-tp26'] },
+    { school: 'NUS', course: 'Bachelor of Business Administration (Accountancy) (Honours)', lvl: 3, yrs: 4, fee: 9700, fields: ['accounting'], url: 'https://www.nus.edu.sg/nusbulletin/ay202526/programmes/school-of-business/undergraduate-education/', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Accountancy', lvl: 3, yrs: 3, fee: 9500, fields: ['accounting'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy', src: ['fee-ntu'] },
+    { school: 'SMU', course: 'Bachelor of Accountancy', lvl: 3, yrs: 4, fee: 11550, fields: ['accounting'], url: 'https://admissions.smu.edu.sg/programmes/school-accountancy', src: ['fee-smu26'] },
+    { school: 'SIT', course: 'Degree in Accountancy', lvl: 3, yrs: 3, fee: null, fields: ['accounting'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' },
+    { school: 'SUSS', course: 'Bachelor of Accountancy', lvl: 3, yrs: 4, fee: null, fields: ['accounting'], url: 'https://www.suss.edu.sg/programmes/detail/ft-bachelor-of-accountancy' }
+  );
+
+  /* Finance, risk and compliance, and Islamic finance. No public school has an Islamic finance course, so the Islamic banking and takaful roles use the
+     same banking and finance diplomas as the conventional banking roles (the reason for the extra field). Republic's Financial Technology diploma is
+     for the finance roles only. Temasek has no banking diploma (its Accountancy & Finance is listed under accounting). The degrees for the compliance
+     and risk roles are the NUS and SMU business degrees above, which have Finance majors. */
+  COURSES.push(
+    { school: 'Singapore Polytechnic', course: 'Diploma in Banking & Finance', lvl: 2, yrs: 3, fee: 3177.52, fields: ['finance-risk', 'islamicfin'], url: 'https://www.sp.edu.sg/courses/schools/sb/banking-finance', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Banking & Finance', lvl: 2, yrs: 3, fee: 3167.5, fields: ['finance-risk', 'islamicfin'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-business-accountancy/diploma-in-banking-finance', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Banking & Finance', lvl: 2, yrs: 3, fee: 3188.09, fields: ['finance-risk', 'islamicfin'], url: 'https://www.nyp.edu.sg/student/study/schools/business-management/diploma-banking-finance', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Financial Technology', lvl: 2, yrs: 3, fee: 3186.5, fields: ['finance-risk'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-financial-technology/', src: ['fee-rp26'] }
+  );
+
+  /* Logistics and supply chain. ITE's course is the route for the logistics coordinator. The supply chain analyst (edu 3) goes by a diploma, then a degree:
+     Republic's Supply Chain Management and Temasek's International Trade & Logistics at the polytechnics, and SUSS and SIT, whose degree pages could
+     not be read by a script, so neither has a fee (SUSS: a 4-year direct honours degree, by the Ministry of Education's course finder; SIT: its listing
+     "Digital Supply Chain", 3 years, 180 credits). NUS's BBA has an Operations & Supply Chain Management major and is listed in the block above. */
+  COURSES.push(
+    { school: 'ITE', course: 'Higher Nitec in Logistics & Supply Chain Management', lvl: 1, yrs: 2, fee: 566, fields: ['logistics'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-logistics-and-supply-chain-management/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Logistics & Supply Chain Management (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['logistics'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-logistics-and-supply-chain-management-3-year/', src: ['fee-ite26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Supply Chain Management', lvl: 2, yrs: 3, fee: 3186.5, fields: ['logistics'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-supply-chain-management/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in International Trade & Logistics', lvl: 2, yrs: 3, fee: 3183.15, fields: ['logistics'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/international-trade-and-logistics.html', src: ['fee-tp26'] },
+    { school: 'SIT', course: 'Degree in Digital Supply Chain', lvl: 3, yrs: 3, fee: null, fields: ['logistics'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' },
+    { school: 'SUSS', course: 'Bachelor of Science in Supply Chain Management', lvl: 3, yrs: 4, fee: null, fields: ['logistics'], url: 'https://www.moe.gov.sg/coursefinder/coursedetail/ftscmmj1-bachelor-of-science-in-supply-chain-management' }
+  );
+
+  /* Law. Temasek's diploma is the only public one for the legal executive. The LLBs are NUS and SMU (4 years, $12,750 a year for the 2026/27 intake, the same
+     at both) and SUSS, whose LLB is a part-time evening course of about 4½ years. SUSS charges by the credit, with no yearly figure: it estimates $46,840 for
+     the whole programme for Singapore Citizens with the grant (its fee sheet of 13 March 2026), so its fee here is null. The SMU Juris Doctor and NUS JD,
+     which take graduates of other fields, are not listed. */
+  COURSES.push(
+    { school: 'Temasek Polytechnic', course: 'Diploma in Law & Management', lvl: 2, yrs: 3, fee: 3183.15, fields: ['law'], roles: ['paralegal'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/law-management.html', src: ['fee-tp26'] },
+    { school: 'NUS', course: 'Bachelor of Laws (LLB)', lvl: 3, yrs: 4, fee: 12750, fields: ['law'], url: 'https://law1a.nus.edu.sg/admissions/4_yrs_llb_prog.html', src: ['fee-nus26'] },
+    { school: 'SMU', course: 'Bachelor of Laws (LLB)', lvl: 3, yrs: 4, fee: 12750, fields: ['law'], url: 'https://law.smu.edu.sg/llb', src: ['fee-smu26'] },
+    { school: 'SUSS', course: 'Bachelor of Laws (LLB)', lvl: 3, yrs: 4.5, fee: null, mode: 'part-time', fields: ['law'], url: 'https://www.suss.edu.sg/programmes/detail/bachelor-of-laws-lawllb' }
+  );
+
+  /* Hospitality and events. ITE's course is for the restaurant supervisor; the diplomas are for the hotel and events roles. Left out: Nanyang's Food &
+     Beverage Business and Republic's Restaurant & Culinary Management (food-business courses), Ngee Ann's Hotel & Leisure Facilities Management (a building
+     course) and Stage & Live Events (a production course). Singapore Polytechnic has no hospitality diploma. SIT's degree (a 3-year, 180-credit
+     programme in its listing) has no fee, as its page could not be read by a script; no role in the field needs a degree, so it is the route up from the diploma. */
+  COURSES.push(
+    { school: 'ITE', course: 'Higher Nitec in Hospitality Operations', lvl: 1, yrs: 2, fee: 566, fields: ['hospitality'], roles: ['fnb'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-hospitality-operations/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Hospitality Operations (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['hospitality'], roles: ['fnb'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-hospitality-operations-3-year/', src: ['fee-ite26'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Tourism & Resort Management', lvl: 2, yrs: 3, fee: 3167.5, fields: ['hospitality'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-business-accountancy/diploma-in-tourism-resort-management', src: ['fee-np26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Hospitality & Tourism Management', lvl: 2, yrs: 3, fee: 3188.09, fields: ['hospitality'], url: 'https://www.nyp.edu.sg/student/study/schools/business-management/diploma-hospitality-tourism-management', src: ['fee-nyp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Hospitality & Tourism Management', lvl: 2, yrs: 3, fee: 3186.5, fields: ['hospitality'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-hospitality-and-tourism-management/', src: ['fee-rp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Hotel & Leisure Management', lvl: 2, yrs: 3, fee: 3186.5, fields: ['hospitality'], roles: ['hotel'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-hotel-leisure-and-management/', src: ['fee-rp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Events & Project Management', lvl: 2, yrs: 3, fee: 3186.5, fields: ['hospitality'], roles: ['events'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-events-and-project-management/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Hospitality & Tourism Management', lvl: 2, yrs: 3, fee: 3183.15, fields: ['hospitality'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/bus/hospitality-tourism-management.html', src: ['fee-tp26'] },
+    { school: 'SIT', course: 'Degree in Hospitality and Tourism Management', lvl: 3, yrs: 3, fee: null, fields: ['hospitality'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/business-and-management-degrees' }
+  );
+
+  /* Culinary and baking (ITE only: both roles are reachable with a Higher Nitec). Culinary Arts is for the chef and Pastry & Baking for the baker. The 1-year
+     versions of both are for Nitec graduates and are not listed. The polytechnic diplomas (Temasek's Culinary Arts & Management, Republic's Restaurant &
+     Culinary Management) are not listed either, as no role needs one. */
+  COURSES.push(
+    { school: 'ITE', course: 'Higher Nitec in Culinary Arts', lvl: 1, yrs: 2, fee: 566, fields: ['culinary'], roles: ['chef'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-culinary-arts-2-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Culinary Arts (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['culinary'], roles: ['chef'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-culinary-arts-3-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Pastry & Baking', lvl: 1, yrs: 2, fee: 566, fields: ['culinary'], roles: ['pastry'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-pastry-and-baking-2-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Pastry & Baking (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['culinary'], roles: ['pastry'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-pastry-and-baking-3-year/', src: ['fee-ite26'] }
+  );
+
+  /* Cabin crew and aviation service (ITE only). Passenger Services is the only public course whose page names cabin crew as a career (it also names airport
+     passenger service agents). Republic's and Temasek's Aviation Management diplomas are for the air transport business side, not crew, and no role needs a
+     diploma, so they are not listed. */
+  COURSES.push(
+    { school: 'ITE', course: 'Higher Nitec in Passenger Services', lvl: 1, yrs: 2, fee: 566, fields: ['aviation'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-passenger-services/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Passenger Services (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['aviation'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-passenger-services-3-year/', src: ['fee-ite26'] }
+  );
+
+  /* Hair and beauty (ITE only). The hairstylist role is hair, but the field covers beauty, so the beauty course is listed too. Students buy about $400 of
+     training materials on top of the fee (ITE's 2026 intake page); the fee here is the course fee only. */
+  COURSES.push(
+    { school: 'ITE', course: 'Higher Nitec in Hairdressing & Salon Management', lvl: 1, yrs: 2, fee: 566, fields: ['beauty'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-hairdressing-and-salon-management/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Hairdressing & Salon Management (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['beauty'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-hairdressing-and-salon-management-3-year/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Beauty & Wellness Management', lvl: 1, yrs: 2, fee: 566, fields: ['beauty'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-beauty-and-wellness-management/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Beauty & Wellness Management (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['beauty'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-beauty-and-wellness-management-3-year/', src: ['fee-ite26'] }
+  );
+
+  /* Sport and fitness (ITE only). Sport Management is the only ITE sport course. The polytechnic diplomas (Nanyang's Sport & Wellness Management,
+     Republic's Sport & Exercise Science and Sport Coaching) are not listed, as the fitness trainer role needs only ITE. */
+  COURSES.push(
+    { school: 'ITE', course: 'Higher Nitec in Sport Management', lvl: 1, yrs: 2, fee: 566, fields: ['sport'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-sport-management/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Sport Management (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['sport'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-sport-management-3-year/', src: ['fee-ite26'] }
+  );
+
+  /* Real estate (property): no public course at level 1. The real estate salesperson role is reached by the Council for Estate Agencies' course and exam
+     (the route page says so), not by a school. Ngee Ann's Diploma in Real Estate Business and NUS's BBA (Real Estate) exist but no role in the field needs
+     them, so nothing is listed and the coverage test may expect none. */
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');
 
