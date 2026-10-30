@@ -2,7 +2,7 @@
 /* Serasi link checker: requests every https link in the data files and reports the ones that no longer return a page.
    Usage: node scripts/check-links.mjs [--only <substring>]
    FAIL lines (404, 410, other 4xx/5xx, DNS failure, timeout) make the exit code 1. CHECK-BY-HAND lines (401, 403, 406, 429, 999: the site
-   turns scripts away) need a person with a browser and do not change the exit code. */
+   turns scripts away) need a person with a browser and do not change the exit code; so do timeouts and 5xx answers from the World Bank's country pages. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -69,11 +69,21 @@ export function classify(status) {
   return BY_HAND.has(status) ? 'by-hand' : 'fail';
 }
 
+// The World Bank's country pages often time out or answer 5xx for a while and then work, so a person checks those instead of the run failing.
+const FLAKY = /^https:\/\/data\.worldbank\.org\/country\//;
+
+// 'pass', 'by-hand' or 'fail' for one result ({ status } or { error }) of a request to url.
+export function classifyResult(url, r) {
+  if (FLAKY.test(url) && (r.error || r.status >= 500)) return 'by-hand';
+  return r.error ? 'fail' : classify(r.status);
+}
+
 const errorName = err => (err && err.name === 'TimeoutError') ? 'timeout' : (err && err.cause && (err.cause.code || err.cause.name)) || (err && err.name) || 'error';
 
-// One GET with a 15 s limit, tried twice when the network fails or the request times out. A status, however bad, is never retried.
+// One GET with a 15 s limit, tried twice when the network fails or the request times out. A status is never retried, except a 5xx from a
+// flaky host (the World Bank's country pages), which gets one more try.
 async function request(url) {
-  let last;
+  let last, lastStatus;
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const res = await fetch(url, {
@@ -83,12 +93,13 @@ async function request(url) {
         headers: { 'User-Agent': USER_AGENT, Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/svg+xml,*/*;q=0.8', 'Accept-Language': 'en-SG,en;q=0.9' }
       });
       if (res.body) res.body.cancel().catch(() => {});
+      if (FLAKY.test(url) && res.status >= 500 && attempt === 0) { lastStatus = res.status; continue; }
       return { status: res.status };
     } catch (err) {
       last = errorName(err);
     }
   }
-  return { error: last };
+  return lastStatus ? { status: lastStatus } : { error: last };
 }
 
 // Runs fn over items with at most `limit` in flight; results keep the order of items.
@@ -116,10 +127,9 @@ async function main(argv) {
   links.forEach((l, i) => {
     const r = results[i];
     const where = ' (' + l.where.join(', ') + ')';
-    if (r.error) { failed++; console.log('FAIL ' + r.error + ' ' + l.url + where); return; }
-    const kind = classify(r.status);
-    if (kind === 'fail') { failed++; console.log('FAIL ' + r.status + ' ' + l.url + where); }
-    else if (kind === 'by-hand') { byHand++; console.log('CHECK-BY-HAND ' + r.status + ' ' + l.url + where); }
+    const kind = classifyResult(l.url, r), what = r.error || r.status;
+    if (kind === 'fail') { failed++; console.log('FAIL ' + what + ' ' + l.url + where); }
+    else if (kind === 'by-hand') { byHand++; console.log('CHECK-BY-HAND ' + what + ' ' + l.url + where); }
   });
   console.log('Checked ' + links.length + ' links: ' + failed + ' failed, ' + byHand + ' to check by hand');
   return failed ? 1 : 0;

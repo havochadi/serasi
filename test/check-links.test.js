@@ -80,3 +80,18 @@ test('collectUrls skips the World Bank country page when all three figures carry
   assert.deepEqual(pages({ 158: { a2: 'TW', pop: own(1), gdp: own(2), gdppc: wb } }), ['https://data.worldbank.org/country/TW']);
   assert.deepEqual(pages({ 158: { a2: 'TW', pop: own(1), gdp: own(2), gdppc: { v: null, why: 'x' } } }), ['https://data.worldbank.org/country/TW']);
 });
+
+test('a World Bank country page that times out or answers 5xx is checked by hand, not failed; a 404 there still fails', async () => {
+  const { classifyResult } = await checker;
+  const wb = 'https://data.worldbank.org/country/BR';
+  assert.equal(classifyResult(wb, { status: 500 }), 'by-hand');
+  assert.equal(classifyResult(wb, { status: 502 }), 'by-hand');
+  assert.equal(classifyResult(wb, { error: 'timeout' }), 'by-hand');
+  assert.equal(classifyResult(wb, { status: 404 }), 'fail');
+  assert.equal(classifyResult(wb, { status: 200 }), 'pass');
+  // Other hosts keep the old rules.
+  assert.equal(classifyResult('https://example.org/x', { status: 500 }), 'fail');
+  assert.equal(classifyResult('https://example.org/x', { error: 'timeout' }), 'fail');
+  assert.equal(classifyResult('https://example.org/x', { status: 403 }), 'by-hand');
+  assert.equal(classifyResult('https://data.worldbank.org/', { status: 500 }), 'fail');
+});

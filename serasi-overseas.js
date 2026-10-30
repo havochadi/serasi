@@ -545,7 +545,7 @@
         env: 'Lancaster’s page does not say what language the teaching is in, though the university is in England. NUS (6th) and NTU (joint 13th) are in Singapore and cost far less.',
         watch: 'The fee is for 2027/28 entrants, a year after one starting in 2026 would pay, and Lancaster says it is reviewed each year. For a Malay translator, a Malay-language degree such as NUS Malay Studies is a closer fit. The living figure is the UK visa minimum for 9 months outside London, not a typical budget.',
         url: 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/',
-        src: ['qs-ling26', 'lancs-ling', 'uk-living'], links: ['ukvisa']
+        src: ['qs-ling26', 'lancs-ling', 'uk-living-outside'], links: ['ukvisa']
       },
       alts: [
         {
