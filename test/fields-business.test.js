@@ -75,6 +75,31 @@ test('ite-only fields have level 1 courses at ITE and nothing above', () => {
   }
 });
 test('property has no public course', () => assert.deepEqual(plain(L.forRole(ROLE['real-estate'], 1)), []));
+// Every option for a field, best first.
+const optionsOf = field => [O.OPTIONS[field].best].concat(O.OPTIONS[field].alts || []);
+
+test('law: every option carries the Ministry of Law recognition warning and only the countries on the Institute of Legal Education list', () => {
+  const all = optionsOf('law');
+  assert.ok(all.length >= 3);
+  for (const o of all) {
+    assert.match(o.watch, /Ministry of Law/, o.school);
+    assert.match(o.watch, /Singapore Institute of Legal Education/, o.school);
+    assert.match(o.watch, /Part A of the Singapore Bar Examinations/, o.school);
+    assert.ok(['United Kingdom', 'Australia', 'New Zealand', 'United States'].includes(o.country), o.school);
+    assert.ok(o.src.includes('mlaw-bar') && o.src.includes('sile-qp'), o.school);
+  }
+  assert.equal(new Set(all.map(o => o.country)).size, all.length);
+});
+test('law: the best pick is the highest-ranked school with a fee, and the ranks fall down the list', () => {
+  const ranks = optionsOf('law').map(o => Number(o.standing.match(/Ranked (\d+)(?:st|nd|rd|th)/)[1]));
+  assert.deepEqual(ranks, [3, 32, 65]);
+});
+test('law: Cambridge\'s fee range is the University fee plus the lowest and highest College fee for 2027-28, and says so', () => {
+  const b = O.OPTIONS.law.best;
+  assert.deepEqual(plain(b.tuition), [30798 + 12500, 30798 + 15950]);
+  assert.match(b.tuitionNote, /lowest College fee/);
+});
+
 test('a course in these fields with no fee is a SIT or SUSS degree, whose fee pages are closed to scripts', () => {
   const fields = ['business', 'accounting', 'finance-risk', 'islamicfin', 'logistics', 'law', 'hospitality', 'culinary', 'aviation', 'beauty', 'sport'];
   for (const c of L.COURSES.filter(c => c.fields.some(f => fields.includes(f)))) if (c.fee === null) assert.ok(['SIT', 'SUSS'].includes(c.school), c.school + ' ' + c.course);

@@ -47,6 +47,25 @@
     spc: { n: 'Singapore Pharmacy Council', url: 'https://www.spc.gov.sg', w: 'Registering as a pharmacist, including overseas degrees' }
   });
 
+  /* Sources and contacts for the business, law and services fields (Task 9), checked in October 2026. QS blocks scripts, so its subject pages
+     are for a person with a browser; the ranks were read from a mirror of each table and, where the school's own page gives its rank, checked there. */
+  Object.assign(window.SerasiPathways.SOURCES, {
+    'qs-law26': ['QS World University Rankings by Subject 2026: Law and Legal Studies', 'https://www.topuniversities.com/university-subject-rankings/law-legal-studies'],
+    'mlaw-bar': ['Ministry of Law, admission to the Singapore Bar: admission requirements (points to the Institute of Legal Education for degrees)', 'https://www.mlaw.gov.sg/admission-to-the-bar/admission-requirements/'],
+    'sile-qp': ['Singapore Institute of Legal Education, Qualified Person: the overseas universities whose law degrees count (page updated 9 October 2025)', 'https://www.sile.edu.sg/for-overseas-graduates/qualified-person/'],
+    'cam-law': ['Cambridge, Law BA: a 3-year course', 'https://www.undergraduate.study.cam.ac.uk/courses/law'],
+    'cam-fees': ['Cambridge, undergraduate tuition fees 2027-28: University fee and each College’s fee for international students', 'https://www.undergraduate.study.cam.ac.uk/files/2026-09/undergraduate_tuition_fees_2027-28.pdf'],
+    'uk-living-out': ['GOV.UK, Student visa: money for living costs outside London, 2026', 'https://www.gov.uk/student-visa/money'],
+    'monash-guide': ['Monash, 2027 international undergraduate course guide (Bachelor of Laws (Honours), Clayton, 4 years)', 'https://www.monash.edu/__data/assets/pdf_file/0005/3941744/undergraduate-international-course-guide.pdf'],
+    'auck-llb': ['University of Auckland, Bachelor of Laws (LLB): a four-year, 480-point degree; international fee for 2026', 'https://study.auckland.ac.nz/ords/r/uoa/catalogue/program?p5_code=LLB'],
+    'auck-rank': ['University of Auckland, Auckland Law School ranking and reputation (QS 2026)', 'https://auckland.ac.nz/en/law/about-auckland-law-school/ranking-and-repuation.html'],
+    'nz-living': ['Immigration New Zealand, student fund requirements: NZ$20,000 a year for tertiary study', 'https://www.immigration.govt.nz/process-to-apply/applying-for-a-visa/providing-evidence-and-documents-to-support-your-visa-application/student-fund-requirements/']
+  });
+  Object.assign(window.SerasiPathways.CONTACTS, {
+    sile: { n: 'Singapore Institute of Legal Education', url: 'https://www.sile.edu.sg', w: 'The Qualified Person route for law graduates from overseas, and the Bar exams' },
+    studynz: { n: 'Study with New Zealand', url: 'https://www.studywithnewzealand.govt.nz/', w: 'Official guide to studying in New Zealand' }
+  });
+
   /* The options for each field of study, field by field. A study field is { best, alts }; an agency field is { agency, src },
      a note with its source keys. The rule for a study field: one school per country, taken in order of the latest QS ranking by
      subject, preferring schools whose qualification Singapore recognises (where a Singapore body regulates the profession) and
@@ -163,6 +182,53 @@
       src: ['moe-diped']
     }
   };
+
+  /* Business, law and services fields (Task 9). Added with Object.assign after the object above so that these entries never touch the lines of
+     other fields. Same shape and rules as above. */
+  Object.assign(OPTIONS, {
+    // QS 2026 Law and Legal Studies: 1 Harvard, 2 Oxford, 3 Cambridge, 6 NUS, 9 LSE, 11 Melbourne, =13 UNSW and UCL, 17 Sydney, 20 HKU, 32 Monash, 65 Auckland.
+    // Singapore decides who may practise: the Ministry of Law's Legal Profession (Qualified Persons) Rules, whose list of degrees the Institute of Legal
+    // Education publishes. Only the UK, Australia, New Zealand and the US are on it, so Hong Kong, Canada and Europe are out however high they rank, and a US
+    // JD follows a bachelor's degree (with no visa living figure) so the US is out too. Best: Cambridge, the highest-ranked school on the list whose own page
+    // gave a fee. Left out: Oxford (2nd and on the list, but its fee pages are closed to scripts); LSE and UCL (same country as Cambridge); Melbourne (11th,
+    // JD only after a first degree, and its page is closed to scripts) and UNSW (13th, but its pages do not show a stand-alone LLB or a fee for it) and Sydney
+    // (17th, no stand-alone LLB fee read). The alternatives are the highest-ranked school per country with a four-year LLB and a fee I could read:
+    // Monash (Australia) and Auckland (New Zealand).
+    law: {
+      best: {
+        country: 'United Kingdom', school: 'University of Cambridge (Faculty of Law)', course: 'BA Law', yrs: 3,
+        tuition: [43298, 46748], tuitionNote: 'low end is the University fee plus the lowest College fee (Darwin), high end the highest (Murray Edwards)', cur: 'GBP', living: 10539,
+        standing: 'Ranked 3rd in the world for Law and Legal Studies (QS World University Rankings by Subject 2026)',
+        why: 'Third in the world for law, and its BA Law is on the Ministry of Law’s list of overseas degrees that can make you a Qualified Person. It takes three years, one fewer than the local LLB. Oxford ranks 2nd and is also on the list, but its fee could not be confirmed from its own page.',
+        env: 'Taught in English in a college town. You belong to a College as well as the University, and each College sets its own fee.',
+        watch: 'Singapore’s Ministry of Law decides which overseas law degrees count, and the Singapore Institute of Legal Education lists them; Cambridge’s BA Law is on the list. To practise here you must be a Singapore citizen or permanent resident, get at least a lower second class honours, pass Part A of the Singapore Bar Examinations, complete 6 months of relevant legal training, then pass Part B and a practice training period. Check the Ministry’s rules again before you enrol. The fee is the 2027–28 University fee of £30,798 plus a College fee of £12,500 to £15,950, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months outside London (£1,171 a month), not a typical budget.',
+        url: 'https://www.undergraduate.study.cam.ac.uk/courses/law',
+        src: ['qs-law26', 'cam-law', 'cam-fees', 'uk-living-out', 'mlaw-bar', 'sile-qp'], links: ['ukvisa', 'minlaw', 'sile']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'Monash University (Faculty of Law)', course: 'Bachelor of Laws (Honours)', yrs: 4,
+          tuition: [55700, 55700], cur: 'AUD', living: 29710,
+          standing: 'Ranked 32nd in the world for Law and Legal Studies (QS World University Rankings by Subject 2026)',
+          why: 'A four-year LLB straight from school, and Monash is one of the Australian universities on the Ministry of Law’s list. Melbourne and UNSW rank higher, but Melbourne’s law degree is a JD that follows a first degree and UNSW’s pages show no stand-alone LLB.',
+          env: 'Taught in English at the Clayton campus in Melbourne.',
+          watch: 'Singapore’s Ministry of Law decides which overseas law degrees count, and the Singapore Institute of Legal Education lists them; for Monash you must also rank in the top 70% of your batch, and you must be a Singapore citizen or permanent resident, pass Part A of the Singapore Bar Examinations and complete 6 months of relevant legal training, then Part B and a practice training period. Australian fees rise most years: A$55,700 is the figure Monash confirmed for 2026 and gives as a guide for 2027. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.monash.edu/study/courses/find-a-course/laws-l3001',
+          src: ['qs-law26', 'monash-guide', 'au-visa', 'mlaw-bar', 'sile-qp'], links: ['studyau', 'minlaw', 'sile']
+        },
+        {
+          country: 'New Zealand', school: 'University of Auckland (Auckland Law School)', course: 'Bachelor of Laws (LLB)', yrs: 4,
+          tuition: [47218, 47218], cur: 'NZD', living: 20000,
+          standing: 'Ranked 65th in the world for Law and Legal Studies (QS World University Rankings by Subject 2026)',
+          why: 'New Zealand’s top-ranked law school, and the University of Auckland is on the Ministry of Law’s list. A four-year LLB taught in English.',
+          env: 'Taught in English in Auckland.',
+          watch: 'Singapore’s Ministry of Law decides which overseas law degrees count, and the Singapore Institute of Legal Education lists them; for Auckland you must also rank in the top 70% of your batch, and you must be a Singapore citizen or permanent resident, pass Part A of the Singapore Bar Examinations and complete 6 months of relevant legal training, then Part B and a practice training period. The fee is for 2026 and excludes the Student Services Fee (about NZ$1,133 a year). The living figure is the New Zealand student-visa minimum, not a typical budget.',
+          url: 'https://www.auckland.ac.nz/en/study/study-options/find-a-study-option/bachelor-of-laws-llb.html',
+          src: ['qs-law26', 'auck-llb', 'auck-rank', 'nz-living', 'mlaw-bar', 'sile-qp'], links: ['studynz', 'minlaw', 'sile']
+        }
+      ]
+    }
+  });
 
   const SYMBOL = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' };
   const round100 = n => Math.round(n / 100) * 100;
