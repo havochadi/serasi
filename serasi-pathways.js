@@ -104,6 +104,8 @@
     'dk-novo-pe25': ['Pharmaceutical Executive, Novo Nordisk to cut 9,000 jobs, 10 September 2025', 'https://www.pharmexec.com/view/novo-nordisk-cut-9-000-jobs-global-restructuring-effort'],
     'dk-novo-cbs25': ['CBS News, Novo Nordisk job cuts, 10 September 2025', 'https://www.cbsnews.com/news/novo-nordisk-nvo-stock-9000-job-cuts-wegovy'],
     'wbur-massbio26': ['WBUR, MassBio 2026 industry snapshot, 25 August 2026', 'https://www.wbur.org/news/2026/08/25/massbio-industry-2026-snapshot-jobs-funding'],
+    'sg-edb-fmt26': ['Free Malaysia Today, Singapore sees fewer jobs created even with more investments, 9 February 2026', 'https://www.freemalaysiatoday.com/category/business/2026/02/09/singapore-sees-fewer-jobs-created-even-with-more-investments'],
+    'cn-cctv-lic26': ['The Standard (Hong Kong), citing CCTV: China out-licensing deal value, first half of 2026', 'https://www.thestandard.com.hk/finance/article/337073/China-innovative-drug-out-licensing-deal-value-reaches-new-high-in-first-half-of-2026-says-CCTV'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -139,7 +141,7 @@
       aero: ['grow', 'A major aircraft repair hub in Asia, the region that needs 44% of the world’s new aircraft technicians.', ['mro-tech']],
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
-      biotech: ['grow', 'Biomedical manufacturing drew 30.8% of the S$14.2 billion in new factory investment promised in 2025, second only to electronics (33%). EDB expects 15,700 new jobs across all industries from 2025 commitments over five years.', ['sg-edb-yir25', 'sg-edb-vp25']],
+      biotech: ['steady', 'Biomedical manufacturing made up 30.8% of the S$14.2 billion in fixed asset investment commitments for 2025, second to electronics (33%). But jobs are less certain: EDB expects 15,700 new jobs across all industries over five years, its lowest projection since at least 2006.', ['sg-edb-yir25', 'sg-edb-vp25', 'sg-edb-fmt26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
       education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
@@ -275,7 +277,7 @@
       tech: ['grow', '2nd in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'boston', place: 'Boston', country: 'United States', iso: 840, ll: [-71.06, 42.36], ind: {
-      biotech: ['decline', 'Massachusetts biopharma cut about 3,600 jobs in 2025, its first yearly fall in over 20 years of records. Venture funding is up 25% in the first half of 2026 ($3.45 billion), but jobs haven’t come back yet.', ['wbur-massbio26']],
+      biotech: ['decline', 'Massachusetts biopharma cut about 3,600 jobs in 2025, its first yearly fall in over 20 years of records. The cuts were mostly in research and development, while biomanufacturing gained some jobs. Venture funding is up 25% in the first half of 2026 ($3.45 billion), but jobs haven’t come back yet.', ['wbur-massbio26']],
       tech: ['grow', 'Joint 5th in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'phoenix', place: 'Phoenix, Arizona', country: 'United States', iso: 840, ll: [-112.07, 33.45], ind: {
