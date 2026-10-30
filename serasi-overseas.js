@@ -44,7 +44,12 @@
     'polyu-fees': ['PolyU, undergraduate fees and estimated costs for non-local students', 'https://www.polyu.edu.hk/study/ug/fees-and-scholarships/fees'],
     'polyu-design': ['PolyU, BA (Hons) Scheme in Design (4-year): specialisms', 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en'],
     'ual-graphic': ['UAL, BA (Hons) Graphic Communication Design (Central Saint Martins): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/communication-and-graphic-design/undergraduate/ba-hons-graphic-communication-design-csm'],
-    'rmit-graphic': ['RMIT, Bachelor of Graphic Design: 2027 fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-graphic-design-bp115']
+    'rmit-graphic': ['RMIT, Bachelor of Graphic Design: 2027 fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-graphic-design-bp115'],
+    'ual-fashion': ['UAL, BA (Hons) Fashion Design and Development (London College of Fashion): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/fashion-design/undergraduate/ba-hons-fashion-design-and-development-lcf'],
+    'rmit-fashion': ['RMIT, Bachelor of Fashion (Design): 2027 international fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-design-bp328/apply-now'],
+    'polyu-fashion': ['PolyU, BA (Hons) Scheme in Fashion (4-year)', 'https://www.polyu.edu.hk/itc/study/ug/'],
+    'ual-animation': ['UAL, BA (Hons) Animation (London College of Communication): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/animation-interactive-film-and-sound/undergraduate/ba-hons-animation-lcc'],
+    'rmit-animation': ['RMIT, Bachelor of Design (Animation and Interactive Media): 2027 international fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-animation-and-interactive-media-bp203/apply-now']
   });
 
   /* Official guides and regulators named by the options' links. */
@@ -248,6 +253,44 @@
           watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
           url: 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en',
           src: ['qs-art26', 'polyu-fees', 'polyu-design'], links: ['hkimmd']
+        }
+      ]
+    },
+
+    // QS 2026 Art & Design (QS has no separate table for fashion); same ranks and the same choices as interior design above. UAL's fashion degrees
+    // are at London College of Fashion and Central Saint Martins, all at one fee; the LCF Fashion Design and Development degree is the one priced here.
+    // PolyU teaches fashion in its Institute of Textiles and Clothing, as the 4-year BA (Hons) Scheme in Fashion, at the same non-local fee.
+    fashion: {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (London College of Fashion)', course: 'BA (Hons) Fashion Design and Development', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for fashion',
+        why: 'A three-year degree at the second-ranked art and design university in the world, at its own fashion college. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at London College of Fashion in London. UAL also runs fashion design degrees at Central Saint Martins.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. The course can take 4 years with an optional placement year. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/fashion-design/undergraduate/ba-hons-fashion-design-and-development-lcf',
+        src: ['qs-art26', 'ual-fashion', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Fashion (Design)', yrs: 3,
+          tuition: [48960, 48960], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for fashion',
+          why: 'A three-year degree in Melbourne, taught in English, with RMIT’s fee on its course page.',
+          env: 'Based at RMIT’s Brunswick campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-design-bp328',
+          src: ['qs-art26', 'rmit-fashion', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Fashion', yrs: 4,
+          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for fashion',
+          why: 'A four-year fashion degree close to home, covering fashion and knitwear design, fashion business, and fashion innovation and technology.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
+          url: 'https://www.polyu.edu.hk/itc/study/ug/',
+          src: ['qs-art26', 'polyu-fees', 'polyu-fashion'], links: ['hkimmd']
         }
       ]
     },
