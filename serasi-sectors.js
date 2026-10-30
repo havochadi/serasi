@@ -47,23 +47,23 @@
     logistics: ['grow', 'Logistics employment grew 10.8% in the second half of 2025, says the sector skills council, which expects 4.7 million more logistics workers to be needed by 2030.', ['lssc-india-2026']],
   });
   note(704, 'Vietnam', [105.8, 21.0], {
-    logistics: ['grow', 'Vietnam’s logistics plan (October 2025) aims for 12–15% growth a year. A logistics firm says Hai Phong alone is short of over 30,000 qualified workers, especially forklift and crane operators.', ['vneconomy-logistics-2026']],
+    logistics: ['grow', 'Vietnam’s logistics strategy (October 2025) aims to grow the logistics services sector 12–15% a year to 2035. A logistics firm says Hai Phong alone is short of over 30,000 qualified workers, especially forklift and crane operators.', ['vneconomy-strategy-2025', 'vneconomy-logistics-2026']],
   });
   note(528, 'Netherlands', [5.3, 52.1], {
-    logistics: ['steady', 'Rotterdam’s port handled 428.4 million tonnes in 2025, down 1.7%, though containers rose 3.1% to 14.2 million. Chemical plant closures cost hundreds of port-area jobs in the first half of 2025.', ['rotterdam-2025', 'rotterdam-h1-2025']],
+    logistics: ['steady', 'Rotterdam’s port handled 428.4 million tonnes in 2025, down 1.7%, though container units (TEU) rose 3.1% to 14.2 million. Announced chemical plant closures put hundreds of chemical-industry jobs at risk in 2025; these are not logistics jobs.', ['rotterdam-2025', 'rotterdam-h1-2025']],
   });
   note(784, 'United Arab Emirates', [54, 24], {
-    logistics: ['decline', 'Dubai’s Jebel Ali port handled 374,000 containers in the second quarter of 2026, down from 2.7 million in the first, after the Strait of Hormuz closed. DP World’s first-half profit fell 39%.', ['dpworld-h1-2026']],
+    logistics: ['steady', 'These are port figures; no job numbers were found. Because of the Iran war and the closure of the Strait of Hormuz, Dubai’s Jebel Ali port handled 374,000 container units (TEUs) in the second quarter of 2026, down from 2.7 million in the first. DP World rerouted cargo overland, and its first-half profit fell 39%.', ['dpworld-h1-2026']],
   });
 
   // Semiconductors (Singapore, Taiwan, Japan, India, Vietnam, Malaysia, Germany and the US are already noted in serasi-pathways.js).
 
   // Tech, AI and data (Singapore, China, South Korea, India, Malaysia, the UK and the US already have start-up hub or tech-centre notes).
   note(840, 'United States of America', [-98, 39], {
-    tech: ['steady', 'Software developer jobs are projected to grow 10% from 2025 to 2035. But a Stanford study of payroll data found that employment of 22–25-year-olds in the most AI-exposed jobs, such as software development, fell 13% compared with other jobs by July 2025.', ['bls-software-2025', 'stanford-canaries-2025', 'register-canaries-2025']],
+    tech: ['steady', 'Software developer jobs are projected to grow 10% from 2025 to 2035. But Stanford payroll data show employment of 22–25-year-olds in the most AI-exposed jobs, which include software development, was about 19% below where it would have been by June 2026.', ['bls-software-2025', 'stanford-canaries-2026']],
   });
   note(826, 'United Kingdom', [-2, 54], {
-    tech: ['decline', 'A June 2026 government snapshot found entry-level hiring falling in 30 of 38 jobs tracked, with software engineer among the fastest at 27% down. UK hiring overall was down 14% year on year in April 2026. London is still a top-3 start-up hub.', ['dsit-entry-2026', 'gser25']],
+    tech: ['decline', 'A June 2026 UK government snapshot of LinkedIn data found entry-level hiring falling in 30 of 38 jobs tracked, with software engineer among the fastest at 27% down (no period is given for that figure). UK hiring overall was down 14% year on year in April 2026. London is still a top-3 start-up hub.', ['dsit-entry-2026', 'gser25']],
   });
   note(156, 'China', [104, 35], {
     tech: ['grow', 'AI’s share of newly posted graduate jobs rose from 26.41% in 2025 to 37.56% in 2026. AI job postings in January–February 2026 were about twelve times those of a year earlier.', ['chinadaily-grad-ai-2026', 'cntech-ai']],
