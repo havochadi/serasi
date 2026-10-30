@@ -133,6 +133,32 @@
     { school: 'Singapore Polytechnic', course: 'Diploma in Media, Arts & Design (Animation & Games)', lvl: 2, yrs: 3, fee: 3177.52, fields: ['animation'], url: 'https://www.sp.edu.sg/courses/schools/mad/animation-and-games', src: ['fee-poly'] },
     { school: 'Nanyang Polytechnic', course: 'Diploma in Animation, Games & Visual Effects', lvl: 2, yrs: 3, fee: 3188.09, fields: ['animation'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-animation-games-visual-effects', src: ['fee-nyp26'] },
     { school: 'NAFA', course: 'Diploma in Digital Illustration and Narrative', lvl: 2, yrs: 3, fee: 4810, fields: ['animation'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-digital-illustration-and-narrative', src: ['fee-nafa27'] },
+
+    // Media and content. Level 1: ITE's Film & Video Production is tied to the video editor (its careers are camera, lighting and production crew), and
+    // Communication Design (above) is the photographer's course because its careers page names photographers. Level 2: the film, mass communication
+    // and content diplomas. Singapore Polytechnic's Story & Content Creation specialisation teaches video, scriptwriting and journalism; its Digital
+    // Media & Communications specialisation is a marketing course and is left out. Republic's Mass Communication is listed under its School of
+    // Business. Level 3: NTU and NUS, the two universities with a media degree whose page could be read. SMU's communication management is a business
+    // major, and SIT's and SUSS's pages turn scripts away, so they are not listed. NUS's Communications and New Media page also blocks scripts, so its
+    // 4 years is the usual length of a NUS honours degree rather than a figure read from the page. LASALLE and NAFA teach film and media in
+    // degrees that no media role needs, and LASALLE has no media diploma.
+    { school: 'ITE', course: 'Higher Nitec in Film & Video Production', lvl: 1, yrs: 2, fee: 566, fields: ['media'], roles: ['video'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-film-and-video-production/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Film & Video Production (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['media'], roles: ['video'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-film-and-video-production-3-year/', src: ['fee-ite26'] },
+    { school: 'Singapore Polytechnic', course: 'Diploma in Media, Arts & Design (Story & Content Creation)', lvl: 2, yrs: 3, fee: 3177.52, fields: ['media'], url: 'https://www.sp.edu.sg/courses/schools/mad/story-and-content-creation', src: ['fee-poly'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Mass Communication', lvl: 2, yrs: 3, fee: 3167.5, fields: ['media'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-film-media-studies/diploma-in-mass-communication', src: ['fee-np26'] },
+    { school: 'Ngee Ann Polytechnic', course: 'Diploma in Film, Sound & Video', lvl: 2, yrs: 3, fee: 3167.5, fields: ['media'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-film-media-studies/diploma-in-film-sound-video', src: ['fee-np26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Mass Communication', lvl: 2, yrs: 3, fee: 3186.5, fields: ['media'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-mass-communication/', src: ['fee-rp26'] },
+    { school: 'Republic Polytechnic', course: 'Diploma in Digital Content Creation', lvl: 2, yrs: 3, fee: 3186.5, fields: ['media'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-digital-content-creation/', src: ['fee-rp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Digital Film & Television', lvl: 2, yrs: 3, fee: 3183.15, fields: ['media'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/digital-film-television.html', src: ['fee-tp26'] },
+    { school: 'NAFA', course: 'Diploma in Media Experience and Innovation', lvl: 2, yrs: 3, fee: 4810, fields: ['media'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-media-experience-and-innovation', src: ['fee-nafa27'] },
+    { school: 'NUS', course: 'Bachelor of Social Sciences (Honours) with a major in Communications and New Media', lvl: 3, yrs: 4, fee: 8300, fields: ['media'], url: 'https://fass.nus.edu.sg/cnm/undergraduate', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Communication Studies (Honours)', lvl: 3, yrs: 4, fee: 8300, fields: ['media'], url: 'https://www.ntu.edu.sg/admissions/undergraduate/undergraduate-programme/bachelor-of-communication-studies', src: ['fee-ntu'] },
+
+    // Translation and languages. The Malay translator needs a degree. NUS's Malay Studies is the one local degree whose page could be matched to the role;
+    // NUS's pages block scripts, so the degree's 4 years is the usual length of a NUS honours degree (the department says the pass degree is no longer
+    // offered). SUSS's BA in Malay Language and Literature (part-time) exists, but SUSS's pages turn scripts away, so its length and fee are unconfirmed
+    // and it is not listed. NTU's Linguistics and Multilingual Studies does not mention translation or teach Malay, and no polytechnic teaches Malay translation.
+    { school: 'NUS', course: 'Bachelor of Arts (Honours) with a major in Malay Studies', lvl: 3, yrs: 4, fee: 8300, fields: ['translation'], roles: ['translator'], url: 'https://fass.nus.edu.sg/mls/honours-programme-and-single-major/', src: ['fee-nus26'] },
   ];
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');

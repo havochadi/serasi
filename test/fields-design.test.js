@@ -43,3 +43,21 @@ test('animation: ITE Communication Design at level 1 for the animator, and three
   assert.deepEqual(namesFor('animator', 1), ['Higher Nitec in Communication Design', 'Higher Nitec in Communication Design (3 years)']);
   assert.deepEqual(schoolsFor('animator', 2), ['Singapore Polytechnic', 'Nanyang Polytechnic', 'NAFA']);
 });
+test('media: ITE film and video for the video editor, Communication Design for the photographer, diplomas for the content producer, degrees for the journalist', () => {
+  assert.deepEqual(namesFor('video', 1), ['Higher Nitec in Film & Video Production', 'Higher Nitec in Film & Video Production (3 years)']);
+  assert.deepEqual(namesFor('photographer', 1), ['Higher Nitec in Communication Design', 'Higher Nitec in Communication Design (3 years)']);
+  assert.deepEqual(schoolsFor('content', 2), [
+    'Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Ngee Ann Polytechnic', 'Republic Polytechnic', 'Republic Polytechnic', 'Temasek Polytechnic', 'NAFA']);
+  assert.deepEqual(schoolsFor('journalist', 3), ['NUS', 'NTU']);
+  assert.equal(L.forRole(ROLE.journalist, 1).length, 0, 'the journalist needs no ITE course');
+});
+test('translation: NUS Malay Studies for the translator only, and nothing is listed for the levels below', () => {
+  assert.deepEqual(namesFor('translator', 3), ['Bachelor of Arts (Honours) with a major in Malay Studies']);
+  assert.equal(L.forRole(ROLE.translator, 1).length, 0);
+  assert.equal(L.forRole(ROLE.translator, 2).length, 0);
+  assert.equal(L.html(ROLE.translator, 2, { esc: String, money: String }), '', 'a level with no school renders nothing');
+});
+test('the design and media fields are only ever attached to courses with a school page', () => {
+  const fields = ['interior-design', 'graphic-ux', 'fashion', 'animation', 'media', 'translation'];
+  for (const c of L.COURSES.filter(c => c.fields.some(f => fields.includes(f)))) assert.match(c.url, /^https:\/\//, c.course);
+});
