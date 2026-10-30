@@ -57,6 +57,23 @@ test('translation: NUS Malay Studies for the translator only, and nothing is lis
   assert.equal(L.forRole(ROLE.translator, 2).length, 0);
   assert.equal(L.html(ROLE.translator, 2, { esc: String, money: String }), '', 'a level with no school renders nothing');
 });
+// Overseas options for the six fields: one option per country, and a QS edition named in every standing.
+const ART = ['interior-design', 'graphic-ux', 'fashion', 'animation'];
+const countries = field => [O.OPTIONS[field].best].concat(O.OPTIONS[field].alts).map(o => o.country);
+test('interior design: UAL first, then two more countries, ranked by QS Art & Design 2026', () => {
+  const f = O.OPTIONS['interior-design'];
+  assert.equal(f.best.school.split(' (')[0], 'University of the Arts London');
+  assert.deepEqual(plain(countries('interior-design')), ['United Kingdom', 'Australia', 'Hong Kong']);
+  for (const o of [f.best].concat(f.alts)) assert.match(o.standing, /Art and Design \(QS World University Rankings by Subject 2026\)/, o.school);
+});
+test('the art and design fields name no option twice in one country', () => {
+  for (const field of ART) if (O.OPTIONS[field]) assert.equal(new Set(countries(field)).size, countries(field).length, field);
+});
+test('a role in an art and design field gets the overseas card', () => {
+  const h = { esc: String, srcLinks: () => '' };
+  assert.match(O.html(ROLE.interior, h), /Best place to study this/);
+});
+
 test('the design and media fields are only ever attached to courses with a school page', () => {
   const fields = ['interior-design', 'graphic-ux', 'fashion', 'animation', 'media', 'translation'];
   for (const c of L.COURSES.filter(c => c.fields.some(f => fields.includes(f)))) assert.match(c.url, /^https:\/\//, c.course);

@@ -36,7 +36,13 @@
     'ucl-biomed': ['UCL, Biomedical Sciences BSc: fees for 2027/28 entrants', 'https://www.ucl.ac.uk/study/prospective-students/undergraduate/courses/biomedical-sciences-bsc'],
     'spc-list': ['Singapore Pharmacy Council, list of recognised overseas qualifications (page updated 20 October 2026)', 'https://www.spc.gov.sg/for-professionals/apply-for-registration/list-of-recognised-overseas-qualifications/'],
     'spc-foreign': ['Singapore Pharmacy Council, foreign-trained pharmacy graduates (page updated 9 October 2026)', 'https://www.spc.gov.sg/for-professionals/apply-for-registration/foreign-trained-pharmacy-graduates-pharmacists/'],
-    'smc-notes': ['Singapore Medical Council, notes on the Second Schedule of the Medical Registration Act (registrable basic medical qualifications)', 'https://go.gov.sg/important-notes-on-the-mra-second-schedule-list-of-registrable-basic-medical-qualifications']
+    'smc-notes': ['Singapore Medical Council, notes on the Second Schedule of the Medical Registration Act (registrable basic medical qualifications)', 'https://go.gov.sg/important-notes-on-the-mra-second-schedule-list-of-registrable-basic-medical-qualifications'],
+    // Design and media fields.
+    'qs-art26': ['QS World University Rankings by Subject 2026: Art & Design', 'https://www.topuniversities.com/university-subject-rankings/art-design'],
+    'ual-interior': ['UAL, BA (Hons) Interior Design (Chelsea): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/architecture-spatial-and-interior-design/undergraduate/ba-hons-interior-design-chelsea'],
+    'rmit-interior': ['RMIT, Bachelor of Interior Design (Honours): 2027 fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/honours-degrees/bachelor-of-interior-design-honours-bh115'],
+    'polyu-fees': ['PolyU, undergraduate fees and estimated costs for non-local students', 'https://www.polyu.edu.hk/study/ug/fees-and-scholarships/fees'],
+    'polyu-design': ['PolyU, BA (Hons) Scheme in Design (4-year): specialisms', 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en']
   });
 
   /* Official guides and regulators named by the options' links. */
@@ -161,7 +167,49 @@
     teaching: {
       agency: 'Teaching in Singapore’s schools runs through MOE and NIE: MOE takes you on for a contract teaching stint first, then fully funds your training at NIE, so there’s no need to study overseas. Read MOE’s “become a teacher” page for entry requirements and pay.',
       src: ['moe-diped']
-    }
+    },
+
+    // QS 2026 Art & Design (the nearest QS subject for interior design, which has no table of its own): 1 Royal College of Art, 2 UAL, 3 The New School,
+    // 4 RISD, 5 Pratt, 6 MIT, 7 Politecnico di Milano, 8 Glasgow School of Art, 9 Aalto, 10 Design Academy Eindhoven, 13 TU Delft, =19 RMIT, 24 PolyU.
+    // The ranks were read from a site that republishes the QS table (QS's own page turns scripts away), and UAL's and RMIT's places match their news.
+    // Best: UAL, the highest-ranked school with undergraduate degrees (the Royal College of Art lists only postgraduate courses), taught in English,
+    // with a fee on its course page. Alternatives, one per country: RMIT (=19), whose interior design degree is taught in English, and PolyU (24).
+    // Left out: the US schools (the US has no official money-for-living figure for a visa); Glasgow (same country as UAL); Politecnico di Milano, Aalto,
+    // Design Academy Eindhoven and TU Delft (higher ranked, but their bachelor's language and non-EU fees were not checked in the time allowed).
+    'interior-design': {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (Chelsea College of Arts)', course: 'BA (Hons) Interior Design', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
+        why: 'A three-year degree at the second-ranked art and design university in the world. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at Chelsea College of Arts in London.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/architecture-spatial-and-interior-design/undergraduate/ba-hons-interior-design-chelsea',
+        src: ['qs-art26', 'ual-interior', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Interior Design (Honours)', yrs: 4,
+          tuition: [49920, 49920], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
+          why: 'A four-year honours degree in Melbourne, taught in English, with RMIT’s fee on its course page.',
+          env: 'Based at RMIT’s city campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/honours-degrees/bachelor-of-interior-design-honours-bh115',
+          src: ['qs-art26', 'rmit-interior', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Design, with the Interior Design specialism', yrs: 4,
+          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
+          why: 'A four-year design degree close to home. Interior Design is one of nine specialisms.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
+          url: 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en',
+          src: ['qs-art26', 'polyu-fees', 'polyu-design'], links: ['hkimmd']
+        }
+      ]
+    },
   };
 
   const SYMBOL = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' };
