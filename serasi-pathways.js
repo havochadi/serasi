@@ -76,7 +76,14 @@
     'my-fees': ['Universiti Teknologi PETRONAS, international fees', 'https://utp.edu.my/Pages/Admission/Undergraduate/International/Tuition-fees.aspx'],
     'my-monash': ['Unienrol, Monash University Malaysia fees', 'https://articles.unienrol.com/monash-university-malaysia-fees-courses/'],
     'fx-ecb': ['European Central Bank, euro foreign exchange reference rates, 28 October 2026', 'https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html'],
-    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com']
+    'fx-egp': ['ExchangeRate-API, Egyptian pound rate, 29 October 2026', 'https://www.exchangerate-api.com'],
+    // Task 14: care, hospitality, creative, education
+    'sg-65plus-2025': ['Human Resources Online, Singapore Population in Brief 2025 (October 2025)', 'https://www.humanresourcesonline.net/singapore-s-citizen-population-aged-65-and-above-is-growing-faster-than-in-the-previous-decade-nptd'],
+    'sg-hc-workforce-2025': ['Human Resources Online, Singapore healthcare workforce target (November 2025)', 'https://www.humanresourcesonline.net/more-than-900-nursing-vacancies-reported-in-singapore-s-public-hospitals-in-the-past-3-months-amid-healthcare-expansion'],
+    'sfc-vacancy-2026': ['Skills for Care, adult social care vacancy rate (June 2026)', 'https://www.skillsforcare.org.uk/news-and-events/news/adult-social-care-vacancy-rate-falls-to-lowest-level-in-a-decade-as-workforce-grows'],
+    'uk-care-visa-2025': ['GOV.UK, applying for health and social care jobs in the UK from abroad', 'https://www.gov.uk/government/publications/applying-for-health-and-social-care-jobs-in-the-uk-from-abroad/part-1-applying-for-health-and-social-care-jobs-in-the-uk-from-abroad'],
+    'bls-aides-2035': ['US Bureau of Labor Statistics, Home health and personal care aides (updated August 2026)', 'https://www.bls.gov/ooh/healthcare/home-health-aides-and-personal-care-aides.htm'],
+    'kr-care-2028': ['The Star (Korea Immigration Service Foundation), March 2026', 'https://www.thestar.com.my/aseanplus/aseanplus-news/2026/03/16/south-korea-may-need-foreign-workers-to-fill-110000-elderly-care-jobs-by-2028']
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -114,6 +121,7 @@
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
       education: ['steady', 'Diploma holders do a compulsory contract teaching stint first; MOE then fully funds the 2-year Diploma in Education at NIE. Fresh diploma holders typically start at $3,110 (MOE, 2026).', ['moe-diped']],
+      care: ['grow', 'Citizens aged 65 and over rose from 13.1% in 2015 to 20.7% in 2025, and are projected to reach 23.9% by 2030. The government aims to grow the national healthcare workforce by 20% by 2030.', ['sg-65plus-2025', 'sg-hc-workforce-2025']],
       public: ['steady', 'Public service, Home Team and SAF careers are listed on Careers@Gov and agency sites.', []]
     } },
     { id: 'cn', place: 'China (nationwide)', country: 'China', iso: 156, ll: [104, 35], scope: 'country', ind: {

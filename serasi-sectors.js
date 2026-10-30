@@ -28,4 +28,15 @@
   // ---- Task 13: finance, Islamic finance, health, biotech ----
 
   // ---- Task 14: care, hospitality, creative, education ----
+
+  // care
+  note(410, 'South Korea', [127.8, 36.5], {
+    care: ['grow', 'A government-funded institute forecasts a shortage of about 110,000 elderly care workers by 2028. About 66% of the 657,104 people working in care in 2024 were aged 60 or over, and only 6,644 were foreign carers.', ['kr-care-2028']],
+  });
+  note(826, 'United Kingdom', [-1.5, 52.5], {
+    care: ['steady', 'Care job vacancies fell to about 96,000 (6.2%) in 2025/26, the lowest rate since 2015/16, and filled posts grew only 1.4%. The overseas care-worker visa route closed to new applicants in July 2025, so this is not an easy place to move to for care work.', ['sfc-vacancy-2026', 'uk-care-visa-2025']],
+  });
+  note(840, 'United States of America', [-98, 39], {
+    care: ['grow', 'Home health and personal care aides are projected to grow 18% from 2025 to 2035, adding 847,300 jobs to 4.68 million. Median pay was $35,800 in May 2025.', ['bls-aides-2035']],
+  });
 })();
