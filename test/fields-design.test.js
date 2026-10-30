@@ -71,7 +71,28 @@ test('the art and design fields name no option twice in one country', () => {
 });
 test('a role in an art and design field gets the overseas card', () => {
   const h = { esc: String, srcLinks: () => '' };
-  assert.match(O.html(ROLE.interior, h), /Best place to study this/);
+  for (const id of ['interior', 'ux', 'graphic', 'fashion', 'animator']) assert.match(O.html(ROLE[id], h), /Best place to study this/, id);
+});
+test('UAL is the best pick for all four art and design fields, each at the fee on its own course page', () => {
+  for (const field of ART) {
+    const b = O.OPTIONS[field].best;
+    assert.equal(b.country, 'United Kingdom', field);
+    assert.deepEqual(plain(b.tuition), [31510, 31510], field);
+    assert.match(b.standing, /Ranked 2nd in the world for Art and Design/, field);
+  }
+});
+test('animation keeps the Japan anime and MEXT note, with no QS rank claimed for Japan', () => {
+  const jp = O.OPTIONS.animation.alts.find(o => o.country === 'Japan');
+  assert.ok(jp, 'a Japan option');
+  assert.match(jp.why, /anime/); assert.match(jp.why, /MEXT/); assert.match(jp.watch, /Embassy of Japan/);
+  assert.match(jp.standing, /^No Japanese university is in the top 50/);
+  assert.equal(jp.living, null);
+  assert.deepEqual(plain(jp.links), ['embjp', 'jasso']);
+});
+test('an option with no living figure still gets a total, before living costs', () => {
+  const jp = O.OPTIONS.animation.alts.find(o => o.country === 'Japan');
+  assert.match(O.costText(jp).total, /before living costs$/);
+  assert.equal(O.costText(jp).living, '');
 });
 
 test('the design and media fields are only ever attached to courses with a school page', () => {

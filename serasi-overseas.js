@@ -294,6 +294,45 @@
         }
       ]
     },
+
+    // QS 2026 Art & Design (QS has no separate table for animation); same ranks as interior design above. Best: UAL's BA Animation at London College of
+    // Communication. Alternative 1: RMIT's Bachelor of Design (Animation and Interactive Media). Alternative 2: Japan, kept for the anime and MEXT
+    // note this field has always carried: no Japanese school is in QS's top 50 for Art & Design, so it is placed after the ranked schools. PolyU is left
+    // out here because its design scheme has no animation specialism (its nearest is Immersive Media and Game Design).
+    animation: {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (London College of Communication)', course: 'BA (Hons) Animation', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for animation',
+        why: 'A three-year animation degree at the second-ranked art and design university in the world. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at London College of Communication in London.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. An optional year-long diploma between years 2 and 3 adds a year. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/animation-interactive-film-and-sound/undergraduate/ba-hons-animation-lcc',
+        src: ['qs-art26', 'ual-animation', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Design (Animation and Interactive Media)', yrs: 3,
+          tuition: [48000, 48000], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for animation',
+          why: 'A three-year degree in Melbourne, taught in English, with RMIT’s fee on its course page.',
+          env: 'Based at RMIT’s city campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-animation-and-interactive-media-bp203',
+          src: ['qs-art26', 'rmit-animation', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Japan', school: 'A national university in Japan (the MEXT scholarship route)', course: 'Bachelor’s in animation, design or media at a national university', yrs: 4,
+          tuition: [535800, 535800], once: 282000, cur: 'JPY', living: null,
+          standing: 'No Japanese university is in the top 50 in the world for Art and Design (QS World University Rankings by Subject 2026)',
+          why: 'Japan is the centre of the anime industry, and studios are short of animators. National universities charge everyone the same fee, and the MEXT scholarship pays full fees, a monthly allowance and flights for 5 years, including a year of Japanese.',
+          env: 'Most courses are taught in Japanese.',
+          watch: 'Studios report a “profitless boom”: record sales, but low pay and rising closures. Apply for MEXT through the Embassy of Japan in Singapore, usually around May–June. The fee is the national-university rate and the one-off figure is the entrance fee. There is no official visa figure for living costs, so the total here is before living costs.',
+          url: 'https://www.studyinjapan.go.jp/en/',
+          src: ['qs-art26', 'jp-fees', 'jp-anime'], links: ['embjp', 'jasso']
+        }
+      ]
+    },
   };
 
   const SYMBOL = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' };
