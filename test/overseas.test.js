@@ -204,10 +204,16 @@ test('health fields that carry a recognition warning name their Singapore regula
     for (const o of [f.best].concat(f.alts || [])) assert.match(o.watch, re, field + ': ' + o.school);
   }
 });
-test('pharmacy and medicine: each field has a best pick in a different country from its alternatives', () => {
+// A field with no alternatives, or one that repeats a school, must fail (the old version passed with none). Where every school that is
+// ranked, recognised and has a readable fee page is in one country, the field is named here and checked to stay in that country.
+const ONE_COUNTRY = { medicine: 'United Kingdom', biomedical: 'United Kingdom' };
+test('pharmacy, medicine and biomedical: each has a best pick and alternatives, all different schools, in different countries unless named in ONE_COUNTRY', () => {
   for (const field of ['pharmacy', 'medicine', 'biomedical']) {
     const f = O.OPTIONS[field], all = [f.best].concat(f.alts || []);
-    assert.equal(new Set(all.map(o => o.country)).size, all.length, field);
+    assert.ok((f.alts || []).length >= 1, field + ': at least one alternative');
+    assert.equal(new Set(all.map(o => o.school)).size, all.length, field + ': different schools');
+    if (ONE_COUNTRY[field]) for (const o of all) assert.equal(o.country, ONE_COUNTRY[field], field + ': ' + o.school);
+    else assert.equal(new Set(all.map(o => o.country)).size, all.length, field + ': different countries');
   }
 });
 test('medicine keeps its place-missed-locally framing and says what the degree costs against a local place', () => {
