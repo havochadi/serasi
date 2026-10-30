@@ -15,7 +15,10 @@
     'fee-sutd26': ['SUTD, undergraduate tuition fees for AY2026', 'https://www.sutd.edu.sg/admissions/undergraduate/education-expenses/fees/tuition-fees/'],
     'fee-rp26': ['Republic Polytechnic, course fees for AY2026', 'https://www.rp.edu.sg/student/financial-matters/course-fees/'],
     'fee-ite26': ['ITE, Higher Nitec training fees for AY2026 (new students)', 'https://isomer-user-content.by.gov.sg/145/2153c21b-6d76-4af2-86b5-39fb04723ef4/Fees-AY2026-for-2026-Intake.pdf'],
-    'fee-sit26': ['SIT, undergraduate tuition fees for AY2026 (each degree page gives its fee per credit)', 'https://www.singaporetech.edu.sg/admissions/tuition-fees']
+    'fee-sit26': ['SIT, undergraduate tuition fees for AY2026 (each degree page gives its fee per credit)', 'https://www.singaporetech.edu.sg/admissions/tuition-fees'],
+    // Design and media: LASALLE and NAFA publish fees only for the August 2027 intake (applications are open now).
+    'fee-lasalle27': ['LASALLE, diploma tuition fees for the August 2027 intake (correct as of August 2026)', 'https://www.lasalle.edu.sg/study/admissions/diploma-admissions/'],
+    'fee-nafa27': ['NAFA, diploma programme fees for AY2027 (studies from August 2027)', 'https://www.nafa.edu.sg/admissions/fees/diploma/programme-fees']
   });
 
   // Publicly funded institutions only, in the order they are listed.
@@ -31,7 +34,7 @@
     { school: 'Singapore Polytechnic', course: 'Diploma in Architecture', lvl: 2, yrs: 3, fee: 3177.52, fields: ['architecture'], url: 'https://www.sp.edu.sg/courses/schools/abe/architecture', src: ['fee-poly'] },
     { school: 'Ngee Ann Polytechnic', course: 'Diploma in Design (Architecture specialisation)', lvl: 2, yrs: 3, fee: 3167.5, fields: ['architecture'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-design-environment/diploma-in-design', src: ['fee-np26'] },
     { school: 'Nanyang Polytechnic', course: 'Diploma in Architecture', lvl: 2, yrs: 3, fee: 3188.09, fields: ['architecture'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-architecture', src: ['fee-nyp26'] },
-    { school: 'Temasek Polytechnic', course: 'Diploma in Interior Architecture & Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['architecture'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/interior-architecture-design.html', src: ['fee-tp26'] },
+    { school: 'Temasek Polytechnic', course: 'Diploma in Interior Architecture & Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['architecture', 'interior-design'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/interior-architecture-design.html', src: ['fee-tp26'] },
     { school: 'NUS', course: 'Bachelor of Arts in Architecture', lvl: 3, yrs: 4, fee: 8950, fields: ['architecture'], url: 'https://cde.nus.edu.sg/arch/programmes/bachelor-of-arts-in-architecture/', src: ['fee-nus26'] },
     { school: 'SUTD', course: 'Bachelor of Science (Architecture and Sustainable Design)', lvl: 3, yrs: 4, fee: 13500, fields: ['architecture'], url: 'https://www.sutd.edu.sg/asd/education/undergraduate/curriculum/', src: ['fee-sutd26'] },
 
@@ -84,7 +87,17 @@
     { school: 'ITE', course: 'Higher Nitec in Community Care & Social Services (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['socialwork'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-community-care-and-social-services-3-year/', src: ['fee-ite26'] },
     { school: 'Ngee Ann Polytechnic', course: 'Diploma in Psychology & Community Development', lvl: 2, yrs: 3, fee: 3167.5, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.np.edu.sg/schools-courses/academic-schools/school-of-humanities-interdisciplinary-studies/diploma-in-psychology-community-development', src: ['fee-np26'] },
     { school: 'Nanyang Polytechnic', course: 'Diploma in Social Work', lvl: 2, yrs: 3, fee: 3188.09, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.nyp.edu.sg/student/study/schools/health-social-sciences/diploma-social-work', src: ['fee-nyp26'] },
-    { school: 'Temasek Polytechnic', course: 'Diploma in Psychology Studies', lvl: 2, yrs: 3, fee: 3183.15, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/hss/psychology-studies.html', src: ['fee-tp26'] }
+    { school: 'Temasek Polytechnic', course: 'Diploma in Psychology Studies', lvl: 2, yrs: 3, fee: 3183.15, fields: ['socialwork'], roles: ['youth-worker'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/hss/psychology-studies.html', src: ['fee-tp26'] },
+
+    // Interior design. Temasek's Interior Architecture & Design (listed under architecture above) also counts. ITE's Higher Nitec in Interior &
+    // Product Design is at ITE College Central only, with a 2-year route (O-level or Nitec) and a 3-year route (N- or O-level). Nanyang's Experience
+    // Design names interior designer among its careers and teaches spatial visualisation. Ngee Ann's Design (Architecture specialisation) and Nanyang's
+    // Architecture are architecture courses first and are left on that field. LASALLE and NAFA publish fees for the August 2027 intake only.
+    { school: 'ITE', course: 'Higher Nitec in Interior & Product Design', lvl: 1, yrs: 2, fee: 566, fields: ['interior-design'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-interior-and-product-design/', src: ['fee-ite26'] },
+    { school: 'ITE', course: 'Higher Nitec in Interior & Product Design (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['interior-design'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-interior-and-product-design-3-year/', src: ['fee-ite26'] },
+    { school: 'Nanyang Polytechnic', course: 'Diploma in Experience Design', lvl: 2, yrs: 3, fee: 3188.09, fields: ['interior-design', 'graphic-ux'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-experience-design', src: ['fee-nyp26'] },
+    { school: 'LASALLE', course: 'Diploma in Spatial Design', lvl: 2, yrs: 3, fee: 5490, fields: ['interior-design'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/spatial-design/', src: ['fee-lasalle27'] },
+    { school: 'NAFA', course: 'Diploma in Design (Interior and Spatial)', lvl: 2, yrs: 3, fee: 4810, fields: ['interior-design'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-interior-and-spatial', src: ['fee-nafa27'] },
   ];
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');
