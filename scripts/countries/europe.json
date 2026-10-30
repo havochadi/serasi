@@ -1,0 +1,204 @@
+[
+  {
+    "iso": 826, "name": "United Kingdom", "a2": "GB",
+    "langs": ["English", "Welsh", "Scottish Gaelic"],
+    "known": ["Financial services and London as a global city", "Old universities, football and the Premier League", "Music, theatre, film and television exports", "Pharmaceuticals, aerospace and design"],
+    "facts": ["It is made up of England, Scotland, Wales and Northern Ireland, each with its own traditions and some separate laws.", "The National Health Service has provided mostly free healthcare since 1948.", "The UK left the European Union on 31 January 2020.", "Traffic drives on the left, as in Singapore."],
+    "orgs": ["HSBC", "Rolls-Royce", "ARM", "AstraZeneca", "BP", "Unilever"],
+    "unis": [
+      { "n": "Imperial College London", "rank": 2, "url": "https://www.imperial.ac.uk/" },
+      { "n": "University of Oxford", "rank": 4, "url": "https://www.ox.ac.uk/" },
+      { "n": "University of Cambridge", "rank": 6, "url": "https://www.cam.ac.uk/" },
+      { "n": "University College London", "rank": 8, "url": "https://www.ucl.ac.uk/" },
+      { "n": "University of Edinburgh", "rank": 35, "url": "https://www.ed.ac.uk/" }
+    ]
+  },
+  {
+    "iso": 372, "name": "Ireland", "a2": "IE",
+    "langs": ["Irish", "English"],
+    "known": ["European bases of big technology and pharmaceutical companies", "Writers such as Joyce, Yeats and Heaney", "Guinness, music and pub culture", "Green countryside and the Cliffs of Moher"],
+    "facts": ["The Republic of Ireland became independent from the UK in stages, as the Irish Free State in 1922 and a republic in 1949.", "It uses the euro and belongs to the European Union, while Northern Ireland stays in the UK.", "English is spoken everywhere; Irish is the first official language and is taught in all schools.", "Dublin is the capital and by far the largest city."],
+    "orgs": ["CRH", "Ryanair", "Kerry Group", "AIB", "Bank of Ireland", "Smurfit Westrock"],
+    "unis": [
+      { "n": "Trinity College Dublin", "rank": 75, "url": "https://www.tcd.ie/" },
+      { "n": "University College Dublin", "rank": 100, "url": "https://www.ucd.ie/" },
+      { "n": "University College Cork", "rank": 220, "url": "https://www.ucc.ie/en/" },
+      { "n": "University of Galway", "rank": 275, "url": "https://www.universityofgalway.ie/" }
+    ]
+  },
+  {
+    "iso": 276, "name": "Germany", "a2": "DE",
+    "langs": ["German"],
+    "known": ["Cars and precision engineering", "A strong base of mid-sized specialist manufacturers", "Apprenticeship-based vocational training", "Beer, bread, Christmas markets and castles"],
+    "facts": ["It has the largest economy in the European Union.", "East and West Germany were reunited on 3 October 1990.", "It is a federation of 16 states, each with its own government and responsibility for education.", "Public universities charge little or no tuition fees, including to many international students."],
+    "orgs": ["Siemens", "SAP", "BMW", "BASF", "Bosch", "Allianz"],
+    "unis": [
+      { "n": "Technical University of Munich (TUM)", "rank": 25, "url": "https://www.tum.de/en/" },
+      { "n": "Ludwig Maximilian University of Munich (LMU)", "rank": 61, "url": "https://www.lmu.de/en/" },
+      { "n": "Heidelberg University", "rank": 86, "url": "https://www.uni-heidelberg.de/en" },
+      { "n": "Freie Universität Berlin", "rank": 98, "url": "https://www.fu-berlin.de/en/" },
+      { "n": "RWTH Aachen University", "rank": 104, "url": "https://www.rwth-aachen.de/" }
+    ]
+  },
+  {
+    "iso": 250, "name": "France", "a2": "FR",
+    "langs": ["French"],
+    "known": ["Fashion, luxury goods, perfume and cosmetics", "Food, wine and cheese", "Paris, the Eiffel Tower and the Louvre", "Aerospace, trains and nuclear power"],
+    "facts": ["It is one of the most visited countries in the world.", "The Fifth Republic, with a strong president, has run the country since 1958.", "Overseas regions such as Guadeloupe, Martinique and Réunion are part of France and of the European Union.", "Paris hosted the 2024 Summer Olympics."],
+    "orgs": ["LVMH", "Airbus", "TotalEnergies", "L'Oréal", "Sanofi", "Renault"],
+    "unis": [
+      { "n": "Université PSL", "rank": 34, "url": "https://psl.eu/en" },
+      { "n": "Institut Polytechnique de Paris", "rank": 43, "url": "https://www.ip-paris.fr/en" },
+      { "n": "Sorbonne Université", "rank": 73, "url": "https://www.sorbonne-universite.fr/en" },
+      { "n": "Université Paris-Saclay", "rank": 76, "url": "https://www.universite-paris-saclay.fr/en" }
+    ]
+  },
+  {
+    "iso": 528, "name": "Netherlands", "a2": "NL",
+    "langs": ["Dutch", "Frisian (in Friesland)"],
+    "known": ["Cycling, canals and tulips", "Water management and flood defences", "Trade, with Rotterdam as Europe's largest port", "Advanced chipmaking equipment and food exports"],
+    "facts": ["About a quarter of the country lies below sea level, protected by dikes, dunes and pumps.", "Amsterdam is the capital, but the government sits in The Hague.", "Many degree programmes at research universities are taught in English, and Dutch people widely speak English.", "The Kingdom of the Netherlands also includes Aruba, Curaçao and Sint Maarten in the Caribbean."],
+    "orgs": ["ASML", "Philips", "Heineken", "ING", "Booking.com", "KLM"],
+    "unis": [
+      { "n": "Delft University of Technology", "rank": 48, "url": "https://www.tudelft.nl/en/" },
+      { "n": "University of Amsterdam", "rank": 60, "url": "https://www.uva.nl/en" },
+      { "n": "Utrecht University", "rank": 113, "url": "https://www.uu.nl/en" },
+      { "n": "Leiden University", "rank": 119, "url": "https://www.universiteitleiden.nl/en" }
+    ]
+  },
+  {
+    "iso": 756, "name": "Switzerland", "a2": "CH",
+    "langs": ["German", "French", "Italian", "Romansh"],
+    "known": ["Banking, private wealth and insurance", "Watches, chocolate and cheese", "Pharmaceuticals and medical technology", "The Alps, skiing and an extremely punctual rail network"],
+    "facts": ["It has four national languages, and different regions (cantons) use different ones.", "Switzerland is not in the European Union but has close agreements with it, and it keeps its own currency, the Swiss franc.", "Voters decide many national questions in referendums several times a year.", "It has a long-standing policy of neutrality and has not taken part in a foreign war since 1815."],
+    "orgs": ["Nestlé", "Novartis", "Roche", "UBS", "ABB", "Swatch Group"],
+    "unis": [
+      { "n": "ETH Zurich", "rank": 8, "url": "https://ethz.ch/en.html" },
+      { "n": "École Polytechnique Fédérale de Lausanne (EPFL)", "rank": 22, "url": "https://www.epfl.ch/en/" },
+      { "n": "University of Zurich", "rank": 98, "url": "https://www.uzh.ch/en.html" },
+      { "n": "University of Basel", "rank": 150, "url": "https://www.unibas.ch/en.html" }
+    ]
+  },
+  {
+    "iso": 752, "name": "Sweden", "a2": "SE",
+    "langs": ["Swedish"],
+    "known": ["Design and flat-pack furniture", "Start-ups and music exports", "The Nobel Prizes, presented in Stockholm", "Engineering, from trucks and cars to telecoms equipment"],
+    "facts": ["Sweden is in the European Union but kept its own currency, the Swedish krona.", "It joined NATO in 2024, ending more than 200 years of military non-alignment.", "A right of public access lets anyone walk, camp and pick berries on most land.", "Most of the country's people live in the southern third."],
+    "orgs": ["Ericsson", "Volvo", "Spotify", "H&M", "IKEA", "Atlas Copco"],
+    "unis": [
+      { "n": "Lund University", "rank": 71, "url": "https://www.lunduniversity.lu.se/" },
+      { "n": "KTH Royal Institute of Technology", "rank": 82, "url": "https://www.kth.se/en" },
+      { "n": "Uppsala University", "rank": 87, "url": "https://www.uu.se/en" },
+      { "n": "Stockholm University", "rank": 167, "url": "https://www.su.se/english/" }
+    ]
+  },
+  {
+    "iso": 578, "name": "Norway", "a2": "NO",
+    "langs": ["Norwegian (Bokmål and Nynorsk)", "Sámi"],
+    "known": ["Oil and gas from the North Sea", "Fjords, mountains and the northern lights", "Hydropower, shipping and salmon farming", "The highest share of electric cars in the world"],
+    "facts": ["Norway is not in the European Union but takes part in its single market through the European Economic Area.", "Its government pension fund, built from oil income, is one of the largest investment funds in the world.", "Above the Arctic Circle the sun does not set for weeks in summer and does not rise for weeks in winter.", "The Nobel Peace Prize is awarded in Oslo, while the other Nobel prizes are awarded in Stockholm."],
+    "orgs": ["Equinor", "DNB", "Telenor", "Yara", "Norsk Hydro", "Aker BP"],
+    "unis": [
+      { "n": "University of Oslo", "url": "https://www.uio.no/english/" },
+      { "n": "Norwegian University of Science and Technology (NTNU)", "url": "https://www.ntnu.edu/" },
+      { "n": "University of Bergen", "url": "https://www.uib.no/en" }
+    ]
+  },
+  {
+    "iso": 208, "name": "Denmark", "a2": "DK",
+    "langs": ["Danish"],
+    "known": ["Wind energy and green technology", "Design, Lego and architecture", "Medicines for diabetes and obesity", "Container shipping and cycling cities"],
+    "facts": ["Denmark is in the European Union but kept its own currency, the Danish krone.", "The Faroe Islands and Greenland are self-governing parts of the Danish realm.", "Most workers can be hired and let go easily, while the state supports them in between jobs and with retraining.", "Copenhagen is the capital and largest city."],
+    "orgs": ["Novo Nordisk", "Maersk", "Ørsted", "Lego Group", "Carlsberg", "Vestas"],
+    "unis": [
+      { "n": "University of Copenhagen", "rank": 90, "url": "https://www.ku.dk/english/" },
+      { "n": "Technical University of Denmark (DTU)", "url": "https://www.dtu.dk/english" },
+      { "n": "Aarhus University", "rank": 128, "url": "https://international.au.dk/" }
+    ]
+  },
+  {
+    "iso": 246, "name": "Finland", "a2": "FI",
+    "langs": ["Finnish", "Swedish", "Sámi languages"],
+    "known": ["A school system often held up as a model", "Telecoms and electronics, from Nokia to start-ups", "Video games such as Angry Birds", "Forests, lakes, saunas and Lapland"],
+    "facts": ["Finnish and Swedish are both official languages, and Swedish is spoken by a small minority.", "Finland joined NATO in 2023 and uses the euro.", "Saunas are part of everyday life, in homes, apartment blocks and workplaces.", "Finland shares a border of about 1,300 kilometres with Russia."],
+    "orgs": ["Nokia", "Kone", "Neste", "UPM", "Supercell", "Rovio"],
+    "unis": [
+      { "n": "University of Helsinki", "rank": 123, "url": "https://www.helsinki.fi/en" },
+      { "n": "Aalto University", "rank": 126, "url": "https://www.aalto.fi/en" },
+      { "n": "University of Oulu", "rank": 360, "url": "https://www.oulu.fi/en" }
+    ]
+  },
+  {
+    "iso": 380, "name": "Italy", "a2": "IT",
+    "langs": ["Italian"],
+    "known": ["Fashion, design and luxury goods", "Food and coffee, from pizza and pasta to espresso", "Rome, Florence and Venice, with some of the world's most visited art and history", "Sports cars, machinery and industrial design"],
+    "facts": ["Italy has one of the largest numbers of UNESCO World Heritage Sites of any country.", "It became a single country in 1861; before that it was a patchwork of kingdoms and city states.", "Vatican City, the seat of the Catholic Church, and San Marino are independent states inside Italian territory.", "Italy uses the euro and is a founding member of what is now the European Union."],
+    "orgs": ["Ferrari", "Eni", "Enel", "Intesa Sanpaolo", "Generali", "Prada"],
+    "unis": [
+      { "n": "Politecnico di Milano", "rank": 87, "url": "https://www.polimi.it/en" },
+      { "n": "Sapienza University of Rome", "rank": 111, "url": "https://www.uniroma1.it/en" },
+      { "n": "University of Bologna", "rank": 123, "url": "https://www.unibo.it/en" },
+      { "n": "University of Padua", "rank": 204, "url": "https://www.unipd.it/en/" }
+    ]
+  },
+  {
+    "iso": 724, "name": "Spain", "a2": "ES",
+    "langs": ["Spanish", "Catalan", "Galician", "Basque"],
+    "known": ["Tourism, beaches and sunshine", "Football, with clubs such as Real Madrid and Barcelona", "Food and drink, from paella and jamón to olive oil and wine", "Fast fashion and renewable energy"],
+    "facts": ["Catalan, Galician and Basque are co-official with Spanish in their own regions.", "Spain became a democracy again after the death of the dictator Franco in 1975, and is now a constitutional monarchy.", "It includes the Balearic Islands, the Canary Islands and two small cities on the North African coast, Ceuta and Melilla.", "Spanish is the official language of about 20 countries, so Spanish-taught study opens links with Latin America."],
+    "orgs": ["Inditex (Zara)", "Santander", "Telefónica", "Iberdrola", "BBVA", "Repsol"],
+    "unis": [
+      { "n": "University of Barcelona", "rank": 165, "url": "https://www.ub.edu/web/ub/en/" },
+      { "n": "Complutense University of Madrid", "rank": 199, "url": "https://www.ucm.es/en" },
+      { "n": "Autonomous University of Barcelona", "rank": 211, "url": "https://www.uab.cat/" },
+      { "n": "Autonomous University of Madrid", "rank": 226, "url": "https://www.uam.es/" }
+    ]
+  },
+  {
+    "iso": 643, "name": "Russia", "a2": "RU",
+    "langs": ["Russian"],
+    "known": ["Being the largest country in the world by area", "Oil, gas, metals and grain exports", "Ballet, classical music and writers such as Tolstoy and Dostoevsky", "Space firsts from the Soviet era, such as Sputnik and Yuri Gagarin"],
+    "facts": ["It spans 11 time zones, from Kaliningrad in the west to Kamchatka in the east.", "The Trans-Siberian Railway links Moscow to Vladivostok, about 9,300 kilometres away.", "After Russia's invasion of Ukraine in February 2022, many countries imposed sanctions that restrict trade, banking and travel links with Russia.", "Moscow is the capital; Saint Petersburg is the second-largest city."],
+    "orgs": ["Gazprom", "Lukoil", "Sberbank", "Rosatom", "Aeroflot", "Yandex"],
+    "unis": [
+      { "n": "Lomonosov Moscow State University", "rank": 115, "url": "https://www.msu.ru/en/" },
+      { "n": "Bauman Moscow State Technical University", "rank": 318, "url": "https://bmstu.ru/en" },
+      { "n": "Saint Petersburg State University", "rank": 390, "url": "https://english.spbu.ru/" }
+    ]
+  },
+  {
+    "iso": 616, "name": "Poland", "a2": "PL",
+    "langs": ["Polish"],
+    "known": ["Manufacturing, from furniture to buses and car parts", "Software development and shared-services centres", "Composer Chopin and scientist Marie Curie", "Pierogi, amber and historic city centres such as Kraków"],
+    "facts": ["Poland joined the European Union in 2004 but still uses its own currency, the złoty.", "Warsaw's old town was almost completely destroyed in the Second World War and rebuilt, and is now a UNESCO World Heritage Site.", "Marie Curie, who won Nobel Prizes in physics and chemistry, was born in Warsaw.", "Its economy has grown strongly since the end of communism in 1989."],
+    "orgs": ["PKN Orlen", "PKO Bank Polski", "CD Projekt", "InPost", "KGHM", "LPP"],
+    "unis": [
+      { "n": "University of Warsaw", "rank": 289, "url": "https://en.uw.edu.pl/" },
+      { "n": "Jagiellonian University", "rank": 329, "url": "https://en.uj.edu.pl/" }
+    ]
+  },
+  {
+    "iso": 56, "name": "Belgium", "a2": "BE",
+    "langs": ["Dutch", "French", "German"],
+    "known": ["Chocolate, beer, waffles and fries", "Brussels as the home of major European Union institutions and NATO", "Diamonds trading in Antwerp and a major port", "Pharmaceuticals and chemicals"],
+    "facts": ["Belgium has three official languages, and its regions and language communities each have their own governments.", "The country became independent in 1830.", "Brussels is the capital and hosts the European Commission and the headquarters of NATO.", "Belgium uses the euro and is a founding member of what is now the European Union."],
+    "orgs": ["AB InBev", "UCB", "Solvay", "KBC", "Proximus", "Umicore"],
+    "unis": [
+      { "n": "KU Leuven", "rank": 59, "url": "https://www.kuleuven.be/english/" },
+      { "n": "Ghent University", "rank": 150, "url": "https://www.ugent.be/en" },
+      { "n": "UCLouvain", "rank": 196, "url": "https://uclouvain.be/en/" }
+    ]
+  },
+  {
+    "iso": 40, "name": "Austria", "a2": "AT",
+    "langs": ["German"],
+    "known": ["Classical music, from Mozart to the Vienna Philharmonic", "Alpine skiing and mountain tourism", "Coffee houses, cakes and imperial palaces in Vienna", "Steel, machinery and energy drinks"],
+    "facts": ["Vienna hosts offices of the United Nations and of OPEC.", "Austria declared permanent neutrality in 1955 and joined the European Union in 1995.", "It uses the euro and is landlocked.", "Vienna was the capital of the Habsburg empire for centuries."],
+    "orgs": ["Red Bull", "voestalpine", "OMV", "Erste Group", "Swarovski"],
+    "unis": [
+      { "n": "University of Vienna", "rank": 140, "url": "https://www.univie.ac.at/en/" },
+      { "n": "TU Wien", "rank": 191, "url": "https://www.tuwien.at/en/" },
+      { "n": "University of Innsbruck", "rank": 333, "url": "https://www.uibk.ac.at/en/" }
+    ]
+  }
+]

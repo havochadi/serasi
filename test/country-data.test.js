@@ -197,3 +197,4 @@ DONE_REGIONS.push('asia');
 DONE_REGIONS.push('americas');
 DONE_REGIONS.push('oceania');
 DONE_REGIONS.push('africa');
+DONE_REGIONS.push('europe');
