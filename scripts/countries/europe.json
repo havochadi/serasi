@@ -65,5 +65,67 @@
       { "n": "Utrecht University", "rank": 113, "url": "https://www.uu.nl/en" },
       { "n": "Leiden University", "rank": 119, "url": "https://www.universiteitleiden.nl/en" }
     ]
+  },
+  {
+    "iso": 756, "name": "Switzerland", "a2": "CH",
+    "langs": ["German", "French", "Italian", "Romansh"],
+    "known": ["Banking, private wealth and insurance", "Watches, chocolate and cheese", "Pharmaceuticals and medical technology", "The Alps, skiing and an extremely punctual rail network"],
+    "facts": ["It has four national languages, and different regions (cantons) use different ones.", "Switzerland is not in the European Union but has close agreements with it, and it keeps its own currency, the Swiss franc.", "Voters decide many national questions in referendums several times a year.", "It has a long-standing policy of neutrality and has not taken part in a foreign war since 1815."],
+    "orgs": ["Nestlé", "Novartis", "Roche", "UBS", "ABB", "Swatch Group"],
+    "unis": [
+      { "n": "ETH Zurich", "rank": 8, "url": "https://ethz.ch/en.html" },
+      { "n": "École Polytechnique Fédérale de Lausanne (EPFL)", "rank": 22, "url": "https://www.epfl.ch/en/" },
+      { "n": "University of Zurich", "rank": 98, "url": "https://www.uzh.ch/en.html" },
+      { "n": "University of Basel", "rank": 150, "url": "https://www.unibas.ch/en.html" }
+    ]
+  },
+  {
+    "iso": 752, "name": "Sweden", "a2": "SE",
+    "langs": ["Swedish"],
+    "known": ["Design and flat-pack furniture", "Start-ups and music exports", "The Nobel Prizes, presented in Stockholm", "Engineering, from trucks and cars to telecoms equipment"],
+    "facts": ["Sweden is in the European Union but kept its own currency, the Swedish krona.", "It joined NATO in 2024, ending more than 200 years of military non-alignment.", "A right of public access lets anyone walk, camp and pick berries on most land.", "Most of the country's people live in the southern third."],
+    "orgs": ["Ericsson", "Volvo", "Spotify", "H&M", "IKEA", "Atlas Copco"],
+    "unis": [
+      { "n": "Lund University", "rank": 71, "url": "https://www.lunduniversity.lu.se/" },
+      { "n": "KTH Royal Institute of Technology", "rank": 82, "url": "https://www.kth.se/en" },
+      { "n": "Uppsala University", "rank": 87, "url": "https://www.uu.se/en" },
+      { "n": "Stockholm University", "rank": 167, "url": "https://www.su.se/english/" }
+    ]
+  },
+  {
+    "iso": 578, "name": "Norway", "a2": "NO",
+    "langs": ["Norwegian (Bokmål and Nynorsk)", "Sámi"],
+    "known": ["Oil and gas from the North Sea", "Fjords, mountains and the northern lights", "Hydropower, shipping and salmon farming", "The highest share of electric cars in the world"],
+    "facts": ["Norway is not in the European Union but takes part in its single market through the European Economic Area.", "Its government pension fund, built from oil income, is one of the largest investment funds in the world.", "Above the Arctic Circle the sun does not set for weeks in summer and does not rise for weeks in winter.", "The Nobel Peace Prize is awarded in Oslo, while the other Nobel prizes are awarded in Stockholm."],
+    "orgs": ["Equinor", "DNB", "Telenor", "Yara", "Norsk Hydro", "Aker BP"],
+    "unis": [
+      { "n": "University of Oslo", "url": "https://www.uio.no/english/" },
+      { "n": "Norwegian University of Science and Technology (NTNU)", "url": "https://www.ntnu.edu/" },
+      { "n": "University of Bergen", "url": "https://www.uib.no/en" }
+    ]
+  },
+  {
+    "iso": 208, "name": "Denmark", "a2": "DK",
+    "langs": ["Danish"],
+    "known": ["Wind energy and green technology", "Design, Lego and architecture", "Medicines for diabetes and obesity", "Container shipping and cycling cities"],
+    "facts": ["Denmark is in the European Union but kept its own currency, the Danish krone.", "The Faroe Islands and Greenland are self-governing parts of the Danish realm.", "Most workers can be hired and let go easily, while the state supports them in between jobs and with retraining.", "Copenhagen is the capital and largest city."],
+    "orgs": ["Novo Nordisk", "Maersk", "Ørsted", "Lego Group", "Carlsberg", "Vestas"],
+    "unis": [
+      { "n": "University of Copenhagen", "rank": 90, "url": "https://www.ku.dk/english/" },
+      { "n": "Technical University of Denmark (DTU)", "url": "https://www.dtu.dk/english" },
+      { "n": "Aarhus University", "rank": 128, "url": "https://international.au.dk/" }
+    ]
+  },
+  {
+    "iso": 246, "name": "Finland", "a2": "FI",
+    "langs": ["Finnish", "Swedish", "Sámi languages"],
+    "known": ["A school system often held up as a model", "Telecoms and electronics, from Nokia to start-ups", "Video games such as Angry Birds", "Forests, lakes, saunas and Lapland"],
+    "facts": ["Finnish and Swedish are both official languages, and Swedish is spoken by a small minority.", "Finland joined NATO in 2023 and uses the euro.", "Saunas are part of everyday life, in homes, apartment blocks and workplaces.", "Finland shares a border of about 1,300 kilometres with Russia."],
+    "orgs": ["Nokia", "Kone", "Neste", "UPM", "Supercell", "Rovio"],
+    "unis": [
+      { "n": "University of Helsinki", "rank": 123, "url": "https://www.helsinki.fi/en" },
+      { "n": "Aalto University", "rank": 126, "url": "https://www.aalto.fi/en" },
+      { "n": "University of Oulu", "rank": 360, "url": "https://www.oulu.fi/en" }
+    ]
   }
 ]
