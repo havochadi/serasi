@@ -40,7 +40,7 @@
     'de-auto2': ['news.am, 2026', 'https://news.am/en/news/1055808'],
     'airbus-hire': ['ATW, Airbus recruitment', 'https://atwonline.com/air-transport/location/airbus-target-recruit-over-13000-year'],
     'mro-tech': ['GBP Aerospace and Defence, citing Airbus', 'https://gbp.com.sg/stories/shortage-of-skilled-technicians-poses-challenge-for-mro-industry/'],
-    'bls-proj': ['US Bureau of Labor Statistics, projections 2024–34', 'https://www.bls.gov/news.release/ecopro.nr0.htm'],
+    'bls-proj': ['US Bureau of Labor Statistics, employment projections 2025–35 (27 August 2026)', 'https://www.bls.gov/news.release/ecopro.nr0.htm'],
     'bls-wind': ['US Bureau of Labor Statistics, 2026', 'https://www.bls.gov/opub/ted/2026/wind-turbine-service-technicians-employment-projected-to-grow-49-9-percent-from-2024-to-2034.htm'],
     'boston-bio': ['PharmaVoice, 2025', 'https://www.pharmavoice.com/news/massachusetts-biotech-limping-layoffs-investment-boston-massbio/803581/'],
     irena25: ['IRENA and ILO, Renewable Energy and Jobs 2025', 'https://www.ilo.org/publications/renewable-energy-and-jobs-annual-review-2025'],
@@ -100,6 +100,35 @@
     'stanford-canaries-2026': ['Stanford Digital Economy Lab, AI employment gap for young workers (Canaries update), 12 August 2026', 'https://digitaleconomy.stanford.edu/news/canariesaug26/'],
     'dsit-entry-2026': ['UK Department for Science, Innovation and Technology, entry-level hiring snapshot, June 2026', 'https://www.gov.uk/government/publications/entry-level-hiring-in-the-uk-a-snapshot'],
     'chinadaily-grad-ai-2026': ['China Daily, AI roles in graduate hiring, July 2026', 'https://www.chinadaily.com.cn/a/202607/03/WS6a479ddda310986e2b46370d.html'],
+
+    // Task 13: finance, Islamic finance, health, biotech
+    'my-bnm-fin24': ['Bank Negara Malaysia Governor, speech on financial-sector skills, 22 July 2024 (BIS)', 'https://www.bis.org/review/r240722a.pdf'],
+    'in-bfsi-taggd25': ['Tribune India, CII–Taggd India Decoding Jobs 2026, November 2025', 'https://www.tribuneindia.com/news/business/indias-hiring-intent-rebounds-to-11-for-2026-led-by-bfsi-and-tech-driven-roles-report'],
+    'in-gift-gfci40': ['Business Today, GIFT City in the Global Financial Centres Index 40, September 2026', 'https://www.businesstoday.in/markets/story/gift-city-climbs-nine-places-to-37th-in-global-financial-centres-index-556209-2026-09-17'],
+    'ch-sba-staff26': ['Swiss Bankers Association, Banking Barometer 2026: staff at banks in Switzerland', 'https://publications.swissbanking.ch/banking-barometer-2026-en/number-of-staff-at-banks-in-switzerland'],
+    'ch-ubs-cuts26': ['Swissinfo (Keystone-SDA), UBS redundancies, 4 February 2026', 'https://www.swissinfo.ch/eng/various/ubs-redundancies-mainly-in-the-second-half-of-the-year/90889822'],
+
+    // Task 13: Islamic finance
+    'lseg-ifdr26': ['LSEG and ICD, Islamic Finance Development Report 2026', 'https://www.lseg.com/en/data-analytics/islamic-finance/islamic-market-intelligence/islamic-finance-development-report-2026'],
+    'intfin-ifdr26': ['International Finance, LSEG–ICD report, 27 October 2026', 'https://internationalfinance.com/islamic-finance/islamic-finance-assets-to-reach-usd-10-5-trillion-by-2030-states-lseg-icd-report/'],
+    'pk-ibank-br26': ['ProPakistani, Islamic banking branch share crosses 40% (State Bank of Pakistan data), 6 March 2026', 'https://propakistani.pk/2026/03/06/islamic-banking-branch-share-crosses-40-in-pakistan/'],
+    'tr-tkbb-q125': ['Participation Banks Association of Türkiye (TKBB), financial performance of participation banks, Q1 2025', 'https://en.tkbb.org.tr/news/turkiye-financial-performance-of-the-participation-banking-sector'],
+    'tr-tkbb-sep25': ['Participation Banks Association of Türkiye (TKBB), participation finance, September 2025 data', 'https://en.tkbb.org.tr/news/new-horizons-in-participation-finance-a-sustainable-and-digital-future'],
+
+    // Task 13: health
+    'my-nurse-vac26': ['CodeBlue, Health Ministry nursing vacancies, 27 July 2026', 'https://codeblue.galencentre.org/2026/07/health-ministrys-nursing-vacancies-rise-now-exceed-15000/'],
+    'de-ba-pflege26': ['Deutsches Ärzteblatt (in German), Federal Employment Agency on shortage occupations, 2 September 2026', 'https://www.aerzteblatt.de/news/jobs-in-pflege-und-gesundheit-zahlen-weiter-zu-engpassberufen-3c72c400-da5a-4adc-ba7d-360676f21840'],
+
+    // Task 13: biotech
+    'sg-edb-yir25': ['EDB, Year 2025 in Review, 9 February 2026', 'https://www.edb.gov.sg/en/about-edb/media-releases-publications/edb-year-2025-in-review.html'],
+    'sg-edb-vp25': ['Vulcan Post, EDB 2025 in review, 9 February 2026', 'https://vulcanpost.com/909095/singapore-edb-2025-year-in-review/'],
+    'cn-zhaopin-bio26': ['Caixin Global, China’s biopharma job market rebounds (Zhaopin data), 4 September 2026', 'https://www.caixinglobal.com/2026-09-04/chinas-biopharma-job-market-rebounds-on-ai-and-smart-device-boom-102481639.html'],
+    'kr-sambio26': ['Herald Business (in Korean), Samsung Biologics hiring, 9 September 2026', 'https://biz.heraldcorp.com/article/10866064'],
+    'dk-novo-pe25': ['Pharmaceutical Executive, Novo Nordisk to cut 9,000 jobs, 10 September 2025', 'https://www.pharmexec.com/view/novo-nordisk-cut-9-000-jobs-global-restructuring-effort'],
+    'dk-novo-cbs25': ['CBS News, Novo Nordisk job cuts, 10 September 2025', 'https://www.cbsnews.com/news/novo-nordisk-nvo-stock-9000-job-cuts-wegovy'],
+    'wbur-massbio26': ['WBUR, MassBio 2026 industry snapshot, 25 August 2026', 'https://www.wbur.org/news/2026/08/25/massbio-industry-2026-snapshot-jobs-funding'],
+    'sg-edb-fmt26': ['Free Malaysia Today, Singapore sees fewer jobs created even with more investments, 9 February 2026', 'https://www.freemalaysiatoday.com/category/business/2026/02/09/singapore-sees-fewer-jobs-created-even-with-more-investments'],
+    'cn-cctv-lic26': ['The Standard (Hong Kong), citing CCTV: China out-licensing deal value, first half of 2026', 'https://www.thestandard.com.hk/finance/article/337073/China-innovative-drug-out-licensing-deal-value-reaches-new-high-in-first-half-of-2026-says-CCTV'],
   };
 
   /* Industries on the world map. Each role's ind points here. */
@@ -115,7 +144,7 @@
     { k: 'care', label: 'Social and aged care', global: 'Ageing societies need many more carers. Japan expects to be short of about 250,000 care workers in 2026.', src: ['jp-care'] },
     { k: 'biotech', label: 'Biotech and life sciences', global: 'Biotech funding has been weak since 2021. Boston, the biggest hub, had its lowest venture funding since 2017 in early 2025.', src: ['boston-bio'] },
     { k: 'finance', label: 'Finance and business services', global: 'New York, London, Hong Kong and Singapore are within one rating point of each other at the top of the Global Financial Centres Index.', src: ['gfci38'] },
-    { k: 'islamic', label: 'Islamic finance', global: 'Islamic finance assets grew 9% to about US$6.5 trillion in 2025. Malaysia, Saudi Arabia, the UAE, Indonesia and Pakistan are the most developed markets.', src: ['lseg-ifdi'] },
+    { k: 'islamic', label: 'Islamic finance', global: 'Islamic finance assets grew 9% to about US$6.5 trillion in 2025. Malaysia, Saudi Arabia, the UAE, Indonesia and Pakistan are the most developed markets.', src: ['lseg-ifdr26', 'intfin-ifdr26'] },
     { k: 'creative', label: 'Media, design and games', global: 'Korean content exports hit a record US$14.9 billion in 2025. Japan’s anime market also set a record, but most studios call it a “profitless boom” with low pay.', src: ['kr-content', 'jp-anime'] },
     { k: 'hospitality', label: 'Tourism, hospitality and retail', global: 'Tourism is booming in Japan and South Korea, where hotels are short of staff. The 2026 Iran war has hit Gulf tourism and flights hard.', src: ['jp-hotel', 'kr-tourism', 'cnbc-uae'] },
     { k: 'logistics', label: 'Logistics and maritime', global: 'Asia’s ports and shipyards are busy. Singapore is adding berths at Tuas, and Korean shipyards have record orders but too few welders.', src: ['bca26', 'kr-ship'] },
@@ -135,6 +164,7 @@
       aero: ['grow', 'By early 2024 aerospace jobs had grown by almost 3,000 to over 21,000, and firms planned to hire over 2,500 more within three to five years. In February 2026 the government said new investment (over S$750 million) should create close to 600 jobs over five years.', ['edb-aero-2024', 'meti-airshow-2026', 'mro-tech']],
       health: ['grow', 'Public hospitals and MOH Holdings sponsor nursing and allied health students with allowances and fee support, in return for a bond.', ['nhg-spon']],
       logistics: ['grow', 'Tuas Port is adding berths and container yards in 2026.', ['bca26']],
+      biotech: ['steady', 'Biomedical manufacturing made up 30.8% of the S$14.2 billion in fixed asset investment commitments for 2025, second to electronics (33%). But jobs are less certain: EDB expects 15,700 new jobs across all industries over five years, its lowest projection since at least 2006.', ['sg-edb-yir25', 'sg-edb-vp25', 'sg-edb-fmt26']],
       islamic: ['steady', 'A small market for Islamic banking and takaful. Kuala Lumpur, close by, leads the world.', ['lseg-ifdi']],
       education: ['steady', 'MOE takes diploma holders into paid teacher training at NIE.', ['moe-diped']],
       semis: ['grow', 'Semiconductors employ over 35,000 people and make up nearly 6% of Singapore’s GDP (EDB, 2025). UMC’s new wafer plant, unveiled in 2025, will add 700 jobs, and semiconductor engineers joined the Shortage Occupation List in November 2024.', ['edb-semi-talent-2025', 'edb-semi-jobs-2026']],
@@ -259,7 +289,7 @@
       aero: ['grow', 'Airbus’s home is raising aircraft production and has been hiring thousands of people a year.', ['airbus-hire']]
     } },
     { id: 'us', place: 'United States (nationwide)', country: 'United States', iso: 840, ll: [-98, 39], scope: 'country', ind: {
-      health: ['grow', 'Healthcare is projected to drive most US job growth to 2034; nurse practitioners are among the fastest-growing jobs.', ['bls-proj']],
+      health: ['grow', 'Healthcare and social assistance is projected to add over 2.2 million jobs from 2025 to 2035, about 37% of all new US jobs. Nurse practitioner is the fastest-growing job, at 41%.', ['bls-proj']],
       energy: ['grow', 'Wind turbine technician is the fastest-growing US job in official projections, at about 50% to 2034.', ['bls-wind']]
     } },
     { id: 'sf', place: 'San Francisco Bay Area', country: 'United States', iso: 840, ll: [-122.42, 37.77], ind: {
@@ -271,7 +301,7 @@
       tech: ['grow', '2nd in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'boston', place: 'Boston', country: 'United States', iso: 840, ll: [-71.06, 42.36], ind: {
-      biotech: ['decline', 'Venture funding fell to its lowest since 2017, and over 4,100 biotech jobs were cut in 2025 by September.', ['boston-bio']],
+      biotech: ['decline', 'Massachusetts biopharma cut about 3,600 jobs in 2025, its first yearly fall in over 20 years of records. The cuts were mostly in research and development, while biomanufacturing gained some jobs. Venture funding is up 25% in the first half of 2026 ($3.45 billion), but jobs haven’t come back yet.', ['wbur-massbio26']],
       tech: ['grow', 'Joint 5th in the 2025 start-up hub ranking.', ['gser25']]
     } },
     { id: 'phoenix', place: 'Phoenix, Arizona', country: 'United States', iso: 840, ll: [-112.07, 33.45], ind: {
