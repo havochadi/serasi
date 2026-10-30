@@ -882,11 +882,11 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       : lvl === 3 && cur === 1 ? 'Apply after your diploma.' : '';
 
     if (T.custom === 'teaching') {
-      if (working) steps.push({ t: 'Paid teacher training at NIE', n: 'With a diploma, apply to MOE for the Diploma in Education (2 years); with a degree, for the Postgraduate Diploma in Education. MOE pays you while you train.', yrs: 2, fee: 'paid' });
+      if (working) steps.push({ t: 'MOE-funded teacher training at NIE', n: 'With a diploma, apply to MOE for the Diploma in Education (2 years); with a degree, for the Postgraduate Diploma in Education. You first do a contract teaching stint, then MOE funds your training at NIE.', yrs: 2, fee: 'funded' });
       else {
         if (cur === 1) study(2, fromHere(2) + ' Any diploma qualifies you to apply to MOE.');
-        if (cur <= 2) steps.push({ t: 'Diploma in Education at NIE (2 years, paid)', n: 'Apply to MOE as a diploma holder. MOE pays you a salary while you train, then you teach in a primary school with a 3-year bond.', yrs: 2, fee: 'paid' });
-        else steps.push({ t: 'Postgraduate Diploma in Education at NIE (paid)', n: 'Apply to MOE as a degree holder. You’re paid while you train, then serve a teaching bond.', yrs: 1, fee: 'paid' });
+        if (cur <= 2) steps.push({ t: 'Diploma in Education at NIE (2 years, MOE-funded)', n: 'Apply to MOE as a diploma holder. You first do a contract teaching stint, then MOE funds your training at NIE and you teach in a primary school with a 3-year bond.', yrs: 2, fee: 'funded' });
+        else steps.push({ t: 'Postgraduate Diploma in Education at NIE (MOE-funded)', n: 'Apply to MOE as a degree holder. You first do a contract teaching stint, then MOE funds your training at NIE and you serve a teaching bond.', yrs: 1, fee: 'funded' });
       }
       alts.push('Or take a degree first with the MOE Teaching Award, which pays your fees and an allowance (4-year bond), then train at NIE.');
     } else if (T.custom === 'uniformed') {
@@ -935,7 +935,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const band = INCOME.find(b => b.k === state.income) || INCOME[0];
     const m = band.max;
     const rows = path.steps.filter(s => s.fee).map(s => {
-      if (s.fee === 'paid' || s.fee === 'pt' || s.fee === 'check') return { s, kind: s.fee };
+      if (s.fee === 'paid' || s.fee === 'funded' || s.fee === 'pt' || s.fee === 'check') return { s, kind: s.fee };
       const per = FEES[s.fee].yr, total = per * s.yrs;
       const local = s.fee !== 'ite';
       const after = m == null ? null : Math.max(0, per * (1 - (local ? ttfsShare(m) : 0)) - (s.fee === 'poly' ? polyBursary(m) : local ? uniBursary(m) : 0)) * s.yrs;
@@ -977,7 +977,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const levels = studySteps.map(x => x.fee);
     const sum = '<p class="path-sum"><span class="pill good">' + (path.years ? 'About ' + fmtYears(path.years) + ' of study or training' : path.steps.some(x => x.done) ? 'No more study if your qualification is related' : 'No more study needed') + '</span>' +
       (cost.total ? '<span class="pill">Course fees about ' + money(cost.total) + '</span>' : '') + '<span class="small muted">Starting from: ' + esc(PATH[p.pathway].label) + '</span></p>';
-    const meta = st => [st.yrs ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'paid, no fees' : st.fee === 'pt' ? 'part-time, subsidised' : st.fee === 'check' ? 'fees differ; check the school' : st.fee ? 'about ' + money(FEES[st.fee].yr) + ' a year' : ''].filter(Boolean).join(' · ');
+    const meta = st => [st.yrs ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'paid, no fees' : st.fee === 'funded' ? 'funded by MOE, no fees' : st.fee === 'pt' ? 'part-time, subsidised' : st.fee === 'check' ? 'fees differ; check the school' : st.fee ? 'about ' + money(FEES[st.fee].yr) + ' a year' : ''].filter(Boolean).join(' · ');
     // Every public school that teaches the course at this step's level; nothing when none is listed.
     const schools = st => { const list = st.lvl ? SerasiLocal.html(r, st.lvl, { esc, money }) : ''; return list ? '<div class="s-schools">' + list + '</div>' : ''; };
     const steps = '<ol class="steps-path">' + path.steps.map(st => '<li' + (st.done ? ' class="done"' : '') + '><span class="s-t">' + esc(st.t) + '</span>' +
@@ -1728,7 +1728,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const path = pathFor(r, pp), cost = pathCost(path, pp);
     const fees = cost.rows.filter(x => x.kind === 'fee');
     const lines = [(isTop ? 'For your top match, ' + t + ', ' : 'To become ' + article(t) + ' ' + t + ', ') + 'starting from ' + STAGE_FROM[pp.pathway] + ':'];
-    if (!fees.length) lines.push(cost.rows.some(x => x.kind === 'check') ? '- Graduate-entry medicine fees differ from undergraduate fees, so check Duke-NUS’s current fees.' : cost.rows.some(x => x.kind === 'paid') ? '- No course fees: you’re paid while you train.' : cost.rows.some(x => x.kind === 'pt') ? '- Part-time courses are subsidised for Singaporeans; check each course page for the fee.' : '- No more course fees: you already have the usual qualification.');
+    if (!fees.length) lines.push(cost.rows.some(x => x.kind === 'check') ? '- Graduate-entry medicine fees differ from undergraduate fees, so check Duke-NUS’s current fees.' : cost.rows.some(x => x.kind === 'paid') ? '- No course fees: you’re paid while you train.' : cost.rows.some(x => x.kind === 'funded') ? '- No course fees: MOE funds your training at NIE after a contract teaching stint.' : cost.rows.some(x => x.kind === 'pt') ? '- Part-time courses are subsidised for Singaporeans; check each course page for the fee.' : '- No more course fees: you already have the usual qualification.');
     fees.forEach(x => lines.push('- ' + FEES[x.s.fee].label + ': about ' + money(x.per) + ' a year × ' + fmtYears(x.s.yrs) + ' = ' + money(x.total)));
     if (fees.length) lines.push('- Total: about ' + money(cost.total) + ' (Singapore Citizen fees after the MOE Tuition Grant, for students starting in 2025–26).');
     if (cost.ipa) lines.push('- ITE Progression Award: $5,000 into your PSEA when you start the diploma, then $10,000 into your CPF when you finish.');
@@ -2049,7 +2049,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const lines = ['No one knows exactly how AI will change each job, but some patterns are clear:',
       '- Jobs that mix hands-on work, caring for people and judgement (nursing, trades, teaching, social work) are harder to automate.',
       '- Routine desk tasks, such as copying data or simple reports, are easier to automate, so those jobs are changing fastest.',
-      '- Tech jobs are shifting rather than disappearing: in US projections to 2034, data scientists grow about 33% and information security analysts about 29%.',
+      '- Tech jobs are shifting rather than disappearing: in US projections from 2025 to 2035, data scientists grow about 35% and information security analysts about 21% (US Bureau of Labor Statistics).',
       '- Whatever you choose, learning to use AI tools in your field makes you more valuable.'];
     if (x) lines.push('For ' + lowerTitle(x.role.title) + ': ' + (/^[RS]/.test(x.role.code) ? 'it involves a lot of hands-on or people work, which is harder to automate.' : /^C/.test(x.role.code) ? 'routine parts may be automated, so build skills in checking, judgement and working with people.' : 'build skills that use AI tools rather than compete with them.'));
     return lines.join('\n');
