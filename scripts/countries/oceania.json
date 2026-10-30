@@ -1,0 +1,28 @@
+[
+  {
+    "iso": 36, "name": "Australia", "a2": "AU",
+    "langs": ["English"],
+    "known": ["The Great Barrier Reef and wildlife such as kangaroos and koalas", "Beaches, surfing and a love of sport", "Exports of iron ore, coal and natural gas", "Large, multicultural cities such as Sydney and Melbourne"],
+    "facts": ["It is both a country and a continent, and one of the largest countries in the world by area.", "The capital is Canberra, not Sydney or Melbourne; most people live in cities along the coast.", "Aboriginal and Torres Strait Islander peoples have lived on the continent for at least 60,000 years.", "English is the main language, though the law names no official language."],
+    "orgs": ["BHP", "Rio Tinto", "Commonwealth Bank", "Qantas", "Canva", "CSIRO"],
+    "unis": [
+      { "n": "UNSW Sydney", "rank": 19, "url": "https://www.unsw.edu.au/" },
+      { "n": "The University of Melbourne", "rank": 22, "url": "https://www.unimelb.edu.au/" },
+      { "n": "The University of Sydney", "rank": 28, "url": "https://www.sydney.edu.au/" },
+      { "n": "The Australian National University", "rank": 29, "url": "https://www.anu.edu.au/" },
+      { "n": "Monash University", "rank": 31, "url": "https://www.monash.edu/" }
+    ]
+  },
+  {
+    "iso": 554, "name": "New Zealand", "a2": "NZ",
+    "langs": ["English", "Māori", "New Zealand Sign Language"],
+    "known": ["Dramatic mountains, fiords and volcanoes", "Rugby and the All Blacks", "Dairy, lamb and kiwifruit exports", "Film making, including The Lord of the Rings and The Hobbit, shot there and finished at studios in Wellington"],
+    "facts": ["The Māori name for the country is Aotearoa.", "It has two main islands, the North Island and the South Island; the capital is Wellington and the largest city is Auckland.", "In 1893 it became the first self-governing country in which women won the right to vote in national elections."],
+    "orgs": ["Fonterra", "Air New Zealand", "Xero", "Fisher & Paykel Healthcare", "Zespri", "Weta Workshop"],
+    "unis": [
+      { "n": "University of Auckland", "rank": 67, "url": "https://www.auckland.ac.nz/" },
+      { "n": "University of Otago", "rank": 198, "url": "https://www.otago.ac.nz/" },
+      { "n": "Massey University", "rank": 215, "url": "https://www.massey.ac.nz/" }
+    ]
+  }
+]

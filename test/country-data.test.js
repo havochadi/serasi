@@ -194,3 +194,7 @@ test('a figure that came from a fallback names its source and links to it', () =
 
 // Region tasks append their DONE_REGIONS.push(...) line below this line.
 DONE_REGIONS.push('asia');
+DONE_REGIONS.push('americas');
+DONE_REGIONS.push('oceania');
+DONE_REGIONS.push('africa');
+DONE_REGIONS.push('europe');

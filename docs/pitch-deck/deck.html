@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Serasi pitch deck</title>
+<!--
+  Serasi pitch deck: source for "Serasi pitch deck.pdf" at the repo root.
+  Build it with build.sh in this folder (headless Chrome prints this page to PDF).
+
+  Every length is in pt: one slide is 1440pt x 810pt, which Chrome prints as a 1440 x 810 pt PDF page.
+  Colours, fonts and layout follow the original deck. Slides 5 and 6 (shortest path, world map) and the
+  extra pill on slide 4 were added for the study-options and country-profiles features. They are sketches
+  of the screens with no real data, and say the features are being added, not live.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400..700;1,400..700&family=Fraunces:wght@400..700&display=swap">
+<style>
+@page { size: 1440pt 810pt; margin: 0; }
+:root {
+  --dark: #10302B; --dark-2: #1B433D; --dark-line: #3E6A62; --dark-chip: #2A5650;
+  --cream: #F6F1E7; --card: #FFFBF5; --card-line: #E2D9C6; --hair: #EAE4D5; --tan: #C8BEA8;
+  --amber: #E3A43B; --green: #276B60; --brown: #8F5814;
+  --ink: #14231F; --text: #3E4F4A; --muted: #5A6863;
+  --paper: #F3EDE0; --mint: #BFD3CC; --mint-2: #BFD0C9;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'DM Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fff; }
+body { font-family: var(--sans); font-size: 18pt; line-height: 1.3; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+.slide { position: relative; width: 1440pt; height: 810pt; overflow: hidden; background: var(--cream);
+  break-after: page; page-break-after: always; }
+.slide:last-child { break-after: auto; page-break-after: auto; }
+.slide.dark { background: var(--dark); color: var(--paper); }
+.abs { position: absolute; }
+
+/* Shared slide furniture */
+.eyebrow { position: absolute; left: 96pt; top: 99pt; font-size: 18pt; line-height: 18pt; font-weight: 700; letter-spacing: .125em; text-transform: uppercase; color: var(--brown); white-space: nowrap; }
+.dark .eyebrow { color: var(--amber); }
+h1 { position: absolute; left: 96pt; top: 135pt; letter-spacing: -.01em; font-family: var(--serif); font-size: 48pt; line-height: 49pt; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.dark h1 { color: var(--paper); }
+.foot { position: absolute; left: 96pt; top: 741pt; font-size: 18pt; line-height: 18pt; color: var(--muted); white-space: nowrap; }
+.dark .foot { color: var(--mint); }
+.cap { font-size: 18pt; line-height: 18pt; font-weight: 700; letter-spacing: .125em; text-transform: uppercase; }
+.serif { font-family: var(--serif); font-weight: 600; }
+
+/* Status pill: the two new features are not live yet */
+.status { position: absolute; right: 96pt; top: 92pt; font-size: 16pt; line-height: 16pt; font-weight: 700; padding: 6pt 14pt; border-radius: 999pt; border: 1.5pt solid var(--brown); color: var(--brown); white-space: nowrap; }
+.dark .status { border-color: var(--amber); color: var(--amber); }
+
+/* ---------- Slide 1: title ---------- */
+.s1 .brand { letter-spacing: -.01em; position: absolute; left: 96pt; top: 292pt; font-family: var(--serif); font-weight: 650; font-size: 120pt; line-height: 150pt; color: var(--amber); letter-spacing: -.01em; }
+.s1 .tag { position: absolute; left: 96pt; top: 445pt; font-family: var(--serif); font-weight: 400; font-size: 48pt; line-height: 58pt; color: var(--paper); white-space: nowrap; }
+.s1 .note { position: absolute; left: 96pt; top: 690pt; font-size: 18pt; line-height: 22pt; color: var(--mint); }
+.s1 svg { position: absolute; left: 1074pt; top: 265pt; width: 240pt; height: 280pt; }
+
+/* ---------- Slide 2: background ---------- */
+.s2 .grp { position: absolute; top: 209pt; font-size: 21pt; line-height: 25pt; font-weight: 700; color: var(--green); border-bottom: 2pt solid var(--green); padding-bottom: 8pt; height: 35pt; }
+.stat { position: absolute; top: 268pt; width: 293.5pt; height: 326pt; background: var(--card); border: 1pt solid var(--card-line); border-radius: 20pt; padding: 28pt; }
+.stat .n { font-family: var(--serif); font-weight: 600; font-size: 72pt; line-height: 80pt; color: var(--green); margin-top: -4pt; }
+.stat .d { font-size: 21pt; line-height: 28.67pt; color: var(--ink); margin-top: 6pt; }
+.stat .src { position: absolute; left: 28pt; right: 28pt; bottom: 28pt; font-size: 18pt; line-height: 24pt; color: var(--text); border-top: 1pt solid var(--hair); padding-top: 12pt; }
+.s2 .aim { position: absolute; left: 96pt; top: 613pt; width: 1248pt; height: 77pt; border-radius: 16pt; background: var(--dark); color: var(--paper); font-family: var(--serif); font-weight: 600; font-size: 27pt; line-height: 77pt; padding-left: 30pt; white-space: nowrap; letter-spacing: -.01em; }
+
+/* ---------- Slide 3: approach ---------- */
+.m { position: absolute; top: 216pt; width: 399pt; height: 261pt; background: var(--dark-2); border-radius: 20pt; padding: 21pt 15pt 21pt 21pt; }
+.m .hd { margin-right: 6pt; display: flex; justify-content: space-between; align-items: center; height: 40pt; padding-bottom: 6pt; border-bottom: 1pt solid var(--dark-line); height: 48pt; margin-top: -1pt; }
+.m .hd b { font-weight: 600; font-size: 27pt; line-height: 34pt; color: var(--paper); }
+.m .hd i { font-style: normal; font-family: var(--serif); font-weight: 600; font-size: 27pt; line-height: 38pt; color: var(--dark); background: var(--amber); border-radius: 10pt; padding: 0 11pt; margin-top: -3pt; }
+.m p { font-size: 18pt; line-height: 24pt; color: var(--paper); margin-top: 9pt; }
+.m p:first-of-type { margin-top: 9pt; }
+.m p span { color: var(--amber); font-weight: 700; }
+.s3 .six-cap { position: absolute; left: 96pt; top: 512pt; color: var(--amber); }
+.t { position: absolute; top: 542pt; width: 197.5pt; height: 171pt; border: 1pt solid var(--dark-line); border-radius: 12pt; padding: 11pt 12pt; font-size: 18pt; line-height: 23.6pt; color: var(--mint); }
+.t b { display: block; font-size: 21pt; line-height: 26pt; font-weight: 700; color: var(--amber); margin-bottom: 4pt; }
+.t em { display: block; font-style: normal; color: var(--paper); }
+.t .eg { display: block; margin-top: 3pt; }
+
+/* ---------- Slide 4: how it works ---------- */
+.s4 .line { position: absolute; top: 256pt; height: 2pt; background: var(--tan); }
+.s4 .dot { position: absolute; top: 233pt; width: 48pt; height: 48pt; border-radius: 50%; background: var(--dark); color: var(--amber); font-family: var(--serif); font-weight: 600; font-size: 21pt; line-height: 48pt; text-align: center; }
+.s4 .dot.on { background: var(--amber); color: var(--dark); }
+.step { position: absolute; top: 296pt; width: 290pt; }
+.step h3 { font-family: var(--serif); font-weight: 600; font-size: 27pt; line-height: 34pt; color: var(--ink); }
+.step p { font-size: 21pt; line-height: 28.67pt; color: var(--text); margin-top: 11pt; }
+.step .k { font-size: 18pt; line-height: 22pt; font-weight: 700; color: var(--green); margin-top: 11pt; }
+.pill { display: inline-block; font-size: 18pt; line-height: 22pt; font-weight: 700; color: var(--ink); background: var(--amber); border-radius: 999pt; padding: 4pt 10pt; margin-top: 8pt; white-space: nowrap; }
+.s4 .eq { position: absolute; left: 96pt; top: 485pt; width: 1248pt; height: 205pt; border-radius: 16pt; background: var(--dark); }
+.s4 .eq .cap { position: absolute; left: 24pt; top: 29pt; color: var(--amber); }
+.cell { position: absolute; top: 62pt; width: 270pt; height: 119pt; border-radius: 10pt; background: var(--dark-2); padding: 17pt 18pt; font-size: 18pt; line-height: 22pt; color: var(--mint); }
+.cell b { display: block; font-family: var(--serif); font-weight: 600; font-size: 30pt; line-height: 36pt; color: var(--paper); margin-top: 4pt; }
+.cell b small { font-size: 24pt; font-weight: 400; }
+.cell u { display: block; text-decoration: none; color: var(--amber); }
+.cell.res { background: var(--amber); color: var(--ink); }
+.cell.res b, .cell.res u { color: var(--ink); }
+.op { position: absolute; top: 100pt; width: 30pt; text-align: center; font-family: var(--serif); font-weight: 600; font-size: 27pt; line-height: 30pt; color: var(--amber); }
+
+/* ---------- Slide 5 (new): shortest path ---------- */
+.sp .panel { position: absolute; top: 212pt; height: 420pt; background: var(--dark-2); border-radius: 20pt; padding: 26pt 28pt; }
+.sp .panel .cap { color: var(--amber); }
+.sp .panel h2 { font-family: var(--serif); font-weight: 600; font-size: 27pt; line-height: 34pt; color: var(--paper); margin-top: 8pt; white-space: nowrap; }
+.bar { display: block; height: 10pt; border-radius: 5pt; background: currentColor; opacity: .32; }
+.sp .tbl { margin-top: 14pt; }
+.sp .tbl .row { display: flex; align-items: center; height: 46pt; border-top: 1pt solid var(--dark-line); }
+.sp .tbl .row.h { height: 28pt; border-top: 0; font-size: 15pt; line-height: 15pt; font-weight: 700; color: var(--mint); letter-spacing: .04em; }
+.sp .tbl .row > span { display: block; padding-right: 14pt; }
+.sp .tbl .row > span:nth-child(1) { width: 140pt; }
+.sp .tbl .row > span:nth-child(2) { width: 140pt; }
+.sp .tbl .row > span:nth-child(3) { width: 62pt; }
+.sp .tbl .row > span:nth-child(4) { width: 100pt; white-space: nowrap; }
+.sp .tbl .row > span:nth-child(5) { width: 40pt; padding-right: 0; }
+.sp .tbl .row:not(.h) { color: var(--mint); }
+.sp .tbl .lnk .bar { background: var(--amber); opacity: .85; height: 8pt; }
+.chips { display: flex; flex-wrap: wrap; gap: 8pt; margin-top: 22pt; }
+.chip { font-size: 15pt; line-height: 15pt; font-weight: 500; color: var(--mint); background: var(--dark-chip); border-radius: 6pt; padding: 5pt 10pt; white-space: nowrap; }
+.sp .panel .note { font-size: 18pt; line-height: 24pt; color: var(--mint-2); margin-top: 14pt; }
+.best { margin-top: 14pt; background: var(--amber); border-radius: 14pt; padding: 18pt 20pt 12pt; color: var(--ink); }
+.sp .best .cap { font-size: 15pt; line-height: 15pt; color: var(--ink); }
+.best .r { display: flex; align-items: center; justify-content: space-between; height: 32pt; border-top: 1pt solid rgba(16,48,43,.22); margin-top: 0; font-size: 18pt; line-height: 20pt; color: var(--ink); }
+.best .cap + .r { margin-top: 10pt; }
+.best .r span.b { width: 210pt; }
+.best .r span.b .bar { height: 10pt; opacity: .28; }
+.alt-cap { font-size: 15pt; line-height: 15pt; font-weight: 700; letter-spacing: .04em; color: var(--mint); margin-top: 16pt; }
+.alt { display: flex; align-items: center; justify-content: space-between; height: 36pt; margin-top: 8pt; border: 1pt solid var(--dark-line); border-radius: 10pt; padding: 0 16pt; font-size: 18pt; color: var(--paper); }
+.alt .b { width: 150pt; color: var(--mint); }
+.alt .bw { width: 90pt; color: var(--mint); }
+.sp .ex { position: absolute; left: 96pt; top: 652pt; width: 1248pt; height: 68pt; border: 1.5pt solid var(--amber); border-radius: 14pt; background: var(--dark-2); }
+.sp .ex .cap { position: absolute; left: 22pt; top: 25pt; color: var(--amber); font-size: 18pt; }
+.sp .ex p { position: absolute; left: 430pt; right: 22pt; top: 11pt; font-size: 19pt; line-height: 23pt; color: var(--paper); }
+
+/* ---------- Slide 6 (new): world map ---------- */
+.wm .st { position: absolute; left: 96pt; width: 570pt; }
+.wm .st .num { position: absolute; left: 0; top: 0; width: 48pt; height: 48pt; border-radius: 50%; background: var(--dark); color: var(--amber); font-family: var(--serif); font-weight: 600; font-size: 21pt; line-height: 48pt; text-align: center; }
+.wm .st .num.on { background: var(--amber); color: var(--dark); }
+.wm .st h3 { margin-left: 72pt; font-family: var(--serif); font-weight: 600; font-size: 27pt; line-height: 34pt; color: var(--ink); padding-top: 6pt; }
+.wm .st p { margin-left: 72pt; font-size: 21pt; line-height: 28.67pt; color: var(--text); margin-top: 8pt; }
+.wm .vline { position: absolute; left: 119pt; width: 2pt; background: var(--tan); }
+.wm .globe { position: absolute; left: 704pt; top: 215pt; width: 290pt; height: 290pt; }
+.wm .conn { position: absolute; left: 940pt; top: 322pt; width: 98pt; height: 2pt; background: var(--amber); }
+.wm .legend { position: absolute; left: 700pt; top: 524pt; display: flex; gap: 6pt; }
+.wm .legend span { font-size: 14pt; line-height: 14pt; font-weight: 700; border-radius: 999pt; padding: 6pt 10pt; white-space: nowrap; }
+.wm .legend .g { background: var(--green); color: var(--paper); }
+.wm .legend .s { background: var(--amber); color: var(--ink); }
+.wm .legend .d { background: var(--brown); color: var(--paper); }
+.wm .lcap { position: absolute; left: 700pt; top: 562pt; width: 290pt; font-size: 15pt; line-height: 20pt; color: var(--muted); }
+.wm .prof { position: absolute; left: 1038pt; top: 215pt; width: 306pt; height: 372pt; background: var(--card); border: 1pt solid var(--card-line); border-radius: 20pt; padding: 22pt 22pt 0; color: var(--text); }
+.wm .prof .top { display: flex; align-items: center; gap: 14pt; height: 44pt; }
+.wm .prof .flag { width: 60pt; height: 40pt; border: 1.5pt dashed var(--brown); border-radius: 5pt; font-size: 15pt; line-height: 37pt; font-weight: 700; text-align: center; color: var(--brown); }
+.wm .prof .top .bar { width: 120pt; height: 14pt; color: var(--ink); }
+.wm .prof .kv { display: flex; align-items: center; justify-content: space-between; height: 30pt; border-top: 1pt solid var(--hair); font-size: 15pt; line-height: 15pt; font-weight: 700; color: var(--ink); }
+.wm .prof .kv:first-of-type { margin-top: 10pt; }
+.wm .prof .kv .bar { width: 96pt; color: var(--text); }
+.wm .prof .sec { height: 46pt; border-top: 1pt solid var(--hair); padding-top: 9pt; font-size: 15pt; line-height: 15pt; font-weight: 700; color: var(--ink); }
+.wm .prof .sec .bar { width: 230pt; margin-top: 7pt; color: var(--text); }
+.wm .prof .sec:first-of-type { margin-top: 10pt; }
+.wm .band { position: absolute; left: 96pt; top: 636pt; width: 1248pt; height: 78pt; border-radius: 16pt; background: var(--dark); color: var(--paper); }
+.wm .band b { position: absolute; left: 30pt; top: 0; font-family: var(--serif); font-weight: 600; font-size: 27pt; line-height: 78pt; white-space: nowrap; }
+.wm .band span { position: absolute; right: 30pt; top: 0; font-size: 21pt; line-height: 78pt; color: var(--mint); white-space: nowrap; }
+
+/* ---------- Slide 7: timeline and budget ---------- */
+.s7 .tcap { position: absolute; left: 96pt; top: 233pt; color: var(--green); }
+.tl { position: absolute; left: 96pt; width: 600pt; height: 109pt; border-top: 1pt solid var(--hair); }
+.tl .b { position: absolute; left: 0; top: 18pt; width: 127pt; height: 44pt; border-radius: 10pt; background: var(--dark); color: var(--paper); font-size: 21pt; line-height: 44pt; font-weight: 700; padding-left: 14pt; }
+.tl .b.on { background: var(--amber); color: var(--ink); }
+.tl .w { position: absolute; left: 146pt; top: 16pt; font-size: 21pt; line-height: 25pt; font-weight: 700; color: var(--ink); }
+.tl .w small { display: block; font-size: 18pt; line-height: 22pt; font-weight: 400; color: var(--text); margin-top: 7pt; }
+.s7 .bcap { position: absolute; left: 744pt; top: 237pt; color: var(--green); white-space: nowrap; }
+.s7 .bcap b { font-family: var(--serif); font-weight: 600; font-size: 27pt; letter-spacing: 0; text-transform: none; color: var(--ink); margin-left: 12pt; }
+.s7 .stack { position: absolute; left: 744pt; top: 308pt; width: 600pt; height: 42pt; display: flex; gap: 4pt; }
+.s7 .stack i { display: block; height: 42pt; }
+.s7 .stack i:first-child { border-radius: 8pt 0 0 8pt; }
+.s7 .stack i:last-child { border-radius: 0 8pt 8pt 0; }
+.bl { position: absolute; left: 744pt; width: 600pt; height: 85pt; border-top: 1pt solid var(--hair); }
+.bl i { position: absolute; left: 0; top: 17pt; width: 22pt; height: 22pt; border-radius: 5pt; }
+.bl span { position: absolute; left: 33pt; top: 16pt; font-size: 21pt; line-height: 25pt; color: var(--ink); }
+.bl b { position: absolute; right: 0; top: 17pt; font-size: 21pt; line-height: 25pt; font-weight: 700; color: var(--ink); }
+
+/* ---------- Slide 8: outreach ---------- */
+.s8 .hcap { position: absolute; color: var(--green); }
+.poster { position: absolute; top: 251pt; width: 223.5pt; height: 345pt; border-radius: 20pt; padding: 19pt; }
+.poster .pc { font-size: 18pt; line-height: 22pt; font-weight: 700; letter-spacing: .125em; text-transform: uppercase; }
+.poster h4 { font-family: var(--serif); font-weight: 600; font-size: 30pt; line-height: 33pt; margin-top: 8pt; }
+.poster p { font-size: 18pt; line-height: 24pt; margin-top: 9pt; }
+.poster .qr { position: absolute; right: 19pt; bottom: 18pt; width: 54pt; height: 54pt; border: 1.5pt dashed currentColor; border-radius: 8pt; font-size: 18pt; line-height: 51pt; font-weight: 700; text-align: center; }
+.poster .cta { position: absolute; left: 19pt; bottom: 19pt; width: 130pt; font-size: 18pt; line-height: 24pt; }
+.p1 { left: 96pt; background: var(--dark); color: var(--paper); }
+.p1 .pc { color: var(--amber); }
+.p1 h4 { color: var(--paper); }
+.p1 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-top: 10pt; }
+.p1 .grid i { display: block; height: 42pt; border-radius: 8pt; background: var(--dark-2); color: var(--amber); font-style: normal; font-family: var(--serif); font-weight: 600; font-size: 21pt; line-height: 32pt; text-align: center; }
+.p1 .qr { color: var(--mint); }
+.p2 { left: 337pt; background: var(--amber); color: var(--ink); }
+.p2 .pc, .p2 h4, .p2 p, .p2 .cta { color: var(--ink); }
+.p2 .cta { font-weight: 700; }
+.p3 { left: 579pt; background: var(--card); border: 1pt solid var(--card-line); color: var(--ink); }
+.p3 .pc { color: var(--brown); }
+.p3 p { color: var(--text); }
+.p3 .cta { font-weight: 700; }
+.p3 .qr { color: var(--brown); }
+.s8 .pcap { position: absolute; left: 96pt; top: 608pt; font-size: 18pt; line-height: 19pt; color: var(--muted); white-space: nowrap; }
+.box { position: absolute; left: 837pt; width: 507pt; border-radius: 20pt; padding: 25pt 24pt; }
+.box ul { list-style: none; }
+.box li { position: relative; padding-left: 20pt; font-size: 18pt; line-height: 23.4pt; margin-top: 9.5pt; }
+.box li:first-child { margin-top: 0; }
+.box li::before { content: ""; position: absolute; left: 0; top: 8pt; width: 9pt; height: 9pt; border-radius: 50%; }
+.box li b { font-weight: 700; }
+.b1 { top: 251pt; height: 163pt; background: var(--card); border: 1pt solid var(--card-line); color: var(--text); }
+.b1 li b { color: var(--ink); }
+.b1 li::before { background: var(--green); }
+.b2 { top: 466pt; height: 190pt; background: var(--dark); color: var(--paper); }
+.b2 li::before { background: var(--amber); }
+.b2 { padding-top: 16pt; }
+.b2 li { margin-top: 8.5pt; }
+.b2 li:first-child { margin-top: 0; }
+
+/* ---------- Slide 9: collaboration ---------- */
+.pt { position: absolute; left: 96pt; width: 374pt; border-radius: 14pt; background: var(--dark-2); padding: 0 19pt; white-space: nowrap; font-size: 21pt; line-height: 27pt; color: var(--paper); }
+.pt b { display: block; font-size: 18pt; line-height: 25pt; font-weight: 700; letter-spacing: .085em; text-transform: uppercase; color: var(--amber); }
+.pt.on { border: 1.5pt solid var(--amber); }
+.get { position: absolute; left: 489pt; top: 222pt; width: 418pt; height: 468pt; border-radius: 20pt; background: var(--dark-2); }
+.get .cap { position: absolute; left: 27pt; top: 30pt; color: var(--amber); }
+.gi { position: absolute; left: 27pt; width: 380pt; }
+.gi .n { position: absolute; left: 0; top: 0; width: 34pt; height: 34pt; border-radius: 50%; background: var(--amber); color: var(--dark); font-size: 18pt; line-height: 34pt; font-weight: 700; text-align: center; }
+.gi h5 { letter-spacing: -.01em; margin-left: 48pt; font-family: var(--serif); font-weight: 600; font-size: 24pt; line-height: 30pt; color: var(--paper); }
+.gi p { width: 305pt; margin-left: 48pt; font-size: 18pt; line-height: 24pt; color: var(--mint-2); margin-top: 3pt; }
+.gi .tags { margin-left: 48pt; display: flex; gap: 5pt; margin-top: 9pt; }
+.gi .tags i { font-style: normal; font-size: 15pt; line-height: 15pt; color: var(--mint-2); background: var(--dark-chip); border-radius: 6pt; padding: 5pt 8pt; }
+.ask { position: absolute; left: 925pt; top: 222pt; width: 419pt; height: 468pt; border-radius: 20pt; background: var(--amber); color: var(--ink); }
+.ask .cap { position: absolute; left: 25pt; top: 30pt; color: var(--dark); }
+.ai { position: absolute; left: 25pt; }
+.ai .n { position: absolute; left: 0; top: 0; width: 34pt; height: 34pt; border-radius: 50%; background: var(--dark); color: var(--amber); font-size: 18pt; line-height: 34pt; font-weight: 700; text-align: center; }
+.ai h5 { letter-spacing: -.018em; margin-left: 49pt; font-family: var(--serif); font-weight: 600; font-size: 26pt; line-height: 33pt; color: var(--ink); width: 330pt; }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide dark s1">
+  <div class="brand">Serasi</div>
+  <div class="tag">Find work that fits who you are</div>
+  <div class="note"><i>Serasi</i> is Malay for “well-matched”.</div>
+  <svg viewBox="0 0 240 280" aria-hidden="true">
+    <g stroke="#2E5A52" stroke-width="2" fill="none" stroke-linecap="round">
+      <polygon points="120,20 224,80 224,200 120,260 16,200 16,80" stroke-width="1.8"/>
+      <line x1="120" y1="20" x2="120" y2="260"/>
+      <line x1="16" y1="80" x2="224" y2="200"/>
+      <line x1="224" y1="80" x2="16" y2="200"/>
+    </g>
+    <circle cx="120" cy="20" r="14" fill="#E3A43B"/><circle cx="120" cy="260" r="14" fill="#E3A43B"/>
+    <circle cx="224" cy="80" r="13" fill="#BFD3CC"/><circle cx="224" cy="200" r="13" fill="#BFD3CC"/>
+    <circle cx="16" cy="80" r="13" fill="#BFD3CC"/><circle cx="16" cy="200" r="13" fill="#BFD3CC"/>
+    <circle cx="120" cy="140" r="22" fill="#E3A43B"/>
+  </svg>
+</section>
+
+<!-- 2 -->
+<section class="slide s2">
+  <div class="eyebrow">1 · Background</div>
+  <h1>Many youths start in jobs that don’t fit them</h1>
+  <div class="grp" style="left:96pt;width:611pt">Youths: unsure where they fit</div>
+  <div class="grp" style="left:732pt;width:612pt">Malay youth: little career guidance</div>
+  <div class="stat" style="left:96pt"><div class="n">65%</div><div class="d" style="margin-right:-6pt">of youths say they need more help planning their careers</div><div class="src">Poll of 1,000 youths, 2025</div></div>
+  <div class="stat" style="left:414pt"><div class="n">36%</div><div class="d">of poly graduates in full-time jobs work outside their field five years on</div><div class="src">MOE graduate tracer survey</div></div>
+  <div class="stat" style="left:732pt"><div class="n">44%</div><div class="d">of Malay youths lack guidance, mentors or networks for their career goals</div><div class="src">NYC survey of 1,000 youths, 2026</div></div>
+  <div class="stat" style="left:1050pt"><div class="n">16%</div><div class="d">of Malay workers studied for the career they are in now</div><div class="src">77% have never seen a career coach</div></div>
+  <div class="aim">Serasi’s aim: guidance that fits the whole person, before they choose a job.</div>
+  <div class="foot">Sources: KPMG and NYC youth poll (2025) · MOE (2026) · NYC survey for the MM Youth Taskforce (2026) · IPS for SSG (2023)</div>
+</section>
+
+<!-- 3 -->
+<section class="slide dark s3">
+  <div class="eyebrow">2 · Our approach</div>
+  <h1>Three proven measures make up the fit score</h1>
+  <div class="m" style="left:96pt"><div class="hd"><b>Holland RIASEC</b><i>50%</i></div>
+    <p><span>What it is ·</span> Psychologist John Holland’s model of career interests</p>
+    <p><span>Measures ·</span> Which of six types of work you enjoy most</p>
+    <p><span>Why ·</span> Used by MySkillsFuture; fit predicts performance (92 studies)</p></div>
+  <div class="m" style="left:520pt"><div class="hd"><b>Big Five</b><i>30%</i></div>
+    <p><span>What it is ·</span> The most-researched model of personality, plus honesty</p>
+    <p><span>Measures ·</span> Openness, conscientiousness, extraversion, agreeableness, stability</p>
+    <p><span>Why ·</span> Conscientiousness predicts performance in nearly every job</p></div>
+  <div class="m" style="left:944pt"><div class="hd"><b>Work values</b><i>20%</i></div>
+    <p><span>What it is ·</span> What a job must offer for you to feel satisfied and stay</p>
+    <p><span>Measures ·</span> Your top 3 of 8, e.g. stability, balance, room to learn</p>
+    <p><span>Why ·</span> Value fit predicts satisfaction and staying (172 studies)</p></div>
+  <div class="cap six-cap">The six RIASEC types · your top two become your profile</div>
+  <div class="t" style="left:96pt"><b>R · Realistic</b><em>Builder</em>Enjoys hands-on work with tools<span class="eg">e.g. technician, engineer</span></div>
+  <div class="t" style="left:306pt"><b>I · Investigative</b><em>Analyst</em>Enjoys solving hard problems<span class="eg">e.g. data analyst, researcher</span></div>
+  <div class="t" style="left:516pt"><b>A · Artistic</b><em>Creator</em>Enjoys designing and creating<span class="eg">e.g. UX designer, video editor</span></div>
+  <div class="t" style="left:726pt"><b>S · Social</b><em>Carer</em>Enjoys helping and teaching<span class="eg">e.g. nurse, teacher</span></div>
+  <div class="t" style="left:936pt"><b>E · Enterprising</b><em>Persuader</em>Enjoys leading and persuading<span class="eg">e.g. sales, marketing</span></div>
+  <div class="t" style="left:1146pt"><b>C · Conventional</b><em>Organiser</em>Enjoys order and clear systems<span class="eg">e.g. accounts, operations</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide s4">
+  <div class="eyebrow">3 · How it works</div>
+  <h1>Four steps from quiz to real opportunities</h1>
+  <div class="line" style="left:144pt;width:264pt"></div><div class="line" style="left:456pt;width:264pt"></div><div class="line" style="left:768pt;width:264pt"></div>
+  <div class="dot" style="left:96pt">1</div><div class="dot" style="left:408pt">2</div><div class="dot" style="left:720pt">3</div><div class="dot on" style="left:1032pt">4</div>
+  <div class="step" style="left:96pt"><h3>Take the quiz</h3><p>Five short parts on interests, work style and values</p><div class="k">About 15 minutes</div></div>
+  <div class="step" style="left:408pt"><h3>Get scored</h3><p>Every job is scored on the three measures</p><div class="k">A fit score out of 100</div></div>
+  <div class="step" style="left:720pt"><h3>See matches</h3><p>Your profile and top 10 jobs, with reasons</p><div class="pill">New: Ask Serasi AI chat</div></div>
+  <div class="step" style="left:1032pt"><h3>Take action</h3><p>Job links, a career coach, job tasters and internships</p><div class="k">6 job portals and coaches</div><div class="pill" style="margin-top:6pt">Adding: study routes, world map</div></div>
+  <div class="eq">
+    <div class="cap">How a fit score adds up · Example: data consultant</div>
+    <div class="cell" style="left:24pt">Interests<b>68 <small>×</small> 50%</b><u>= 34 points</u></div>
+    <div class="op" style="left:299pt">+</div>
+    <div class="cell" style="left:334pt">Work style<b>97 <small>×</small> 30%</b><u>= 29 points</u></div>
+    <div class="op" style="left:609pt">+</div>
+    <div class="cell" style="left:644pt">Values<b>75 <small>×</small> 20%</b><u>= 15 points</u></div>
+    <div class="op" style="left:919pt">=</div>
+    <div class="cell res" style="left:954pt">Fit score<b>78 / 100</b><u>A strong match</u></div>
+  </div>
+  <div class="foot">Example from our working demo · Built on SkillsFuture data, MyCareersFuture, NTUC e2i and M³+</div>
+</section>
+
+<!-- 5 (new): shortest path -->
+<section class="slide dark sp">
+  <div class="eyebrow">3 · How it works · Shortest path</div>
+  <div class="status">Being added to the demo</div>
+  <h1>Every local course, and the best place abroad</h1>
+
+  <div class="panel" style="left:96pt;width:572pt">
+    <div class="cap">In Singapore</div>
+    <h2>Every public school that offers it</h2>
+    <div class="tbl">
+      <div class="row h"><span>SCHOOL</span><span>COURSE</span><span>YEARS</span><span>YEARLY FEE</span><span>LINK</span></div>
+      <div class="row"><span><i class="bar" style="width:96pt"></i></span><span><i class="bar" style="width:118pt"></i></span><span><i class="bar" style="width:22pt"></i></span><span><i class="bar" style="width:52pt"></i></span><span class="lnk"><i class="bar" style="width:30pt"></i></span></div>
+      <div class="row"><span><i class="bar" style="width:80pt"></i></span><span><i class="bar" style="width:100pt"></i></span><span><i class="bar" style="width:22pt"></i></span><span><i class="bar" style="width:52pt"></i></span><span class="lnk"><i class="bar" style="width:30pt"></i></span></div>
+      <div class="row"><span><i class="bar" style="width:104pt"></i></span><span><i class="bar" style="width:126pt"></i></span><span><i class="bar" style="width:22pt"></i></span><span><i class="bar" style="width:52pt"></i></span><span class="lnk"><i class="bar" style="width:30pt"></i></span></div>
+    </div>
+    <div class="chips"><span class="chip">ITE</span><span class="chip">Polytechnics</span><span class="chip">Universities</span><span class="chip">Arts institutions</span></div>
+    <div class="note">Yearly fee for a Singapore Citizen after the MOE Tuition Grant, with a link to the course page.</div>
+  </div>
+
+  <div class="panel" style="left:692pt;width:652pt">
+    <div class="cap">Overseas</div>
+    <h2>One best place to study it, then runners-up</h2>
+    <div class="best">
+      <div class="cap">Best place to study this</div>
+      <div class="r"><span>Country and school</span><span class="b"><i class="bar"></i></span></div>
+      <div class="r"><span>Why it ranks first, and the environment</span><span class="b"><i class="bar"></i></span></div>
+      <div class="r"><span>Fees, years and total cost</span><span class="b"><i class="bar"></i></span></div>
+      <div class="r"><span>Watch-outs, and links to read more</span><span class="b"><i class="bar"></i></span></div>
+    </div>
+    <div class="alt-cap">RUNNER-UP COUNTRIES</div>
+    <div class="alt"><span>Country and school</span><span class="bw"><i class="bar"></i></span></div>
+    <div class="alt"><span>Country and school</span><span class="bw"><i class="bar"></i></span></div>
+  </div>
+
+  <div class="ex"><div class="cap">Worked example · Architecture</div>
+    <p>The best place is a leading architecture school in Europe, chosen for the school’s standing, then the environment. Fees, years and total cost sit beside it.</p></div>
+  <div class="foot">A sketch of the screen, not real data. Every fee shows its year and source.</div>
+</section>
+
+<!-- 6 (new): world map -->
+<section class="slide wm">
+  <div class="eyebrow">3 · How it works · World map</div>
+  <div class="status">Being added to the demo</div>
+  <h1>Pick an industry, then explore its countries</h1>
+
+  <div class="vline" style="top:281pt;height:56pt"></div><div class="vline" style="top:401pt;height:56pt"></div>
+  <div class="st" style="top:225pt"><div class="num">1</div><h3>Tap an industry</h3><p>Its countries are listed as growing, steady or shrinking. The globe stays still.</p></div>
+  <div class="st" style="top:345pt"><div class="num">2</div><h3>Choose a country</h3><p>Pick it from the list, or tap it on the globe. Only then does the globe spin to it.</p></div>
+  <div class="st" style="top:465pt"><div class="num on">3</div><h3>Read its profile</h3><p>Flag, population, languages, what it is known for, GDP, GDP per person, facts, notable organisations and brands, and top-rated institutions.</p></div>
+
+  <svg class="globe" viewBox="0 0 290 290" aria-hidden="true">
+    <circle cx="145" cy="145" r="135" fill="#10302B"/>
+    <g fill="none" stroke="#3E6A62" stroke-width="1.5">
+      <ellipse cx="145" cy="145" rx="45" ry="135"/><ellipse cx="145" cy="145" rx="92" ry="135"/>
+      <line x1="145" y1="10" x2="145" y2="280"/>
+      <line x1="10" y1="145" x2="280" y2="145"/>
+      <path d="M22 100 H268"/><path d="M22 190 H268"/>
+      <path d="M52 55 H238"/><path d="M52 235 H238"/>
+    </g>
+    <circle cx="145" cy="145" r="135" fill="none" stroke="#3E6A62" stroke-width="2"/>
+    <circle cx="236" cy="107" r="19" fill="#E3A43B" opacity=".28"/>
+    <circle cx="236" cy="107" r="9" fill="#E3A43B"/>
+  </svg>
+  <div class="conn"></div>
+  <div class="legend"><span class="g">Growing</span><span class="s">Steady or mixed</span><span class="d">Shrinking</span></div>
+  <div class="lcap">Countries for the chosen industry, grouped by outlook</div>
+
+  <div class="prof">
+    <div class="top"><div class="flag">Flag</div><i class="bar"></i></div>
+    <div class="kv"><span>Population</span><i class="bar"></i></div>
+    <div class="kv"><span>Languages</span><i class="bar"></i></div>
+    <div class="kv"><span>GDP</span><i class="bar"></i></div>
+    <div class="kv"><span>GDP per person</span><i class="bar"></i></div>
+    <div class="sec">Known for and facts<i class="bar"></i></div>
+    <div class="sec">Notable organisations and brands<i class="bar"></i></div>
+    <div class="sec">Top-rated institutions<i class="bar"></i></div>
+  </div>
+
+  <div class="band"><b>Every number has a year and a source.</b><span>About 60 countries to start. Others say “No profile yet”.</span></div>
+  <div class="foot">A sketch of the screens, not real data. Figures cite their source and year, for example the World Bank and QS rankings.</div>
+</section>
+
+<!-- 7: timeline and budget (was slide 5) -->
+<section class="slide s7">
+  <div class="eyebrow">4 · Timeline and budget</div>
+  <h1>A pilot with 300 youths for about $22,000</h1>
+  <div class="cap tcap">Timeline · Nov 2026 to Jun 2028</div>
+  <div class="tl" style="top:293pt"><div class="b">Prepare</div><div class="w">Nov 2026 – Mar 2027<small>Build the app; test with 20 youths</small></div></div>
+  <div class="tl" style="top:402pt"><div class="b on">Pilot</div><div class="w">Apr – Jun 2027<small>300 youths take Serasi with a coach</small></div></div>
+  <div class="tl" style="top:511pt"><div class="b">Track</div><div class="w">Jul 2027 – Mar 2028<small>6-month check-in on job fit</small></div></div>
+  <div class="tl" style="top:620pt"><div class="b">Decide</div><div class="w">Apr – Jun 2028<small>12-month check-in; scale or stop</small></div></div>
+  <div class="cap bcap">Draft budget <b>$22,000</b></div>
+  <div class="stack"><i style="width:323pt;background:var(--dark)"></i><i style="width:80pt;background:var(--green)"></i><i style="width:134pt;background:var(--brown)"></i><i style="width:55pt;background:var(--amber)"></i></div>
+  <div class="bl" style="top:393pt"><i style="background:var(--dark)"></i><span>Thank-you vouchers for 300 youths</span><b>$12,000</b></div>
+  <div class="bl" style="top:478pt"><i style="background:var(--green)"></i><span>Outreach and workshops</span><b>$3,000</b></div>
+  <div class="bl" style="top:563pt"><i style="background:var(--brown)"></i><span>Translation, adviser, hosting and PDPA</span><b>$5,000</b></div>
+  <div class="bl" style="top:648pt"><i style="background:var(--amber)"></i><span>Buffer (10%)</span><b>$2,000</b></div>
+  <div class="foot">All figures are draft estimates. Data and software are free or built in-kind; partners provide coaches and venues.</div>
+</section>
+
+<!-- 8: outreach and impact (was slide 6) -->
+<section class="slide s8">
+  <div class="eyebrow">5 · Outreach and impact</div>
+  <h1>From posters to events youths actually want</h1>
+  <div class="cap hcap" style="left:96pt;top:221pt">Promotion posters</div>
+  <div class="poster p1"><div class="pc">Serasi</div><h4>Which of the six are you?</h4>
+    <div class="grid"><i>R</i><i>I</i><i>A</i><i>S</i><i>E</i><i>C</i></div>
+    <div class="cta">Take the free 15-minute quiz</div><div class="qr">QR</div></div>
+  <div class="poster p2"><div class="pc">Serasi</div><h4>Your first job should fit you</h4><p>Matched on your interests, work style and values</p>
+    <div class="cta">Free · 15 minutes</div><div class="qr">QR</div></div>
+  <div class="poster p3"><div class="pc">With MENDAKI</div><h4>Try a job before you choose it</h4><p>Job tasters and internships matched to your top roles</p>
+    <div class="cta">Scan to sign up</div><div class="qr">QR</div></div>
+  <div class="pcap">For ITE, poly and university campuses, and MENDAKI events</div>
+  <div class="cap hcap" style="left:837pt;top:221pt">Intended outcomes</div>
+  <div class="box b1"><ul>
+    <li><b>Clearer direction:</b> a profile and top 10 job matches for 300 youths</li>
+    <li><b>Better job fit:</b> checked at 6 and 12 months</li>
+    <li><b>A clear decision:</b> evidence to scale Serasi or stop</li></ul></div>
+  <div class="cap hcap" style="left:837pt;top:436pt">Potential community impact</div>
+  <div class="box b2"><ul>
+    <li><b>Fewer poor-fit starts:</b> more Malay youths in work that suits them</li>
+    <li><b>Earlier insight:</b> anonymised interests and skills gaps by age, school and area</li>
+    <li><b>Stronger pathways:</b> more youths reach job tasters, internships and coaches</li></ul></div>
+  <div class="foot">In 2025, 78% of NYC job-taster participants felt more aware of their career pathways (MCCY, 2026)</div>
+</section>
+
+<!-- 9: collaboration (was slide 7) -->
+<section class="slide dark s9">
+  <div class="eyebrow">6 · Collaboration</div>
+  <h1>How MENDAKI can help us pilot Serasi</h1>
+  <div class="pt on" style="top:222pt;height:108pt;padding-top:12.5pt"><b>MENDAKI</b>Reach youths, host events and<br>use the insights</div>
+  <div class="pt" style="top:340pt;height:80pt;padding-top:13.5pt"><b>NYC</b>Job tasters and mentoring</div>
+  <div class="pt" style="top:430pt;height:80pt;padding-top:13.5pt"><b>NTUC e2i and M³+</b>Career coaching and job matching</div>
+  <div class="pt" style="top:520pt;height:80pt;padding-top:13.5pt"><b>SkillsFuture SG and WSG</b>Skills data and MyCareersFuture</div>
+  <div class="pt" style="top:610pt;height:80pt;padding-top:13.5pt"><b>ITE, polys and universities</b>Pilot recruitment and counsellors</div>
+  <div class="get"><div class="cap">What MENDAKI gets</div>
+    <div class="gi" style="top:85pt"><div class="n">1</div><h5>Youths take Serasi</h5><p>At MENDAKI events, in schools or online, with their consent</p></div>
+    <div class="gi" style="top:185pt"><div class="n">2</div><h5>MENDAKI sees the trends</h5><p>Anonymised trends by age, school and area, with no names</p><div class="tags"><i>Interest types</i><i>Top jobs</i><i>Skills gaps</i></div></div>
+    <div class="gi" style="top:324pt"><div class="n">3</div><h5>Events that fit</h5><p>Job tasters and internships in the fields youths shortlist most, through MENDAKI’s Professional Networks</p></div>
+  </div>
+  <div class="ask"><div class="cap">Our ask of MENDAKI</div>
+    <div class="ai" style="top:113pt"><div class="n">1</div><h5>Reach 300 youths<br>for the pilot</h5></div>
+    <div class="ai" style="top:197pt"><div class="n">2</div><h5>About $22,000<br>in seed funding</h5></div>
+    <div class="ai" style="top:281pt"><div class="n">3</div><h5>A career guidance adviser</h5></div>
+    <div class="ai" style="top:333pt"><div class="n">4</div><h5>Employer links for job tasters and internships</h5></div>
+  </div>
+  <div class="foot">Serasi: the missing layer in Singapore’s career tools, not another app.</div>
+</section>
+
+</body>
+</html>
