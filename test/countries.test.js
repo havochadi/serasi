@@ -12,7 +12,7 @@ const srcLinks = keys => { const list = [...new Set(keys || [])]; return list.le
 const h = { esc, srcLinks };
 
 // Synthetic world: Alpha has a nationwide tech note; Beta has two city notes that disagree; Gamma has finance only; Delta has no notes at all.
-// iso 99 has a note but no profile in byIso.
+// iso 99 (Omega) and iso 5 (Twin) have notes but no profile in byIso.
 const WORLD = [
   { id: 'alpha', place: 'Alpha (nationwide)', country: 'Alpha', iso: 1, scope: 'country', ll: [0, 0], ind: {
     tech: ['grow', 'Alpha tech is booming.', ['src-a1', 'src-a2']],
@@ -54,7 +54,7 @@ const prof = (iso, k, over = {}) => C.profileHtml(iso, k, h, W, B, { data: DATA,
 
 test('sectorList puts a country with a nationwide note in its outlook group, and cities that disagree in steady', () => {
   const L = C.sectorList('tech', W, B);
-  assert.deepEqual(plain(L.grow.map(x => x.name)), ['Alpha']);
+  assert.deepEqual(plain(L.grow.map(x => x.name)), ['Alpha', 'Omega', 'Twin']);
   assert.deepEqual(plain(L.steady.map(x => x.name)), ['Beta']);
   assert.deepEqual(plain(L.decline), []);
 });
@@ -74,10 +74,24 @@ test('sectorList rest is every other country in byIso, alphabetically, with no o
   assert.equal(L.rest[0].outlook, undefined);
   assert.deepEqual(plain(L.rest[0].notes), []);
 });
-test('sectorList lists only countries that are in byIso (a note without a profile is not listed)', () => {
-  const all = (L => [].concat(L.grow, L.steady, L.decline, L.rest).map(x => x.iso))(C.sectorList('tech', W, B));
-  assert.ok(!all.includes(99));
-  assert.deepEqual(all.slice().sort(), [1, 2, 3, 4]);
+test('sectorList lists a country with a note for the sector even when byIso has no entry for it', () => {
+  const L = C.sectorList('tech', W, B);
+  const omega = L.grow.find(x => x.iso === 99);
+  assert.equal(omega.name, 'Omega'); assert.equal(omega.outlook, 'grow');
+  assert.equal(omega.notes[0].text, 'Omega tech is growing.');
+  assert.equal(L.grow.find(x => x.iso === 5).name, 'Twin', 'two cities that agree, no byIso entry');
+  const all = [].concat(L.grow, L.steady, L.decline, L.rest).map(x => x.iso);
+  assert.deepEqual(all.slice().sort((a, b) => a - b), [1, 2, 3, 4, 5, 99]);
+  assert.deepEqual(plain(L.rest.map(x => x.iso)), [4, 3], 'rest stays limited to byIso, A to Z');
+});
+test('sectorList takes a name from byIso, else from the map\'s country, else from the code', () => {
+  const world = [{ id: 'n', place: 'Nemo City', country: 'Nemoland', iso: 21, ind: { tech: ['grow', 'Nemo tech.', []] } }];
+  const names = (byIso, k = 'tech') => { const L = C.sectorList(k, world, byIso); return plain([].concat(L.grow, L.steady, L.decline, L.rest).map(x => x.name)); };
+  assert.deepEqual(names({ 21: { name: 'Record' } }), ['Record'], 'the record\'s name wins');
+  assert.deepEqual(names({ 21: {} }), ['Nemoland'], 'a record with no name uses the map\'s country');
+  assert.deepEqual(names({}), ['Nemoland'], 'a note-only country uses the map\'s country');
+  assert.deepEqual(names({ 22: {} }), ['Nemoland', '22'], 'a country with neither is named by its code (listed after the groups, in rest)');
+  assert.deepEqual(names({ 21: {}, 22: { name: 'Zed' } }, 'finance'), ['Nemoland', 'Zed'], 'with no note for the sector, a record with no name still uses the map\'s country');
 });
 test('sectorList for another sector regroups the countries', () => {
   const L = C.sectorList('finance', W, B);
@@ -89,6 +103,13 @@ test('sectorList for a sector with no notes anywhere puts everyone in rest, A to
   const L = C.sectorList('public', W, B);
   assert.deepEqual(plain([L.grow, L.steady, L.decline].map(g => g.length)), [0, 0, 0]);
   assert.deepEqual(plain(L.rest.map(x => x.name)), ['Alpha', 'Beta', 'Delta', 'Gamma']);
+});
+
+test('sectorList and listHtml fail loudly on an outlook that is not grow, steady or decline', () => {
+  const world = [{ id: 'z', place: 'Z', country: 'Zed', iso: 30, scope: 'country', ind: { tech: ['sideways', 'x', []] } }];
+  assert.throws(() => C.sectorList('tech', world, { 30: { name: 'Zed' } }), /Unknown outlook "sideways" for Zed in tech/);
+  assert.throws(() => C.sectorList('tech', world, {}), /Unknown outlook "sideways" for Zed in tech/, 'also for a country with no byIso entry');
+  assert.throws(() => C.listHtml('tech', h, world, { 30: { name: 'Zed' } }), /Unknown outlook/);
 });
 
 test('countryOutlook: Beta\'s cities disagree, so tech is steady', () => assert.equal(C.countryOutlook(2, 'tech', W), 'steady'));
@@ -153,6 +174,12 @@ test('figureText: figures under a million show three significant figures with co
   assert.equal(C.figureText({ v: 11204, yr: 2023 }, 'people'), 'about 11,200 (2023)');
   assert.equal(C.figureText({ v: 800, yr: 2023 }, 'people'), 'about 800 (2023)');
   assert.equal(C.figureText({ v: 57, yr: 2023 }, 'people'), 'about 57 (2023)');
+});
+test('figureText needs a four-digit year: 0, true, a blank, an array and a fractional year are "not available"', () => {
+  for (const yr of [0, true, false, ' ', '', [], {}, null, undefined, NaN, 99, 20245, 2024.5, -2024, '20xx', '2024.5'])
+    assert.equal(C.figureText({ v: 5e6, yr }, 'people'), 'not available', JSON.stringify(yr) + ' / ' + String(yr));
+  assert.equal(C.figureText({ v: 5e6, yr: 2024 }, 'people'), 'about 5 million (2024)');
+  assert.equal(C.figureText({ v: 5e6, yr: '2024' }, 'people'), 'about 5 million (2024)', 'a year written as text is fine');
 });
 test('figureText fails loudly on a kind it does not know', () => assert.throws(() => C.figureText({ v: 5, yr: 2024 }, 'eur'), /kind/));
 
@@ -249,6 +276,18 @@ test('institutions: ordinals are correct (1st, 2nd, 3rd, 11th, 21st, 112th)', ()
   const rankText = r => { const d = { ...DATA, byIso: { 1: { ...B[1], unis: [{ n: 'U', rank: r }] } } }; return C.profileHtml(1, 'tech', h, W, d.byIso, { data: d }).match(/QS 2026: (\S+?)</)[1]; };
   assert.deepEqual([1, 2, 3, 4, 11, 12, 13, 21, 22, 23, 101, 111, 112].map(rankText), ['1st', '2nd', '3rd', '4th', '11th', '12th', '13th', '21st', '22nd', '23rd', '101st', '111th', '112th']);
 });
+test('institutions: only an absent rank means "main national university"; a bad rank shows nothing and makes no claim', () => {
+  const unisOf = (unis, data = DATA) => { const d = { ...data, byIso: { 1: { ...B[1], unis } } }; return C.profileHtml(1, 'tech', h, W, d.byIso, { data: d }); };
+  const section = out => out.slice(out.indexOf('Top-rated institutions'), out.indexOf('</ul>', out.indexOf('Top-rated institutions')));
+  for (const rank of [undefined, null]) assert.match(section(unisOf([{ n: 'Odd U', rank }])), /<b>Odd U<\/b> <span class="small muted">main national university<\/span>/, String(rank));
+  assert.match(section(unisOf([{ n: 'Odd U' }])), /main national university/, 'no rank key at all');
+  for (const rank of [0, 1.5, -3, NaN, Infinity, '', '   ', true, {}, []]) {
+    const out = unisOf([{ n: 'Odd U', rank }]), sec = section(out);
+    assert.match(sec, /<li><b>Odd U<\/b><\/li>/, 'the name is still listed: ' + String(rank));
+    assert.doesNotMatch(sec, /QS|main national university|undefined|NaN/, String(rank));
+    assert.doesNotMatch(out, /QS World University Rankings/, 'no QS citation when no rank is shown: ' + String(rank));
+  }
+});
 test('institutions: a rank is not shown when the QS edition is not known', () => {
   const out = C.profileHtml(1, 'tech', h, W, B, { data: { ...DATA, qs: undefined } });
   assert.doesNotMatch(out, /12th/); assert.match(out, /Alpha National University/); assert.doesNotMatch(out, /undefined/);
@@ -283,6 +322,19 @@ test('the source line names another source for a figure that has one, and leaves
   assert.doesNotMatch(src, /GDP 20/, 'Beta has no GDP figure');
   assert.match(src, /GDP per person 2024: Beta Statistics Office/);
 });
+test('links are made only for http(s) URLs: javascript: and other schemes in a university url, a figure srcUrl, the QS url and the World Bank url stay plain text', () => {
+  const d = { qs: { edition: '2026', url: 'javascript:alert(1)' }, wb: { url: ' javascript:alert(2)' }, byIso: { 7: {
+    name: 'Seven', a2: 'zz', pop: { v: 5e6, yr: 2025 }, gdp: { v: 2e9, yr: 2024, src: 'Seven Office', srcUrl: 'javascript:alert(3)' }, gdppc: { v: null, why: 'none' },
+    unis: [{ n: 'U1', rank: 1, url: 'JavaScript:alert(4)' }, { n: 'U2', url: ' javascript:alert(5)' }, { n: 'U3', url: 'data:text/html,x' }, { n: 'U4', url: '//evil.example/x' }, { n: 'U5', url: 'vbscript:x' }] } } };
+  const out = C.profileHtml(7, 'tech', h, W, d.byIso, { data: d });
+  assert.doesNotMatch(out, /javascript:|data:text|evil\.example|vbscript/i, 'no unsafe URL appears, not even as text');
+  assert.doesNotMatch(out, /<a /, 'nothing is linked');
+  for (const t of ['U1', 'U2', 'U3', 'U4', 'U5', 'Seven Office']) assert.ok(out.includes(t), t);
+  assert.match(out, /World Bank \(population 2025\)/); assert.match(out, /QS World University Rankings 2026/);
+  const good = { ...d, qs: { edition: '2026', url: 'https://qs.example/' }, wb: { url: 'http://wb.example/' }, byIso: { 7: { ...d.byIso[7], unis: [{ n: 'U1', rank: 1, url: 'https://u.example/' }] } } };
+  const ok = C.profileHtml(7, 'tech', h, W, good.byIso, { data: good });
+  for (const u of ['https://qs.example/', 'http://wb.example/', 'https://u.example/']) assert.ok(ok.includes('<a href="' + u + '" target="_blank" rel="noopener">'), u);
+});
 test('a null figure shows "not available" with its reason, and never NaN or 0 (Review Focus 5)', () => {
   const out = prof(2, 'tech');
   assert.match(out, /not available/); assert.match(out, /The World Bank has no GDP figure for Beta\./);
@@ -290,6 +342,26 @@ test('a null figure shows "not available" with its reason, and never NaN or 0 (R
   const delta = prof(4, 'tech');
   assert.equal(delta.match(/not available/g).length, 2);
   assert.doesNotMatch(delta, /NaN|undefined|null/);
+});
+test('a figure\'s src is a source name, and srcUrl links it in the table and the source line', () => {
+  const fig = extra => { const d = { ...DATA, byIso: { 2: { ...B[2], gdppc: { v: 4100, yr: 2024, src: 'Beta Statistics Office', ...extra } } } }; return C.profileHtml(2, 'tech', h, W, d.byIso, { data: d }); };
+  const link = '<a href="https://stats.example/beta?x=1&amp;y=2" target="_blank" rel="noopener">Beta Statistics Office</a>';
+  const linked = fig({ srcUrl: 'https://stats.example/beta?x=1&y=2' });
+  assert.equal(linked.split(link).length - 1, 2, 'once in the table cell and once in the source line');
+  const plainName = fig({});
+  assert.equal(plainName.match(/Beta Statistics Office/g).length, 2);
+  assert.doesNotMatch(plainName, /<a [^>]*>Beta Statistics Office/);
+  for (const srcUrl of ['javascript:alert(1)', ' https://stats.example/', '/relative', 5, null]) {
+    const out = fig({ srcUrl });
+    assert.equal(out.match(/Beta Statistics Office/g).length, 2, String(srcUrl));
+    assert.doesNotMatch(out, /<a [^>]*>Beta Statistics Office/, String(srcUrl));
+    assert.doesNotMatch(out, /javascript:/);
+  }
+});
+test('a figure with a srcUrl but no src name is treated as a World Bank figure and shows no link', () => {
+  const d = { ...DATA, byIso: { 2: { ...B[2], gdppc: { v: 4100, yr: 2024, srcUrl: 'https://stats.example/beta' } } } };
+  const out = C.profileHtml(2, 'tech', h, W, d.byIso, { data: d });
+  assert.doesNotMatch(out, /stats\.example/); assert.match(out, /World Bank<\/a> \(population 2025, GDP per person 2024\)/);
 });
 test('a figure with its own source shows that source in the table', () => assert.match(prof(2, 'tech'), /about US\$4,100 \(2024\)[^]*?Beta Statistics Office/));
 test('languages written as one string are shown as given', () => assert.match(prof(2, 'tech'), /Betish/));
@@ -318,6 +390,23 @@ test('profileHtml escapes names and data', () => {
   assert.doesNotMatch(out, /<script|<i>|<u>|<b>k|<em>/);
   assert.match(out, /A&lt;script&gt;/); assert.match(out, /O&amp;O/); assert.match(out, /&quot;q&quot;/);
   assert.match(out, /alt="A&lt;script&gt;x&lt;\/script&gt;"/);
+  assert.ok(out.includes('href="https://x.example/?a=1&amp;b=&quot;2&quot;"'), 'a university link keeps its query but not a raw & or "');
+});
+test('profileHtml escapes a hostile place, note text, industry key, outlook and map country name', () => {
+  const evil = '<img src=x onerror=alert(1)>';
+  const world = [
+    { id: 'e1', place: 'Evil (nationwide)', country: '<svg onload=x>', iso: 40, scope: 'country', ind: { tech: ['grow', 'Nation ' + evil, []] } },
+    { id: 'e2', place: evil, country: '<svg onload=x>', iso: 40, ind: { tech: ['decline', 'City ' + evil, []], '<u>k</u>': ['<s>', 'Other ' + evil, []], finance: ['steady', 'Fin ' + evil, []] } }
+  ];
+  const full = C.profileHtml(40, 'tech', h, world, { 40: { name: 'Evil', a2: 'zz' } }, { data: DATA });
+  const none = C.profileHtml(40, 'tech', h, world, {}, { data: DATA });
+  for (const out of [full, none]) {
+    assert.doesNotMatch(out, /<img src|<svg|<s>|<u>|<script|onerror=alert\(1\)>/);
+    assert.match(out, /&lt;img src=x onerror=alert\(1\)&gt;/);
+    assert.match(out, /Nation &lt;img/); assert.match(out, /City &lt;img/); assert.match(out, /Other &lt;img/); assert.match(out, /Fin &lt;img/);
+    assert.match(out, /&lt;u&gt;k&lt;\/u&gt;/, 'the industry key is shown escaped when there is no label for it');
+  }
+  assert.match(none, /<h2>&lt;svg onload=x&gt;<\/h2>/, 'the map\'s country name is the name when there is no profile');
 });
 test('profileHtml and listHtml use the real world map and SerasiCountryData by default', () => {
   w.SerasiCountryData = DATA;
@@ -370,7 +459,23 @@ test('listHtml has no undefined or NaN, escapes names and notes, and omits the r
   assert.match(out, /X&lt;y&gt;/); assert.match(out, /Note &lt;b&gt;bold&lt;\/b&gt;/);
   assert.doesNotMatch(out, /<y>|<b>bold|undefined|NaN|<details/);
 });
-test('listHtml of an empty byIso is a plain message, not empty markup', () => {
-  const out = C.listHtml('tech', h, W, {});
+test('listHtml lists countries that have notes for the sector even when byIso has no entry for them', () => {
+  const out = C.listHtml('tech', h, W, B);
+  const omega = out.match(/<button class="country-btn" type="button" data-action="country" data-iso="99">[^]*?<\/button>/)[0];
+  assert.match(omega, /<b>Omega<\/b>/); assert.match(omega, /<span class="pill grow">Growing<\/span>/); assert.match(omega, /Omega tech is growing\./);
+  assert.ok(out.indexOf('data-iso="99"') < out.indexOf('<details'), 'in an outlook group');
+  assert.ok(!out.slice(out.indexOf('<details')).includes('data-iso="99"'), 'not in the rest list');
+  const none = C.listHtml('tech', h, W, {});
+  assert.equal(none.match(/data-action="country"/g).length, 4, 'with no byIso at all, the countries with notes still list');
+  assert.doesNotMatch(none, /<details|undefined|NaN/);
+});
+test('listHtml of an empty byIso and a sector with no notes is a plain message, not empty markup', () => {
+  const out = C.listHtml('public', h, W, {});
+  assert.match(out, /No countries to show yet/);
   assert.doesNotMatch(out, /undefined|<details|<button/);
+});
+test('listHtml escapes the place that prefixes a city\'s note', () => {
+  const world = [{ id: 'c', place: '<img src=x onerror=alert(1)>', country: 'Evil', iso: 9, ind: { tech: ['grow', 'A <i>note</i>', []] } }];
+  const out = C.listHtml('tech', h, world, { 9: { name: 'Evil' } });
+  assert.doesNotMatch(out, /<img|<i>/); assert.match(out, /&lt;img src=x onerror=alert\(1\)&gt;: A &lt;i&gt;note&lt;\/i&gt;/);
 });

@@ -3,9 +3,11 @@
    Load it after serasi-pathways.js (it reads WORLD, INDUSTRY and OUTLOOK from SerasiPathways when called). The country data,
    SerasiCountryData, is loaded separately and may arrive late: until it does, every country simply has no profile yet.
    SerasiCountryData is { asof, qs: { edition, url }, wb: { url }, byIso: { [numeric ISO 3166 code]: country } }, where a country is
-   { name, a2, langs, pop, gdp, gdppc, known, facts, orgs, unis }. pop, gdp and gdppc are figures: { v: number, yr: number, src?: string }
-   (src names the source when it is not the World Bank) or { v: null, why: string }. unis are { n, rank?, url? }; a university with no
-   rank is shown as the country's main national university, with no rank claim.
+   { name, a2, langs, pop, gdp, gdppc, known, facts, orgs, unis }. pop, gdp and gdppc are figures: { v: number, yr: number, src?: string,
+   srcUrl?: string } (src is the NAME of the source when it is not the World Bank, srcUrl an optional https link for it; a srcUrl with
+   no src is ignored) or { v: null, why: string }. yr is a four-digit year. unis are { n, rank?, url? }; a university with no rank key
+   is shown as the country's main national university, with no rank claim; a rank that is present but not usable (0, 1.5, a blank)
+   shows no rank and no claim. Links are made only for http(s) URLs; anything else is shown as plain text.
    Every function that reads the world map or the country data takes it as an optional argument and falls back to the page's own, so
    tests can pass small made-up data. h = { esc, srcLinks }, the page's helpers. */
 (function () {
@@ -23,6 +25,10 @@
   const outlookLabel = o => (window.SerasiPathways.OUTLOOK || {})[o] || String(o);
   const industryLabel = k => { const x = window.SerasiPathways.INDUSTRY[k]; return x ? x.label : String(k); };
   const httpUrl = u => typeof u === 'string' && /^https?:\/\//.test(u);
+  // A link when the URL is http(s); otherwise the text alone.
+  const linkTo = (url, text, esc) => httpUrl(url) ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(text) + '</a>' : esc(text);
+  // The name of the source a figure gives when it is not the World Bank's, or ''.
+  const srcName = fig => (fig && typeof fig.src === 'string' ? fig.src.trim() : '');
   const strings = x => (Array.isArray(x) ? x : typeof x === 'string' ? [x] : []).filter(s => typeof s === 'string' && s.trim());
 
   // The numeric ISO code as a number, or NaN for a missing or unusable one (a globe shape with no id).
@@ -69,14 +75,14 @@
   const flagUrl = a2 => (typeof a2 === 'string' && /^[A-Za-z]{2}$/.test(a2) ? FLAG_BASE + a2.toLowerCase() + '.svg' : '');
 
   /* ---------- Figures ---------- */
-  const group = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const commas = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   const sig3 = v => { const step = Math.pow(10, Math.max(0, Math.floor(Math.log10(v)) - 2)); return Math.round(v / step) * step; };
   const scaled = x => (x < 10 ? Math.round(x * 10) / 10 : Math.round(x));
 
   // 51,684,564 -> "52 million"; 1.9e12 -> "1.9 trillion"; 33,121 -> "33,100". A figure that rounds up to 1,000 moves to the next scale.
   function compact(v) {
     const small = sig3(v);
-    if (small < 1e6) return group(small);
+    if (small < 1e6) return commas(small);
     let i = SCALES.length - 1;
     while (i > 0 && v >= SCALES[i - 1][0]) i--;
     let n = scaled(v / SCALES[i][0]);
@@ -84,8 +90,8 @@
     return n + ' ' + SCALES[i][1];
   }
 
-  // A figure that can be shown: a number of at least 1 and a year. Anything else reads "not available", never NaN, 0 or a bare number.
-  const usable = fig => !!fig && typeof fig.v === 'number' && Number.isFinite(fig.v) && fig.v >= 1 && Number.isFinite(Number(fig.yr)) && fig.yr !== null && fig.yr !== '' && fig.yr !== false;
+  // A figure that can be shown: a number of at least 1 and a four-digit year. Anything else reads "not available", never NaN, 0 or a bare number.
+  const usable = fig => !!fig && typeof fig.v === 'number' && Number.isFinite(fig.v) && fig.v >= 1 && /^\d{4}$/.test(String(fig.yr));
 
   function figureText(fig, kind) {
     if (kind !== 'people' && kind !== 'usd') throw new Error('figureText: kind must be "people" or "usd", not ' + kind);
@@ -96,14 +102,16 @@
   const ordinal = n => { const t = n % 100; return n + (t >= 11 && t <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th')); };
 
   /* ---------- The country list ---------- */
-  // The three outlook groups hold the countries in byIso that have a note for the sector, A to Z; rest holds the others, A to Z.
-  // A country on the map but not in byIso has no profile to open, so it is not listed.
+  // The three outlook groups hold every country that has a note for the sector, A to Z, whether or not byIso has a profile for it (one
+  // without opens to "No profile yet" and its notes). rest holds the other countries in byIso, A to Z.
   function sectorList(k, world, byIso) {
     const W = worldOf(world), all = byIsoOf(byIso);
     const out = { grow: [], steady: [], decline: [], rest: [] };
-    Object.keys(all).forEach(key => {
+    const keys = Object.keys(all);
+    W.forEach(hub => { const n = isoNum(hub.iso); if (!Number.isNaN(n) && hub.ind && hub.ind[k] && !keys.includes(String(n))) keys.push(String(n)); });
+    keys.forEach(key => {
       const n = isoNum(key), iso = Number.isNaN(n) ? key : n;
-      const rec = all[key] || {};
+      const rec = (Object.prototype.hasOwnProperty.call(all, key) && all[key]) || {};
       const hubs = hubsOf(iso, W);
       const name = String(rec.name || (hubs[0] && hubs[0].country) || key);
       const notes = noteList(iso, W).filter(x => x.k === k).map(x => ({ place: x.place, text: x.o[1], city: x.city }));
@@ -166,7 +174,7 @@
   function figCell(fig, kind, esc) {
     const text = figureText(fig, kind);
     if (text === NOT_AVAILABLE) return NOT_AVAILABLE + (fig && typeof fig.why === 'string' && fig.why ? ' <span class="small muted">' + esc(fig.why) + '</span>' : '');
-    return esc(text) + (fig.src ? ' <span class="small muted">· ' + esc(fig.src) + '</span>' : '');
+    return esc(text) + (srcName(fig) ? ' <span class="small muted">· ' + linkTo(fig.srcUrl, srcName(fig), esc) + '</span>' : '');
   }
 
   // The institutions, each with its QS rank and edition, or "main national university" when the data gives no rank. A rank is shown only
@@ -176,10 +184,11 @@
     let ranked = false;
     const items = unis.map(u => {
       const rank = typeof u.rank === 'number' ? (Number.isInteger(u.rank) && u.rank >= 1 ? ordinal(u.rank) : '') : typeof u.rank === 'string' ? u.rank.trim() : '';
+      // Only a missing rank means "main national university"; a rank that is there but unusable shows nothing, so no false claim.
       let note = '';
-      if (!rank) note = 'main national university';
-      else if (edition) { note = 'QS ' + edition + ': ' + rank; ranked = true; }
-      const name = httpUrl(u.url) ? '<a href="' + esc(u.url) + '" target="_blank" rel="noopener">' + esc(u.n) + '</a>' : esc(u.n);
+      if (u.rank == null) note = 'main national university';
+      else if (rank && edition) { note = 'QS ' + edition + ': ' + rank; ranked = true; }
+      const name = linkTo(u.url, u.n, esc);
       return '<li><b>' + name + '</b>' + (note ? ' <span class="small muted">' + esc(note) + '</span>' : '') + '</li>';
     });
     return { ranked, html: items.length ? '<h3>Top-rated institutions</h3><ul class="country-ul">' + items.join('') + '</ul>' : '' };
@@ -188,12 +197,12 @@
   // The World Bank, with the year of each figure it gave; another source named for a figure that has one; QS with its edition when a
   // rank is shown; and the plain statement that the rest is Serasi's own.
   function sourceLine(rec, data, edition, ranked, esc) {
-    const link = (url, text) => httpUrl(url) ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(text) + '</a>' : esc(text);
+    const link = (url, text) => linkTo(url, text, esc);
     const wb = [], other = [];
     [['pop', 'population'], ['gdp', 'GDP'], ['gdppc', 'GDP per person']].forEach(([f, label]) => {
       const fig = rec[f];
       if (!usable(fig)) return;
-      if (fig.src) other.push(esc(label + ' ' + fig.yr) + ': ' + link(fig.src, fig.src));
+      if (srcName(fig)) other.push(esc(label + ' ' + fig.yr) + ': ' + link(fig.srcUrl, srcName(fig)));
       else wb.push(esc(label + ' ' + fig.yr));
     });
     const parts = [];
@@ -204,8 +213,9 @@
       'Languages, what the country is known for, facts, notable organisations and main national universities are compiled by Serasi from general knowledge and are not individually sourced.</p>';
   }
 
-  // opts = { data, name }: data stands in for SerasiCountryData; name is shown when there is no profile and the map has no name for the
-  // code either (a globe shape with no code, such as Kosovo).
+  // opts = { data, name }: data stands in for SerasiCountryData; name is the name shown when there is no profile (the globe's own name
+  // for the shape, so it works for a shape with no code, such as Kosovo). It wins over the map's country name, which is the fallback,
+  // and "This country" is the last resort.
   function profileHtml(iso, k, h, world, byIso, opts) {
     const { esc } = h;
     const W = worldOf(world), data = dataOf(opts);
