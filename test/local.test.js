@@ -169,3 +169,34 @@ test('the allied health sponsorship contact says only what its page says: degree
   assert.match(P.CONTACTS.ahspon.w, /degree-conversion route for Diploma in Nursing students/);
   assert.doesNotMatch(P.CONTACTS.ahspon.w, /cluster|diploma sponsorship/i);
 });
+
+// The three roles that had no degree-level school: each now has schools at every level it needs.
+test('biomed-sci: the biomedical and pharmaceutical science diplomas lead to NUS Life Sciences and NTU Biological Sciences', () => {
+  assert.deepEqual(schoolsFor('biomed-sci', 2), ['Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic', 'Republic Polytechnic', 'Temasek Polytechnic']);
+  assert.deepEqual(schoolsFor('biomed-sci', 3), ['NUS', 'NTU']);
+  assert.deepEqual(names('biomed-sci', 3), ['Bachelor of Science (Honours) in Life Sciences', 'Bachelor of Science (Honours) in Biological Sciences']);
+});
+test('social-worker: ITE, three diplomas, then social work degrees at NUS and SUSS', () => {
+  assert.deepEqual(schoolsFor('social-worker', 1), ['ITE']);
+  assert.deepEqual(schoolsFor('social-worker', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Temasek Polytechnic']);
+  assert.deepEqual(schoolsFor('social-worker', 3), ['NUS', 'SUSS']);
+  assert.ok(names('social-worker', 3).every(n => /Social Work/.test(n)));
+});
+test('counsellor: ITE, three diplomas, then social work and psychology degrees at NUS, NTU and SUSS', () => {
+  assert.deepEqual(schoolsFor('counsellor', 1), ['ITE']);
+  assert.deepEqual(schoolsFor('counsellor', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Temasek Polytechnic']);
+  assert.deepEqual(schoolsFor('counsellor', 3), ['NUS', 'NUS', 'NTU', 'SUSS', 'SUSS']);
+  assert.ok(names('counsellor', 3).some(n => /Psychology/.test(n)) && names('counsellor', 3).some(n => /Social Work/.test(n)));
+});
+test('every role of the eight health and care fields has a school at each level its route uses, except where no public school teaches it', () => {
+  const none = { medicine: [1, 2], veterinary: [3], earlychild: [3], nursing: [3], pharmacy: [1], 'allied-health': [1, 2] };
+  for (const id of ['nurse', 'enrolled-nurse', 'oral-health', 'physio', 'pharm-tech', 'pharmacist', 'doctor', 'lab-tech', 'pharma-qa', 'biomed-sci', 'vet-tech', 'preschool', 'early-int', 'social-worker', 'counsellor', 'youth-worker', 'community-care']) {
+    const role = ROLE[id], field = w.SerasiStudy.fieldOf(role);
+    for (let lvl = 1; lvl <= role.edu; lvl++) {
+      if ((none[field] || []).includes(lvl)) continue;
+      // Level 1 only matters for roles whose route starts at ITE: the ITE courses exist for nursing, early childhood and social work.
+      if (lvl === 1 && !['nursing', 'earlychild', 'socialwork'].includes(field)) continue;
+      assert.ok(L.forRole(role, lvl).length > 0, id + ' level ' + lvl);
+    }
+  }
+});
