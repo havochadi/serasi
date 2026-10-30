@@ -69,6 +69,13 @@ test('every agency field has a note of more than 40 characters with its sources'
     assert.ok(o.src.length > 0 && o.src.every(s => P.SOURCES[s]), f + ': sources exist');
   }
 });
+test('every note on a study field has sources that exist and are https links', () => {
+  for (const f of studyFields.filter(noteOf)) {
+    const o = O.OPTIONS[f];
+    assert.ok(o.agency.length > 40 && o.src.length > 0, f);
+    for (const s of o.src) assert.ok(P.SOURCES[s] && /^https:\/\//.test(P.SOURCES[s][1]), f + ': source ' + s);
+  }
+});
 test('every field that is not an agency field has local courses at the top level its roles need, unless NO_LOCAL names it and says why', () => {
   for (const f of Object.keys(FIELDS)) {
     if (kindOf(f) === 'agency') continue;
@@ -98,4 +105,23 @@ test('Islamic studies names its Singapore gatekeeper in every option and says it
     assert.match(o.watch, /Asatizah Recognition Scheme/, o.school); assert.match(o.watch, /may or may not be/, o.school);
     assert.match(o.standing, /Not ranked by a QS subject table/, o.school);
   }
+});
+
+// Free tuition with unknown living costs must never read as a free ride: no "$0" anywhere the entry is summarised.
+test('the Madinah alternative row, cost text and Ask Serasi summary never print $0', () => {
+  const h = { esc: w.SerasiCore.esc, srcLinks: () => '' };
+  const out = O.html(w.SerasiCore.ROLE.asatizah, h);
+  const row = out.slice(out.indexOf('alt-row'));
+  assert.match(row, /No tuition fees · living costs not known/); assert.doesNotMatch(row, /\$0/);
+  const madinah = O.OPTIONS.religious.alts[0];
+  assert.doesNotMatch(O.costText(madinah).total, /\$0/); assert.match(O.costText(madinah).total, /not known/);
+  const best = { ...O.OPTIONS.religious.best, tuition: [0, 0], once: undefined, living: null };
+  assert.doesNotMatch(O.summaryFor(w.SerasiCore.ROLE.asatizah, { religious: { best, alts: [] } }), /\$0/);
+  assert.match(O.summaryFor(w.SerasiCore.ROLE.asatizah, { religious: { best, alts: [] } }), /living costs not known/);
+});
+test('a free-tuition option with known living costs still prints its total', () => {
+  const o = { ...O.OPTIONS.religious.alts[0], living: 10000, cur: 'SAR' };
+  assert.match(O.costText(o).total, /^Roughly \$[\d,]+ for 4 years, including living costs$/);
+  const out = O.html(w.SerasiCore.ROLE.asatizah, { esc: w.SerasiCore.esc, srcLinks: () => '' }, { religious: { best: O.OPTIONS.religious.best, alts: [o] } });
+  assert.match(out, /No tuition fees · about \$[\d,]+ in total/);
 });

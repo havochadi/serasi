@@ -1048,7 +1048,7 @@
     },
     // SIA's pilots page: ab initio cadets are trained at Singapore Flying College in Singapore and overseas; SIA recruits directly, with no third-party agencies.
     pilot: {
-      agency: 'Airline pilots in Singapore are mostly recruited and trained by the airline: Singapore Airlines takes on ab initio cadet pilots directly and trains them at the Singapore Flying College, in Singapore and overseas. Read SIA’s pilots page for the entry requirements and the stages of selection.',
+      agency: 'Airline pilots in Singapore are mostly recruited and trained by the airline: Singapore Airlines takes on ab initio cadet pilots directly and trains them at the Singapore Flying College, in Singapore and overseas. SIA’s page says cadets serve for the training and for 7 years from appointment as First Officer, so read it for the entry requirements, the stages of selection and the bond.',
       src: ['sia-pilot-careers']
     },
     // The Home Team (Police, SCDF) and the SAF each recruit through their own pages. The SPF page lists Direct-Entry Sergeant (assessed academic qualifications)
@@ -1116,7 +1116,7 @@
           standing: 'Not ranked by a QS subject table: QS World University Rankings by Subject 2026 has no Islamic studies table, so this university is picked as a well-known centre for the subject',
           why: 'A full scholarship for non-Saudi students living outside Saudi Arabia means no tuition fees, and the guide lists a monthly stipend, university housing and subsidised meals. Students come from more than 140 countries.',
           env: 'Madinah, Saudi Arabia. Teaching in the theoretical colleges, which include Shariah, is in Arabic, and students may first spend a preparatory stage learning Arabic at the university’s institute, depending on a placement test.',
-          watch: 'The “$0” is tuition only: the stipend amount is not stated in the guide, and the ticket home at the end of each academic year is discounted, not free. Places are competitive: applicants must be 17 to 25, hold a secondary certificate from the last five years, pass any entrance exams and bring recommendation letters, and the Faculty of the Holy Qur’an needs the whole Qur’an memorised. Students must return home after their studies. The guide (for 1448 AH entry) does not say whether Singapore citizens are eligible, and some outside sites say the scholarship is for men only, so check with the university. MUIS’s Asatizah Recognition Scheme applies to everyone teaching Islam in Singapore, and its pages do not say which overseas degrees are accepted, so a degree from here may or may not be: ask MUIS (info@muis.gov.sg) before you apply.',
+          watch: 'Only tuition is free: the stipend amount is not stated in the guide, and the ticket home each year is discounted, not free. Places are competitive. You must be 17 to 25, hold a secondary certificate from the last five years, be medically fit, have no scholarship from another Saudi institution, pass any entrance exams and bring recommendation letters. The Faculty of the Holy Qur’an needs the whole Qur’an memorised, and you must return home after your studies. The guide (for 1448 AH entry) does not say whether Singapore citizens are eligible, and some outside sites say the scholarship is for men only, so check with the university. MUIS’s Asatizah Recognition Scheme applies to everyone teaching Islam in Singapore, and its pages do not say which overseas degrees are accepted, so a degree from here may or may not be: ask MUIS (info@muis.gov.sg) before you apply.',
           url: 'https://iu.edu.sa/media/%D8%B9%D9%85%D8%A7%D8%AF%D8%A9%20%D8%A7%D9%84%D9%82%D8%A8%D9%88%D9%84%20%D9%88%D8%A7%D9%84%D8%AA%D8%B3%D8%AC%D9%8A%D9%84/Undergraduate%20Admission%20Guide%20-%201448.pdf',
           src: ['iu-madinah-guide', 'muis-ars', 'muis-pcics'], links: ['muis']
         }
@@ -1151,6 +1151,9 @@
     };
   }
 
+  // Free tuition with no known living costs and no one-off fee has no total to give: "about $0" would read as a free ride.
+  const noTotal = opt => opt.tuition[0] === 0 && opt.tuition[1] === 0 && opt.living == null && !opt.once;
+
   // The same costs as plain sentences: { fees, living, total }. living is '' when living costs aren't known.
   function costText(opt, fx) {
     const c = costOf(opt, fx), [lo, hi] = opt.tuition;
@@ -1162,7 +1165,7 @@
     return {
       fees,
       living: opt.living == null ? '' : 'Living costs ' + local(opt.cur, opt.living) + ' a year (about ' + sgd(c.livingSgd) + ')',
-      total: 'Roughly ' + sgd(c.totalSgd[0], c.totalSgd[1]) + ' for ' + fmtYears(opt.yrs) + (opt.living == null ? ', before living costs' : ', including living costs')
+      total: noTotal(opt) ? 'Living costs not known, so no total for ' + fmtYears(opt.yrs) : 'Roughly ' + sgd(c.totalSgd[0], c.totalSgd[1]) + ' for ' + fmtYears(opt.yrs) + (opt.living == null ? ', before living costs' : ', including living costs')
     };
   }
 
@@ -1174,7 +1177,8 @@
     const o = Object.prototype.hasOwnProperty.call(options, field) ? options[field] : null;
     if (!o || kind === 'ite' || !kind) return null;
     // A study field can carry the same kind of note when its overseas options have not been checked yet.
-    if (kind === 'agency' || typeof o.agency === 'string') return typeof o.agency === 'string' ? { field, agency: o.agency, src: o.src || [] } : null;
+    if (typeof o.agency === 'string') return { field, agency: o.agency, src: o.src || [] };
+    if (kind === 'agency') return null;
     return o.best ? { field, best: o.best, alts: o.alts || [] } : null;
   }
 
@@ -1192,6 +1196,7 @@
     // A runner-up's cost in one line: "No tuition fees · " when there are none, then the whole-course total in S$.
     const total = o => {
       const t = costOf(o).totalSgd, free = o.tuition[0] === 0 && o.tuition[1] === 0;
+      if (noTotal(o)) return costText(o).fees + ' · living costs not known' + note(o);
       return (free ? costText(o).fees + ' · ' : '') + 'about ' + sgd(t[0], t[1]) + (o.living == null ? ' before living costs' : ' in total') + note(o);
     };
     const b = r.best, t = costText(b);
@@ -1254,7 +1259,7 @@
     const close = x => (/[.!?]$/.test(x) ? x : x + '.');
     if (r.agency) return close(clip(r.agency, 450));
     const b = r.best, t = costOf(b).totalSgd;
-    const lead = b.country + ', ' + b.school + ': about ' + sgd(t[0], t[1]) + ' for ' + fmtYears(b.yrs) + (b.living == null ? ', before living costs' : ', including living costs') + '. Watch out: ';
+    const lead = b.country + ', ' + b.school + ': ' + (noTotal(b) ? costText(b).fees.toLowerCase() + ' for ' + fmtYears(b.yrs) + ', living costs not known' : 'about ' + sgd(t[0], t[1]) + ' for ' + fmtYears(b.yrs) + (b.living == null ? ', before living costs' : ', including living costs')) + '. Watch out: ';
     return lead + close(clip(b.watch, Math.max(450 - lead.length - 1, 0)));
   }
 
