@@ -89,6 +89,19 @@ test('animation keeps the Japan anime and MEXT note, with no QS rank claimed for
   assert.equal(jp.living, null);
   assert.deepEqual(plain(jp.links), ['embjp', 'jasso']);
 });
+test('media: Amsterdam first, then CUHK and QUT, ranked by QS Communication & Media Studies 2026', () => {
+  const f = O.OPTIONS.media;
+  assert.deepEqual(plain(countries('media')), ['Netherlands', 'Hong Kong', 'Australia']);
+  for (const o of [f.best].concat(f.alts)) assert.match(o.standing, /Communication and Media Studies \(QS World University Rankings by Subject 2026\)/, o.school);
+  assert.match(f.best.why, /NTU/); assert.match(f.best.why, /NUS/);
+  assert.match(O.html(ROLE.journalist, { esc: String, srcLinks: () => '' }), /Best place to study this/);
+});
+test('translation: one best pick from the QS Linguistics table, no alternatives yet, and the card still renders', () => {
+  const f = O.OPTIONS.translation;
+  assert.match(f.best.standing, /Linguistics, the closest QS subject \(QS World University Rankings by Subject 2026\)/);
+  assert.equal(f.alts.length, 0);
+  assert.doesNotMatch(O.html(ROLE.translator, { esc: String, srcLinks: () => '' }), /Also worth a look|undefined|NaN|null/);
+});
 test('an option with no living figure still gets a total, before living costs', () => {
   const jp = O.OPTIONS.animation.alts.find(o => o.country === 'Japan');
   assert.match(O.costText(jp).total, /before living costs$/);

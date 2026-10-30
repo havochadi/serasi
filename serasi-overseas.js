@@ -55,6 +55,8 @@
     'uva-fees': ['University of Amsterdam, tuition fees (institutional fees for 2027-2028, by faculty)', 'https://www.uva.nl/en/education/fees-and-funding/tuition-fees/tuition-fees.html'],
     'cuhk-commn': ['CUHK, Journalism and Communication (four-year undergraduate programme)', 'https://admission.cuhk.edu.hk/programme/commn/'],
     'cuhk-fees': ['CUHK, undergraduate fees for non-local students (2027-28 rate; hostel fee 2026-27)', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
+    'qs-ling26': ['QS World University Rankings by Subject 2026: Linguistics', 'https://www.topuniversities.com/university-subject-rankings/linguistics'],
+    'lancs-ling': ['Lancaster University, Linguistics BA Hons (Q100): fees for 2027/28 entrants', 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/'],
     'qut-comm': ['QUT, Bachelor of Communication (Media and Communication Industries): 2027 international fee', 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries']
   });
 
@@ -378,6 +380,25 @@
           src: ['qs-comm26', 'qut-comm', 'au-visa'], links: ['studyau']
         }
       ]
+    },
+
+    // QS 2026 Linguistics (the nearest QS subject for translation, which has no table of its own): 1 MIT, 2 Lancaster, 3 Cambridge, 4 Oxford, 6 NUS,
+    // 11 Edinburgh, =13 NTU and UCL, 22= Leiden, 25 CUHK, 26 Melbourne. The ranks were read from a site that republishes the QS table. Best: Lancaster,
+    // the highest-ranked school abroad whose own page gave a fee and a three-year degree taught in English. NUS (6th) and NTU (joint 13th) are local.
+    // Left out: MIT and the other US schools (no official money-for-living figure); Cambridge and Oxford (fee pages not checked). No alternatives are
+    // listed yet: no overseas Malay translation degree was found, and the Malaysian universities' Malay-language degrees were not researched.
+    translation: {
+      best: {
+        country: 'United Kingdom', school: 'Lancaster University', course: 'BA Hons Linguistics', yrs: 3,
+        tuition: [26300, 26300], cur: 'GBP', living: 10539,
+        standing: 'Ranked 2nd in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
+        why: 'A three-year degree at one of the top linguistics schools in the world, for a translator who wants a language-science base. It is not a translation degree and does not teach Malay: Lancaster’s page does not mention translation.',
+        env: 'Lancaster’s page does not say what language the teaching is in, though the university is in England. NUS (6th) and NTU (joint 13th) are in Singapore and cost far less.',
+        watch: 'The fee is for 2027/28 entrants, a year after one starting in 2026 would pay, and Lancaster says it is reviewed each year. For a Malay translator, a Malay-language degree such as NUS Malay Studies is a closer fit. The living figure is the UK visa minimum for 9 months outside London, not a typical budget.',
+        url: 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/',
+        src: ['qs-ling26', 'lancs-ling', 'uk-living'], links: ['ukvisa']
+      },
+      alts: []
     },
   };
 
