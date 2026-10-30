@@ -27,7 +27,7 @@
     'NUS', 'NTU', 'SMU', 'SUTD', 'SIT', 'SUSS', 'LASALLE', 'NAFA', 'University of the Arts Singapore', 'Duke-NUS', 'NIE'
   ];
 
-  // The courses, field by field. Fees are for students starting in 2026.
+  // The courses, field by field. Fees are for students starting in 2026, except the LASALLE and NAFA entries, which are for the August 2027 intake (their note says so).
   const COURSES = [
     // Architecture. The Board of Architects gives these four diplomas up to two years' advanced standing in an architecture degree.
     // Registering as an architect also needs a Master of Architecture, which the licence step on the page explains.
@@ -96,8 +96,8 @@
     { school: 'ITE', course: 'Higher Nitec in Interior & Product Design', lvl: 1, yrs: 2, fee: 566, fields: ['interior-design'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-interior-and-product-design/', src: ['fee-ite26'] },
     { school: 'ITE', course: 'Higher Nitec in Interior & Product Design (3 years)', lvl: 1, yrs: 3, fee: 566, fields: ['interior-design'], url: 'https://www.ite.edu.sg/course-finder/higher-nitec-in-interior-and-product-design-3-year/', src: ['fee-ite26'] },
     { school: 'Nanyang Polytechnic', course: 'Diploma in Experience Design', lvl: 2, yrs: 3, fee: 3188.09, fields: ['interior-design', 'graphic-ux'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-experience-design', src: ['fee-nyp26'] },
-    { school: 'LASALLE', course: 'Diploma in Spatial Design', lvl: 2, yrs: 3, fee: 5490, fields: ['interior-design'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/spatial-design/', src: ['fee-lasalle27'] },
-    { school: 'NAFA', course: 'Diploma in Design (Interior and Spatial)', lvl: 2, yrs: 3, fee: 4810, fields: ['interior-design'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-interior-and-spatial', src: ['fee-nafa27'] },
+    { school: 'LASALLE', course: 'Diploma in Spatial Design', lvl: 2, yrs: 3, fee: 5490, note: 'August 2027 intake', fields: ['interior-design'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/spatial-design/', src: ['fee-lasalle27'] },
+    { school: 'NAFA', course: 'Diploma in Design (Interior and Spatial)', lvl: 2, yrs: 3, fee: 4810, note: 'August 2027 intake', fields: ['interior-design'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-interior-and-spatial', src: ['fee-nafa27'] },
 
     // Graphic and UX design. ITE's Higher Nitec in Communication Design (ITE College Central) has Graphic Design and Animation & Motion Graphics
     // specialisations, so it also serves animation, and its careers page names photographers, so it is the level-1 course for that role too.
@@ -115,15 +115,15 @@
     { school: 'Republic Polytechnic', course: 'Diploma in Design (Visual Communication and User Experience majors)', lvl: 2, yrs: 3, fee: 3186.5, fields: ['graphic-ux'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-design/', src: ['fee-rp26'] },
     { school: 'Temasek Polytechnic', course: 'Diploma in Communication Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['graphic-ux'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/communication-design.html', src: ['fee-tp26'] },
     { school: 'Temasek Polytechnic', course: 'Diploma in Product Experience & Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['graphic-ux'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/product-experience-and-design.html', src: ['fee-tp26'] },
-    { school: 'LASALLE', course: 'Diploma in Graphic Design and Experiences', lvl: 2, yrs: 3, fee: 5490, fields: ['graphic-ux'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/graphic-design-and-experiences/', src: ['fee-lasalle27'] },
-    { school: 'NAFA', course: 'Diploma in Design Communication and Strategy', lvl: 2, yrs: 3, fee: 4810, fields: ['graphic-ux'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-communication-and-strategy', src: ['fee-nafa27'] },
+    { school: 'LASALLE', course: 'Diploma in Graphic Design and Experiences', lvl: 2, yrs: 3, fee: 5490, note: 'August 2027 intake', fields: ['graphic-ux'], url: 'https://www.lasalle.edu.sg/study/programmes/diploma/graphic-design-and-experiences/', src: ['fee-lasalle27'] },
+    { school: 'NAFA', course: 'Diploma in Design Communication and Strategy', lvl: 2, yrs: 3, fee: 4810, note: 'August 2027 intake', fields: ['graphic-ux'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-design-communication-and-strategy', src: ['fee-nafa27'] },
 
     // Fashion design. Only Temasek (Year 2: choose Fashion Design or Fashion Management) and NAFA (choose Fashion Design, Business or Textiles when applying)
     // teach it at diploma level; NAFA's fee is its "Fashion Studies" band, $450 above its design band because it includes the graduation show.
     // ITE has no fashion design course (its Visual Merchandising is a retail display course). LASALLE's Diploma in Creative Direction for Fashion is left
     // out: its own page says it is not a fashion design programme (garment design is its BA (Hons) Fashion Design and Textiles, a degree).
     { school: 'Temasek Polytechnic', course: 'Diploma in Fashion Management & Design', lvl: 2, yrs: 3, fee: 3183.15, fields: ['fashion'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/fashion-management-and-design.html', src: ['fee-tp26'] },
-    { school: 'NAFA', course: 'Diploma in Fashion', lvl: 2, yrs: 3, fee: 5260, fields: ['fashion'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-fashion', src: ['fee-nafa27'] },
+    { school: 'NAFA', course: 'Diploma in Fashion', lvl: 2, yrs: 3, fee: 5260, note: 'AY2027 Fashion Studies band', fields: ['fashion'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-fashion', src: ['fee-nafa27'] },
 
     // Animation. ITE's Communication Design (listed under graphic and UX design above) has an Animation & Motion Graphics specialisation. Singapore
     // Polytechnic's specialisation is Animation & Games. Nanyang's diploma covers 2D and 3D animation and visual effects. NAFA's Digital Illustration
@@ -132,7 +132,7 @@
     // animation role needs one.
     { school: 'Singapore Polytechnic', course: 'Diploma in Media, Arts & Design (Animation & Games)', lvl: 2, yrs: 3, fee: 3177.52, fields: ['animation'], url: 'https://www.sp.edu.sg/courses/schools/mad/animation-and-games', src: ['fee-poly'] },
     { school: 'Nanyang Polytechnic', course: 'Diploma in Animation, Games & Visual Effects', lvl: 2, yrs: 3, fee: 3188.09, fields: ['animation'], url: 'https://www.nyp.edu.sg/student/study/schools/design-media/diploma-animation-games-visual-effects', src: ['fee-nyp26'] },
-    { school: 'NAFA', course: 'Diploma in Digital Illustration and Narrative', lvl: 2, yrs: 3, fee: 4810, fields: ['animation'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-digital-illustration-and-narrative', src: ['fee-nafa27'] },
+    { school: 'NAFA', course: 'Diploma in Digital Illustration and Narrative', lvl: 2, yrs: 3, fee: 4810, note: 'August 2027 intake', fields: ['animation'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-digital-illustration-and-narrative', src: ['fee-nafa27'] },
 
     // Media and content. Level 1: ITE's Film & Video Production is tied to the video editor (its careers are camera, lighting and production crew), and
     // Communication Design (above) is the photographer's course because its careers page names photographers. Level 2: the film, mass communication
@@ -150,15 +150,15 @@
     { school: 'Republic Polytechnic', course: 'Diploma in Mass Communication', lvl: 2, yrs: 3, fee: 3186.5, fields: ['media'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-mass-communication/', src: ['fee-rp26'] },
     { school: 'Republic Polytechnic', course: 'Diploma in Digital Content Creation', lvl: 2, yrs: 3, fee: 3186.5, fields: ['media'], url: 'https://www.rp.edu.sg/education/diplomas/diploma-in-digital-content-creation/', src: ['fee-rp26'] },
     { school: 'Temasek Polytechnic', course: 'Diploma in Digital Film & Television', lvl: 2, yrs: 3, fee: 3183.15, fields: ['media'], url: 'https://www.tp.edu.sg/schools-and-courses/students/schools/des/digital-film-television.html', src: ['fee-tp26'] },
-    { school: 'NAFA', course: 'Diploma in Media Experience and Innovation', lvl: 2, yrs: 3, fee: 4810, fields: ['media'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-media-experience-and-innovation', src: ['fee-nafa27'] },
-    { school: 'NUS', course: 'Bachelor of Social Sciences (Honours) with a major in Communications and New Media', lvl: 3, yrs: 4, fee: 8300, fields: ['media'], url: 'https://fass.nus.edu.sg/cnm/undergraduate', src: ['fee-nus26'] },
-    { school: 'NTU', course: 'Bachelor of Communication Studies (Honours)', lvl: 3, yrs: 4, fee: 8300, fields: ['media'], url: 'https://www.ntu.edu.sg/admissions/undergraduate/undergraduate-programme/bachelor-of-communication-studies', src: ['fee-ntu'] },
+    { school: 'NAFA', course: 'Diploma in Media Experience and Innovation', lvl: 2, yrs: 3, fee: 4810, note: 'August 2027 intake', fields: ['media'], url: 'https://www.nafa.edu.sg/programmes/diploma-in-media-experience-and-innovation', src: ['fee-nafa27'] },
+    { school: 'NUS', course: 'Bachelor of Social Sciences (Honours) with a major in Communications and New Media', lvl: 3, yrs: 4, fee: 8300, note: 'length is the usual NUS honours length', fields: ['media'], url: 'https://fass.nus.edu.sg/cnm/undergraduate', src: ['fee-nus26'] },
+    { school: 'NTU', course: 'Bachelor of Communication Studies (Honours)', lvl: 3, yrs: 4, fee: 8300, note: 'length inferred from NTU\'s Year 1 to Year 4 plan', fields: ['media'], url: 'https://www.ntu.edu.sg/admissions/undergraduate/undergraduate-programme/bachelor-of-communication-studies', src: ['fee-ntu'] },
 
     // Translation and languages. The Malay translator needs a degree. NUS's Malay Studies is the one local degree whose page could be matched to the role;
     // NUS's pages block scripts, so the degree's 4 years is the usual length of a NUS honours degree (the department says the pass degree is no longer
     // offered). SUSS's BA in Malay Language and Literature (part-time) exists, but SUSS's pages turn scripts away, so its length and fee are unconfirmed
     // and it is not listed. NTU's Linguistics and Multilingual Studies does not mention translation or teach Malay, and no polytechnic teaches Malay translation.
-    { school: 'NUS', course: 'Bachelor of Arts (Honours) with a major in Malay Studies', lvl: 3, yrs: 4, fee: 8300, fields: ['translation'], roles: ['translator'], url: 'https://fass.nus.edu.sg/mls/honours-programme-and-single-major/', src: ['fee-nus26'] },
+    { school: 'NUS', course: 'Bachelor of Arts (Honours) with a major in Malay Studies', lvl: 3, yrs: 4, fee: 8300, note: 'length is the usual NUS honours length', fields: ['translation'], roles: ['translator'], url: 'https://fass.nus.edu.sg/mls/honours-programme-and-single-major/', src: ['fee-nus26'] },
   ];
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');

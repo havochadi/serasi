@@ -55,6 +55,9 @@
     'uva-fees': ['University of Amsterdam, tuition fees (institutional fees for 2027-2028, by faculty)', 'https://www.uva.nl/en/education/fees-and-funding/tuition-fees/tuition-fees.html'],
     'cuhk-commn': ['CUHK, Journalism and Communication (four-year undergraduate programme)', 'https://admission.cuhk.edu.hk/programme/commn/'],
     'cuhk-fees': ['CUHK, undergraduate fees for non-local students (2027-28 rate; hostel fee 2026-27)', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
+    'leiden-ling': ['Leiden University, BA Linguistics (taught in English)', 'https://www.universiteitleiden.nl/en/education/study-programmes/bachelor/linguistics'],
+    'leiden-fees': ['Leiden University, bachelor’s tuition fees (institutional fee for 2027-2028, by faculty)', 'https://www.universiteitleiden.nl/en/education/admission-and-application/bachelors/tuition-fee'],
+    'cuhk-ling': ['CUHK, major programme in Linguistics', 'https://ling.cuhk.edu.hk/programmes/undergraduate-programme/major-programme-in-linguistics/'],
     'qs-ling26': ['QS World University Rankings by Subject 2026: Linguistics', 'https://www.topuniversities.com/university-subject-rankings/linguistics'],
     'lancs-ling': ['Lancaster University, Linguistics BA Hons (Q100): fees for 2027/28 entrants', 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/'],
     'qut-comm': ['QUT, Bachelor of Communication (Media and Communication Industries): 2027 international fee', 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries']
@@ -346,7 +349,9 @@
     // The ranks were read from a site that republishes the QS table (QS's own page turns scripts away). NTU (2nd) and NUS (joint 10th) are local
     // schools, listed in the local courses, and outrank every school abroad except Amsterdam. Best: Amsterdam, first in the world and taught in English
     // (the US schools have no official money-for-living figure for a visa; LSE's undergraduate fee could not be confirmed). Alternatives: CUHK and QUT.
-    // CUHK's and QUT's pages turn scripts away, so their figures come from search summaries of those pages and are marked for a check by hand.
+    // CUHK's and QUT's pages turn scripts away, so their figures come from search summaries of those pages and are marked for a check by hand. QUT's
+    // fee is labelled unconfirmed on the card (other sites give A$37,200 to A$41,600 and its year is uncertain); Melbourne (22nd) was tried as a
+    // replacement, but its fees are per subject and no single course fee could be read.
     media: {
       best: {
         country: 'Netherlands', school: 'University of Amsterdam (UvA)', course: 'BSc Communication Science (Global Communication Science)', yrs: 3,
@@ -371,11 +376,11 @@
         },
         {
           country: 'Australia', school: 'Queensland University of Technology (QUT)', course: 'Bachelor of Communication (Media and Communication Industries, or the Journalism major)', yrs: 3,
-          tuition: [41600, 41600], cur: 'AUD', living: 29710,
+          tuition: [41600, 41600], feeLabel: 'Unconfirmed tuition', cur: 'AUD', living: 29710,
           standing: 'Ranked joint 19th in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
           why: 'A three-year degree in Brisbane, taught in English, with a Journalism major as well as Media and Communication Industries.',
           env: 'Based at QUT’s Kelvin Grove campus in Brisbane.',
-          watch: 'The A$41,600 fee is QUT’s 2027 international rate, and Australian fees rise most years. QUT’s page turned scripts away, so check it by hand. The living figure is the Australian student-visa minimum, not a typical budget.',
+          watch: 'QUT’s course page turns scripts away, so this fee could not be confirmed: the A$41,600 comes from a search summary of QUT’s page and its year is not certain, and other websites give different figures (from about A$37,200 to A$41,600). Australian fees rise most years, so check QUT’s page by hand. The living figure is the Australian student-visa minimum, not a typical budget.',
           url: 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries',
           src: ['qs-comm26', 'qut-comm', 'au-visa'], links: ['studyau']
         }
@@ -385,20 +390,42 @@
     // QS 2026 Linguistics (the nearest QS subject for translation, which has no table of its own): 1 MIT, 2 Lancaster, 3 Cambridge, 4 Oxford, 6 NUS,
     // 11 Edinburgh, =13 NTU and UCL, 22= Leiden, 25 CUHK, 26 Melbourne. The ranks were read from a site that republishes the QS table. Best: Lancaster,
     // the highest-ranked school abroad whose own page gave a fee and a three-year degree taught in English. NUS (6th) and NTU (joint 13th) are local.
-    // Left out: MIT and the other US schools (no official money-for-living figure); Cambridge and Oxford (fee pages not checked). No alternatives are
-    // listed yet: no overseas Malay translation degree was found, and the Malaysian universities' Malay-language degrees were not researched.
+    // Left out: MIT and the other US schools (no official money-for-living figure); Cambridge and Oxford (fee pages not checked); Edinburgh and UCL (same
+    // country as Lancaster); Melbourne (26th; its fees are per subject and no single course fee could be read). Alternatives, one per country: Leiden
+    // (=22) and CUHK (25). No overseas Malay translation degree was found, and the Malaysian universities' Malay-language degrees were not researched.
     translation: {
       best: {
         country: 'United Kingdom', school: 'Lancaster University', course: 'BA Hons Linguistics', yrs: 3,
         tuition: [26300, 26300], cur: 'GBP', living: 10539,
         standing: 'Ranked 2nd in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
-        why: 'A three-year degree at one of the top linguistics schools in the world, for a translator who wants a language-science base. It is not a translation degree and does not teach Malay: Lancaster’s page does not mention translation.',
+        why: 'A three-year degree at one of the top linguistics schools in the world, for a translator who wants a language-science base. It is not a translation degree and does not teach Malay: Lancaster does not offer a translation course in it.',
         env: 'Lancaster’s page does not say what language the teaching is in, though the university is in England. NUS (6th) and NTU (joint 13th) are in Singapore and cost far less.',
         watch: 'The fee is for 2027/28 entrants, a year after one starting in 2026 would pay, and Lancaster says it is reviewed each year. For a Malay translator, a Malay-language degree such as NUS Malay Studies is a closer fit. The living figure is the UK visa minimum for 9 months outside London, not a typical budget.',
         url: 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/',
         src: ['qs-ling26', 'lancs-ling', 'uk-living'], links: ['ukvisa']
       },
-      alts: []
+      alts: [
+        {
+          country: 'Netherlands', school: 'Leiden University', course: 'BA Linguistics', yrs: 3,
+          tuition: [14700, 14700], cur: 'EUR', living: 13569,
+          standing: 'Ranked joint 22nd in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
+          why: 'A three-year degree taught in English, at about half Lancaster’s fee. It is a linguistics degree, not a translation or Malay one.',
+          env: 'Taught in English in Leiden (the page also lists a Dutch-taught specialisation). The page does not mention translation.',
+          watch: 'The €14,700 is Leiden’s 2027-2028 fee for non-EEA students in the Faculty of Humanities; the page does not name Linguistics, and the 2026-2027 figure was not on it. The living figure is the minimum the Dutch immigration service asks students to have, not a typical budget.',
+          url: 'https://www.universiteitleiden.nl/en/education/study-programmes/bachelor/linguistics',
+          src: ['qs-ling26', 'leiden-ling', 'leiden-fees', 'nl-living'], links: ['studynl']
+        },
+        {
+          country: 'Hong Kong', school: 'The Chinese University of Hong Kong (CUHK)', course: 'BA in Linguistics', yrs: 4,
+          tuition: [230000, 230000], cur: 'HKD', living: null,
+          standing: 'Ranked 25th in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
+          why: 'A degree close to home from the university’s Department of Linguistics and Modern Languages.',
+          env: 'The pages read do not say what language the teaching is in, so check before you apply.',
+          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students. The four years are implied by the year-4 capstone courses in the study scheme, not stated. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. CUHK’s pages have a certificate problem for scripts, so check them by hand.',
+          url: 'https://ling.cuhk.edu.hk/programmes/undergraduate-programme/major-programme-in-linguistics/',
+          src: ['qs-ling26', 'cuhk-ling', 'cuhk-fees'], links: ['hkimmd']
+        }
+      ]
     },
   };
 

@@ -96,11 +96,23 @@ test('media: Amsterdam first, then CUHK and QUT, ranked by QS Communication & Me
   assert.match(f.best.why, /NTU/); assert.match(f.best.why, /NUS/);
   assert.match(O.html(ROLE.journalist, { esc: String, srcLinks: () => '' }), /Best place to study this/);
 });
-test('translation: one best pick from the QS Linguistics table, no alternatives yet, and the card still renders', () => {
+test('translation: a best pick and two alternatives in other countries from the QS Linguistics table, and the card renders', () => {
   const f = O.OPTIONS.translation;
   assert.match(f.best.standing, /Linguistics, the closest QS subject \(QS World University Rankings by Subject 2026\)/);
-  assert.equal(f.alts.length, 0);
-  assert.doesNotMatch(O.html(ROLE.translator, { esc: String, srcLinks: () => '' }), /Also worth a look|undefined|NaN|null/);
+  assert.equal(f.alts.length, 2);
+  assert.deepEqual(plain(countries('translation')), ['United Kingdom', 'Netherlands', 'Hong Kong']);
+  assert.doesNotMatch(O.html(ROLE.translator, { esc: String, srcLinks: () => '' }), /undefined|NaN|null/);
+});
+test('QUT\'s fee is labelled unconfirmed on the card', () => {
+  const q = O.OPTIONS.media.alts.find(o => /QUT/.test(o.school));
+  assert.match(O.costText(q).fees, /^Unconfirmed tuition/);
+  assert.match(q.watch, /could not be confirmed/);
+});
+test('LASALLE and NAFA entries say which intake their fee is for', () => {
+  for (const c of L.COURSES.filter(c => c.school === 'LASALLE' || c.school === 'NAFA')) assert.match(c.note, /2027/, c.course);
+});
+test('NUS and NTU degree lengths that were not read from a page say so in a note', () => {
+  for (const c of L.COURSES.filter(c => c.lvl === 3 && c.fields.some(f => f === 'media' || f === 'translation'))) assert.ok(c.note, c.course);
 });
 test('an option with no living figure still gets a total, before living costs', () => {
   const jp = O.OPTIONS.animation.alts.find(o => o.country === 'Japan');

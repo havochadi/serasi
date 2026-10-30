@@ -144,9 +144,9 @@ test('social work: the ITE course at level 1 and three diplomas for the youth wo
   assert.deepEqual(schoolsFor('community-care', 1), ['ITE']);
   assert.deepEqual(schoolsFor('youth-worker', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Temasek Polytechnic']);
 });
-test('a polytechnic fee that comes from the school is within reach of the generic fee table', () => {
-  // LASALLE and NAFA also teach diplomas, at fees of their own (the design track note says so), so only the polytechnics are held to the table.
-  for (const c of L.COURSES.filter(c => c.lvl === 2 && c.fee != null && /Polytechnic/.test(c.school))) assert.ok(Math.abs(c.fee - 3180) < 100, c.school + ' ' + c.course);
+test('a fee that comes from the school is within reach of the generic fee table', () => {
+  // LASALLE and NAFA charge fees of their own (the design track note says so); their entries are exempt.
+  for (const c of L.COURSES.filter(c => c.lvl === 2 && c.fee != null && !(c.src || []).some(k => /^fee-(lasalle|nafa)27$/.test(k)))) assert.ok(Math.abs(c.fee - 3180) < 100, c.school + ' ' + c.course);
 });
 
 test('the allied health sponsorship contact no longer uses the old MOH Holdings host that failed its TLS handshake', () => {
