@@ -196,3 +196,4 @@ test('a figure that came from a fallback names its source and links to it', () =
 DONE_REGIONS.push('asia');
 DONE_REGIONS.push('americas');
 DONE_REGIONS.push('oceania');
+DONE_REGIONS.push('africa');
