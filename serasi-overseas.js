@@ -60,7 +60,7 @@
     'cuhk-ling': ['CUHK, major programme in Linguistics', 'https://ling.cuhk.edu.hk/programmes/undergraduate-programme/major-programme-in-linguistics/'],
     'qs-ling26': ['QS World University Rankings by Subject 2026: Linguistics', 'https://www.topuniversities.com/university-subject-rankings/linguistics'],
     'lancs-ling': ['Lancaster University, Linguistics BA Hons (Q100): fees for 2027/28 entrants', 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/'],
-    'qut-comm': ['QUT, Bachelor of Communication (Media and Communication Industries): 2027 international fee', 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries']
+    'qut-comm': ['QUT, Bachelor of Communication (Media and Communication Industries): unconfirmed international fee, year not stated', 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries']
   });
 
   /* Sources for the overseas options of the health and care fields (second batch), checked in October 2026. */
@@ -198,7 +198,7 @@
         country: 'United Kingdom', school: 'UCL (UCL School of Pharmacy)', course: 'MPharm Pharmacy', yrs: 4,
         tuition: [36800, 36800], cur: 'GBP', living: 13761,
         standing: 'Ranked joint 3rd in the world for Pharmacy and Pharmacology (QS World University Rankings by Subject 2026)',
-        why: 'One of the top-ranked pharmacy schools in the world, and its MPharm is on the Singapore Pharmacy Council’s list of overseas degrees it can register. Monash University in Australia ranks 2nd and is on the same list, but we couldn’t confirm its fees from its own website, so it isn’t shown here.',
+        why: 'One of the top-ranked pharmacy schools in the world, and its MPharm is on the Singapore Pharmacy Council’s list of overseas degrees it can register. Monash University in Australia ranks 2nd and is on the same list, but it is not priced here yet; check its own page. US schools are not shown: the Singapore Pharmacy Council has no recognition route we could check for them.',
         env: 'Taught in English in central London, with placements at six NHS hospital trusts, according to UCL.',
         watch: 'The Singapore Pharmacy Council registers only degrees on its list, and also asks for registration and a practising licence in the country where you studied, a job offer from a training institution it approves, 3 to 12 months of pre-registration training here, and two exams. After the MPharm, UCL says you do a year of foundation training and pass the UK pharmacy registration exam. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.ucl.ac.uk/study/prospective-students/undergraduate/courses/pharmacy-mpharm',
@@ -231,7 +231,7 @@
         country: 'United Kingdom', school: 'University of Cambridge (School of Clinical Medicine)', course: 'MB BChir Medicine (BA after three years, then the clinical degree)', yrs: 6,
         tuition: [70554, 70554], cur: 'GBP', living: 10539,
         standing: 'Ranked 5th in the world for Medicine (QS World University Rankings by Subject 2026)',
-        why: 'An option if you miss a local place at NUS, NTU or Duke-NUS: Cambridge’s MB BChir is on the list of degrees the Singapore Medical Council can register, but it costs many times as much as a local place. Oxford ranks 2nd and is on the same list, but we couldn’t confirm its fees from its own website, so it isn’t shown here.',
+        why: 'An option if you miss a local place at NUS, NTU or Duke-NUS: Cambridge’s MB BChir is on the list of degrees the Singapore Medical Council can register, but it costs many times as much as a local place. Oxford ranks 2nd and is on the same list, but it is not priced here yet; check its own page. US schools are not shown: the Singapore Medical Council has no recognition route we could check for them.',
         env: 'Taught in English in Cambridge. The first three years are medical science alongside a clinical strand, and the last three are clinical, on the wards and in GP surgeries.',
         watch: 'The Singapore Medical Council registers only graduates of the schools on its list, and asks you to pass the licensing exams of the country where you studied. Its list also warns that big changes to a listed school’s curriculum may not be recognised. The fee is for 2027 entry and is fixed for the course, but Cambridge sets the year-3 fee by the subject you pick that year, which can be lower, so the six-year total is a ceiling. You also pay a yearly College fee on top, which is not in the cost shown. The living figure is the UK visa minimum for 9 months outside London, not a typical budget.',
         url: 'https://www.undergraduate.study.cam.ac.uk/courses/medicine',
@@ -271,7 +271,7 @@
         country: 'United Kingdom', school: 'UCL', course: 'BSc Biomedical Sciences', yrs: 3,
         tuition: [44400, 44400], cur: 'GBP', living: 13761,
         standing: 'Ranked joint 9th in the world for Biological Sciences, the closest QS subject (QS World University Rankings by Subject 2026)',
-        why: 'A three-year bachelor’s at one of the top ten schools in the world for biological sciences. Oxford ranks 3rd, but we couldn’t confirm its fees from its own website, so it isn’t shown here.',
+        why: 'A three-year bachelor’s at one of the top ten schools in the world for biological sciences. Oxford ranks 3rd, but it is not priced here yet; check its own page.',
         env: 'Taught in English in London.',
         watch: 'Singapore’s Allied Health Professions Council lists recognised qualifications for five professions (diagnostic radiography, occupational therapy, physiotherapy, radiation therapy and speech-language therapy) and medical laboratory technologists are not among them, so ask the Council or a lab employer here what you would need. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.ucl.ac.uk/study/prospective-students/undergraduate/courses/biomedical-sciences-bsc',
@@ -301,7 +301,7 @@
         country: 'Canada', school: 'University of Toronto (Lawrence S. Bloomberg Faculty of Nursing)', course: 'BScN Nursing, a 2-year degree after two years of university study', yrs: 2,
         tuition: [53610, 53610], cur: 'CAD', living: 23448,
         standing: 'Ranked 4th in the world for Nursing (QS World University Rankings by Subject 2026)',
-        why: 'One of the top four nursing schools in the world, with a fast two-year degree for students who already have two years of university study. Penn (1st) is in the US, which Serasi leaves out because the US sets no visa living-cost figure to quote, and we couldn’t confirm King’s College London’s (2nd) fees from its own website.',
+        why: 'One of the top four nursing schools in the world, with a fast two-year degree for students who already have two years of university study. Penn (1st) is in the US. US schools are not shown: the Singapore Nursing Board has no recognition route we could check for them. King’s College London (2nd) is not priced here yet; check its own page.',
         env: 'Taught in English in Toronto. The degree is full-time and in person, with lectures, labs and clinical placements.',
         watch: 'You need two years of university study first (10 Toronto credits, with at least a B average), and those years are not in the cost shown. Places are highly competitive. The Singapore Nursing Board publishes no list of approved overseas programmes: it assesses each one itself, so ask the Board before you apply. It also asks for a job offer from an eligible hospital here, registration and a practising licence from the country where you trained, and recent nursing practice, and then a licensure exam, a competency assessment or provisional registration. The fee is the 2026-27 international program fee, before about CAD 3,400 a year in student and course fees. The living figure is the amount Canada asks a single student to show for a study permit (from 1 September 2026), not a typical budget.',
         url: 'https://bloomberg.nursing.utoronto.ca/programs/bachelor',
@@ -358,7 +358,7 @@
         },
         {
           country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Design, with the Interior Design specialism', yrs: 4,
-          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          tuition: [240000, 240000], tuitionNote: 'year not stated on the page', cur: 'HKD', living: 90272,
           standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
           why: 'A four-year design degree close to home. Interior Design is one of nine specialisms.',
           env: 'The programme page does not say what language the teaching is in, so check before you apply.',
@@ -397,7 +397,7 @@
         },
         {
           country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Design, with the Advertising, Information or Interaction Design specialism', yrs: 4,
-          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          tuition: [240000, 240000], tuitionNote: 'year not stated on the page', cur: 'HKD', living: 90272,
           standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for graphic or UX design',
           why: 'A four-year design degree close to home, with interaction and information design among its nine specialisms.',
           env: 'The programme page does not say what language the teaching is in, so check before you apply.',
@@ -435,7 +435,7 @@
         },
         {
           country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Fashion', yrs: 4,
-          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          tuition: [240000, 240000], tuitionNote: 'year not stated on the page', cur: 'HKD', living: 90272,
           standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for fashion',
           why: 'A four-year fashion degree close to home, covering fashion and knitwear design, fashion business, and fashion innovation and technology.',
           env: 'The programme page does not say what language the teaching is in, so check before you apply.',
@@ -509,8 +509,8 @@
           tuition: [230000, 230000], cur: 'HKD', living: null,
           standing: 'Ranked 16th in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
           why: 'A four-year degree close to home, with tracks in Journalism, Advertising and Public Relations, and Creative and New Media.',
-          env: 'The pages read do not say what language the teaching is in, so check before you apply.',
-          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students, and the exact degree title should be checked. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. Both pages turned scripts away, so check them by hand.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students, and the exact degree title should be checked. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. Check both pages for the current figures.',
           url: 'https://admission.cuhk.edu.hk/programme/commn/',
           src: ['qs-comm26', 'cuhk-commn', 'cuhk-fees'], links: ['hkimmd']
         },
@@ -520,7 +520,7 @@
           standing: 'Ranked joint 19th in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
           why: 'A three-year degree in Brisbane, taught in English, with a Journalism major as well as Media and Communication Industries.',
           env: 'Based at QUT’s Kelvin Grove campus in Brisbane.',
-          watch: 'QUT’s course page turns scripts away, so this fee could not be confirmed: the A$41,600 comes from a search summary of QUT’s page and its year is not certain, and other websites give different figures (from about A$37,200 to A$41,600). Australian fees rise most years, so check QUT’s page by hand. The living figure is the Australian student-visa minimum, not a typical budget.',
+          watch: 'The A$41,600 is not confirmed: it comes from a summary of QUT’s course page, which does not state the year, and other websites give different figures (from about A$37,200 to A$41,600). Australian fees rise most years, so check QUT’s own page for the current fee. The living figure is the Australian student-visa minimum, not a typical budget.',
           url: 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries',
           src: ['qs-comm26', 'qut-comm', 'au-visa'], links: ['studyau']
         }
@@ -560,8 +560,8 @@
           tuition: [230000, 230000], cur: 'HKD', living: null,
           standing: 'Ranked 25th in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
           why: 'A degree close to home from the university’s Department of Linguistics and Modern Languages.',
-          env: 'The pages read do not say what language the teaching is in, so check before you apply.',
-          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students. The four years are implied by the year-4 capstone courses in the study scheme, not stated. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. CUHK’s pages have a certificate problem for scripts, so check them by hand.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students. The four years are implied by the year-4 capstone courses in the study scheme, not stated. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. Check CUHK’s own pages for the current figures.',
           url: 'https://ling.cuhk.edu.hk/programmes/undergraduate-programme/major-programme-in-linguistics/',
           src: ['qs-ling26', 'cuhk-ling', 'cuhk-fees'], links: ['hkimmd']
         }
@@ -811,7 +811,7 @@
         country: 'United Kingdom', school: 'University of Cambridge (Faculty of Law)', course: 'BA Law', yrs: 3,
         tuition: [43298, 46748], tuitionNote: 'low end is the University fee plus the lowest College fee (Darwin), high end the highest (Murray Edwards)', cur: 'GBP', living: 10539,
         standing: 'Ranked 3rd in the world for Law and Legal Studies (QS World University Rankings by Subject 2026)',
-        why: 'Third in the world for law, and its BA Law is on the Ministry of Law’s list of overseas degrees that can make you a Qualified Person. It takes three years, one fewer than the local LLB. Oxford ranks 2nd and is also on the list, but its fee page could not be read when we checked in October 2026, so it is not priced here. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
+        why: 'Third in the world for law, and its BA Law is on the Ministry of Law’s list of overseas degrees that can make you a Qualified Person. It takes three years, one fewer than the local LLB. Oxford ranks 2nd and is also on the list, but it is not priced here yet; check its own page. The top-ranked US schools are not priced here yet; check their own pages.',
         env: 'Taught in English in a college town. You belong to a College as well as the University, and each College sets its own fee.',
         watch: 'Singapore’s Ministry of Law decides which overseas law degrees count, and the Singapore Institute of Legal Education lists them; Cambridge’s BA Law is on the list. To practise here you must be a Singapore citizen or permanent resident, get at least a lower second class honours, pass Part A of the Singapore Bar Examinations, complete 6 months of relevant legal training, then pass Part B and a practice training period. Check the Ministry’s rules again before you enrol. The fee is the 2027–28 University fee of £30,798 plus a College fee of £12,500 to £15,950, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months outside London (£1,171 a month), not a typical budget.',
         url: 'https://www.undergraduate.study.cam.ac.uk/courses/law',
@@ -853,7 +853,7 @@
         country: 'Switzerland', school: 'EHL Hospitality Business School (Lausanne)', course: 'Bachelor of Science in International Hospitality Management', yrs: 4,
         tuition: [45969, 45969], feeLabel: 'Average fees', cur: 'CHF', living: 21000,
         standing: 'Ranked 1st in the world for Hospitality and Leisure Management (QS World University Rankings by Subject 2026)',
-        why: 'The top-ranked hospitality school in the world; the five highest-ranked schools are all Swiss. Taught in English. The sixth-ranked school, UNLV, is in the US and is not shown because no official living-cost figure was found; check its own page.',
+        why: 'The top-ranked hospitality school in the world; the five highest-ranked schools are all Swiss. Taught in English. The sixth-ranked school, UNLV, is in the US and is not priced here yet; check its own page.',
         env: 'A private hospitality school in Lausanne, Switzerland. It is the most expensive place on this list.',
         watch: 'Nothing in Singapore regulates hospitality jobs, so no licence applies. EHL’s sheet for the September 2027 intake lists four annual instalments for the four years (a preparatory year, then three): CHF 39,838, 59,660, 35,049 and 49,328, or CHF 183,874 in all, and the figure here averages that over four years. They cover tuition, services and a prepaid food and drink credit, not housing (from CHF 5,850 a year), health insurance or a CHF 5,000 deposit. Students from outside the EU must also pay CHF 18,000 before applying for a visa, which counts towards the total. Switzerland has no single national figure for visa money. CHF 21,000 a year is what the canton of Zurich asks of students who need a visa, and is used here as a cited estimate; the same checklist lists Singapore among the visa-exempt countries, so confirm with EHL and the canton of Vaud what applies to you.',
         url: 'https://www.ehl.edu/en/study/bachelor-degree-in-hospitality',
@@ -872,7 +872,7 @@
         },
         {
           country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (School of Hotel and Tourism Management)', course: 'BSc (Hons) Scheme in Hotel and Tourism Management', yrs: 4,
-          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          tuition: [240000, 240000], tuitionNote: 'year not stated on the page', cur: 'HKD', living: 90272,
           standing: 'Ranked 15th in the world for Hospitality and Leisure Management (QS World University Rankings by Subject 2026)',
           why: 'Close to home, and the highest-ranked school in Hong Kong for this subject, according to PolyU.',
           env: 'Taught in English at a public university in Hong Kong.',
@@ -895,7 +895,7 @@
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Management', yrs: 3,
         tuition: [37500, 37500], cur: 'GBP', living: 13761,
         standing: 'Ranked 11th in the world for Business and Management Studies (QS World University Rankings by Subject 2026)',
-        why: 'The highest-ranked school here with a stand-alone English-taught bachelor’s and a published fee. A three-year degree, a year shorter than the four-year NUS, NTU and SMU business degrees. Oxford and Cambridge rank higher but are not priced here: Oxford’s fee page could not be read when we checked in October 2026. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
+        why: 'The highest-ranked school here with a stand-alone English-taught bachelor’s and a published fee. A three-year degree, a year shorter than the four-year NUS, NTU and SMU business degrees. Oxford and Cambridge rank higher but are not priced here: Oxford is not priced here yet; check its own page. The top-ranked US schools are not priced here yet; check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'Nothing in Singapore regulates business jobs, so no licence applies. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-management',
@@ -934,7 +934,7 @@
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Accounting and Finance', yrs: 3,
         tuition: [39300, 39300], cur: 'GBP', living: 13761,
         standing: 'Ranked 8th in the world for Accounting and Finance (QS World University Rankings by Subject 2026)',
-        why: 'Eighth in the world, and a three-year degree. Oxford ranks 4th, but its fee page could not be read when we checked in October 2026, so it is not priced here. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
+        why: 'Eighth in the world, and a three-year degree. Oxford ranks 4th, but it is not priced here yet; check its own page. The top-ranked US schools are not priced here yet; check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'To become a Singapore Chartered Accountant you take ISCA’s Singapore CA Qualification, and ISCA keeps a list of the accounting degrees it recognises; it assesses other overseas degrees case by case, so check the list before you enrol. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-accounting-and-finance',
@@ -959,7 +959,7 @@
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Finance', yrs: 3,
         tuition: [39300, 39300], cur: 'GBP', living: 13761,
         standing: 'Ranked 8th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
-        why: 'Eighth in the world in the closest QS subject, and a three-year degree. Oxford ranks 4th, but its fee page could not be read when we checked in October 2026, so it is not priced here. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
+        why: 'Eighth in the world in the closest QS subject, and a three-year degree. Oxford ranks 4th, but it is not priced here yet; check its own page. The top-ranked US schools are not priced here yet; check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'Nothing in Singapore regulates a degree for risk and compliance jobs, though employers often ask for a finance, law or accounting degree. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-finance',
@@ -987,7 +987,7 @@
         country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Finance', yrs: 3,
         tuition: [39300, 39300], cur: 'GBP', living: 13761,
         standing: 'Ranked 8th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
-        why: 'There is no QS ranking for Islamic finance, so this follows the closest subject, where LSE ranks 8th. Serasi’s pathway for this field is a business or finance degree plus an Islamic finance certificate. The top-ranked schools in this subject are in the US; they are not shown here because no official living-cost figure was found, so check their own pages.',
+        why: 'There is no QS ranking for Islamic finance, so this follows the closest subject, where LSE ranks 8th. Serasi’s pathway for this field is a business or finance degree plus an Islamic finance certificate. The top-ranked US schools are not priced here yet; check their own pages.',
         env: 'Taught in English in central London.',
         watch: 'Malaysia leads the world’s Islamic Finance Development Indicator and Kuala Lumpur is the industry’s hub, but no Malaysian university is in the top 39 of the QS table for accounting and finance, so it is not the pick here; check the pathway’s Malaysia note if you want to study there. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
         url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-finance',
@@ -1011,7 +1011,7 @@
     logistics: {
       best: {
         country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (Department of Logistics and Maritime Studies)', course: 'BBA (Honours) Scheme in Global Business and Logistics, Aviation, Maritime, and Supply Chain Management', yrs: 4,
-        tuition: [240000, 240000], cur: 'HKD', living: 90272,
+        tuition: [240000, 240000], tuitionNote: 'year not stated on the page', cur: 'HKD', living: 90272,
         standing: 'Ranked 52nd in the world for Business and Management Studies, the closest QS subject (QS World University Rankings by Subject 2026)',
         why: 'PolyU has a whole department for logistics and maritime studies. After a common first year you choose a specialism such as Supply Chain Management and Analytics.',
         env: 'Taught in English at a public university in Hong Kong, close to home.',

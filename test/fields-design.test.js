@@ -106,7 +106,9 @@ test('translation: a best pick and two alternatives in other countries from the 
 test('QUT\'s fee is labelled unconfirmed on the card', () => {
   const q = O.OPTIONS.media.alts.find(o => /QUT/.test(o.school));
   assert.match(O.costText(q).fees, /^Unconfirmed tuition/);
-  assert.match(q.watch, /could not be confirmed/);
+  assert.match(q.watch, /not confirmed/);
+  assert.match(q.watch, /does not state the year/);
+  assert.match(P.SOURCES['qut-comm'][0], /unconfirmed.*year not stated/);
 });
 test('LASALLE and NAFA entries say which intake their fee is for', () => {
   for (const c of L.COURSES.filter(c => c.school === 'LASALLE' || c.school === 'NAFA')) assert.match(c.note, /2027/, c.course);

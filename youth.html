@@ -1658,7 +1658,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       '- Any job: “What does a radiographer do?”, “Why does nursing fit me?”, “Compare chef and baker”\n' +
       '- Getting there: “How do I become a teacher from ITE?”, “How much does a nursing diploma cost?”\n' +
       '- Money: “What subsidies can I get?”, “What is TTFS?”, “Are there scholarships for social work?”, “How much do IT graduates earn?”\n' +
-      '- Overseas: “Should I study in Germany?”, “Where is tech growing?”, “Is construction good in China?”\n' +
+      '- Overseas: “Should I study in the United Kingdom?”, “Where is tech growing?”, “Is construction good in China?”\n' +
       '- Your results: “What does my code mean?”, “How is my score calculated?”, “Show me jobs for introverts”\n' +
       '- Next steps: interviews, CVs, internships, NS, switching careers, starting a business, who to call';
   }
@@ -1844,14 +1844,14 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       if (r && r.best) return 'Studying overseas for ' + t + ' is worth it when the course is stronger there or a local place is hard to get.\n' + ovForRole(role, r);
       if (r && r.agency) return r.agency;
       if (!(role.edu >= 2)) return upperFirst(t) + ' is usually reached through ITE in Singapore, so there is no need to study overseas. Ask “What is the shortest path to be ' + article(t) + ' ' + t + '?” for the local route.';
-      return 'I don’t have a checked overseas pick for ' + t + ' yet. Open the job’s “Shortest path” tab for the local route and its costs, or ask about a country, for example “What does it cost to study in Germany?”';
+      return 'I don’t have a checked overseas pick for ' + t + ' yet. Open the job’s “Shortest path” tab for the local route and its costs, or ask about a country, for example “What does it cost to study in the Netherlands?”';
     }
     const top = rank(p).main.find(x => SerasiOverseas.forRole(x.role));
     if (top) {
       const tr = SerasiOverseas.forRole(top.role);
       if (tr.best) return ovForRole(top.role, tr, 'Studying overseas can make sense if the course is stronger there or a local place is hard to get. For your top match that has an overseas pick, ' + lowerTitle(top.role.title) + ', the best place I found is:') + '\nName another job or a country to compare, for example “Should I study nursing overseas?”';
     }
-    return 'Studying overseas can make sense if the course is stronger there, a local place is hard to get, or you want to work in that country later. Tell me the job or course and I will name the best place I found to study it, with the cost in Singapore dollars and what to watch out for. For example: “Where is the best place to study architecture?” or “What does it cost to study in Germany?”\n' + OV_NOTE();
+    return 'Studying overseas can make sense if the course is stronger there, a local place is hard to get, or you want to work in that country later. Tell me the job or course and I will name the best place I found to study it, with the cost in Singapore dollars and what to watch out for. For example: “Where is the best place to study architecture?” or “What does it cost to study in Hong Kong?”\n' + OV_NOTE();
   }
 
   function countryHubs(country) { return WORLD.filter(h => h.country === country); }

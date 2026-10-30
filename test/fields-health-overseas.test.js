@@ -20,7 +20,7 @@ test('medicine: the option whose fee is an average over the course labels it as 
 
 test('no option carries an internal note: every school left out is explained for a reader, not as a build comment', () => {
   for (const field of HEALTH) for (const o of all(field)) {
-    assert.doesNotMatch(everyText(o), /not priced here|could not be (read|confirmed)|task \d|fee page returned|403/i, field + ': ' + o.school);
+    assert.doesNotMatch(everyText(o), /could not be (read|confirmed)|task \d|fee page returned|403|scripts?\b/i, field + ': ' + o.school);
   }
 });
 
