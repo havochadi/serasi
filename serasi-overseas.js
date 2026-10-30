@@ -36,7 +36,31 @@
     'ucl-biomed': ['UCL, Biomedical Sciences BSc: fees for 2027/28 entrants', 'https://www.ucl.ac.uk/study/prospective-students/undergraduate/courses/biomedical-sciences-bsc'],
     'spc-list': ['Singapore Pharmacy Council, list of recognised overseas qualifications (page updated 20 October 2026)', 'https://www.spc.gov.sg/for-professionals/apply-for-registration/list-of-recognised-overseas-qualifications/'],
     'spc-foreign': ['Singapore Pharmacy Council, foreign-trained pharmacy graduates (page updated 9 October 2026)', 'https://www.spc.gov.sg/for-professionals/apply-for-registration/foreign-trained-pharmacy-graduates-pharmacists/'],
-    'smc-notes': ['Singapore Medical Council, notes on the Second Schedule of the Medical Registration Act (registrable basic medical qualifications)', 'https://go.gov.sg/important-notes-on-the-mra-second-schedule-list-of-registrable-basic-medical-qualifications']
+    'smc-notes': ['Singapore Medical Council, notes on the Second Schedule of the Medical Registration Act (registrable basic medical qualifications)', 'https://go.gov.sg/important-notes-on-the-mra-second-schedule-list-of-registrable-basic-medical-qualifications'],
+    // Design and media fields.
+    'qs-art26': ['QS World University Rankings by Subject 2026: Art & Design', 'https://www.topuniversities.com/university-subject-rankings/art-design'],
+    'ual-interior': ['UAL, BA (Hons) Interior Design (Chelsea): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/architecture-spatial-and-interior-design/undergraduate/ba-hons-interior-design-chelsea'],
+    'rmit-interior': ['RMIT, Bachelor of Interior Design (Honours): 2027 fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/honours-degrees/bachelor-of-interior-design-honours-bh115'],
+    'polyu-fees': ['PolyU, undergraduate fees and estimated costs for non-local students', 'https://www.polyu.edu.hk/study/ug/fees-and-scholarships/fees'],
+    'polyu-design': ['PolyU, BA (Hons) Scheme in Design (4-year): specialisms', 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en'],
+    'ual-graphic': ['UAL, BA (Hons) Graphic Communication Design (Central Saint Martins): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/communication-and-graphic-design/undergraduate/ba-hons-graphic-communication-design-csm'],
+    'rmit-graphic': ['RMIT, Bachelor of Graphic Design: 2027 fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-graphic-design-bp115'],
+    'ual-fashion': ['UAL, BA (Hons) Fashion Design and Development (London College of Fashion): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/fashion-design/undergraduate/ba-hons-fashion-design-and-development-lcf'],
+    'rmit-fashion': ['RMIT, Bachelor of Fashion (Design): 2027 international fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-design-bp328/apply-now'],
+    'polyu-fashion': ['PolyU, BA (Hons) Scheme in Fashion (4-year)', 'https://www.polyu.edu.hk/itc/study/ug/'],
+    'ual-animation': ['UAL, BA (Hons) Animation (London College of Communication): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/animation-interactive-film-and-sound/undergraduate/ba-hons-animation-lcc'],
+    'rmit-animation': ['RMIT, Bachelor of Design (Animation and Interactive Media): 2027 international fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-animation-and-interactive-media-bp203/apply-now'],
+    'qs-comm26': ['QS World University Rankings by Subject 2026: Communication & Media Studies', 'https://www.topuniversities.com/university-subject-rankings/communication-media-studies'],
+    'uva-comm': ['University of Amsterdam, BSc Communication Science (taught in English)', 'https://www.uva.nl/en/programmes/bachelors/communication-science/communication-science.html'],
+    'uva-fees': ['University of Amsterdam, tuition fees (institutional fees for 2027-2028, by faculty)', 'https://www.uva.nl/en/education/fees-and-funding/tuition-fees/tuition-fees.html'],
+    'cuhk-commn': ['CUHK, Journalism and Communication (four-year undergraduate programme)', 'https://admission.cuhk.edu.hk/programme/commn/'],
+    'cuhk-fees': ['CUHK, undergraduate fees for non-local students (2027-28 rate; hostel fee 2026-27)', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
+    'leiden-ling': ['Leiden University, BA Linguistics (taught in English)', 'https://www.universiteitleiden.nl/en/education/study-programmes/bachelor/linguistics'],
+    'leiden-fees': ['Leiden University, bachelor’s tuition fees (institutional fee for 2027-2028, by faculty)', 'https://www.universiteitleiden.nl/en/education/admission-and-application/bachelors/tuition-fee'],
+    'cuhk-ling': ['CUHK, major programme in Linguistics', 'https://ling.cuhk.edu.hk/programmes/undergraduate-programme/major-programme-in-linguistics/'],
+    'qs-ling26': ['QS World University Rankings by Subject 2026: Linguistics', 'https://www.topuniversities.com/university-subject-rankings/linguistics'],
+    'lancs-ling': ['Lancaster University, Linguistics BA Hons (Q100): fees for 2027/28 entrants', 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/'],
+    'qut-comm': ['QUT, Bachelor of Communication (Media and Communication Industries): 2027 international fee', 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries']
   });
 
   /* Sources for the overseas options of the health and care fields (second batch), checked in October 2026. */
@@ -263,7 +287,248 @@
     teaching: {
       agency: 'Teaching in Singapore’s schools runs through MOE and NIE: MOE takes you on for a contract teaching stint first, then fully funds your training at NIE, so there’s no need to study overseas. Read MOE’s “become a teacher” page for entry requirements and pay.',
       src: ['moe-diped']
-    }
+    },
+
+    // QS 2026 Art & Design (the nearest QS subject for interior design, which has no table of its own): 1 Royal College of Art, 2 UAL, 3 The New School,
+    // 4 RISD, 5 Pratt, 6 MIT, 7 Politecnico di Milano, 8 Glasgow School of Art, 9 Aalto, 10 Design Academy Eindhoven, 13 TU Delft, =19 RMIT, 24 PolyU.
+    // The ranks were read from a site that republishes the QS table (QS's own page turns scripts away), and UAL's and RMIT's places match their news.
+    // Best: UAL, the highest-ranked school with undergraduate degrees (the Royal College of Art lists only postgraduate courses), taught in English,
+    // with a fee on its course page. Alternatives, one per country: RMIT (=19), whose interior design degree is taught in English, and PolyU (24).
+    // Left out: the US schools (the US has no official money-for-living figure for a visa); Glasgow (same country as UAL); Politecnico di Milano, Aalto,
+    // Design Academy Eindhoven and TU Delft (higher ranked, but their bachelor's language and non-EU fees were not checked in the time allowed).
+    'interior-design': {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (Chelsea College of Arts)', course: 'BA (Hons) Interior Design', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
+        why: 'A three-year degree at the second-ranked art and design university in the world. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at Chelsea College of Arts in London.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/architecture-spatial-and-interior-design/undergraduate/ba-hons-interior-design-chelsea',
+        src: ['qs-art26', 'ual-interior', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Interior Design (Honours)', yrs: 4,
+          tuition: [49920, 49920], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
+          why: 'A four-year honours degree in Melbourne, taught in English, with RMIT’s fee on its course page.',
+          env: 'Based at RMIT’s city campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/honours-degrees/bachelor-of-interior-design-honours-bh115',
+          src: ['qs-art26', 'rmit-interior', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Design, with the Interior Design specialism', yrs: 4,
+          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for interior design',
+          why: 'A four-year design degree close to home. Interior Design is one of nine specialisms.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
+          url: 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en',
+          src: ['qs-art26', 'polyu-fees', 'polyu-design'], links: ['hkimmd']
+        }
+      ]
+    },
+
+    // QS 2026 Art & Design (QS has no separate table for graphic or UX design); same ranks and the same choices as interior design above.
+    // UAL's Graphic Communication Design is the Central Saint Martins degree; its page covers computation and digital media but does not name UX.
+    // RMIT's Bachelor of Graphic Design has an Experience Design major (interaction and service design). PolyU's Design scheme has Advertising,
+    // Information and Interaction Design specialisms.
+    'graphic-ux': {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (Central Saint Martins)', course: 'BA (Hons) Graphic Communication Design', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for graphic or UX design',
+        why: 'A three-year degree at the second-ranked art and design university in the world. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at Central Saint Martins in London. The course covers typography, print production and computation, and UAL’s page does not name UX.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/communication-and-graphic-design/undergraduate/ba-hons-graphic-communication-design-csm',
+        src: ['qs-art26', 'ual-graphic', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Graphic Design', yrs: 3,
+          tuition: [48000, 48000], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for graphic or UX design',
+          why: 'A three-year degree in Melbourne, taught in English, with an Experience Design major that covers interaction design and service design.',
+          env: 'Based at RMIT’s city campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-graphic-design-bp115',
+          src: ['qs-art26', 'rmit-graphic', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Design, with the Advertising, Information or Interaction Design specialism', yrs: 4,
+          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for graphic or UX design',
+          why: 'A four-year design degree close to home, with interaction and information design among its nine specialisms.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
+          url: 'https://www.polyu.edu.hk/sd/study/ug/scheme-in-design/?sc_lang=en',
+          src: ['qs-art26', 'polyu-fees', 'polyu-design'], links: ['hkimmd']
+        }
+      ]
+    },
+
+    // QS 2026 Art & Design (QS has no separate table for fashion); same ranks and the same choices as interior design above. UAL's fashion degrees
+    // are at London College of Fashion and Central Saint Martins, all at one fee; the LCF Fashion Design and Development degree is the one priced here.
+    // PolyU teaches fashion in its Institute of Textiles and Clothing, as the 4-year BA (Hons) Scheme in Fashion, at the same non-local fee.
+    fashion: {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (London College of Fashion)', course: 'BA (Hons) Fashion Design and Development', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for fashion',
+        why: 'A three-year degree at the second-ranked art and design university in the world, at its own fashion college. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at London College of Fashion in London. UAL also runs fashion design degrees at Central Saint Martins.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. The course can take 4 years with an optional placement year. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/fashion-design/undergraduate/ba-hons-fashion-design-and-development-lcf',
+        src: ['qs-art26', 'ual-fashion', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Fashion (Design)', yrs: 3,
+          tuition: [48960, 48960], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for fashion',
+          why: 'A three-year degree in Melbourne, taught in English, with RMIT’s fee on its course page.',
+          env: 'Based at RMIT’s Brunswick campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-design-bp328',
+          src: ['qs-art26', 'rmit-fashion', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (PolyU)', course: 'BA (Hons) Scheme in Fashion', yrs: 4,
+          tuition: [240000, 240000], cur: 'HKD', living: 90272,
+          standing: 'Ranked 24th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for fashion',
+          why: 'A four-year fashion degree close to home, covering fashion and knitwear design, fashion business, and fashion innovation and technology.',
+          env: 'The programme page does not say what language the teaching is in, so check before you apply.',
+          watch: 'PolyU’s page does not say which intake year the HK$240,000 tuition applies to. The living figure is PolyU’s own estimate for a non-local student (hall place HK$18,515, meals HK$53,040, personal costs HK$18,717), not a visa minimum.',
+          url: 'https://www.polyu.edu.hk/itc/study/ug/',
+          src: ['qs-art26', 'polyu-fees', 'polyu-fashion'], links: ['hkimmd']
+        }
+      ]
+    },
+
+    // QS 2026 Art & Design (QS has no separate table for animation); same ranks as interior design above. Best: UAL's BA Animation at London College of
+    // Communication. Alternative 1: RMIT's Bachelor of Design (Animation and Interactive Media). Alternative 2: Japan, kept for the anime and MEXT
+    // note this field has always carried: no Japanese school is in QS's top 50 for Art & Design, so it is placed after the ranked schools. PolyU is left
+    // out here because its design scheme has no animation specialism (its nearest is Immersive Media and Game Design).
+    animation: {
+      best: {
+        country: 'United Kingdom', school: 'University of the Arts London (London College of Communication)', course: 'BA (Hons) Animation', yrs: 3,
+        tuition: [31510, 31510], cur: 'GBP', living: 13761,
+        standing: 'Ranked 2nd in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for animation',
+        why: 'A three-year animation degree at the second-ranked art and design university in the world. The Royal College of Art ranks 1st but lists only postgraduate courses.',
+        env: 'Taught in English at London College of Communication in London.',
+        watch: 'The fee is for September 2027 entry, a year after one starting in 2026 would pay, and UAL says international fees may rise by up to 5% in each later year of a course. An optional year-long diploma between years 2 and 3 adds a year. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.arts.ac.uk/subjects/animation-interactive-film-and-sound/undergraduate/ba-hons-animation-lcc',
+        src: ['qs-art26', 'ual-animation', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Australia', school: 'RMIT University', course: 'Bachelor of Design (Animation and Interactive Media)', yrs: 3,
+          tuition: [48000, 48000], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Art and Design (QS World University Rankings by Subject 2026); QS has no separate table for animation',
+          why: 'A three-year degree in Melbourne, taught in English, with RMIT’s fee on its course page.',
+          env: 'Based at RMIT’s city campus in Melbourne.',
+          watch: 'The fee is RMIT’s 2027 figure. Australian fees rise most years. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-animation-and-interactive-media-bp203',
+          src: ['qs-art26', 'rmit-animation', 'au-visa'], links: ['studyau']
+        },
+        {
+          country: 'Japan', school: 'A national university in Japan (the MEXT scholarship route)', course: 'Bachelor’s in animation, design or media at a national university', yrs: 4,
+          tuition: [535800, 535800], once: 282000, cur: 'JPY', living: null,
+          standing: 'No Japanese university is in the top 50 in the world for Art and Design (QS World University Rankings by Subject 2026)',
+          why: 'Japan is the centre of the anime industry, and studios are short of animators. National universities charge everyone the same fee, and the MEXT scholarship pays full fees, a monthly allowance and flights for 5 years, including a year of Japanese.',
+          env: 'Most courses are taught in Japanese.',
+          watch: 'Studios report a “profitless boom”: record sales, but low pay and rising closures. Apply for MEXT through the Embassy of Japan in Singapore, usually around May–June. The fee is the national-university rate and the one-off figure is the entrance fee. There is no official visa figure for living costs, so the total here is before living costs.',
+          url: 'https://www.studyinjapan.go.jp/en/',
+          src: ['qs-art26', 'jp-fees', 'jp-anime'], links: ['embjp', 'jasso']
+        }
+      ]
+    },
+
+    // QS 2026 Communication & Media Studies: 1 University of Amsterdam, 2 NTU, 3 Harvard, 6 LSE, =10 NUS, 16 CUHK, =19 QUT, 22 Melbourne, 28 Sydney.
+    // The ranks were read from a site that republishes the QS table (QS's own page turns scripts away). NTU (2nd) and NUS (joint 10th) are local
+    // schools, listed in the local courses, and outrank every school abroad except Amsterdam. Best: Amsterdam, first in the world and taught in English
+    // (the US schools have no official money-for-living figure for a visa; LSE's undergraduate fee could not be confirmed). Alternatives: CUHK and QUT.
+    // CUHK's and QUT's pages turn scripts away, so their figures come from search summaries of those pages and are marked for a check by hand. QUT's
+    // fee is labelled unconfirmed on the card (other sites give A$37,200 to A$41,600 and its year is uncertain); Melbourne (22nd) was tried as a
+    // replacement, but its fees are per subject and no single course fee could be read.
+    media: {
+      best: {
+        country: 'Netherlands', school: 'University of Amsterdam (UvA)', course: 'BSc Communication Science (Global Communication Science)', yrs: 3,
+        tuition: [16670, 16670], cur: 'EUR', living: 13569,
+        standing: 'Ranked 1st in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
+        why: 'The world’s top-ranked school for the subject, with a three-year degree taught in English. Two Singapore schools, NTU (2nd) and NUS (joint 10th), also rank in the top ten and cost far less, so try them first.',
+        env: 'Taught in English on the Roeterseiland campus in Amsterdam, with an internship built in.',
+        watch: 'UvA’s fees page gives €16,670 a year for non-EU bachelor’s students at the Faculty of Social and Behavioural Sciences, for 2027-2028; it does not name Communication Science, and the 2026-2027 figure was not on the page. The living figure is the minimum the Dutch immigration service asks students to have, not a typical budget.',
+        url: 'https://www.uva.nl/en/programmes/bachelors/communication-science/communication-science.html',
+        src: ['qs-comm26', 'uva-comm', 'uva-fees', 'nl-living'], links: ['studynl']
+      },
+      alts: [
+        {
+          country: 'Hong Kong', school: 'The Chinese University of Hong Kong (CUHK)', course: 'Journalism and Communication (BA / BSocSc)', yrs: 4,
+          tuition: [230000, 230000], cur: 'HKD', living: null,
+          standing: 'Ranked 16th in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
+          why: 'A four-year degree close to home, with tracks in Journalism, Advertising and Public Relations, and Creative and New Media.',
+          env: 'The pages read do not say what language the teaching is in, so check before you apply.',
+          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students, and the exact degree title should be checked. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. Both pages turned scripts away, so check them by hand.',
+          url: 'https://admission.cuhk.edu.hk/programme/commn/',
+          src: ['qs-comm26', 'cuhk-commn', 'cuhk-fees'], links: ['hkimmd']
+        },
+        {
+          country: 'Australia', school: 'Queensland University of Technology (QUT)', course: 'Bachelor of Communication (Media and Communication Industries, or the Journalism major)', yrs: 3,
+          tuition: [41600, 41600], feeLabel: 'Unconfirmed tuition', cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
+          why: 'A three-year degree in Brisbane, taught in English, with a Journalism major as well as Media and Communication Industries.',
+          env: 'Based at QUT’s Kelvin Grove campus in Brisbane.',
+          watch: 'QUT’s course page turns scripts away, so this fee could not be confirmed: the A$41,600 comes from a search summary of QUT’s page and its year is not certain, and other websites give different figures (from about A$37,200 to A$41,600). Australian fees rise most years, so check QUT’s page by hand. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries',
+          src: ['qs-comm26', 'qut-comm', 'au-visa'], links: ['studyau']
+        }
+      ]
+    },
+
+    // QS 2026 Linguistics (the nearest QS subject for translation, which has no table of its own): 1 MIT, 2 Lancaster, 3 Cambridge, 4 Oxford, 6 NUS,
+    // 11 Edinburgh, =13 NTU and UCL, 22= Leiden, 25 CUHK, 26 Melbourne. The ranks were read from a site that republishes the QS table. Best: Lancaster,
+    // the highest-ranked school abroad whose own page gave a fee and a three-year degree taught in English. NUS (6th) and NTU (joint 13th) are local.
+    // Left out: MIT and the other US schools (no official money-for-living figure); Cambridge and Oxford (fee pages not checked); Edinburgh and UCL (same
+    // country as Lancaster); Melbourne (26th; its fees are per subject and no single course fee could be read). Alternatives, one per country: Leiden
+    // (=22) and CUHK (25). No overseas Malay translation degree was found, and the Malaysian universities' Malay-language degrees were not researched.
+    translation: {
+      best: {
+        country: 'United Kingdom', school: 'Lancaster University', course: 'BA Hons Linguistics', yrs: 3,
+        tuition: [26300, 26300], cur: 'GBP', living: 10539,
+        standing: 'Ranked 2nd in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
+        why: 'A three-year degree at one of the top linguistics schools in the world, for a translator who wants a language-science base. It is not a translation degree and does not teach Malay: Lancaster does not offer a translation course in it.',
+        env: 'Lancaster’s page does not say what language the teaching is in, though the university is in England. NUS (6th) and NTU (joint 13th) are in Singapore and cost far less.',
+        watch: 'The fee is for 2027/28 entrants, a year after one starting in 2026 would pay, and Lancaster says it is reviewed each year. For a Malay translator, a Malay-language degree such as NUS Malay Studies is a closer fit. The living figure is the UK visa minimum for 9 months outside London, not a typical budget.',
+        url: 'https://www.lancaster.ac.uk/study/undergraduate/courses/linguistics-ba-hons-q100/2026/',
+        src: ['qs-ling26', 'lancs-ling', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Netherlands', school: 'Leiden University', course: 'BA Linguistics', yrs: 3,
+          tuition: [14700, 14700], cur: 'EUR', living: 13569,
+          standing: 'Ranked joint 22nd in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
+          why: 'A three-year degree taught in English, at about half Lancaster’s fee. It is a linguistics degree, not a translation or Malay one.',
+          env: 'Taught in English in Leiden (the page also lists a Dutch-taught specialisation). The page does not mention translation.',
+          watch: 'The €14,700 is Leiden’s 2027-2028 fee for non-EEA students in the Faculty of Humanities; the page does not name Linguistics, and the 2026-2027 figure was not on it. The living figure is the minimum the Dutch immigration service asks students to have, not a typical budget.',
+          url: 'https://www.universiteitleiden.nl/en/education/study-programmes/bachelor/linguistics',
+          src: ['qs-ling26', 'leiden-ling', 'leiden-fees', 'nl-living'], links: ['studynl']
+        },
+        {
+          country: 'Hong Kong', school: 'The Chinese University of Hong Kong (CUHK)', course: 'BA in Linguistics', yrs: 4,
+          tuition: [230000, 230000], cur: 'HKD', living: null,
+          standing: 'Ranked 25th in the world for Linguistics, the closest QS subject (QS World University Rankings by Subject 2026)',
+          why: 'A degree close to home from the university’s Department of Linguistics and Modern Languages.',
+          env: 'The pages read do not say what language the teaching is in, so check before you apply.',
+          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students. The four years are implied by the year-4 capstone courses in the study scheme, not stated. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. CUHK’s pages have a certificate problem for scripts, so check them by hand.',
+          url: 'https://ling.cuhk.edu.hk/programmes/undergraduate-programme/major-programme-in-linguistics/',
+          src: ['qs-ling26', 'cuhk-ling', 'cuhk-fees'], links: ['hkimmd']
+        }
+      ]
+    },
   };
 
   /* Tech and engineering fields. Added with Object.assign so the lines above stay untouched. Sources and the regulator's contact first, then the

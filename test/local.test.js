@@ -145,7 +145,8 @@ test('social work: the ITE course at level 1 and three diplomas for the youth wo
   assert.deepEqual(schoolsFor('youth-worker', 2), ['Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Temasek Polytechnic']);
 });
 test('a polytechnic diploma fee is the $3,100 Tuition Grant tuition plus under $150 of other fees, as the AY2026 fee pages give it', () => {
-  const diplomas = L.COURSES.filter(c => c.lvl === 2 && c.fee != null);
+  // LASALLE and NAFA are arts colleges with fees of their own (2027 intake), so they are exempt.
+  const diplomas = L.COURSES.filter(c => c.lvl === 2 && c.fee != null && !(c.src || []).some(k => /^fee-(lasalle|nafa)27$/.test(k)));
   assert.ok(diplomas.length > 0, 'there are diplomas with fees');
   for (const c of diplomas) assert.ok(c.fee >= 3100 && c.fee < 3250, c.school + ' ' + c.course + ' ' + c.fee);
 });
