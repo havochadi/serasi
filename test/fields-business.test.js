@@ -111,6 +111,30 @@ test('hospitality: the Hotelschool fee has the one-off Skotel fee, and the EHL a
   assert.match(O.OPTIONS.hospitality.best.watch, /183,874/);
 });
 
+test('business, accounting, finance-risk, islamicfin and logistics each have a best pick with a QS 2026 standing, and no two options share a country', () => {
+  for (const f of ['business', 'accounting', 'finance-risk', 'islamicfin', 'logistics']) {
+    const all = optionsOf(f);
+    assert.ok(all.length >= 1, f);
+    assert.equal(new Set(all.map(o => o.country)).size, all.length, f);
+    for (const o of all) assert.match(o.standing, /Subject 2026/, f);
+  }
+});
+test('business: LSE, Erasmus Rotterdam and HKU, ranked 11, joint 24 and joint 32', () => {
+  const all = optionsOf('business');
+  assert.deepEqual(all.map(o => o.school.split(' ')[0]), ['LSE', 'Erasmus', 'The']);
+  assert.deepEqual(all.map(o => o.tuition[0]), [37500, 15200, 250000]);
+});
+test('accounting names ISCA in every option, and Malaysia is explained, not picked, for Islamic finance', () => {
+  for (const o of optionsOf('accounting')) assert.match(o.watch, /ISCA/, o.school);
+  const b = O.OPTIONS.islamicfin.best;
+  assert.match(b.watch, /Malaysia leads/); assert.match(b.watch, /top 39/);
+  assert.ok(optionsOf('islamicfin').every(o => o.country !== 'Malaysia'));
+});
+test('every option in these fields has a school page on its own site and sources that exist', () => {
+  for (const f of ['business', 'accounting', 'finance-risk', 'islamicfin', 'logistics', 'law', 'hospitality'])
+    for (const o of optionsOf(f)) { assert.match(o.url, /^https:\/\//, o.school); assert.ok(o.src.every(k => P.SOURCES[k]), o.school); }
+});
+
 test('a course in these fields with no fee is a SIT or SUSS degree, whose fee pages are closed to scripts', () => {
   const fields = ['business', 'accounting', 'finance-risk', 'islamicfin', 'logistics', 'law', 'hospitality', 'culinary', 'aviation', 'beauty', 'sport'];
   for (const c of L.COURSES.filter(c => c.fields.some(f => fields.includes(f)))) if (c.fee === null) assert.ok(['SIT', 'SUSS'].includes(c.school), c.school + ' ' + c.course);

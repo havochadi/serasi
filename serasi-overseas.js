@@ -74,6 +74,18 @@
     'polyu-fees': ['PolyU, undergraduate fees for non-local students, with estimated living costs', 'https://www.polyu.edu.hk/study/ug/fees-and-scholarships/fees'],
     'polyu-qs': ['PolyU, ranked 15th in the world for Hospitality and Leisure Management, QS subject rankings 2026', 'https://www.polyu.edu.hk/en/media/media-releases/2026/0325_polyu-ranked-top-30-globally-for-five-subjects-in-qs-world-university-rankings-by-subject-2026/']
   });
+  Object.assign(window.SerasiPathways.SOURCES, {
+    'qs-biz26': ['QS World University Rankings by Subject 2026: Business and Management Studies', 'https://www.topuniversities.com/university-subject-rankings/business-management-studies'],
+    'qs-accfin26': ['QS World University Rankings by Subject 2026: Accounting and Finance', 'https://www.topuniversities.com/university-subject-rankings/accounting-finance'],
+    'lse-mgmt': ['LSE, BSc Management: overseas fee for 2027/28 entrants', 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-management'],
+    'lse-af': ['LSE, BSc Accounting and Finance: overseas fee for 2027/28 entrants', 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-accounting-and-finance'],
+    'lse-fin': ['LSE, BSc Finance: overseas fee for 2027/28 entrants', 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-finance'],
+    'rsm-iba': ['Rotterdam School of Management, BSc International Business Administration: 2027-2028 fee for non-EEA students', 'https://www.rsm.nl/education/bachelor/bsc-international-business-administration-iba/'],
+    'hku-bba': ['HKU, Bachelor of Business Administration', 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration'],
+    'hku-baf': ['HKU, Bachelor of Business Administration in Accounting and Finance', 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-accounting-and-finance'],
+    'hku-befin': ['HKU Business School, undergraduate programmes (Bachelor of Economics and Finance, a 4-year course)', 'https://ug.hkubs.hku.hk/admission/information-day/programmes'],
+    'isca-deg': ['ISCA, list of recognised accounting degrees (updated August 2024)', 'https://isca.org.sg/docs/default-source/governance-member-sevices/list-of-recognised-accounting-degrees-for-associate_updated-in-august-2024.pdf?sfvrsn=17394e7d_2']
+  });
 
   /* The options for each field of study, field by field. A study field is { best, alts }; an agency field is { agency, src },
      a note with its source keys. The rule for a study field: one school per country, taken in order of the latest QS ranking by
@@ -278,6 +290,146 @@
           src: ['qs-hosp26', 'polyu-qs', 'polyu-fees'], links: ['hkimmd']
         }
       ]
+    }
+  });
+
+  Object.assign(OPTIONS, {
+    // QS 2026 Business and Management Studies: 1 Harvard, 2 Stanford, 3 MIT, 4 INSEAD, 5 Oxford, 6 Cambridge, 8 NUS, 9 LBS, 10 Bocconi, 11 LSE, 14 NTU,
+    // 19 CBS, =24 Erasmus Rotterdam, 30 HKUST, =32 HKU, 39 SMU, 52 PolyU. Nothing regulates business jobs in Singapore, so no recognition warning.
+    // One school per country, in QS order, with an English-taught bachelor's whose own page gave a fee: Best: LSE. Left out: Oxford and Cambridge (5th and 6th,
+    // but Oxford's fee pages are closed to scripts and no matching Cambridge bachelor's was found); the US schools (no visa living
+    // figure); INSEAD and LBS (graduate schools); Bocconi, CBS and HKUST (fee or visa pages not checked in the time
+    // allowed). Alternatives: Erasmus Rotterdam (Netherlands) and HKU (Hong Kong, =32nd; HKUST ranks 30th but its fee page could not be read).
+    business: {
+      best: {
+        country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Management', yrs: 3,
+        tuition: [37500, 37500], cur: 'GBP', living: 13761,
+        standing: 'Ranked 11th in the world for Business and Management Studies (QS World University Rankings by Subject 2026)',
+        why: 'The highest-ranked school here with a stand-alone English-taught bachelor’s and a published fee. A three-year degree, a year shorter than the four-year NUS, NTU and SMU business degrees.',
+        env: 'Taught in English in central London.',
+        watch: 'Nothing in Singapore regulates business jobs, so no licence applies. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-management',
+        src: ['qs-biz26', 'lse-mgmt', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Netherlands', school: 'Erasmus University Rotterdam (Rotterdam School of Management)', course: 'BSc International Business Administration', yrs: 3,
+          tuition: [15200, 15200], cur: 'EUR', living: 13569,
+          standing: 'Ranked joint 24th in the world for Business and Management Studies (QS World University Rankings by Subject 2026)',
+          why: 'A three-year English-taught bachelor’s at a top-25 business school, for less than half LSE’s fee.',
+          env: 'Taught in English in Rotterdam.',
+          watch: 'Nothing in Singapore regulates business jobs. The fee is the 2027–2028 rate for non-EEA students, which RSM calls approximate. The living figure is the minimum the Dutch immigration service asks students to have, not a typical budget.',
+          url: 'https://www.rsm.nl/education/bachelor/bsc-international-business-administration-iba/',
+          src: ['qs-biz26', 'rsm-iba', 'nl-living'], links: ['studynl']
+        },
+        {
+          country: 'Hong Kong', school: 'The University of Hong Kong (HKU)', course: 'Bachelor of Business Administration', yrs: 4,
+          tuition: [250000, 250000], cur: 'HKD', living: 87940,
+          standing: 'Ranked joint 32nd in the world for Business and Management Studies (QS World University Rankings by Subject 2026)',
+          why: 'Close to home and taught in English.',
+          env: 'Taught in English. The degree takes four years, a year longer than the UK or Dutch ones.',
+          watch: 'Nothing in Singapore regulates business jobs. The fee is HK$250,000 a year for 2027/28 non-local students in non-STEM faculties. Living costs are HKU’s estimate: a hall place plus up to HK$50,000 of daily costs, not a visa figure.',
+          url: 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration',
+          src: ['qs-biz26', 'hku-bba', 'hku-fees'], links: ['hkimmd']
+        }
+      ]
+    },
+    // QS 2026 Accounting and Finance: 1 Harvard, 2 Stanford, 3 MIT, 4 Oxford, 7 Cambridge, 8 LSE, 10 NUS, 14 NTU, 24 Melbourne, 26 HKU, 27 Sydney, 29 UNSW,
+    // 38 Monash. Best: LSE, the highest-ranked English-taught school with a stand-alone accounting and finance bachelor's and a published fee. Left out:
+    // Oxford and Cambridge (Oxford's fee pages are closed to scripts; no matching Cambridge bachelor's was found), the US schools (no visa living figure), and
+    // the Australian schools (Melbourne's pages are closed to scripts; Sydney's course page gave no fee). The only alternative is HKU, so no third place is
+    // listed yet.
+    accounting: {
+      best: {
+        country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Accounting and Finance', yrs: 3,
+        tuition: [39300, 39300], cur: 'GBP', living: 13761,
+        standing: 'Ranked 8th in the world for Accounting and Finance (QS World University Rankings by Subject 2026)',
+        why: 'Eighth in the world, and a three-year degree. Oxford ranks 4th but its fee could not be confirmed from its own page.',
+        env: 'Taught in English in central London.',
+        watch: 'To become a Singapore Chartered Accountant you take ISCA’s Singapore CA Qualification, and ISCA keeps a list of the accounting degrees it recognises; it assesses other overseas degrees case by case, so check the list before you enrol. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-accounting-and-finance',
+        src: ['qs-accfin26', 'lse-af', 'uk-living', 'isca-deg'], links: ['ukvisa', 'isca']
+      },
+      alts: [
+        {
+          country: 'Hong Kong', school: 'The University of Hong Kong (HKU)', course: 'Bachelor of Business Administration in Accounting and Finance', yrs: 4,
+          tuition: [250000, 250000], cur: 'HKD', living: 87940,
+          standing: 'Ranked 26th in the world for Accounting and Finance (QS World University Rankings by Subject 2026)',
+          why: 'Close to home and taught in English.',
+          env: 'Taught in English. The degree takes four years, a year longer than the UK one.',
+          watch: 'To become a Singapore Chartered Accountant you take ISCA’s Singapore CA Qualification, and ISCA assesses overseas degrees case by case, so check its list of recognised degrees before you enrol. The fee is HK$250,000 a year for 2027/28 non-local students in non-STEM faculties. Living costs are HKU’s estimate: a hall place plus up to HK$50,000 of daily costs, not a visa figure.',
+          url: 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-accounting-and-finance',
+          src: ['qs-accfin26', 'hku-baf', 'hku-fees', 'isca-deg'], links: ['hkimmd', 'isca']
+        }
+      ]
+    },
+    // The same QS table and rule as accounting: Best: LSE's BSc Finance. The only alternative is HKU, so no third place is listed yet.
+    'finance-risk': {
+      best: {
+        country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Finance', yrs: 3,
+        tuition: [39300, 39300], cur: 'GBP', living: 13761,
+        standing: 'Ranked 8th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
+        why: 'Eighth in the world in the closest QS subject, and a three-year degree. Oxford ranks 4th but its fee could not be confirmed from its own page.',
+        env: 'Taught in English in central London.',
+        watch: 'Nothing in Singapore regulates a degree for risk and compliance jobs, though employers often ask for a finance, law or accounting degree. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-finance',
+        src: ['qs-accfin26', 'lse-fin', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Hong Kong', school: 'The University of Hong Kong (HKU)', course: 'Bachelor of Economics and Finance', yrs: 4,
+          tuition: [250000, 250000], cur: 'HKD', living: 87940,
+          standing: 'Ranked 26th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
+          why: 'Close to home and taught in English.',
+          env: 'Taught in English. The degree takes four years, a year longer than the UK one.',
+          watch: 'Nothing in Singapore regulates a degree for risk and compliance jobs. The fee is HK$250,000 a year for 2027/28 non-local students in non-STEM faculties. Living costs are HKU’s estimate: a hall place plus up to HK$50,000 of daily costs, not a visa figure.',
+          url: 'https://ug.hkubs.hku.hk/admission/information-day/programmes',
+          src: ['qs-accfin26', 'hku-befin', 'hku-fees'], links: ['hkimmd']
+        }
+      ]
+    },
+    // Islamic banking and takaful: QS has no Islamic finance subject, so this uses the same Accounting and Finance table. Malaysia leads the world in Islamic
+    // finance (the Islamic Finance Development Indicator), but no Malaysian university is in the QS top 39 for the subject (Universiti Utara Malaysia is in the
+    // 101-150 band), so the ranking does not support a Malaysian best pick and no Malaysian degree is listed here; the pathway's Malaysia note stays. The
+    // options are the same finance degrees as finance-risk. The only alternative is HKU, so no third place is listed yet.
+    islamicfin: {
+      best: {
+        country: 'United Kingdom', school: 'LSE (London School of Economics)', course: 'BSc Finance', yrs: 3,
+        tuition: [39300, 39300], cur: 'GBP', living: 13761,
+        standing: 'Ranked 8th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
+        why: 'There is no QS ranking for Islamic finance, so this follows the closest subject, where LSE ranks 8th. Serasi’s pathway for this field is a business or finance degree plus an Islamic finance certificate.',
+        env: 'Taught in English in central London.',
+        watch: 'Malaysia leads the world’s Islamic Finance Development Indicator and Kuala Lumpur is the industry’s hub, but no Malaysian university is in the top 39 of the QS table for accounting and finance, so it is not the pick here; check the pathway’s Malaysia note if you want to study there. The fee is for 2027/28 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.',
+        url: 'https://www.lse.ac.uk/study-at-lse/undergraduate/bsc-finance',
+        src: ['qs-accfin26', 'lse-fin', 'uk-living', 'lseg-ifdi'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'Hong Kong', school: 'The University of Hong Kong (HKU)', course: 'Bachelor of Economics and Finance', yrs: 4,
+          tuition: [250000, 250000], cur: 'HKD', living: 87940,
+          standing: 'Ranked 26th in the world for Accounting and Finance, the closest QS subject (QS World University Rankings by Subject 2026)',
+          why: 'Close to home and taught in English. A general finance degree, as with LSE.',
+          env: 'Taught in English. The degree takes four years, a year longer than the UK one.',
+          watch: 'The fee is HK$250,000 a year for 2027/28 non-local students in non-STEM faculties. Living costs are HKU’s estimate: a hall place plus up to HK$50,000 of daily costs, not a visa figure.',
+          url: 'https://ug.hkubs.hku.hk/admission/information-day/programmes',
+          src: ['qs-accfin26', 'hku-befin', 'hku-fees'], links: ['hkimmd']
+        }
+      ]
+    },
+    // QS has no subject for logistics or supply chain, so this uses Business and Management Studies, where PolyU ranks 52nd. PolyU is the only school found
+    // with a supply chain bachelor's open to non-local students and a readable fee; the logistics roles also go by local routes. No alternatives are listed yet.
+    logistics: {
+      best: {
+        country: 'Hong Kong', school: 'The Hong Kong Polytechnic University (Department of Logistics and Maritime Studies)', course: 'BBA (Honours) Scheme in Global Business and Logistics, Aviation, Maritime, and Supply Chain Management', yrs: 4,
+        tuition: [240000, 240000], cur: 'HKD', living: 90272,
+        standing: 'Ranked 52nd in the world for Business and Management Studies, the closest QS subject (QS World University Rankings by Subject 2026)',
+        why: 'PolyU has a whole department for logistics and maritime studies. After a common first year you choose a specialism such as Supply Chain Management and Analytics.',
+        env: 'Taught in English at a public university in Hong Kong, close to home.',
+        watch: 'Nothing in Singapore regulates logistics jobs. PolyU’s page gives HK$240,000 a year for non-local undergraduates without naming the intake year, so the fee may change. Living costs are PolyU’s own estimate for a hall place (HK$18,515), campus meals and personal spending, not a visa figure; halls are normally only for the first year.',
+        url: 'https://www.polyu.edu.hk/lms/study/ug/',
+        src: ['qs-biz26', 'polyu-fees'], links: ['hkimmd']
+      },
+      alts: []
     }
   });
 
