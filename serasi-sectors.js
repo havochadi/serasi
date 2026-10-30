@@ -23,6 +23,14 @@
 
   // ---- Task 11: construction, energy, manufacturing, auto ----
 
+  // construction
+  note(826, 'United Kingdom', [-2, 54], {
+    construction: ['steady', 'Building output is forecast to dip 0.2% in 2026, then grow 1.8% in 2027 and 2.8% in 2028. Even so, UK construction needs about 41,200 extra workers a year to 2030, on top of 2.6 million already working in it in 2025.', ['citb-cwo-2026']],
+  });
+  note(840, 'United States of America', [-98, 39], {
+    construction: ['grow', 'Construction added an average of 10,000 jobs a month in the 12 months to September 2026, and about 8.4 million Americans now work in it.', ['bls-empsit-sep26']],
+  });
+
   // energy
   note(356, 'India', [78, 22], {
     energy: ['grow', 'Renewable energy jobs rose from about 1 million to 1.3 million in 2024. A 2026 study counted over 650,000 clean energy workers added in three years to March 2026, mostly in rooftop solar, and estimates about 4.4 million jobs by 2030.', ['irena-countries-2025', 'ceew-jobs-2026']],

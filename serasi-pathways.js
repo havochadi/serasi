@@ -89,7 +89,8 @@
     'ba-manufacturing-2026': ['German Federal Employment Agency, press release 26/2026 (15 July 2026)', 'https://www.arbeitsagentur.de/en/press/2026-26-employment-in-the-manufacturing-sector-fell-by-177000'],
     'mot-ev-pathway-2026': ['Ministry of Transport, Skills pathway for EV technical specialists (4 March 2026)', 'https://www.mot.gov.sg/news-resources/newsroom/launch-of-skills-pathway-for-ev-technical-specialists/'],
     'siam-fy26': ['Millennium Post, SIAM vehicle sales for 2025–26 (April 2026)', 'https://www.millenniumpost.in/business/automobile-wholesales-up-104-to-283-crore-units-in-fy26-siam-656006'],
-    'autocar-workers-2026': ['Autocar Professional, India’s auto workers (1 May 2026)', 'https://www.autocarpro.in/news/reskilling-the-workforce-the-new-scorecard-for-indias-3-crore-auto-workers-132377?amp=1']
+    'autocar-workers-2026': ['Autocar Professional, India’s auto workers (1 May 2026)', 'https://www.autocarpro.in/news/reskilling-the-workforce-the-new-scorecard-for-indias-3-crore-auto-workers-132377?amp=1'],
+    'citb-cwo-2026': ['Construction Index, CITB Construction Workforce Outlook 2026–30 (June 2026)', 'https://www.theconstructionindex.co.uk/news/view/citb-predicts-construction-demands']
   };
 
   /* Industries on the world map. Each role's ind points here. */

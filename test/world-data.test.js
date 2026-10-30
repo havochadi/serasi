@@ -71,3 +71,4 @@ test('each country has at most one nationwide entry', () => {
 DONE.push('energy');
 DONE.push('manufacturing');
 DONE.push('auto');
+DONE.push('construction');
