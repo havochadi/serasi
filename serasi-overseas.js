@@ -164,6 +164,232 @@
     }
   };
 
+  /* Tech and engineering fields. Added with Object.assign so the lines above stay untouched. Sources and the regulator's contact first, then the
+     options. QS pages return 403 to scripts, so the ranks below were read from a mirror of the QS 2026 tables (xuanxiao.org) and cross-checked
+     against university press releases; the QS links need a check by hand in a browser. */
+  Object.assign(window.SerasiPathways.SOURCES, {
+    'qs-cs26': ['QS World University Rankings by Subject 2026: Computer Science and Information Systems', 'https://www.topuniversities.com/university-subject-rankings/computer-science-information-systems'],
+    'qs-ds26': ['QS World University Rankings by Subject 2026: Data Science and Artificial Intelligence', 'https://www.topuniversities.com/university-subject-rankings/data-science-artificial-intelligence'],
+    'qs-civil26': ['QS World University Rankings by Subject 2026: Engineering, Civil and Structural', 'https://www.topuniversities.com/university-subject-rankings/civil-structural-engineering'],
+    'qs-mech26': ['QS World University Rankings by Subject 2026: Engineering, Mechanical, Aeronautical and Manufacturing', 'https://www.topuniversities.com/university-subject-rankings/mechanical-aeronautical-manufacturing-engineering'],
+    'qs-eee26': ['QS World University Rankings by Subject 2026: Engineering, Electrical and Electronic', 'https://www.topuniversities.com/university-subject-rankings/electrical-electronic-engineering'],
+    'mit-budget26': ['MIT Student Financial Services, undergraduate student budget for 2026–27', 'https://sfs.mit.edu/undergraduate-students/the-cost-of-attendance/annual-student-budget/'],
+    'mit-afford': ['MIT Admissions, paying for MIT (financial aid)', 'https://mitadmissions.org/afford/'],
+    'mit-eecs': ['MIT EECS, undergraduate programmes (Courses 6-1 to 6-14)', 'https://www.eecs.mit.edu/academics/undergraduate-programs/'],
+    'mit-meche': ['MIT Mechanical Engineering, undergraduate degrees', 'https://meche.mit.edu/education/undergraduate'],
+    'mit-cee': ['MIT Civil and Environmental Engineering, undergraduate degrees', 'https://cee.mit.edu/academics/undergraduate/'],
+    'imp-civil27': ['Imperial College London, Civil Engineering MEng: fee for 2027 entry', 'https://www.imperial.ac.uk/study/courses/undergraduate/civil-engineering/'],
+    'imp-mech27': ['Imperial College London, Mechanical Engineering MEng: fee for 2027 entry', 'https://www.imperial.ac.uk/study/courses/undergraduate/mechanical-engineering/'],
+    'imp-eee27': ['Imperial College London, Electrical and Electronic Engineering MEng: fee for 2027 entry', 'https://www.imperial.ac.uk/study/courses/undergraduate/electrical-electronic-engineering-meng/'],
+    'imp-comp27': ['Imperial College London, Computing MEng: fee for 2027 entry', 'https://www.imperial.ac.uk/study/courses/undergraduate/computing-meng/'],
+    'imp-sec27': ['Imperial College London, Computing (Security and Reliability) MEng: fee for 2027 entry', 'https://www.imperial.ac.uk/study/courses/undergraduate/computing-security-reliability-meng/'],
+    'hku-cds': ['HKU, Computing and Data Science (BEng in Computer Science; BEng in Artificial Intelligence and Data Science)', 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/computing-and-data-science'],
+    'hku-civil': ['HKU, Bachelor of Engineering in Civil Engineering', 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-civil-engineering'],
+    'peb-req': ['Professional Engineers Board, requirements to register as a professional engineer (page updated 6 October 2026)', 'https://www1.peb.gov.sg/peregistration/requirements/'],
+    'peb-qual26': ['Professional Engineers Board, updates to approved qualifications (5 October 2026)', 'https://www1.peb.gov.sg/news/updates-to-approved-qualifications-for-registration-as-professional-engineers/']
+  });
+  Object.assign(window.SerasiPathways.CONTACTS, {
+    peb: { n: 'Professional Engineers Board', url: 'https://www1.peb.gov.sg', w: 'Registering as a professional engineer, and the degrees it approves' }
+  });
+
+  // What the Professional Engineers Board's own pages support, for the civil, mechanical and electrical options.
+  const PEB_WATCH = 'Singapore’s Professional Engineers Board registers an engineer only with a degree on its Approved Qualifications Notification, four years’ practical experience, and two exams and an interview (page updated 6 October 2026). Its pages do not say whether this degree is listed, so check before you enrol; a degree that is not listed may still be considered if you add a Master’s in the same branch from NTU, NUS or SIT, or a PhD, but that is the Board’s choice. It does not accept distance-learning or twinning programmes.';
+  // MIT's yearly budget for 2026–27: tuition $66,720; everything else (housing $14,090, food $8,104, books $930, personal $2,496, student life fee $420) is $26,040.
+  const MIT_COST = { yrs: 4, tuition: [66720, 66720], cur: 'USD', living: 26040 };
+  const MIT_WATCH = 'The living figure is MIT’s own published 2026–27 budget for housing, food, books, personal costs and a student life fee, not an official visa figure and not a typical budget. Fees rise most years.';
+  const MIT_ENV = 'Taught in English. Four years is the usual length of a US bachelor’s (compiled by Serasi). MIT says its aid “meets 100% of your demonstrated financial need”.';
+  // Imperial's 2027-entry overseas fee is £47,800 a year for every course below; the living figure is the UK visa minimum for 9 months in London.
+  const IMP_COST = { tuition: [47800, 47800], cur: 'GBP', living: 13761 };
+  const IMP_WATCH = 'The fee is for 2027 entrants, a year after one starting in 2026 would pay. The living figure is the UK visa minimum for 9 months in London, not a typical budget.';
+  // HKU's 2027/28 non-local fee for the STEM faculties is HK$280,000 a year; living is the top of the hall range plus up to HK$50,000 a day, as in the architecture options.
+  const HKU_COST = { tuition: [280000, 280000], cur: 'HKD', living: 87940 };
+  const HKU_WATCH = 'The fee is for 2027/28. The living figure is HKU’s estimate: the dearest hall place plus up to HK$50,000 for daily costs. HKU’s page does not state the medium of instruction (compiled by Serasi: HKU’s undergraduate courses are normally taught in English), so check the course page.';
+
+  Object.assign(OPTIONS, {
+    // QS 2026 Computer Science and Information Systems: 1 MIT, 2 Stanford, 3 Carnegie Mellon, =4 NUS and Oxford, 6 Berkeley, 7 Harvard, 8 Cambridge,
+    // 9 NTU, 10 ETH Zurich, 11 Tsinghua, 12 Imperial, 13 Toronto, 18 Science Tokyo, 20 UCL, 26 TUM, =27 HKU, 31 Melbourne.
+    // Best: MIT, first. Alternatives, one per country: Imperial, the highest-ranked UK school whose own page gave a fee (Oxford, =4th, returns an
+    // error page, and Cambridge, 8th, adds a college fee that could not be confirmed); HKU, the highest-ranked school in Hong Kong. Left out: Stanford,
+    // Carnegie Mellon, Berkeley, Harvard (same country as MIT); ETH, TUM and EPFL (bachelor's not in English); Toronto (13th, fee and proof of funds not checked).
+    computing: {
+      best: {
+        country: 'United States', school: 'MIT', course: 'BS Computer Science and Engineering (Course 6-3)', ...MIT_COST,
+        standing: 'Ranked 1st in the world for Computer Science and Information Systems (QS World University Rankings by Subject 2026)',
+        why: 'The top-ranked computer science school in the world, and MIT says its aid “meets 100% of your demonstrated financial need”, so the headline fee is not always what you pay.',
+        env: MIT_ENV,
+        watch: MIT_WATCH,
+        url: 'https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-3-computer-science-and-engineering/',
+        src: ['qs-cs26', 'mit-budget26', 'mit-afford', 'mit-eecs']
+      },
+      alts: [
+        {
+          country: 'United Kingdom', school: 'Imperial College London', course: 'Computing MEng', yrs: 4, ...IMP_COST,
+          standing: 'Ranked 12th in the world for Computer Science and Information Systems (QS World University Rankings by Subject 2026)',
+          why: 'The highest-ranked UK school whose own page gave a fee. Imperial reports that 88% of its 2023-24 Computing graduates were in highly skilled work or further study.',
+          env: 'Taught in English in London. The four years are an integrated master’s, with an industrial placement in year 3.',
+          watch: IMP_WATCH,
+          url: 'https://www.imperial.ac.uk/study/courses/undergraduate/computing-meng/',
+          src: ['qs-cs26', 'imp-comp27', 'uk-living'], links: ['ukvisa']
+        },
+        {
+          country: 'Hong Kong', school: 'The University of Hong Kong (HKU)', course: 'BEng Computer Science', yrs: 4, ...HKU_COST,
+          standing: 'Ranked joint 27th in the world for Computer Science and Information Systems (QS World University Rankings by Subject 2026)',
+          why: 'Close to home, with a four-year bachelor’s that the Hong Kong Institution of Engineers has accredited, according to HKU.',
+          env: 'In Hong Kong, a short flight from Singapore.',
+          watch: HKU_WATCH,
+          url: 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/computing-and-data-science',
+          src: ['qs-cs26', 'hku-cds', 'hku-fees'], links: ['hkimmd']
+        }
+      ]
+    },
+    // QS 2026 Data Science and Artificial Intelligence: 1 MIT, 2 Stanford, 3 NUS, 4 NTU, 5 Carnegie Mellon, =6 Berkeley and Oxford, 8 Harvard,
+    // 9 Cambridge, 10 Tsinghua, 11 ETH Zurich, 13 Toronto, =15 EPFL and Imperial, 18 HKU, 22 UCL, 25 HKUST, 31 Melbourne.
+    // Best: MIT. Alternatives: Imperial (Oxford and Cambridge left out as for computing), whose Computing MEng has machine learning in its core
+    // modules but no data science degree; HKU's new BEng in AI and Data Science, ranked 18th, with accreditation still to come.
+    'data-ai': {
+      best: {
+        country: 'United States', school: 'MIT', course: 'BS Artificial Intelligence and Decision Making (Course 6-4)', ...MIT_COST,
+        standing: 'Ranked 1st in the world for Data Science and Artificial Intelligence (QS World University Rankings by Subject 2026)',
+        why: 'The top-ranked school in the world for data science and AI, and MIT says its aid “meets 100% of your demonstrated financial need”. MIT also offers a Computer Science, Economics, and Data Science degree (Course 6-14).',
+        env: MIT_ENV,
+        watch: MIT_WATCH,
+        url: 'https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-4-artificial-intelligence-and-decision-making/',
+        src: ['qs-ds26', 'mit-budget26', 'mit-afford', 'mit-eecs']
+      },
+      alts: [
+        {
+          country: 'United Kingdom', school: 'Imperial College London', course: 'Computing MEng', yrs: 4, ...IMP_COST,
+          standing: 'Ranked joint 15th in the world for Data Science and Artificial Intelligence (QS World University Rankings by Subject 2026)',
+          why: 'The highest-ranked UK school whose own page gave a fee. Machine learning is one of the core modules of the degree.',
+          env: 'Taught in English in London. The four years are an integrated master’s, with an industrial placement in year 3.',
+          watch: 'Imperial’s degree is in computing, not data science. ' + IMP_WATCH,
+          url: 'https://www.imperial.ac.uk/study/courses/undergraduate/computing-meng/',
+          src: ['qs-ds26', 'imp-comp27', 'uk-living'], links: ['ukvisa']
+        },
+        {
+          country: 'Hong Kong', school: 'The University of Hong Kong (HKU)', course: 'BEng Artificial Intelligence and Data Science', yrs: 4, ...HKU_COST,
+          standing: 'Ranked 18th in the world for Data Science and Artificial Intelligence (QS World University Rankings by Subject 2026)',
+          why: 'Close to home, and ranked in the top 20 for the subject.',
+          env: 'In Hong Kong, a short flight from Singapore.',
+          watch: 'This is a new programme: HKU says it will seek accreditation once the first cohort graduates, whereas its BEng in Computer Science is already accredited. ' + HKU_WATCH,
+          url: 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/computing-and-data-science',
+          src: ['qs-ds26', 'hku-cds', 'hku-fees'], links: ['hkimmd']
+        }
+      ]
+    },
+    // Cybersecurity has no QS subject, so the closest is Computer Science and Information Systems (ranks as for computing). Best: the highest-ranked
+    // school we found with a degree named for security. MIT has none among its nine EECS programmes (Stanford and Carnegie Mellon were not checked),
+    // so Imperial's Computing (Security and Reliability) MEng, 12th, is the best match. MIT is kept as the alternative for its standing. No other
+    // alternative is listed yet: a search found no cybersecurity bachelor's at HKU, HKUST or CUHK.
+    cybersecurity: {
+      best: {
+        country: 'United Kingdom', school: 'Imperial College London', course: 'Computing (Security and Reliability) MEng', yrs: 4, ...IMP_COST,
+        standing: 'Ranked 12th in the world for Computer Science and Information Systems, the closest QS subject (QS World University Rankings by Subject 2026)',
+        why: 'The highest-ranked school we found with a degree built around security. Imperial says you “acquire deep understanding of software security, reliability and privacy issues”, with Network and Web Security in year 3 and Advanced Computer Security, Privacy Engineering and Cryptography as options in year 4.',
+        env: 'Taught in English in London. The four years are an integrated master’s.',
+        watch: 'QS ranks computer science, not cybersecurity, so the rank is for the wider subject. ' + IMP_WATCH,
+        url: 'https://www.imperial.ac.uk/study/courses/undergraduate/computing-security-reliability-meng/',
+        src: ['qs-cs26', 'imp-sec27', 'uk-living'], links: ['ukvisa']
+      },
+      alts: [
+        {
+          country: 'United States', school: 'MIT', course: 'BS Computer Science and Engineering (Course 6-3)', ...MIT_COST,
+          standing: 'Ranked 1st in the world for Computer Science and Information Systems, the closest QS subject (QS World University Rankings by Subject 2026)',
+          why: 'The top-ranked computer science school in the world, with a very strong standing for any computing career, and MIT says its aid “meets 100% of your demonstrated financial need”.',
+          env: MIT_ENV,
+          watch: 'MIT has no degree named for cybersecurity among its nine EECS programmes; you would study computer science and choose security subjects. ' + MIT_WATCH,
+          url: 'https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-3-computer-science-and-engineering/',
+          src: ['qs-cs26', 'mit-budget26', 'mit-afford', 'mit-eecs']
+        }
+      ]
+    },
+    // QS 2026 Engineering, Civil and Structural: 1 MIT, 2 NUS, 3 Berkeley, 4 ETH Zurich, 5 Delft, 6 NTU, 7 Imperial, 8 Tsinghua, =9 Stanford and
+    // Cambridge, 12 Oxford, 15 Tokyo, 18 PolyU, =20 HKU and UBC, =22 UNSW and Toronto, =25 UCL. Best: MIT. Alternatives: Imperial, the highest-ranked
+    // English-taught school outside the US whose fee was readable (ETH and Delft teach the bachelor's in German and Dutch; Cambridge adds a college fee);
+    // HKU, the highest-ranked school in Hong Kong (PolyU, 18th, was not checked). Left out: Berkeley and Stanford (same country as MIT).
+    'civil-eng': {
+      best: {
+        country: 'United States', school: 'MIT', course: 'BS in Engineering, civil and environmental (Course 1-ENG)', ...MIT_COST,
+        standing: 'Ranked 1st in the world for Engineering, Civil and Structural (QS World University Rankings by Subject 2026)',
+        why: 'The top-ranked civil engineering school in the world. MIT describes its curriculum as ABET-accredited, and offers an optional fifth-year Master of Engineering.',
+        env: MIT_ENV,
+        watch: PEB_WATCH + ' ' + MIT_WATCH,
+        url: 'https://cee.mit.edu/academics/undergraduate/',
+        src: ['qs-civil26', 'mit-budget26', 'mit-afford', 'mit-cee', 'peb-req', 'peb-qual26'], links: ['peb']
+      },
+      alts: [
+        {
+          country: 'United Kingdom', school: 'Imperial College London', course: 'Civil Engineering MEng', yrs: 4, ...IMP_COST,
+          standing: 'Ranked 7th in the world for Engineering, Civil and Structural (QS World University Rankings by Subject 2026)',
+          why: 'Imperial says the degree is accredited for the Engineering Council by the Joint Board of Moderators and meets the educational requirements for Chartered Engineer registration in the UK.',
+          env: 'Taught in English in London. The four years are an integrated master’s.',
+          watch: PEB_WATCH + ' ' + IMP_WATCH,
+          url: 'https://www.imperial.ac.uk/study/courses/undergraduate/civil-engineering/',
+          src: ['qs-civil26', 'imp-civil27', 'uk-living', 'peb-req', 'peb-qual26'], links: ['ukvisa', 'peb']
+        },
+        {
+          country: 'Hong Kong', school: 'The University of Hong Kong (HKU)', course: 'BEng Civil Engineering', yrs: 4, ...HKU_COST,
+          standing: 'Ranked joint 20th in the world for Engineering, Civil and Structural (QS World University Rankings by Subject 2026)',
+          why: 'Close to home. HKU says the Hong Kong Institution of Engineers accredits the degree through the Washington Accord, and that its graduates join the MTR, developers and consulting and construction firms.',
+          env: 'In Hong Kong, a short flight from Singapore.',
+          watch: PEB_WATCH + ' ' + HKU_WATCH,
+          url: 'https://www.admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-civil-engineering',
+          src: ['qs-civil26', 'hku-civil', 'hku-fees', 'peb-req', 'peb-qual26'], links: ['hkimmd', 'peb']
+        }
+      ]
+    },
+    // QS 2026 Engineering, Mechanical, Aeronautical and Manufacturing: 1 MIT, 2 Stanford, 3 NUS, 4 Cambridge, 5 NTU, 6 ETH Zurich, =7 Harvard and
+    // Oxford, =9 Delft and Imperial, 11 Berkeley, 12 Tsinghua, 19 TUM, =35 Toronto. Best: MIT. Alternative: Imperial, the highest-ranked English-taught
+    // school outside the US whose fee was readable. No third option is listed yet: Toronto (=35th) and a school in Hong Kong were not checked.
+    'mechanical-eng': {
+      best: {
+        country: 'United States', school: 'MIT', course: 'BS Mechanical Engineering (Course 2)', ...MIT_COST,
+        standing: 'Ranked 1st in the world for Engineering, Mechanical, Aeronautical and Manufacturing (QS World University Rankings by Subject 2026)',
+        why: 'The top-ranked mechanical engineering school in the world. MIT calls Course 2 “a traditional program which prepares students for a broad range of career choices” and also offers a Mechanical and Ocean Engineering degree (Course 2-OE).',
+        env: MIT_ENV,
+        watch: PEB_WATCH + ' ' + MIT_WATCH,
+        url: 'https://meche.mit.edu/education/undergraduate',
+        src: ['qs-mech26', 'mit-budget26', 'mit-afford', 'mit-meche', 'peb-req', 'peb-qual26'], links: ['peb']
+      },
+      alts: [
+        {
+          country: 'United Kingdom', school: 'Imperial College London', course: 'Mechanical Engineering MEng', yrs: 4, ...IMP_COST,
+          standing: 'Ranked joint 9th in the world for Engineering, Mechanical, Aeronautical and Manufacturing (QS World University Rankings by Subject 2026)',
+          why: 'The highest-ranked UK school whose own page gave a fee. A year in industry is an option, and adds a fifth year.',
+          env: 'Taught in English in London. The four years are an integrated master’s.',
+          watch: PEB_WATCH + ' ' + IMP_WATCH,
+          url: 'https://www.imperial.ac.uk/study/courses/undergraduate/mechanical-engineering/',
+          src: ['qs-mech26', 'imp-mech27', 'uk-living', 'peb-req', 'peb-qual26'], links: ['ukvisa', 'peb']
+        }
+      ]
+    },
+    // QS 2026 Engineering, Electrical and Electronic: 1 MIT, 2 Stanford, 3 NUS, 4 NTU, 5 Berkeley, 6 Cambridge, 7 Oxford, 8 ETH Zurich, 9 Imperial,
+    // 10 EPFL, 11 Tsinghua, 14 Delft, =16 Toronto, 19 TUM, =20 Tokyo, 29 UNSW, 33 HKUST, 39 UCL. Best: MIT. Alternative: Imperial. No third option is
+    // listed yet: Toronto (=16th) and HKUST (33rd) were not checked.
+    'electrical-eng': {
+      best: {
+        country: 'United States', school: 'MIT', course: 'BS Electrical Science and Engineering (Course 6-1)', ...MIT_COST,
+        standing: 'Ranked 1st in the world for Engineering, Electrical and Electronic (QS World University Rankings by Subject 2026)',
+        why: 'The top-ranked electrical engineering school in the world. MIT also offers Electrical Engineering with Computing (Course 6-5) and Electrical Engineering and Computer Science (Course 6-2).',
+        env: MIT_ENV,
+        watch: PEB_WATCH + ' ' + MIT_WATCH,
+        url: 'https://www.eecs.mit.edu/academics/undergraduate-programs/curriculum/6-1-electrical-science-and-engineering/',
+        src: ['qs-eee26', 'mit-budget26', 'mit-afford', 'mit-eecs', 'peb-req', 'peb-qual26'], links: ['peb']
+      },
+      alts: [
+        {
+          country: 'United Kingdom', school: 'Imperial College London', course: 'Electrical and Electronic Engineering MEng', yrs: 4, ...IMP_COST,
+          standing: 'Ranked 9th in the world for Engineering, Electrical and Electronic (QS World University Rankings by Subject 2026)',
+          why: 'The highest-ranked UK school whose own page gave a fee. Imperial says the Institution of Engineering and Technology accredits the degree for the Engineering Council.',
+          env: 'Taught in English in London. The four years are an integrated master’s.',
+          watch: PEB_WATCH + ' ' + IMP_WATCH,
+          url: 'https://www.imperial.ac.uk/study/courses/undergraduate/electrical-electronic-engineering-meng/',
+          src: ['qs-eee26', 'imp-eee27', 'uk-living', 'peb-req', 'peb-qual26'], links: ['ukvisa', 'peb']
+        }
+      ]
+    }
+  });
+
   const SYMBOL = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' };
   const round100 = n => Math.round(n / 100) * 100;
   const num = n => Math.round(n).toLocaleString('en-SG');
