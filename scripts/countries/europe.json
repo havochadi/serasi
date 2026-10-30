@@ -1,0 +1,69 @@
+[
+  {
+    "iso": 826, "name": "United Kingdom", "a2": "GB",
+    "langs": ["English", "Welsh", "Scottish Gaelic"],
+    "known": ["Financial services and London as a global city", "Old universities, football and the Premier League", "Music, theatre, film and television exports", "Pharmaceuticals, aerospace and design"],
+    "facts": ["It is made up of England, Scotland, Wales and Northern Ireland, each with its own traditions and some separate laws.", "The National Health Service has provided mostly free healthcare since 1948.", "The UK left the European Union on 31 January 2020.", "Traffic drives on the left, as in Singapore."],
+    "orgs": ["HSBC", "Rolls-Royce", "ARM", "AstraZeneca", "BP", "Unilever"],
+    "unis": [
+      { "n": "Imperial College London", "rank": 2, "url": "https://www.imperial.ac.uk/" },
+      { "n": "University of Oxford", "rank": 4, "url": "https://www.ox.ac.uk/" },
+      { "n": "University of Cambridge", "rank": 6, "url": "https://www.cam.ac.uk/" },
+      { "n": "University College London", "rank": 8, "url": "https://www.ucl.ac.uk/" },
+      { "n": "University of Edinburgh", "rank": 35, "url": "https://www.ed.ac.uk/" }
+    ]
+  },
+  {
+    "iso": 372, "name": "Ireland", "a2": "IE",
+    "langs": ["Irish", "English"],
+    "known": ["European bases of big technology and pharmaceutical companies", "Writers such as Joyce, Yeats and Heaney", "Guinness, music and pub culture", "Green countryside and the Cliffs of Moher"],
+    "facts": ["The Republic of Ireland became independent from the UK in stages, as the Irish Free State in 1922 and a republic in 1949.", "It uses the euro and belongs to the European Union, while Northern Ireland stays in the UK.", "English is spoken everywhere; Irish is the first official language and is taught in all schools.", "Dublin is the capital and by far the largest city."],
+    "orgs": ["CRH", "Ryanair", "Kerry Group", "AIB", "Bank of Ireland", "Smurfit Westrock"],
+    "unis": [
+      { "n": "Trinity College Dublin", "rank": 75, "url": "https://www.tcd.ie/" },
+      { "n": "University College Dublin", "rank": 100, "url": "https://www.ucd.ie/" },
+      { "n": "University College Cork", "rank": 220, "url": "https://www.ucc.ie/en/" },
+      { "n": "University of Galway", "rank": 275, "url": "https://www.universityofgalway.ie/" }
+    ]
+  },
+  {
+    "iso": 276, "name": "Germany", "a2": "DE",
+    "langs": ["German"],
+    "known": ["Cars and precision engineering", "A strong base of mid-sized specialist manufacturers", "Apprenticeship-based vocational training", "Beer, bread, Christmas markets and castles"],
+    "facts": ["It has the largest economy in the European Union.", "East and West Germany were reunited on 3 October 1990.", "It is a federation of 16 states, each with its own government and responsibility for education.", "Public universities charge little or no tuition fees, including to many international students."],
+    "orgs": ["Siemens", "SAP", "BMW", "BASF", "Bosch", "Allianz"],
+    "unis": [
+      { "n": "Technical University of Munich (TUM)", "rank": 25, "url": "https://www.tum.de/en/" },
+      { "n": "Ludwig Maximilian University of Munich (LMU)", "rank": 61, "url": "https://www.lmu.de/en/" },
+      { "n": "Heidelberg University", "rank": 86, "url": "https://www.uni-heidelberg.de/en" },
+      { "n": "Freie Universität Berlin", "rank": 98, "url": "https://www.fu-berlin.de/en/" },
+      { "n": "RWTH Aachen University", "rank": 104, "url": "https://www.rwth-aachen.de/" }
+    ]
+  },
+  {
+    "iso": 250, "name": "France", "a2": "FR",
+    "langs": ["French"],
+    "known": ["Fashion, luxury goods, perfume and cosmetics", "Food, wine and cheese", "Paris, the Eiffel Tower and the Louvre", "Aerospace, trains and nuclear power"],
+    "facts": ["It is one of the most visited countries in the world.", "The Fifth Republic, with a strong president, has run the country since 1958.", "Overseas regions such as Guadeloupe, Martinique and Réunion are part of France and of the European Union.", "Paris hosted the 2024 Summer Olympics."],
+    "orgs": ["LVMH", "Airbus", "TotalEnergies", "L'Oréal", "Sanofi", "Renault"],
+    "unis": [
+      { "n": "Université PSL", "rank": 34, "url": "https://psl.eu/en" },
+      { "n": "Institut Polytechnique de Paris", "rank": 43, "url": "https://www.ip-paris.fr/en" },
+      { "n": "Sorbonne Université", "rank": 73, "url": "https://www.sorbonne-universite.fr/en" },
+      { "n": "Université Paris-Saclay", "rank": 76, "url": "https://www.universite-paris-saclay.fr/en" }
+    ]
+  },
+  {
+    "iso": 528, "name": "Netherlands", "a2": "NL",
+    "langs": ["Dutch", "Frisian (in Friesland)"],
+    "known": ["Cycling, canals and tulips", "Water management and flood defences", "Trade, with Rotterdam as Europe's largest port", "Advanced chipmaking equipment and food exports"],
+    "facts": ["About a quarter of the country lies below sea level, protected by dikes, dunes and pumps.", "Amsterdam is the capital, but the government sits in The Hague.", "Many degree programmes at research universities are taught in English, and Dutch people widely speak English.", "The Kingdom of the Netherlands also includes Aruba, Curaçao and Sint Maarten in the Caribbean."],
+    "orgs": ["ASML", "Philips", "Heineken", "ING", "Booking.com", "KLM"],
+    "unis": [
+      { "n": "Delft University of Technology", "rank": 48, "url": "https://www.tudelft.nl/en/" },
+      { "n": "University of Amsterdam", "rank": 60, "url": "https://www.uva.nl/en" },
+      { "n": "Utrecht University", "rank": 113, "url": "https://www.uu.nl/en" },
+      { "n": "Leiden University", "rank": 119, "url": "https://www.universiteitleiden.nl/en" }
+    ]
+  }
+]
