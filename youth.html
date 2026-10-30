@@ -645,11 +645,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .help-list b { color: var(--ink); font-weight: 600; }
 .income-field { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; font-size: .76rem; margin-bottom: 10px; }
 .income-field select { min-height: 38px; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); max-width: 100%; font-size: .78rem; }
-.abroad-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
-.abroad { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; font-size: .8rem; color: var(--ink-2); min-width: 0; }
-.abroad h5 { margin: 0; font-size: .87rem; color: var(--ink); }
-.abroad .cost { font-weight: 600; color: var(--ink); }
-.abroad .watch { color: var(--flag); font-size: .76rem; }
 /* Local schools under a study step (serasi-local.js) */
 .steps-path .s-schools { grid-column: 2; min-width: 0; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
 .s-schools .small { font-size: .7rem; }
@@ -808,7 +803,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
 
   /* ---------- Shared data, scoring and helpers (serasi-core.js) ---------- */
   const { TYPES, TYPE_INFO, TRAITS, TRAIT, VALUES, VALUE, FAITH, FAITH_ITEM, SKILLS, SKILL, PATHWAYS, PATH, EDU_LABEL, INTEREST_ITEMS, PERS_ITEMS, SCENARIOS, PORTALS, SF_URL, LINKS, ROLES, ROLE, icon, clamp, pct, esc, joinList, blankAnswers, profileFromAnswers, codeOf, scoreRole, AGES, AREAS, W, lowerTitle, lowerFirst, upperFirst, options, writeShared, clearShared, hasShared, rank: coreRank } = window.SerasiCore;
-  const { SOURCES, INDUSTRIES, INDUSTRY, WORLD, HUB, OUTLOOK, FEES, INCOME, ttfsShare, polyBursary, uniBursary, HELP, CONTACTS, FX, ABROAD, TRACKS, PAY } = window.SerasiPathways;
+  const { SOURCES, INDUSTRIES, INDUSTRY, WORLD, HUB, OUTLOOK, FEES, INCOME, ttfsShare, polyBursary, uniBursary, HELP, CONTACTS, TRACKS, PAY } = window.SerasiPathways;
   // Rank with this page's flagged-job setting unless the caller passes its own. Weights are fixed for everyone.
   const rank = (p, hide) => coreRank(p, hide === undefined ? state.hideFlagged : hide);
 
@@ -864,7 +859,6 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
 
   /* ---------- Shortest path ---------- */
   const money = n => '$' + Math.round(n).toLocaleString('en-SG');
-  const round100 = n => Math.round(n / 100) * 100;
   const uniq = arr => arr.filter((x, i) => x && arr.indexOf(x) === i);
   const EDU_SHORT = { 1: 'ITE', 2: 'a diploma', 3: 'a degree' };
   const fmtYears = y => (y === 3.5 ? '3½' : String(y)) + (y === 1 ? ' year' : ' years');
@@ -965,33 +959,6 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       return '<li><span class="c-n">' + esc(c.n) + '</span>' + (c.tel ? '<a href="tel:' + c.tel.replace(/\s/g, '') + '">' + esc(c.tel) + '</a>' : '') +
         '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(new URL(c.url).hostname.replace(/^www\./, '')) + ' ↗</a><span class="c-w">' + esc(c.w) + '</span></li>';
     }).join('') + '</ul>';
-  }
-
-  function curFmt(n, cur) {
-    const sym = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' }[cur] || cur + ' ';
-    return sym + Math.round(n).toLocaleString('en-SG');
-  }
-  const range = (a, b, f) => a === b ? f(a) : f(a) + '–' + f(b).replace(/^[^\d]+/, '');
-
-  // What an overseas option costs in local currency and roughly in Singapore dollars, as plain sentences.
-  function abroadCalc(a) {
-    const fx = FX[a.cur];
-    if (a.total) return { fee: range(a.total[0], a.total[1], n => curFmt(n, a.cur)) + ' for the whole degree (about ' + range(round100(a.total[0] * fx), round100(a.total[1] * fx), money) + ')' };
-    if (!a.fee) return { fee: 'Fees vary by university; check before you apply' };
-    const lo = (a.fee[0] * a.yrs + (a.once || 0) + (a.living || 0) * a.yrs) * fx, hi = (a.fee[1] * a.yrs + (a.once || 0) + (a.living || 0) * a.yrs) * fx;
-    return {
-      fee: 'Fees ' + range(a.fee[0], a.fee[1], n => curFmt(n, a.cur)) + ' a year' + (a.once ? ' plus ' + curFmt(a.once, a.cur) + ' once' : '') + ' (about ' + range(round100(a.fee[0] * fx), round100(a.fee[1] * fx), money) + ')',
-      living: a.living ? 'Living costs: the student visa asks you to show ' + curFmt(a.living, a.cur) + ' a year (about ' + money(round100(a.living * fx)) + ')' : '',
-      total: 'Roughly ' + range(round100(lo), round100(hi), money) + ' for ' + fmtYears(a.yrs) + (a.living ? ', including living costs' : ', before living costs')
-    };
-  }
-
-  // One overseas option: cost, why it's worth a look and what to watch for.
-  function abroadCard(key) {
-    const a = ABROAD[key], c = abroadCalc(a);
-    return '<div class="abroad"><h5>' + esc(a.c) + ': ' + esc(a.course) + '</h5><span class="cost">' + esc(c.fee) + '</span>' +
-      (c.living ? '<span>' + esc(c.living) + '.</span>' : '') + (c.total ? '<span>' + esc(c.total) + '.</span>' : '') +
-      '<span>' + esc(a.why) + '</span><span class="watch">Watch out: ' + esc(a.watch) + '</span>' + srcLinks(a.src) + '</div>';
   }
 
   function payHint(role) {
@@ -1459,9 +1426,10 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     'Australia': ['australia', 'aussie', 'sydney', 'melbourne', 'perth', 'brisbane'], 'United Kingdom': ['uk', 'britain', 'england', 'london', 'united kingdom', 'scotland', 'wales'],
     'Germany': ['germany', 'german', 'berlin', 'munich', 'stuttgart', 'dresden'], 'France': ['france', 'french', 'paris', 'toulouse'],
     'United States': ['usa', 'america', 'american', 'united states', 'the us', 'new york', 'california', 'silicon valley', 'boston', 'texas', 'arizona'],
-    'Singapore': ['singapore', 'sg', 'local'], 'Egypt': ['egypt', 'cairo', 'azhar', 'al azhar']
+    'Singapore': ['singapore', 'sg', 'local'], 'Egypt': ['egypt', 'cairo', 'azhar', 'al azhar'],
+    'Canada': ['canada', 'canadian', 'toronto', 'vancouver', 'montreal'], 'Netherlands': ['netherlands', 'dutch', 'holland', 'amsterdam', 'delft'],
+    'Switzerland': ['switzerland', 'swiss', 'zurich', 'lausanne', 'geneva'], 'New Zealand': ['new zealand', 'auckland', 'kiwi']
   };
-  const COUNTRY_ABROAD = { 'Australia': ['au-gen', 'au-nurse', 'au-allied'], 'United Kingdom': ['uk-design', 'uk-nurse', 'uk-law'], 'Germany': ['de-eng'], 'Japan': ['jp-gen', 'jp-anime'], 'Malaysia': ['my-tech', 'my-biz', 'my-islamic', 'my-religious'], 'Egypt': ['eg-religious'] };
   const GULF = ['United Arab Emirates', 'Saudi Arabia'];
 
   // Phrase lists, longest first, so "bank operations executive" wins over "operations executive".
@@ -1521,7 +1489,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       [/pathway|\bpath\b|\broute\b|roadmap|steps? to|what (should|do|must) i (need to )?study|what to study|which course|what course|qualifications?|requirements?|entry|shortest|how long (does it take|will it take|to become)|plan to be/, 3]]],
     ['cost', [[/how much (is|are|does|do|will|would) (it|the|a|an|my)? ?(cost|costs|fees?|study|course|degree|diploma|poly|uni|university|ite|tuition|school)|\bcosts?\b|\bprice\b|\bfees?\b|expensive|\bcheap\w*|\bafford\w*|\btuition\b|\bbudget\b|\bloan\b|pay for (school|uni|poly|my studies|studies)/, 4]]],
     ['aid', [[/subsid\w*|bursar\w*|financial (aid|help|assistance|support)|scholarships?|sponsor\w*|\bbond\b|bonded|\bttfs\b|\bmendaki\b|\bgrants?\b|help (with|paying)|cant afford|\bpoor\b|low income|\bpsea\b|progression award|work ?study|\bfree (school|study|course|education)\b/, 5]]],
-    ['abroad', [[/overseas|abroad|foreign universit\w*|study (in|at) another|outside singapore|international student|\bmext\b|\bdaad\b|exchange programme|leave singapore/, 5]]],
+    ['abroad', [[/overseas|abroad|best (place|country|countries|city) to (study|do|take|learn)|foreign universit\w*|study (in|at) another|outside singapore|international student|\bmext\b|\bdaad\b|exchange programme|leave singapore/, 5]]],
     ['world', [[/which (country|countries|city|cities)|what (country|countries|city)|where (in the world|should i (go|work|move)|can i work|is .* (growing|booming|good|hiring))|best (country|countries|place|city|cities)|work (overseas|abroad|in another country|outside)|job market|in demand|\bdemand\b|\bgrowing\b|\bgrowth\b|declin\w*|\bbooming\b|\bboom\b|\bdying\b|shrinking|future of|\boutlook\b|\bhiring\b|good (place|time) to|should i (go|move) to|is .* (good|bad|safe) (for|in)/, 4]]],
     ['pay', [[/\bsalar(y|ies)\b|\bpay\b|\bpaid\b|\bearn\w*|\bincome\b|\bwages?\b|how much (do|does|will|can|would) (i|they|you|a|an|we)\b.*\b(make|earn|get)|highest ?paying|well ?paid|\brich\b|\bmoney\b/, 4]]],
     ['listJobs', [[/jobs? (for|in|that|without|with|which|where|like|similar)|careers? (for|in|that|like)|what (other )?(jobs|careers|options)|\blist\b|other jobs|more jobs|more options|suggest\w*|recommend\w*|options for me|no degree|without (a )?degree|dont need (a )?degree|\bintrovert\w*|\bextrovert\w*|creative jobs|work from home|\bremote\b|helping people|outdoor|hands on jobs|all (the )?jobs|jobs (do you|can you) (know|have)|similar (jobs|roles)/, 4]]],
@@ -1747,7 +1715,8 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     path.steps.forEach((st, i) => lines.push((i + 1) + '. ' + st.t + (st.n && !st.done && i < path.steps.length - 1 ? '. ' + st.n : '')));
     if (cost.total) lines.push('Course fees: about ' + money(cost.total) + ' in total' + (cost.after != null ? ', or about ' + money(cost.after) + ' after help for your income band.' : ' before TTFS and bursaries.'));
     if (path.alts[0]) lines.push('Another route: ' + path.alts[0]);
-    if ((path.T.abroad || []).length && r.edu >= 2) lines.push('You could also study overseas; ask “Should I study ' + (r.trk === 'nursing' ? 'nursing ' : '') + 'overseas?”');
+    const ov = SerasiOverseas.forRole(r);
+    if (ov && ov.best) lines.push('You could also study overseas; ask “Should I study ' + t + ' overseas?”');
     const res = rank(p);
     lines.push(res.main.concat(res.more, res.stretch).some(x => x.role === r) ? 'Open ' + t + ' in your results and tap “Shortest path” for the full price breakdown, subsidies and contacts.' : 'It isn’t in your top 20, but you can still ask me about its costs, subsidies or studying overseas.');
     return lines.join('\n');
@@ -1766,8 +1735,8 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     if (cost.after != null) lines.push('- After TTFS and bursaries for your income band: about ' + money(cost.after) + '.');
     else if (cost.local) lines.push('- MENDAKI’s TTFS pays 25% to 100% of tuition if your household income per person is $2,400 or less, and government bursaries add up to $3,050 a year for a diploma or $6,300 for a degree. Pick your income band on the “Shortest path” tab to estimate.');
     (path.T.help || []).filter(k => HELP[k] && !['wsdip'].includes(k)).forEach(k => lines.push('- ' + HELP[k].t + ': ' + HELP[k].d));
-    const ab = (path.T.abroad || []).map(k => ABROAD[k]).find(x => x.fee || x.total);
-    if (ab && r.edu >= 2) { const c = abroadCalc(ab); lines.push('- For comparison, ' + ab.c + ' (' + ab.course + '): ' + lowerFirst(c.total || c.fee) + '.'); }
+    const ov = SerasiOverseas.forRole(r);
+    if (ov && ov.best) lines.push('- For comparison, ' + ov.best.country + ' (' + ov.best.school + '): ' + lowerFirst(SerasiOverseas.costText(ov.best).total) + '.');
     return lines.join('\n');
   }
 
@@ -1798,28 +1767,71 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       '\nQuestions? MENDAKI: 6245 5555. MOE financial assistance: https://www.moe.gov.sg/financial-matters/financial-assistance';
   }
 
-  function abroadLines(key) {
-    const a = ABROAD[key], c = abroadCalc(a);
-    return '- ' + a.c + ', ' + a.course + ': ' + c.fee + (c.living ? '. ' + c.living : '') + (c.total ? '. ' + c.total : '') + '.\n  Why: ' + a.why + '\n  Watch out: ' + a.watch;
+  // Studying overseas, from serasi-overseas.js: the best pick for a job's field, the alternatives, and any country's options.
+  const sentence = x => (/[.!?]$/.test(x) ? x : x + '.');
+  const OV_NOTE = () => 'Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas, so compare total costs carefully. Costs use rough exchange rates as of ' + window.SerasiPathways.FX_ASOF + '.';
+
+  // One option in full (cost, standing, why, watch-out) or as a short line (cost and watch-out).
+  function ovOption(o, full) {
+    const c = SerasiOverseas.costText(o);
+    if (!full) return '- ' + o.country + ', ' + o.school + ' (' + o.course + '): ' + c.total + '. Watch out: ' + o.watch;
+    return '- ' + o.country + ', ' + o.school + ': ' + o.course + '.\n  ' + sentence(c.fees + (o.tuitionNote ? ' (' + o.tuitionNote + ')' : '')) + (c.living ? ' ' + sentence(c.living) : '') + ' ' + sentence(c.total) +
+      '\n  ' + sentence(o.standing) + '\n  Why: ' + o.why + '\n  Watch out: ' + o.watch;
+  }
+
+  // The best pick and the alternatives for one job.
+  function ovForRole(role, r, intro) {
+    const t = lowerTitle(role.title);
+    const lines = [intro || 'The best place I found to study for ' + t + ' is:', ovOption(r.best, true)];
+    if (r.alts.length) { lines.push('Also worth a look:'); r.alts.forEach(o => lines.push(ovOption(o, false))); }
+    lines.push(OV_NOTE(), 'School page: ' + r.best.url, 'Open the job’s “Shortest path” tab to compare with the local route, which usually costs much less.');
+    return lines.join('\n');
+  }
+
+  // A country's main universities from its profile (serasi-countries-data.js), for a country with no study pick.
+  function ovProfileLine(country) {
+    const D = window.SerasiCountryData, c = D && Object.values(D.byIso || {}).find(x => x && x.name === country);
+    const unis = c && (c.unis || []).slice(0, 3);
+    if (!unis || !unis.length) return '';
+    return 'Its main universities: ' + unis.map(u => u.n + (Number.isInteger(u.rank) && u.rank > 0 && D.qs && D.qs.edition ? ' (ranked ' + u.rank + ' in the QS World University Rankings ' + D.qs.edition + ')' : '')).join('; ') + '.';
   }
 
   function askAbroad(country, s, p) {
-    const T = s ? TRACKS[s.role.trk] || {} : {};
-    const head = 'Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas, so compare total costs carefully. Costs use rough exchange rates.';
+    const role = s ? s.role : null, r = role ? SerasiOverseas.forRole(role) : null;
     if (country) {
-      const keys = COUNTRY_ABROAD[country] || [];
-      const pick = keys.filter(k => (T.abroad || []).includes(k));
-      const list = (pick.length ? pick : keys).slice(0, 3);
-      if (!list.length) return 'I don’t have study costs for ' + country + '. I have checked figures for Australia, the UK, Germany, Japan and Malaysia (and Egypt for Islamic studies).' + (countryHubs(country).length ? '\nFor jobs there, ask “Is ' + country + ' good for ' + (s ? lowerFirst(INDUSTRY[s.role.ind].label) : 'tech') + '?”' : '');
-      return 'Studying in ' + country + (pick.length ? ', for ' + lowerTitle(s.role.title) : '') + ':\n' + list.map(abroadLines).join('\n') + '\n' + head + (GULF.includes(country) ? '\nNote: the 2026 Iran war has disrupted the Gulf; check travel advice.' : '') + '\nOfficial guide: ' + CONTACTS[ABROAD[list[0]].links[0]].url;
+      const list = SerasiOverseas.forCountry(country, role);
+      if (!list.length) {
+        const have = uniq(Object.values(SerasiOverseas.OPTIONS).flatMap(f => f.best ? [f.best].concat(f.alts || []).map(o => o.country) : []));
+        return 'I don’t have a checked study pick in ' + country + ' yet. I have checked options in ' + joinList(have) + '.' + (ovProfileLine(country) ? '\n' + ovProfileLine(country) : '') +
+          (countryHubs(country).length ? '\nFor jobs there, ask “Is ' + country + ' good for ' + (s ? lowerFirst(INDUSTRY[s.role.ind].label) : 'tech') + '?”' : '') +
+          '\nName a job or a country, for example “Should I study architecture in the United Kingdom?”';
+      }
+      const mine = r && r.best ? [r.best].concat(r.alts) : [];
+      const forJob = list.filter(o => mine.includes(o)), others = list.filter(o => !mine.includes(o));
+      const lines = ['Studying in ' + country + (forJob.length ? ', for ' + lowerTitle(role.title) : '') + ':'];
+      const shown = forJob.concat(others).slice(0, forJob.length ? 3 : 4);
+      shown.forEach((o, i) => {
+        if (i === forJob.length && i > 0) lines.push('Other courses I have checked in ' + country + ':');
+        lines.push(ovOption(o, i === 0));
+      });
+      if (role && !forJob.length) lines.splice(1, 0, r && r.agency ? r.agency : 'I don’t have a checked pick for ' + lowerTitle(role.title) + ' in ' + country + '. These are other courses I have checked there:');
+      if (list.length > shown.length) lines.push('And ' + (list.length - shown.length) + ' more; name a job to see the one that fits.');
+      lines.push(OV_NOTE() + (GULF.includes(country) ? '\nNote: the 2026 Iran war has disrupted the Gulf; check travel advice.' : ''), 'School page: ' + shown[0].url);
+      return lines.join('\n');
     }
-    if (s && (T.abroad || []).length && s.role.edu >= 2) return 'Studying overseas for ' + lowerTitle(s.role.title) + ' is worth it when the course is stronger there or a local place is hard to get:\n' + T.abroad.map(abroadLines).join('\n') + '\n' + head + '\nOpen the job’s “Shortest path” tab to compare with the local route, which usually costs much less.';
-    return 'Studying overseas can make sense if the course is stronger there, a local place is hard to get, or you want to work in that country later. Quick comparison (international undergraduates):\n' +
-      '- Germany: most public universities charge no tuition (about €100–350 a semester), but you must show €11,904 a year for living costs, and most bachelor’s degrees are in German.\n' +
-      '- Japan: national universities charge ¥535,800 a year; the MEXT scholarship can pay everything.\n' +
-      '- Malaysia: the cheapest and closest; a 3-year computing degree costs about RM77,400–141,720 in total.\n' +
-      '- Australia: about A$36,000–50,000 a year plus A$29,710 a year for living; 295,000 new international places for 2026.\n' +
-      '- United Kingdom: about £17,000–30,000 a year for many 3-year degrees.\n' + head + '\nName a country or job, for example “Should I study nursing in Australia?”';
+    if (role) {
+      const t = lowerTitle(role.title);
+      if (r && r.best) return 'Studying overseas for ' + t + ' is worth it when the course is stronger there or a local place is hard to get.\n' + ovForRole(role, r);
+      if (r && r.agency) return r.agency;
+      if (!(role.edu >= 2)) return upperFirst(t) + ' is usually reached through ITE in Singapore, so there is no need to study overseas. Ask “What is the shortest path to be ' + article(t) + ' ' + t + '?” for the local route.';
+      return 'I don’t have a checked overseas pick for ' + t + ' yet. Open the job’s “Shortest path” tab for the local route and its costs, or ask about a country, for example “What does it cost to study in Germany?”';
+    }
+    const top = rank(p).main.find(x => SerasiOverseas.forRole(x.role));
+    if (top) {
+      const tr = SerasiOverseas.forRole(top.role);
+      if (tr.best) return ovForRole(top.role, tr, 'Studying overseas can make sense if the course is stronger there or a local place is hard to get. For your top match that has an overseas pick, ' + lowerTitle(top.role.title) + ', the best place I found is:') + '\nName another job or a country to compare, for example “Should I study nursing overseas?”';
+    }
+    return 'Studying overseas can make sense if the course is stronger there, a local place is hard to get, or you want to work in that country later. Tell me the job or course and I will name the best place I found to study it, with the cost in Singapore dollars and what to watch out for. For example: “Where is the best place to study architecture?” or “What does it cost to study in Germany?”\n' + OV_NOTE();
   }
 
   function countryHubs(country) { return WORLD.filter(h => h.country === country); }
@@ -1853,6 +1865,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       lines.push('Job-market notes for ' + country + ':');
       hubs.forEach(h => Object.entries(h.ind).forEach(([k, o]) => lines.push('- ' + INDUSTRY[k].label + (h.scope === 'country' || h.place === country ? '' : ' (' + h.place + ')') + ': ' + OUTLOOK[o[0]].toLowerCase() + '. ' + o[1])));
     }
+    if (country && SerasiOverseas.forCountry(country).length) lines.push('To study in ' + country + ', ask “What does it cost to study in ' + country + '?”');
     if (GULF.includes(country) || (!country && shown.some(c => GULF.includes(c)))) lines.push('Note: the 2026 Iran war has hit Gulf economies and flights; check travel advice and current news.');
     lines.push('Working abroad usually needs a work visa. Open “World map” in the menu to explore this on the globe.');
     return lines.join('\n');
@@ -2119,11 +2132,11 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       portals: s.role.portals.map(k => PORTALS[k].name)
     });
     const route = s => {
-      const path = pathFor(s.role, p), T = TRACKS[s.role.trk] || {};
+      const path = pathFor(s.role, p);
       return {
         from: STAGE_FROM[p.pathway], years_of_study: path.years, steps: path.steps.map(x => x.t),
         course_fees_sgd: pathCost(path, p).total, other_route: path.alts[0] || '',
-        study_overseas: s.role.edu >= 2 ? (T.abroad || []).slice(0, 1).map(k => { const a = ABROAD[k], c = abroadCalc(a); return a.c + ', ' + a.course + ': ' + (c.total || c.fee) + '. Watch out: ' + a.watch; }) : []
+        study_overseas: [SerasiOverseas.summaryFor(s.role)].filter(Boolean)
       };
     };
     // In fit order: the on-screen order moves flagged roles down, which would hint at a faith preference.
