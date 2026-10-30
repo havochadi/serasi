@@ -49,7 +49,13 @@
     'rmit-fashion': ['RMIT, Bachelor of Fashion (Design): 2027 international fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-fashion-design-bp328/apply-now'],
     'polyu-fashion': ['PolyU, BA (Hons) Scheme in Fashion (4-year)', 'https://www.polyu.edu.hk/itc/study/ug/'],
     'ual-animation': ['UAL, BA (Hons) Animation (London College of Communication): fees for September 2027 entry', 'https://www.arts.ac.uk/subjects/animation-interactive-film-and-sound/undergraduate/ba-hons-animation-lcc'],
-    'rmit-animation': ['RMIT, Bachelor of Design (Animation and Interactive Media): 2027 international fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-animation-and-interactive-media-bp203/apply-now']
+    'rmit-animation': ['RMIT, Bachelor of Design (Animation and Interactive Media): 2027 international fee', 'https://www.rmit.edu.au/study-with-us/levels-of-study/undergraduate-study/bachelor-degrees/bachelor-of-design-animation-and-interactive-media-bp203/apply-now'],
+    'qs-comm26': ['QS World University Rankings by Subject 2026: Communication & Media Studies', 'https://www.topuniversities.com/university-subject-rankings/communication-media-studies'],
+    'uva-comm': ['University of Amsterdam, BSc Communication Science (taught in English)', 'https://www.uva.nl/en/programmes/bachelors/communication-science/communication-science.html'],
+    'uva-fees': ['University of Amsterdam, tuition fees (institutional fees for 2027-2028, by faculty)', 'https://www.uva.nl/en/education/fees-and-funding/tuition-fees/tuition-fees.html'],
+    'cuhk-commn': ['CUHK, Journalism and Communication (four-year undergraduate programme)', 'https://admission.cuhk.edu.hk/programme/commn/'],
+    'cuhk-fees': ['CUHK, undergraduate fees for non-local students (2027-28 rate; hostel fee 2026-27)', 'https://admission.cuhk.edu.hk/fees-financing-your-studies/fees/'],
+    'qut-comm': ['QUT, Bachelor of Communication (Media and Communication Industries): 2027 international fee', 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries']
   });
 
   /* Official guides and regulators named by the options' links. */
@@ -330,6 +336,46 @@
           watch: 'Studios report a “profitless boom”: record sales, but low pay and rising closures. Apply for MEXT through the Embassy of Japan in Singapore, usually around May–June. The fee is the national-university rate and the one-off figure is the entrance fee. There is no official visa figure for living costs, so the total here is before living costs.',
           url: 'https://www.studyinjapan.go.jp/en/',
           src: ['qs-art26', 'jp-fees', 'jp-anime'], links: ['embjp', 'jasso']
+        }
+      ]
+    },
+
+    // QS 2026 Communication & Media Studies: 1 University of Amsterdam, 2 NTU, 3 Harvard, 6 LSE, =10 NUS, 16 CUHK, =19 QUT, 22 Melbourne, 28 Sydney.
+    // The ranks were read from a site that republishes the QS table (QS's own page turns scripts away). NTU (2nd) and NUS (joint 10th) are local
+    // schools, listed in the local courses, and outrank every school abroad except Amsterdam. Best: Amsterdam, first in the world and taught in English
+    // (the US schools have no official money-for-living figure for a visa; LSE's undergraduate fee could not be confirmed). Alternatives: CUHK and QUT.
+    // CUHK's and QUT's pages turn scripts away, so their figures come from search summaries of those pages and are marked for a check by hand.
+    media: {
+      best: {
+        country: 'Netherlands', school: 'University of Amsterdam (UvA)', course: 'BSc Communication Science (Global Communication Science)', yrs: 3,
+        tuition: [16670, 16670], cur: 'EUR', living: 13569,
+        standing: 'Ranked 1st in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
+        why: 'The world’s top-ranked school for the subject, with a three-year degree taught in English. Two Singapore schools, NTU (2nd) and NUS (joint 10th), also rank in the top ten and cost far less, so try them first.',
+        env: 'Taught in English on the Roeterseiland campus in Amsterdam, with an internship built in.',
+        watch: 'UvA’s fees page gives €16,670 a year for non-EU bachelor’s students at the Faculty of Social and Behavioural Sciences, for 2027-2028; it does not name Communication Science, and the 2026-2027 figure was not on the page. The living figure is the minimum the Dutch immigration service asks students to have, not a typical budget.',
+        url: 'https://www.uva.nl/en/programmes/bachelors/communication-science/communication-science.html',
+        src: ['qs-comm26', 'uva-comm', 'uva-fees', 'nl-living'], links: ['studynl']
+      },
+      alts: [
+        {
+          country: 'Hong Kong', school: 'The Chinese University of Hong Kong (CUHK)', course: 'Journalism and Communication (BA / BSocSc)', yrs: 4,
+          tuition: [230000, 230000], cur: 'HKD', living: null,
+          standing: 'Ranked 16th in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
+          why: 'A four-year degree close to home, with tracks in Journalism, Advertising and Public Relations, and Creative and New Media.',
+          env: 'The pages read do not say what language the teaching is in, so check before you apply.',
+          watch: 'The HK$230,000 tuition is CUHK’s 2027-28 rate for non-local students, and the exact degree title should be checked. CUHK’s fees page gives only a hostel fee of about HK$17,000 for 2026-27, so no full living figure is shown. Both pages turned scripts away, so check them by hand.',
+          url: 'https://admission.cuhk.edu.hk/programme/commn/',
+          src: ['qs-comm26', 'cuhk-commn', 'cuhk-fees'], links: ['hkimmd']
+        },
+        {
+          country: 'Australia', school: 'Queensland University of Technology (QUT)', course: 'Bachelor of Communication (Media and Communication Industries, or the Journalism major)', yrs: 3,
+          tuition: [41600, 41600], cur: 'AUD', living: 29710,
+          standing: 'Ranked joint 19th in the world for Communication and Media Studies (QS World University Rankings by Subject 2026)',
+          why: 'A three-year degree in Brisbane, taught in English, with a Journalism major as well as Media and Communication Industries.',
+          env: 'Based at QUT’s Kelvin Grove campus in Brisbane.',
+          watch: 'The A$41,600 fee is QUT’s 2027 international rate, and Australian fees rise most years. QUT’s page turned scripts away, so check it by hand. The living figure is the Australian student-visa minimum, not a typical budget.',
+          url: 'https://www.qut.edu.au/courses/bachelor-of-communication-media-and-communication-industries',
+          src: ['qs-comm26', 'qut-comm', 'au-visa'], links: ['studyau']
         }
       ]
     },
