@@ -645,11 +645,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .help-list b { color: var(--ink); font-weight: 600; }
 .income-field { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; font-size: .76rem; margin-bottom: 10px; }
 .income-field select { min-height: 38px; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); max-width: 100%; font-size: .78rem; }
-.abroad-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
-.abroad { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; font-size: .8rem; color: var(--ink-2); min-width: 0; }
-.abroad h5 { margin: 0; font-size: .87rem; color: var(--ink); }
-.abroad .cost { font-weight: 600; color: var(--ink); }
-.abroad .watch { color: var(--flag); font-size: .76rem; }
 /* Local schools under a study step (serasi-local.js) */
 .steps-path .s-schools { grid-column: 2; min-width: 0; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
 .s-schools .small { font-size: .7rem; }
@@ -691,7 +686,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .world-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; border-left: 4px solid #8FA17C; }
 .world-card > div { flex: 1 1 320px; min-width: 0; }
 
-/* World map: industry chips, the globe beside a details panel, then lists by outlook */
+/* World map: industry chips, then the globe beside a panel with the country list or a country profile */
 .world-head { display: flex; flex-direction: column; gap: 8px; }
 .ind-chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .ind-chip { border: 1px solid #DDE3D4; border-radius: 9px; background: var(--surface); padding: 8px 12px; color: var(--ink-2); font-size: .76rem; cursor: pointer; min-height: 38px; }
@@ -716,24 +711,43 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .g-city.other { fill: #9AA79E; }
 .g-city.sel { stroke: var(--ink); stroke-width: 2.5; }
 .g-label { font: 600 11px var(--font-body); fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; pointer-events: none; }
-.globe-ctrl { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-.globe-ctrl button { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: .74rem; cursor: pointer; min-height: 32px; }
 .g-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: .72rem; color: var(--muted); }
 .g-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
-.world-side { display: flex; flex-direction: column; gap: 12px; }
-.hub-detail { display: flex; flex-direction: column; gap: 10px; font-size: .84rem; }
-.hub-detail ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.hub-detail li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; color: var(--ink-2); align-items: start; }
-.hub-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.hub-col h3 { font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
-.hub-col h3 i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
-.hub-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-.hub-btn { width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
-.hub-btn:hover { border-color: #8FA17C; }
-.hub-btn b { color: var(--ink); font-size: .82rem; font-weight: 600; }
-.hub-btn span { color: var(--muted); font-size: .72rem; }
+.world-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+/* The side panel: a sector's country list, or one country's profile (serasi-countries.js) */
+.world-panel { display: flex; flex-direction: column; gap: 12px; font-size: .84rem; min-width: 0; overflow-wrap: anywhere; scroll-margin-top: 12px; }
+.world-panel:focus:not(:focus-visible) { outline: none; }
+.world-list, .country-profile, .country-more, .world-big { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.world-big { gap: 6px; border-top: 1px solid var(--line); padding-top: 12px; }
+.world-panel h3 { font-size: 1.05rem; }
+.country-group h3 { display: flex; align-items: center; gap: 8px; }
+.country-group h3 i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
+.country-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.country-btn { width: 100%; min-height: 44px; text-align: left; font: inherit; color: var(--ink-2); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 3px 8px; }
+.country-btn:hover { border-color: #8FA17C; }
+.country-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.country-btn b { color: var(--ink); font-size: .84rem; font-weight: 600; }
+.country-btn .pill { justify-self: end; }
+.country-note { grid-column: 1 / -1; color: var(--muted); font-size: .74rem; line-height: 1.4; }
+.country-rest { border-top: 1px solid var(--line); padding-top: 4px; }
+.country-rest summary { min-height: 44px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--ink); list-style: none; }
+.country-rest summary::-webkit-details-marker { display: none; }
+.country-rest summary::before { content: ''; flex: none; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .15s; }
+.country-rest[open] summary::before { transform: rotate(45deg); }
+#world-panel .btn.link { min-height: 44px; }
+.country-rest .country-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr)); margin-top: 4px; }
+.country-head { display: flex; align-items: center; gap: 12px; }
+.country-head > div { min-width: 0; }
+img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); background: var(--surface-2); }
+.country-sector { display: flex; flex-direction: column; gap: 8px; background: var(--surface-2); border-radius: 12px; padding: 10px 12px; }
+.country-sector ul, .country-notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.country-sector li, .country-notes li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; color: var(--ink-2); align-items: start; }
+.country-figs { width: 100%; table-layout: fixed; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.country-figs th, .country-figs td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; color: var(--ink-2); }
+.country-figs th { width: 36%; color: var(--ink); font-weight: 600; }
+.country-ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-2); display: flex; flex-direction: column; gap: 4px; }
 @media (max-width: 900px) {
-  .world, .hub-cols { grid-template-columns: minmax(0, 1fr); }
+  .world { grid-template-columns: minmax(0, 1fr); }
 }
 
 
@@ -781,13 +795,15 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 <script src="serasi-study.js"></script>
 <script src="serasi-local.js"></script>
 <script src="serasi-overseas.js"></script>
+<script src="serasi-countries-data.js"></script>
+<script src="serasi-countries.js"></script>
 <script>
 (function () {
   'use strict';
 
   /* ---------- Shared data, scoring and helpers (serasi-core.js) ---------- */
   const { TYPES, TYPE_INFO, TRAITS, TRAIT, VALUES, VALUE, FAITH, FAITH_ITEM, SKILLS, SKILL, PATHWAYS, PATH, EDU_LABEL, INTEREST_ITEMS, PERS_ITEMS, SCENARIOS, PORTALS, SF_URL, LINKS, ROLES, ROLE, icon, clamp, pct, esc, joinList, blankAnswers, profileFromAnswers, codeOf, scoreRole, AGES, AREAS, W, lowerTitle, lowerFirst, upperFirst, options, writeShared, clearShared, hasShared, rank: coreRank } = window.SerasiCore;
-  const { SOURCES, INDUSTRIES, INDUSTRY, WORLD, HUB, OUTLOOK, FEES, INCOME, ttfsShare, polyBursary, uniBursary, HELP, CONTACTS, FX, ABROAD, TRACKS, PAY } = window.SerasiPathways;
+  const { SOURCES, INDUSTRIES, INDUSTRY, WORLD, HUB, OUTLOOK, FEES, INCOME, ttfsShare, polyBursary, uniBursary, HELP, CONTACTS, TRACKS, PAY } = window.SerasiPathways;
   // Rank with this page's flagged-job setting unless the caller passes its own. Weights are fixed for everyone.
   const rank = (p, hide) => coreRank(p, hide === undefined ? state.hideFlagged : hide);
 
@@ -843,7 +859,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 
   /* ---------- Shortest path ---------- */
   const money = n => '$' + Math.round(n).toLocaleString('en-SG');
-  const round100 = n => Math.round(n / 100) * 100;
   const uniq = arr => arr.filter((x, i) => x && arr.indexOf(x) === i);
   const EDU_SHORT = { 1: 'ITE', 2: 'a diploma', 3: 'a degree' };
   const fmtYears = y => (y === 3.5 ? '3½' : String(y)) + (y === 1 ? ' year' : ' years');
@@ -944,33 +959,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       return '<li><span class="c-n">' + esc(c.n) + '</span>' + (c.tel ? '<a href="tel:' + c.tel.replace(/\s/g, '') + '">' + esc(c.tel) + '</a>' : '') +
         '<a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(new URL(c.url).hostname.replace(/^www\./, '')) + ' ↗</a><span class="c-w">' + esc(c.w) + '</span></li>';
     }).join('') + '</ul>';
-  }
-
-  function curFmt(n, cur) {
-    const sym = { AUD: 'A$', GBP: '£', EUR: '€', JPY: '¥', MYR: 'RM' }[cur] || cur + ' ';
-    return sym + Math.round(n).toLocaleString('en-SG');
-  }
-  const range = (a, b, f) => a === b ? f(a) : f(a) + '–' + f(b).replace(/^[^\d]+/, '');
-
-  // What an overseas option costs in local currency and roughly in Singapore dollars, as plain sentences.
-  function abroadCalc(a) {
-    const fx = FX[a.cur];
-    if (a.total) return { fee: range(a.total[0], a.total[1], n => curFmt(n, a.cur)) + ' for the whole degree (about ' + range(round100(a.total[0] * fx), round100(a.total[1] * fx), money) + ')' };
-    if (!a.fee) return { fee: 'Fees vary by university; check before you apply' };
-    const lo = (a.fee[0] * a.yrs + (a.once || 0) + (a.living || 0) * a.yrs) * fx, hi = (a.fee[1] * a.yrs + (a.once || 0) + (a.living || 0) * a.yrs) * fx;
-    return {
-      fee: 'Fees ' + range(a.fee[0], a.fee[1], n => curFmt(n, a.cur)) + ' a year' + (a.once ? ' plus ' + curFmt(a.once, a.cur) + ' once' : '') + ' (about ' + range(round100(a.fee[0] * fx), round100(a.fee[1] * fx), money) + ')',
-      living: a.living ? 'Living costs: the student visa asks you to show ' + curFmt(a.living, a.cur) + ' a year (about ' + money(round100(a.living * fx)) + ')' : '',
-      total: 'Roughly ' + range(round100(lo), round100(hi), money) + ' for ' + fmtYears(a.yrs) + (a.living ? ', including living costs' : ', before living costs')
-    };
-  }
-
-  // One overseas option: cost, why it's worth a look and what to watch for.
-  function abroadCard(key) {
-    const a = ABROAD[key], c = abroadCalc(a);
-    return '<div class="abroad"><h5>' + esc(a.c) + ': ' + esc(a.course) + '</h5><span class="cost">' + esc(c.fee) + '</span>' +
-      (c.living ? '<span>' + esc(c.living) + '.</span>' : '') + (c.total ? '<span>' + esc(c.total) + '.</span>' : '') +
-      '<span>' + esc(a.why) + '</span><span class="watch">Watch out: ' + esc(a.watch) + '</span>' + srcLinks(a.src) + '</div>';
   }
 
   function payHint(role) {
@@ -1438,9 +1426,10 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     'Australia': ['australia', 'aussie', 'sydney', 'melbourne', 'perth', 'brisbane'], 'United Kingdom': ['uk', 'britain', 'england', 'london', 'united kingdom', 'scotland', 'wales'],
     'Germany': ['germany', 'german', 'berlin', 'munich', 'stuttgart', 'dresden'], 'France': ['france', 'french', 'paris', 'toulouse'],
     'United States': ['usa', 'america', 'american', 'united states', 'the us', 'new york', 'california', 'silicon valley', 'boston', 'texas', 'arizona'],
-    'Singapore': ['singapore', 'sg', 'local'], 'Egypt': ['egypt', 'cairo', 'azhar', 'al azhar']
+    'Singapore': ['singapore', 'sg', 'local'], 'Egypt': ['egypt', 'cairo', 'azhar', 'al azhar'],
+    'Canada': ['canada', 'canadian', 'toronto', 'vancouver', 'montreal'], 'Netherlands': ['netherlands', 'dutch', 'holland', 'amsterdam', 'delft'],
+    'Switzerland': ['switzerland', 'swiss', 'zurich', 'lausanne', 'geneva'], 'New Zealand': ['new zealand', 'auckland', 'kiwi']
   };
-  const COUNTRY_ABROAD = { 'Australia': ['au-gen', 'au-nurse', 'au-allied'], 'United Kingdom': ['uk-design', 'uk-nurse', 'uk-law'], 'Germany': ['de-eng'], 'Japan': ['jp-gen', 'jp-anime'], 'Malaysia': ['my-tech', 'my-biz', 'my-islamic', 'my-religious'], 'Egypt': ['eg-religious'] };
   const GULF = ['United Arab Emirates', 'Saudi Arabia'];
 
   // Phrase lists, longest first, so "bank operations executive" wins over "operations executive".
@@ -1500,7 +1489,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       [/pathway|\bpath\b|\broute\b|roadmap|steps? to|what (should|do|must) i (need to )?study|what to study|which course|what course|qualifications?|requirements?|entry|shortest|how long (does it take|will it take|to become)|plan to be/, 3]]],
     ['cost', [[/how much (is|are|does|do|will|would) (it|the|a|an|my)? ?(cost|costs|fees?|study|course|degree|diploma|poly|uni|university|ite|tuition|school)|\bcosts?\b|\bprice\b|\bfees?\b|expensive|\bcheap\w*|\bafford\w*|\btuition\b|\bbudget\b|\bloan\b|pay for (school|uni|poly|my studies|studies)/, 4]]],
     ['aid', [[/subsid\w*|bursar\w*|financial (aid|help|assistance|support)|scholarships?|sponsor\w*|\bbond\b|bonded|\bttfs\b|\bmendaki\b|\bgrants?\b|help (with|paying)|cant afford|\bpoor\b|low income|\bpsea\b|progression award|work ?study|\bfree (school|study|course|education)\b/, 5]]],
-    ['abroad', [[/overseas|abroad|foreign universit\w*|study (in|at) another|outside singapore|international student|\bmext\b|\bdaad\b|exchange programme|leave singapore/, 5]]],
+    ['abroad', [[/overseas|abroad|best (place|country|countries|city) to (study|do|take|learn)|foreign universit\w*|study (in|at) another|outside singapore|international student|\bmext\b|\bdaad\b|exchange programme|leave singapore/, 5]]],
     ['world', [[/which (country|countries|city|cities)|what (country|countries|city)|where (in the world|should i (go|work|move)|can i work|is .* (growing|booming|good|hiring))|best (country|countries|place|city|cities)|work (overseas|abroad|in another country|outside)|job market|in demand|\bdemand\b|\bgrowing\b|\bgrowth\b|declin\w*|\bbooming\b|\bboom\b|\bdying\b|shrinking|future of|\boutlook\b|\bhiring\b|good (place|time) to|should i (go|move) to|is .* (good|bad|safe) (for|in)/, 4]]],
     ['pay', [[/\bsalar(y|ies)\b|\bpay\b|\bpaid\b|\bearn\w*|\bincome\b|\bwages?\b|how much (do|does|will|can|would) (i|they|you|a|an|we)\b.*\b(make|earn|get)|highest ?paying|well ?paid|\brich\b|\bmoney\b/, 4]]],
     ['listJobs', [[/jobs? (for|in|that|without|with|which|where|like|similar)|careers? (for|in|that|like)|what (other )?(jobs|careers|options)|\blist\b|other jobs|more jobs|more options|suggest\w*|recommend\w*|options for me|no degree|without (a )?degree|dont need (a )?degree|\bintrovert\w*|\bextrovert\w*|creative jobs|work from home|\bremote\b|helping people|outdoor|hands on jobs|all (the )?jobs|jobs (do you|can you) (know|have)|similar (jobs|roles)/, 4]]],
@@ -1726,7 +1715,8 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     path.steps.forEach((st, i) => lines.push((i + 1) + '. ' + st.t + (st.n && !st.done && i < path.steps.length - 1 ? '. ' + st.n : '')));
     if (cost.total) lines.push('Course fees: about ' + money(cost.total) + ' in total' + (cost.after != null ? ', or about ' + money(cost.after) + ' after help for your income band.' : ' before TTFS and bursaries.'));
     if (path.alts[0]) lines.push('Another route: ' + path.alts[0]);
-    if ((path.T.abroad || []).length && r.edu >= 2) lines.push('You could also study overseas; ask “Should I study ' + (r.trk === 'nursing' ? 'nursing ' : '') + 'overseas?”');
+    const ov = SerasiOverseas.forRole(r);
+    if (ov && ov.best) lines.push('You could also study overseas; ask “Should I study ' + studyName(r, ov.field) + ' overseas?”');
     const res = rank(p);
     lines.push(res.main.concat(res.more, res.stretch).some(x => x.role === r) ? 'Open ' + t + ' in your results and tap “Shortest path” for the full price breakdown, subsidies and contacts.' : 'It isn’t in your top 20, but you can still ask me about its costs, subsidies or studying overseas.');
     return lines.join('\n');
@@ -1745,8 +1735,8 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (cost.after != null) lines.push('- After TTFS and bursaries for your income band: about ' + money(cost.after) + '.');
     else if (cost.local) lines.push('- MENDAKI’s TTFS pays 25% to 100% of tuition if your household income per person is $2,400 or less, and government bursaries add up to $3,050 a year for a diploma or $6,300 for a degree. Pick your income band on the “Shortest path” tab to estimate.');
     (path.T.help || []).filter(k => HELP[k] && !['wsdip'].includes(k)).forEach(k => lines.push('- ' + HELP[k].t + ': ' + HELP[k].d));
-    const ab = (path.T.abroad || []).map(k => ABROAD[k]).find(x => x.fee || x.total);
-    if (ab && r.edu >= 2) { const c = abroadCalc(ab); lines.push('- For comparison, ' + ab.c + ' (' + ab.course + '): ' + lowerFirst(c.total || c.fee) + '.'); }
+    const ov = SerasiOverseas.forRole(r);
+    if (ov && ov.best) lines.push('- For comparison, ' + ov.best.country + ' (' + ov.best.school + '): ' + lowerFirst(SerasiOverseas.costText(ov.best).total) + '.');
     return lines.join('\n');
   }
 
@@ -1777,28 +1767,85 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       '\nQuestions? MENDAKI: 6245 5555. MOE financial assistance: https://www.moe.gov.sg/financial-matters/financial-assistance';
   }
 
-  function abroadLines(key) {
-    const a = ABROAD[key], c = abroadCalc(a);
-    return '- ' + a.c + ', ' + a.course + ': ' + c.fee + (c.living ? '. ' + c.living : '') + (c.total ? '. ' + c.total : '') + '.\n  Why: ' + a.why + '\n  Watch out: ' + a.watch;
+  // What to call a course in a question: a one-word field name (nursing, medicine, law) where there is one, else the job title.
+  function studyName(role, field) {
+    const label = ((window.SerasiStudy.FIELDS[field] || {}).label || '').toLowerCase();
+    return label && !/\s/.test(label) ? label : lowerTitle(role.title);
+  }
+
+  // Studying overseas, from serasi-overseas.js: the best pick for a job's field, the alternatives, and any country's options.
+  const sentence = x => (/[.!?]$/.test(x) ? x : x + '.');
+  const OV_NOTE = () => 'Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas, so compare total costs carefully. Costs use rough exchange rates as of ' + window.SerasiPathways.FX_ASOF + '.';
+
+  // One option in full (cost, standing, why, watch-out) or as a short line (cost and watch-out).
+  function ovOption(o, full) {
+    const c = SerasiOverseas.costText(o);
+    if (!full) return '- ' + o.country + ', ' + o.school + ' (' + o.course + '): ' + c.total + '. Watch out: ' + watchText(o.watch, 220);
+    return '- ' + o.country + ', ' + o.school + ': ' + o.course + '.\n  ' + sentence(c.fees + (o.tuitionNote ? ' (' + o.tuitionNote + ')' : '')) + (c.living ? ' ' + sentence(c.living) : '') + ' ' + sentence(c.total) +
+      '\n  ' + sentence(o.standing) + '\n  Why: ' + o.why + '\n  Watch out: ' + watchText(o.watch, 520);
+  }
+
+  // Whole sentences of a watch-out, as many as fit in max characters (always the first one), to keep a chat answer readable.
+  function watchText(w, max) {
+    const parts = SerasiOverseas.sentences(w);
+    let out = parts[0];
+    for (let i = 1; i < parts.length && (out + ' ' + parts[i]).length <= max; i++) out += ' ' + parts[i];
+    return out;
+  }
+
+  // The best pick and the alternatives for one job.
+  function ovForRole(role, r, intro) {
+    const t = lowerTitle(role.title);
+    const lines = [intro || 'The best place I found to study for ' + t + ' is:', ovOption(r.best, true)];
+    if (r.alts.length) { lines.push('Also worth a look:'); r.alts.forEach(o => lines.push(ovOption(o, false))); }
+    lines.push(OV_NOTE(), 'School page: ' + r.best.url, 'Open the job’s “Shortest path” tab to compare with the local route, which usually costs much less.');
+    return lines.join('\n');
+  }
+
+  // A country's main universities from its profile (serasi-countries-data.js), for a country with no study pick.
+  function ovProfileLine(country) {
+    const D = window.SerasiCountryData, c = D && Object.values(D.byIso || {}).find(x => x && x.name === country);
+    const unis = c && (c.unis || []).slice(0, 3);
+    if (!unis || !unis.length) return '';
+    return 'Its main universities: ' + unis.map(u => u.n + (Number.isInteger(u.rank) && u.rank > 0 && D.qs && D.qs.edition ? ' (ranked ' + u.rank + ' in ' + D.qs.edition + ')' : '')).join('; ') + '.';
   }
 
   function askAbroad(country, s, p) {
-    const T = s ? TRACKS[s.role.trk] || {} : {};
-    const head = 'Singapore’s Tuition Grant, TTFS and bursaries don’t apply overseas, so compare total costs carefully. Costs use rough exchange rates.';
+    const role = s ? s.role : null, r = role ? SerasiOverseas.forRole(role) : null;
     if (country) {
-      const keys = COUNTRY_ABROAD[country] || [];
-      const pick = keys.filter(k => (T.abroad || []).includes(k));
-      const list = (pick.length ? pick : keys).slice(0, 3);
-      if (!list.length) return 'I don’t have study costs for ' + country + '. I have checked figures for Australia, the UK, Germany, Japan and Malaysia (and Egypt for Islamic studies).' + (countryHubs(country).length ? '\nFor jobs there, ask “Is ' + country + ' good for ' + (s ? lowerFirst(INDUSTRY[s.role.ind].label) : 'tech') + '?”' : '');
-      return 'Studying in ' + country + (pick.length ? ', for ' + lowerTitle(s.role.title) : '') + ':\n' + list.map(abroadLines).join('\n') + '\n' + head + (GULF.includes(country) ? '\nNote: the 2026 Iran war has disrupted the Gulf; check travel advice.' : '') + '\nOfficial guide: ' + CONTACTS[ABROAD[list[0]].links[0]].url;
+      const list = SerasiOverseas.forCountry(country, role);
+      if (!list.length) {
+        const have = uniq(Object.values(SerasiOverseas.OPTIONS).flatMap(f => f.best ? [f.best].concat(f.alts || []).map(o => o.country) : []));
+        return 'I don’t have a checked study cost for ' + country + ' yet, so I won’t guess one. I have checked options in ' + joinList(have) + '.' + (ovProfileLine(country) ? '\n' + ovProfileLine(country) : '') +
+          (countryHubs(country).length ? '\nFor jobs there, ask “Is ' + country + ' good for ' + (s ? lowerFirst(INDUSTRY[s.role.ind].label) : 'tech') + '?”' : '') +
+          '\nName a job or a country, for example “Should I study architecture in the United Kingdom?”';
+      }
+      const mine = r && r.best ? [r.best].concat(r.alts) : [];
+      const forJob = list.filter(o => mine.includes(o)), others = list.filter(o => !mine.includes(o));
+      const lines = ['Studying in ' + country + (forJob.length ? ', for ' + lowerTitle(role.title) : '') + ':'];
+      const shown = forJob.concat(others).slice(0, forJob.length ? 3 : 4);
+      shown.forEach((o, i) => {
+        if (i === forJob.length && i > 0) lines.push('Other courses I have checked in ' + country + ':');
+        lines.push(ovOption(o, i === 0));
+      });
+      if (role && !forJob.length) lines.splice(1, 0, r && r.agency ? r.agency : 'I don’t have a checked pick for ' + lowerTitle(role.title) + ' in ' + country + '. These are other courses I have checked there:');
+      if (list.length > shown.length) lines.push('And ' + (list.length - shown.length) + ' more; name a job to see the one that fits.');
+      lines.push(OV_NOTE() + (GULF.includes(country) ? '\nNote: the 2026 Iran war has disrupted the Gulf; check travel advice.' : ''), 'School page: ' + shown[0].url);
+      return lines.join('\n');
     }
-    if (s && (T.abroad || []).length && s.role.edu >= 2) return 'Studying overseas for ' + lowerTitle(s.role.title) + ' is worth it when the course is stronger there or a local place is hard to get:\n' + T.abroad.map(abroadLines).join('\n') + '\n' + head + '\nOpen the job’s “Shortest path” tab to compare with the local route, which usually costs much less.';
-    return 'Studying overseas can make sense if the course is stronger there, a local place is hard to get, or you want to work in that country later. Quick comparison (international undergraduates):\n' +
-      '- Germany: most public universities charge no tuition (about €100–350 a semester), but you must show €11,904 a year for living costs, and most bachelor’s degrees are in German.\n' +
-      '- Japan: national universities charge ¥535,800 a year; the MEXT scholarship can pay everything.\n' +
-      '- Malaysia: the cheapest and closest; a 3-year computing degree costs about RM77,400–141,720 in total.\n' +
-      '- Australia: about A$36,000–50,000 a year plus A$29,710 a year for living; 295,000 new international places for 2026.\n' +
-      '- United Kingdom: about £17,000–30,000 a year for many 3-year degrees.\n' + head + '\nName a country or job, for example “Should I study nursing in Australia?”';
+    if (role) {
+      const t = lowerTitle(role.title);
+      if (r && r.best) return 'Studying overseas for ' + t + ' is worth it when the course is stronger there or a local place is hard to get.\n' + ovForRole(role, r);
+      if (r && r.agency) return r.agency;
+      if (!(role.edu >= 2)) return upperFirst(t) + ' is usually reached through ITE in Singapore, so there is no need to study overseas. Ask “What is the shortest path to be ' + article(t) + ' ' + t + '?” for the local route.';
+      return 'I don’t have a checked overseas pick for ' + t + ' yet. Open the job’s “Shortest path” tab for the local route and its costs, or ask about a country, for example “What does it cost to study in Germany?”';
+    }
+    const top = rank(p).main.find(x => SerasiOverseas.forRole(x.role));
+    if (top) {
+      const tr = SerasiOverseas.forRole(top.role);
+      if (tr.best) return ovForRole(top.role, tr, 'Studying overseas can make sense if the course is stronger there or a local place is hard to get. For your top match that has an overseas pick, ' + lowerTitle(top.role.title) + ', the best place I found is:') + '\nName another job or a country to compare, for example “Should I study nursing overseas?”';
+    }
+    return 'Studying overseas can make sense if the course is stronger there, a local place is hard to get, or you want to work in that country later. Tell me the job or course and I will name the best place I found to study it, with the cost in Singapore dollars and what to watch out for. For example: “Where is the best place to study architecture?” or “What does it cost to study in Germany?”\n' + OV_NOTE();
   }
 
   function countryHubs(country) { return WORLD.filter(h => h.country === country); }
@@ -1832,6 +1879,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       lines.push('Job-market notes for ' + country + ':');
       hubs.forEach(h => Object.entries(h.ind).forEach(([k, o]) => lines.push('- ' + INDUSTRY[k].label + (h.scope === 'country' || h.place === country ? '' : ' (' + h.place + ')') + ': ' + OUTLOOK[o[0]].toLowerCase() + '. ' + o[1])));
     }
+    if (country && SerasiOverseas.forCountry(country).length) lines.push('To study in ' + country + ', ask “What does it cost to study in ' + country + '?”');
     if (GULF.includes(country) || (!country && shown.some(c => GULF.includes(c)))) lines.push('Note: the 2026 Iran war has hit Gulf economies and flights; check travel advice and current news.');
     lines.push('Working abroad usually needs a work visa. Open “World map” in the menu to explore this on the globe.');
     return lines.join('\n');
@@ -2098,11 +2146,11 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       portals: s.role.portals.map(k => PORTALS[k].name)
     });
     const route = s => {
-      const path = pathFor(s.role, p), T = TRACKS[s.role.trk] || {};
+      const path = pathFor(s.role, p);
       return {
         from: STAGE_FROM[p.pathway], years_of_study: path.years, steps: path.steps.map(x => x.t),
         course_fees_sgd: pathCost(path, p).total, other_route: path.alts[0] || '',
-        study_overseas: s.role.edu >= 2 ? (T.abroad || []).slice(0, 1).map(k => { const a = ABROAD[k], c = abroadCalc(a); return a.c + ', ' + a.course + ': ' + (c.total || c.fee) + '. Watch out: ' + a.watch; }) : []
+        study_overseas: [SerasiOverseas.summaryFor(s.role)].filter(Boolean)
       };
     };
     // In fit order: the on-screen order moves flagged roles down, which would hint at a faith preference.
@@ -2199,7 +2247,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     answers: blankAnswers(), meta: freshMeta(), tasters: false, completedAt: '',
     hideFlagged: false, open: ['__first__'], tabs: {}, showMore: false, income: '', codeError: '',
     confirmDelete: false, confirmRetake: false, startError: '', notice: '',
-    world: { ind: 'tech', sel: null }
+    world: { ind: 'tech', sel: null, selHub: null, selName: '' }
   };
 
   function save() {
@@ -2567,11 +2615,13 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 
   /* ---------- World map ---------- */
   // The globe uses d3's orthographic projection and the world-atlas country shapes, loaded only when this view
-  // opens. If they can't load, the lists under the globe still show every place and note.
+  // opens. If they can't load, the country list and profiles (serasi-countries.js) still work; nothing spins.
+  // state.world = { ind, sel, selHub, selName }: sel is the chosen country's numeric ISO code, null for the list, or NaN for a globe
+  // shape with no code (Kosovo, N. Cyprus, Somaliland), which is then known only by selName. selHub is the chosen city dot's id.
   const GLOBE_LIBS = ['https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js'];
   const ATLAS_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json';
-  const TURN = { asia: [-105, -12], europe: [-25, -38], americas: [95, -30], oceania: [-140, 22] };
-  const globe = { rot: TURN.asia.slice(), feats: null, svg: null, timer: 0 };
+  const globe = { rot: [-105, -12], feats: null, svg: null, timer: 0 };
+  const worldState = ind => ({ ind, sel: null, selHub: null, selName: '' });
   let geoP = null;
 
   function loadScript(src) {
@@ -2587,17 +2637,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     return geoP;
   }
 
-  // A country's colour for one industry: its nationwide note if it has one, else its cities' shared outlook,
-  // else "steady" when its cities differ.
-  function countryOutlook(iso, k) {
-    const hs = WORLD.filter(h => h.iso === iso && h.ind[k]);
-    if (!hs.length) return null;
-    const nation = hs.find(h => h.scope === 'country');
-    if (nation) return nation.ind[k][0];
-    const set = uniq(hs.map(h => h.ind[k][0]));
-    return set.length === 1 ? set[0] : 'steady';
-  }
-
   // The industry to show first: the youth's top match, or tech.
   function defaultIndustry() {
     if (!state.done && !state.example) return 'tech';
@@ -2610,60 +2649,45 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     state.world.ind = ind.k;
     document.getElementById('app').innerHTML =
       '<section class="world-head"><p class="eyebrow">World map</p><h1>Where is your industry growing?</h1>' +
-        '<p class="lede">Pick an industry to see where it’s growing, steady or shrinking. One country can lead in one industry and lag in another, so tap a country or city to see all its notes. Notes were checked in October 2026.</p></section>' +
+        '<p class="lede">Pick an industry to see where it’s growing, steady or shrinking. Choose a country to see its profile and all its notes. Notes were checked in October 2026.</p></section>' +
       '<div class="ind-chips" role="group" aria-label="Industry">' + INDUSTRIES.map(x => '<button class="ind-chip" type="button" data-action="world-ind" data-ind="' + x.k + '" aria-pressed="' + (x.k === ind.k) + '">' + esc(x.label) + '</button>').join('') + '</div>' +
       '<div class="world">' +
         '<div class="card globe-card"><div class="globe-wrap" id="globe-wrap"><div class="loading" id="globe-msg">Loading the globe…</div></div>' +
-          '<div class="globe-ctrl">' + [['asia', 'Asia'], ['europe', 'Europe and the Gulf'], ['americas', 'Americas'], ['oceania', 'Australia']].map(([k, l]) => '<button type="button" data-action="globe-turn" data-to="' + k + '">' + l + '</button>').join('') + '</div>' +
           '<p class="g-legend"><span><i style="background:var(--g-grow)"></i>Growing</span><span><i style="background:var(--g-steady)"></i>Steady or mixed</span><span><i style="background:var(--g-decline)"></i>Shrinking</span><span><i style="background:var(--land);border:1px solid var(--line)"></i>No notes</span></p>' +
-          '<p class="small muted" style="text-align:center">Drag to turn the globe. Tap a country or dot for its notes.</p></div>' +
-        '<div class="world-side"><div class="card" id="hub-detail" aria-live="polite"></div></div>' +
+          '<p class="small muted" id="globe-hint" style="text-align:center">Drag to turn the globe. Tap a country to see its profile.</p></div>' +
+        '<div class="world-side"><div class="card world-panel" id="world-panel" tabindex="-1" aria-live="polite"></div></div>' +
       '</div>' +
-      '<section class="card" aria-label="Places by outlook"><div class="hub-cols" id="hub-cols"></div></section>' +
       '<p class="small muted">The map shows only places with checked notes. A country without colour may still have jobs in this industry. Working abroad usually needs a work visa, and the 2026 Iran war has disrupted the Gulf, so check current news and travel advice.</p>';
     renderWorldSide();
-    renderHubCols();
     drawGlobe();
     refreshChrome();
   }
 
+  const COUNTRY_H = { esc, srcLinks };
+
+  // The side panel: the chosen industry's country list, or the chosen country's profile.
   function renderWorldSide() {
-    const el = document.getElementById('hub-detail');
+    const el = document.getElementById('world-panel');
     if (!el) return;
     const w = state.world, ind = INDUSTRY[w.ind];
-    const sel = w.sel || '';
-    const hubs = sel.startsWith('h:') ? [HUB[sel.slice(2)]].filter(Boolean) : sel.startsWith('c:') ? WORLD.filter(h => String(h.iso) === sel.slice(2)) : [];
-    if (!sel) {
+    if (w.sel === null) {
       const jobs = ROLES.filter(r => r.ind === ind.k).map(r => lowerTitle(r.title));
-      el.innerHTML = '<div class="hub-detail"><p class="eyebrow">' + esc(ind.label) + '</p><h2>The big picture</h2><p style="color:var(--ink-2)">' + esc(ind.global) + '</p>' + srcLinks(ind.src) +
-        (jobs.length ? '<p class="small muted">Jobs in Serasi in this industry: ' + esc(joinList(jobs)) + '.</p>' : '') + '</div>';
+      el.innerHTML = '<div class="world-list"><div><p class="eyebrow">' + esc(ind.label) + '</p><h2>Countries</h2><p class="small muted" style="margin-top:4px">Choose a country to see its profile.</p></div>' +
+        SerasiCountries.listHtml(ind.k, COUNTRY_H) +
+        '<div class="world-big"><h3>The big picture</h3><p class="small" style="color:var(--ink-2)">' + esc(ind.global) + '</p>' + srcLinks(ind.src) +
+        (jobs.length ? '<p class="small muted">Jobs in Serasi in this industry: ' + esc(joinList(jobs)) + '.</p>' : '') + '</div></div>';
       return;
     }
-    const name = sel.startsWith('c:') ? (hubs[0] ? hubs[0].country : w.selName || 'This country') : hubs[0].place + (hubs[0].place === hubs[0].country ? '' : ', ' + hubs[0].country);
-    const items = [];
-    hubs.forEach(h => Object.entries(h.ind).forEach(([k, o]) => items.push({ h, k, o })));
-    items.sort((a, b) => (b.k === w.ind) - (a.k === w.ind));
-    el.innerHTML = '<div class="hub-detail"><p class="eyebrow">' + (sel.startsWith('c:') ? 'Country' : 'Place') + '</p><h2>' + esc(name) + '</h2>' +
-      (items.length
-        ? '<ul>' + items.map(x => '<li><span class="pill ' + x.o[0] + '">' + OUTLOOK[x.o[0]] + '</span><span><b>' + esc(INDUSTRY[x.k].label) + (hubs.length > 1 ? ' · ' + esc(x.h.place) : '') + '.</b> ' + esc(x.o[1]) + '</span></li>').join('') + '</ul>' + srcLinks(items.flatMap(x => x.o[2]))
-        : '<p class="muted">No notes for this country yet.</p>') +
-      '<div><button class="btn link" type="button" data-action="world-clear">Back to the big picture</button></div></div>';
-  }
-
-  function renderHubCols() {
-    const el = document.getElementById('hub-cols');
-    if (!el) return;
-    const hubs = hubsFor(state.world.ind);
-    el.innerHTML = ['grow', 'steady', 'decline'].map(o => {
-      const list = hubs.filter(x => x.o[0] === o);
-      return '<div class="hub-col"><h3><i style="background:var(--g-' + o + ')"></i>' + OUTLOOK[o] + '</h3>' +
-        (list.length ? '<ul class="hub-list">' + list.map(x => '<li><button class="hub-btn" type="button" data-action="hub" data-id="' + x.h.id + '"><b>' + esc(x.h.place) + '</b><span>' + esc(x.o[1]) + '</span></button></li>').join('') + '</ul>' : '<p class="small muted" style="margin-top:8px">None noted.</p>') + '</div>';
-    }).join('');
+    el.innerHTML = SerasiCountries.profileHtml(Number.isNaN(w.sel) ? undefined : w.sel, ind.k, COUNTRY_H, undefined, undefined, { name: w.selName });
   }
 
   function drawGlobe() {
     loadGeo().then(feats => { globe.feats = feats; if (document.getElementById('globe-wrap')) buildGlobe(); },
-      () => { const m = document.getElementById('globe-msg'); if (m) m.textContent = 'The globe couldn’t load. It needs an internet connection. The lists below show every place.'; });
+      () => {
+        const m = document.getElementById('globe-msg'), hint = document.getElementById('globe-hint');
+        if (m) m.textContent = 'The globe couldn’t load. It needs an internet connection. The country list still works.';
+        if (hint) hint.hidden = true;
+      });
   }
 
   function buildGlobe() {
@@ -2673,9 +2697,9 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     const svg = d3.select(wrap).append('svg').attr('viewBox', '0 0 ' + size + ' ' + size).attr('role', 'img');
     const proj = d3.geoOrthographic().scale(size / 2 - 6).translate([size / 2, size / 2]).clipAngle(90).rotate(globe.rot);
     const path = d3.geoPath(proj);
-    svg.append('path').datum({ type: 'Sphere' }).attr('class', 'g-sea').on('click', () => selectPlace(null));
+    svg.append('path').datum({ type: 'Sphere' }).attr('class', 'g-sea').on('click', () => showList());
     svg.append('path').datum(d3.geoGraticule10()).attr('class', 'g-grat');
-    const lands = svg.append('g').selectAll('path').data(globe.feats).join('path').on('click', (ev, d) => selectPlace('c:' + Number(d.id), d.properties.name));
+    const lands = svg.append('g').selectAll('path').data(globe.feats).join('path').on('click', (ev, d) => selectCountry(d.id == null ? undefined : d.id, { name: d.properties.name }));
     lands.append('title');
     Object.assign(globe, { svg, proj, path, lands, cities: svg.append('g'), labels: svg.append('g') });
     svg.call(d3.drag()
@@ -2687,17 +2711,19 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   // Colours countries and dots for the chosen industry, and marks the selection.
   function paintGlobe() {
     if (!globe.svg || !document.getElementById('globe-wrap')) return;
-    const k = state.world.ind, sel = state.world.sel || '';
-    globe.svg.attr('aria-label', 'Globe of where ' + lowerFirst(INDUSTRY[k].label) + ' is growing, steady or shrinking. The same places are listed below the map.');
-    globe.lands.attr('class', d => { const o = countryOutlook(Number(d.id), k); return 'g-land' + (o ? ' ' + o : '') + (sel === 'c:' + Number(d.id) ? ' sel' : ''); })
-      .select('title').text(d => { const o = countryOutlook(Number(d.id), k); return d.properties.name + (o ? ': ' + OUTLOOK[o] : ''); });
+    const w = state.world, k = w.ind;
+    const outlook = d => SerasiCountries.countryOutlook(d.id, k);
+    const chosen = d => (Number.isNaN(w.sel) ? d.id == null && d.properties.name === w.selName : w.sel !== null && d.id != null && Number(d.id) === w.sel);
+    globe.svg.attr('aria-label', 'Globe of where ' + lowerFirst(INDUSTRY[k].label) + ' is growing, steady or shrinking. The same countries are in the country list.');
+    globe.lands.attr('class', d => { const o = outlook(d); return 'g-land' + (o ? ' ' + o : '') + (chosen(d) ? ' sel' : ''); })
+      .select('title').text(d => { const o = outlook(d); return d.properties.name + (o ? ': ' + OUTLOOK[o] : ''); });
     const pts = WORLD.filter(h => h.scope !== 'country');
     globe.cities.selectAll('circle').data(pts, d => d.id).join(enter => enter.append('circle').call(c => c.append('title')))
       .attr('r', d => d.ind[k] ? 6.5 : 3.5)
-      .attr('class', d => 'g-city ' + (d.ind[k] ? d.ind[k][0] : 'other') + (sel === 'h:' + d.id ? ' sel' : ''))
-      .on('click', (ev, d) => { ev.stopPropagation(); selectPlace('h:' + d.id); })
+      .attr('class', d => 'g-city ' + (d.ind[k] ? d.ind[k][0] : 'other') + (w.selHub === d.id ? ' sel' : ''))
+      .on('click', (ev, d) => { ev.stopPropagation(); selectCountry(d.iso, { hub: d.id, name: d.country }); })
       .select('title').text(d => d.place + (d.ind[k] ? ': ' + OUTLOOK[d.ind[k][0]] : ''));
-    globe.labels.selectAll('text').data(sel.startsWith('h:') && HUB[sel.slice(2)] ? [HUB[sel.slice(2)]] : [], d => d.id).join('text').attr('class', 'g-label').text(d => d.place);
+    globe.labels.selectAll('text').data(w.selHub && HUB[w.selHub] ? [HUB[w.selHub]] : [], d => d.id).join('text').attr('class', 'g-label').text(d => d.place);
     placeGlobe();
   }
 
@@ -2720,7 +2746,8 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
       if (globe.svg && document.getElementById('globe-wrap')) { globe.proj.rotate(globe.rot); placeGlobe(); }
       return;
     }
-    const from = globe.rot.slice(), dLon = ((rot[0] - from[0] + 540) % 360) - 180, t0 = performance.now();
+    // The longitude change taken the short way, whatever the drags have added up to.
+    const from = globe.rot.slice(), dLon = ((((rot[0] - from[0]) % 360) + 540) % 360) - 180, t0 = performance.now();
     const step = now => {
       const t = Math.min(1, (now - t0) / 700), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
       globe.rot = [from[0] + dLon * e, from[1] + (rot[1] - from[1]) * e];
@@ -2731,11 +2758,60 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     globe.timer = requestAnimationFrame(step);
   }
 
-  function selectPlace(sel, name) {
-    state.world.sel = sel;
-    state.world.selName = name || '';
+  // The rotation that centres a country: the city's own spot when a city dot was chosen, else the middle of the country's largest
+  // piece of land (so France faces Europe, not French Guiana), else, for a country too small for the globe's shapes (Singapore, Hong
+  // Kong), its first place on the map. Latitude is kept within 60 degrees. null when the globe isn't built or there is nothing to face.
+  function faceFor(iso, hub, name) {
+    if (!globe.svg || !globe.feats || !window.d3) return null;
+    let ll = hub && HUB[hub] ? HUB[hub].ll : null;
+    if (!ll) {
+      const n = iso == null ? NaN : Number(iso);
+      const f = globe.feats.find(d => Number.isInteger(n) ? d.id != null && Number(d.id) === n : d.id == null && !!name && d.properties.name === name);
+      if (f && f.geometry) {
+        const g = f.geometry;
+        const main = g.type === 'MultiPolygon'
+          ? g.coordinates.map(c => ({ type: 'Polygon', coordinates: c })).reduce((a, b) => (d3.geoArea(b) > d3.geoArea(a) ? b : a))
+          : g;
+        ll = d3.geoCentroid(main);
+      } else if (Number.isInteger(n)) {
+        const first = WORLD.find(x => Number(x.iso) === n);
+        ll = first ? first.ll : null;
+      }
+    }
+    return ll && ll.every(Number.isFinite) ? [-ll[0], -clamp(ll[1], -60, 60)] : null;
+  }
+
+  // Brings the panel into view on a phone, where it sits under the globe, or wherever its top has scrolled off the screen.
+  function showPanel(focus) {
+    const el = document.getElementById('world-panel');
+    if (!el) return;
+    if (focus) el.focus({ preventScroll: true });
+    if (window.matchMedia('(max-width: 900px)').matches || el.getBoundingClientRect().top < 0) el.scrollIntoView({ block: 'start', behavior: reduceMotion() ? 'auto' : 'smooth' });
+  }
+
+  // Chooses a country (or a city dot, with hub), paints the globe, opens the profile and spins the globe to face it. A globe shape with
+  // no code passes iso undefined and its name, and opens as "No profile yet".
+  function selectCountry(iso, opts) {
+    const { hub = null, name = '', focus = false } = opts || {};
+    const n = iso == null || iso === '' ? NaN : Number(iso);
+    Object.assign(state.world, { sel: Number.isInteger(n) ? n : NaN, selHub: hub && HUB[hub] ? hub : null, selName: name || '' });
     paintGlobe();
     renderWorldSide();
+    const rot = faceFor(state.world.sel, state.world.selHub, state.world.selName);
+    if (rot && d3.geoDistance([-rot[0], -rot[1]], [-globe.rot[0], -globe.rot[1]]) > .05) turnTo(rot);
+    showPanel(focus);
+  }
+
+  // Back to the chosen industry's country list. The globe stays where it is.
+  function showList(focus) {
+    const prev = state.world.sel;
+    Object.assign(state.world, { sel: null, selHub: null, selName: '' });
+    paintGlobe();
+    renderWorldSide();
+    if (!focus) return;
+    const panel = document.getElementById('world-panel');
+    const b = panel && Number.isInteger(prev) ? panel.querySelector('[data-action="country"][data-iso="' + prev + '"]') : null;
+    if (b && b.offsetParent) b.focus(); else if (panel) { panel.focus({ preventScroll: true }); showPanel(false); }
   }
 
 
@@ -2800,20 +2876,15 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (act === 'retake-ask') retakeAsk();
     if (act === 'retake-cancel') { state.confirmRetake = false; renderResults(); }
     if (act === 'retake-yes') retake();
-    if (act === 'world') go('world', { world: { ind: INDUSTRY[el.dataset.ind] ? el.dataset.ind : defaultIndustry(), sel: null } });
-    if (act === 'world-ind') {
-      state.world = { ind: el.dataset.ind, sel: null };
+    if (act === 'world') go('world', { world: worldState(INDUSTRY[el.dataset.ind] ? el.dataset.ind : defaultIndustry()) });
+    // A sector chip shows that sector's country list and recolours the globe. It never turns the globe.
+    if (act === 'world-ind' && INDUSTRY[el.dataset.ind]) {
+      state.world = worldState(el.dataset.ind);
       document.querySelectorAll('[data-action="world-ind"]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ind === el.dataset.ind)));
-      renderWorldSide(); renderHubCols(); paintGlobe();
+      renderWorldSide(); paintGlobe();
     }
-    if (act === 'globe-turn' && TURN[el.dataset.to]) turnTo(TURN[el.dataset.to]);
-    if (act === 'hub' && HUB[el.dataset.id]) {
-      const h = HUB[el.dataset.id];
-      selectPlace(h.scope === 'country' ? 'c:' + h.iso : 'h:' + h.id);
-      turnTo([-h.ll[0], -clamp(h.ll[1], -60, 60)]);
-      const d = document.getElementById('hub-detail'); if (d) d.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
-    }
-    if (act === 'world-clear') selectPlace(null);
+    if (act === 'country') selectCountry(el.dataset.iso, { focus: true });
+    if (act === 'world-clear') showList(true);
     if (act === 'role-tab') {
       const owner = el.closest('section').id;
       state.tabs[el.dataset.id] = el.dataset.tab;
@@ -2925,9 +2996,12 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
     if (t.id === 'ask-input') ask.draft = t.value;
   });
 
+  // A country flag that fails to load is removed, so the profile shows the name alone (load errors don't bubble, hence the capture).
+  document.addEventListener('error', ev => { const t = ev.target; if (t && t.tagName === 'IMG' && t.classList.contains('flag')) t.remove(); }, true);
+
   load();
   // The world map has its own link for demos: youth.html#world
-  if (location.hash === '#world') { state.view = 'world'; state.world = { ind: defaultIndustry(), sel: null }; }
+  if (location.hash === '#world') { state.view = 'world'; state.world = worldState(defaultIndustry()); }
   // Youths who shared before the staff page existed have no stored record yet.
   if (isShared() && !hasShared()) syncShared();
   render();

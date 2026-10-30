@@ -30,7 +30,7 @@
     "iso": 276, "name": "Germany", "a2": "DE",
     "langs": ["German"],
     "known": ["Cars and precision engineering", "A strong base of mid-sized specialist manufacturers", "Apprenticeship-based vocational training", "Beer, bread, Christmas markets and castles"],
-    "facts": ["It has the largest economy in the European Union.", "East and West Germany were reunited on 3 October 1990.", "It is a federation of 16 states, each with its own government and responsibility for education.", "Public universities charge little or no tuition fees, including to many international students."],
+    "facts": ["It has the largest economy in the European Union.", "East and West Germany were reunited on 3 October 1990.", "It is a federation of 16 states, each with its own government and responsibility for education.", "Many public universities charge no tuition, but some states charge students from outside the EU."],
     "orgs": ["Siemens", "SAP", "BMW", "BASF", "Bosch", "Allianz"],
     "unis": [
       { "n": "Technical University of Munich (TUM)", "rank": 25, "url": "https://www.tum.de/en/" },
