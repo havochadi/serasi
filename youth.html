@@ -588,7 +588,7 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
   .welcome-reassurance { font-size: .65rem; justify-content: flex-start; }
   .start { padding: 24px; } .start-fields { grid-template-columns: 1fr; }
   .profile-head { padding: 23px; } .profile-head h1 { font-size: 2rem; }
-  .result-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; overflow: visible; } .result-tab { justify-content: center; font-size: .76rem; white-space: normal; text-align: center; min-height: 48px; } .result-tab .icon { display: none; }
+  .result-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; overflow: visible; } .result-tab { justify-content: center; font-size: .76rem; white-space: normal; text-align: center; min-height: 48px; } .result-tab .icon { display: none; }
   .summary { grid-template-columns: 1fr; } .summary .card:last-child { grid-column: auto; }
   .role-head { padding: 19px 52px 19px 13px; gap: 10px; grid-template-columns: 30px minmax(0,1fr) auto; }
   .rank { width: 30px; height: 34px; font-size: .77rem; border-radius: 8px; }
@@ -2584,26 +2584,26 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
   }
 
   function resultTabs() {
-    return '<nav class="result-tabs" aria-label="Your result sections">' + [['matches','briefcase','Matches'],['profile','grid','About you'],['guide','chat','Ask Serasi'],['next','compass','Next steps']].map(([key, ic, label]) => '<button type="button" class="result-tab" data-action="result-panel" data-panel="' + key + '" aria-pressed="' + (state.resultPanel === key) + '">' + icon(ic) + label + '</button>').join('') + '</nav>';
+    return '<nav class="result-tabs" aria-label="Your result sections">' + [['matches','briefcase','Matches'],['profile','grid','About you'],['guide','chat','Ask Serasi']].map(([key, ic, label]) => '<button type="button" class="result-tab" data-action="result-panel" data-panel="' + key + '" aria-pressed="' + (state.resultPanel === key) + '">' + icon(ic) + label + '</button>').join('') + '</nav>';
   }
   function roleTools() {
     const sectors = [...new Set(ROLES.map(r => r.sector))].sort();
     return '<div class="role-tools"><label class="search-field">' + icon('search') + '<span class="sr-only">Search your career matches</span><input type="search" id="role-search" placeholder="Search your matches…" value="' + esc(state.search) + '"></label><label class="sr-only" for="role-sector">Filter by sector</label><select id="role-sector"><option value="all">All sectors</option>' + sectors.map(v => '<option value="' + esc(v) + '"' + (state.sector === v ? ' selected' : '') + '>' + esc(v) + '</option>').join('') + '</select><button class="btn ghost saved-filter" type="button" id="saved-filter" data-action="saved-filter" aria-pressed="' + state.savedOnly + '">Saved roles</button></div>';
   }
   function setResultPanel(panel) {
+    panel = ['matches', 'profile', 'guide'].includes(panel) ? panel : 'matches';
     state.resultPanel = panel;
     const title = document.getElementById('ph'), lede = document.getElementById('profile-lede');
     if (title && lede) {
       const copy = {
         matches: ['Careers worth exploring', 'Open a role to see why it fits and find job openings. Save any you’d like to come back to.'],
-        guide: ['A little help with your next step', 'Choose a suggested question or ask about a career, skill, or interview.'],
-        next: ['Turn a match into a next step', 'Explore roles to work towards, or register interest in the proposed job tasters.']
+        guide: ['A little help with your next step', 'Choose a suggested question or ask about a career, skill, or interview.']
       };
       title.textContent = panel === 'profile' ? title.dataset.profileTitle : copy[panel][0];
       lede.textContent = panel === 'profile' ? lede.dataset.profileText : copy[panel][1];
       document.querySelectorAll('.profile-head .codes, .profile-head .notice, .profile-head .share-status').forEach(el => { el.hidden = panel !== 'profile'; });
     }
-    const groups = { 'matches-panel': 'matches', 'ranking-panel': 'matches', 'profile-summary': 'profile', 'ask': 'guide', 'taster': 'next', 'world-card': 'next', 'stretch-panel': 'next' };
+    const groups = { 'matches-panel': 'matches', 'ranking-panel': 'matches', 'profile-summary': 'profile', 'ask': 'guide', 'taster': 'matches', 'world-card': 'matches', 'stretch-panel': 'matches' };
     Object.entries(groups).forEach(([id, group]) => { const el = document.getElementById(id); if (el) el.hidden = panel !== group || (id === 'taster' && state.example); });   // the example has no job-taster sign-up, so its card stays hidden
     document.querySelectorAll('.result-tab').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.panel === panel)));
     refreshChrome();
