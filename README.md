@@ -8,7 +8,8 @@ Public site: https://havochadi.github.io/serasi/, which lets visitors choose bet
 
 - `index.html`: the landing page. GitHub Pages serves it as the home page, with one link to each of the two pages below. The old `index.html#dashboard` link redirects to the staff page.
 - `youth.html`: the youth app.
-- `mendaki.html`: the MENDAKI staff page, a separate page with its own layout.
+- `mendaki.html`: the MENDAKI staff workspace: overview, cohort explorer, programme planner and resource hub.
+- `serasi-staff.js`: the staff analytics model, rolling sample cohort, reporting threshold, aggregate exports, programme recommendations and local draft storage.
 - `serasi-core.js`: what the two pages share: the 93 jobs, questions and scoring, and the store for shared results.
 - `serasi-pathways.js`: the youth app's study routes, fees, subsidies, contacts and world-map notes, each with its source.
 - `serasi-study.js`: sorts each role into a field of study, and tells study fields from roles tied to a Singapore agency.
@@ -64,12 +65,14 @@ Open `index.html`, `youth.html` or `mendaki.html` in a browser to preview them. 
 
   It remembers the last job and place it discussed, so follow-ups like "how much will it cost?" or "what about Japan?" work.
 - **Sharing and job tasters (demo):** ticking the sharing box, or tapping **I'm interested**, adds the youth's anonymised record to a mock database in their browser. The youth app writes only that one record, never the quiz answers. Nothing is sent anywhere.
-- **MENDAKI staff page (`mendaki.html`):** a separate page for planners, with a header band and a filter toolbar that stays in view. It runs on a mock database of 240 made-up youths, plus the record shared from this browser, which appears or disappears straight away if the youth app is open in another tab. It shows:
-  - filters by age, qualification and area; groups under 10 youths are hidden
-  - headline counts and bar charts of interest types, top jobs, values and skills to build
-  - a cross-tab of interest types by age, qualification or area
-  - job-taster ideas and a planning note written from the counts, with **Copy note** and **Download counts (CSV)**
-  - a preview of the records behind the numbers, showing exactly what each shared result contains
+- **MENDAKI staff workspace (`mendaki.html`):** a responsive console with four views: Overview, Cohorts, Programmes and Resources.
+  - Choose the **Sample cohort** (240 deterministic simulated responses across the most recent six months), **Shared in this browser** (the youth app’s opted-in record only), or an explicitly labelled **Combined preview**. Sharing and withdrawal update other open staff tabs automatically. No quiz answers, names or personal preferences are read.
+  - Filter by period, area, qualification, age, interest type, low self-rated skill and job-taster interest. Clicking an interest or skill bar applies its cohort filter. Charts switch between shares and counts; cohorts under 10 responses have no insights, planning audiences or exports.
+  - View monthly activity, compare age/area/qualification groups, search and sort matched careers, and inspect a career’s entry qualification, skills and current job listings. Small subgroup and monthly counts are hidden. The old individual-record preview has been removed.
+  - Generate programme suggestions from the current cohort. Create and edit local drafts with a format, career interest or skill, capacity, proposed date, notes and status (Draft, For review or Archived). Audience estimates come from the saved cohort/source selection, and capacity shows the share of that audience it could accommodate. Archive and restore drafts, or download a programme brief.
+  - Programme drafts persist in `serasi-staff-plans-v1` in local storage. They contain editable planning fields and aggregate cohort snapshots, never individual youth records. A draft does not book an event, notify a partner or send an invitation.
+  - Preview/copy/download a cohort brief, export grouped CSV counts with source and filters, or copy a link to the current cohort. CSV cells are quoted and formula-leading text is neutralised. Exports never contain individual records.
+  - The resource hub links to KitaKini, M³+ mentoring, e2i career coaching and MENDAKI’s current TTFS scheme, with official references checked on 31 October 2026. Programme suggestions are planning ideas, not confirmed MENDAKI offerings.
 
 ## Keeping the data current
 

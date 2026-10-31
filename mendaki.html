@@ -4,495 +4,519 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>Serasi for MENDAKI | What youths are telling us</title>
-<meta name="description" content="Demo of the Serasi insights page for MENDAKI staff: grouped counts from shared results, built on made-up data.">
+<title>Serasi for MENDAKI | Youth insights & programme planning</title>
+<meta name="description" content="Explore youth aspirations, compare cohorts and draft relevant programmes in the Serasi staff demo workspace.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..700&family=Fraunces:wght@400..700&display=swap">
 <style>
-/* Serasi for MENDAKI staff: a working page for planners. It shares the brand and the data layer
-   with the youth app (serasi-core.js) but is laid out as a console: a header band, a sticky
-   filter toolbar and dense, scannable counts. */
-:root {
-  color-scheme: light;
-  --bg: #F4F6F1; --surface: #FFFFFF; --surface-2: #EEF2E9;
-  --ink: #263D33; --ink-2: #4E5D54; --muted: #68756D; --line: #DFE5DA;
-  --brand: #284D3B; --on-brand: #FAF9F2; --on-brand-2: #CBD8C7;
-  --accent: #426B40; --accent-ink: #FFFFFF; --accent-soft: #E6EFE0;
-  --bar: #7C986A; --gold: #8B5B30; --gold-fill: #E7AC78;
-  --note: #795B26; --note-soft: #F8F2E5; --flag: #9A4939;
-  --focus: #367A9B;
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body: 'DM Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --radius: 16px;
+:root{color-scheme:light;--bg:#f5f7f2;--surface:#fff;--soft:#edf2e8;--ink:#263d33;--body:#516158;--muted:#728076;--line:#e1e7dc;--brand:#284d3b;--accent:#426b40;--lime:#e4eac2;--gold:#9a6637;--amber:#fbf2e4;--focus:#367a9b;--display:'Fraunces',Georgia,serif;--font:'DM Sans','Segoe UI',sans-serif}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);font:14px/1.5 var(--font);color:var(--ink);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+a{color:var(--accent);text-underline-offset:3px}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.2}
+h1{font-size:clamp(1.8rem,3vw,2.3rem)}
+h2{font-size:1.25rem}
+h3{font-size:1.1rem}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:5px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:fixed;left:-999px;top:10px;z-index:30;background:white;padding:12px}
+.skip:focus{left:15px}
+.icon{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.eyebrow{font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.muted,.sub{color:var(--muted)}
+.small{font-size:12px}
+.sub{font-size:12px;margin-top:5px;line-height:1.55}
+.num{font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:9px;background:white;min-height:40px;padding:9px 14px;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--accent);color:white;border-color:var(--accent)}
+.btn.primary:hover{background:var(--brand)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.small{min-height:34px;padding:6px 10px;font-size:11px}
+.link-btn{border:0;background:transparent;color:var(--accent);padding:6px 0;font-weight:600;font-size:12px;text-align:left}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--accent);padding:4px 9px;border-radius:999px;font-size:10px;font-weight:600;white-space:nowrap}
+.pill.amber{background:var(--amber);color:var(--gold)}
+.pill.grey{background:#f0f1ed;color:var(--muted)}
+.actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.card{background:white;border:1px solid var(--line);border-radius:15px;padding:21px;min-width:0}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:20px}
+.card-head p{max-width:55ch}
+.stack{display:flex;flex-direction:column;gap:20px}
+.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.empty{padding:42px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.empty p{max-width:62ch;color:var(--body)}
+
+/* The staff console shares the youth app's quiet green palette. */
+.sidebar{position:fixed;inset:0 auto 0 0;width:222px;background:white;border-right:1px solid var(--line);padding:30px 18px;display:flex;flex-direction:column;z-index:12}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--brand);padding:5px 15px}
+.brand svg{width:28px;height:28px}
+.brand-name{font:600 29px var(--display);letter-spacing:-1.5px}
+.brand-name span{color:#8e9f71}
+.workspace-label{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin:14px 15px 32px}
+.side-nav{display:flex;flex-direction:column;gap:7px}
+.nav-btn{display:flex;align-items:center;gap:11px;border:0;background:transparent;color:var(--body);padding:13px 15px;border-radius:9px;text-align:left;font-size:12px;min-height:46px}
+.nav-btn[aria-current="page"]{background:var(--soft);color:var(--brand);font-weight:600}
+.nav-count{margin-left:auto;background:white;border-radius:5px;padding:0 5px;font-size:10px}
+.sidebar-bottom{margin-top:auto;display:flex;flex-direction:column;gap:16px;padding:0 14px}
+.sidebar-note{padding:15px 13px;background:#f6f4ea;border-radius:12px;font-size:11px;color:var(--body);line-height:1.6}
+.sidebar-note b{display:block;font:500 17px var(--display);color:var(--ink);margin-bottom:5px}
+.sidebar-bottom>a{font-size:11px;text-decoration:none;display:flex;gap:8px;align-items:center}
+.main-shell{margin-left:222px;min-height:100vh}
+.topbar{min-height:75px;padding:17px 34px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fafbf8}
+.topbar-title{font-size:12px;color:var(--muted)}
+.topbar-title b{color:var(--ink);font-weight:500}
+.topbar select{border:1px solid var(--line);border-radius:8px;background:white;padding:8px 11px;max-width:220px;font-size:11px}
+.source-dot{width:6px;height:6px;background:#b58b40;border-radius:50%;display:inline-block}
+.content{max-width:1500px;margin:0 auto;padding:32px 34px 48px}
+.page-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:25px}
+.page-heading h1{margin-top:7px}
+.page-heading p{margin-top:10px;color:var(--body);font-size:13px}
+.page-heading .actions{padding-top:13px}
+.source-note{display:flex;gap:7px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-bottom:17px}
+.source-note b{font-weight:500;color:var(--ink)}
+.privacy-note{font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.page-foot{margin-top:25px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:10px;color:var(--muted)}
+
+/* Cohort selection. */
+.filters{background:white;border:1px solid var(--line);border-radius:13px;margin-bottom:22px;padding:15px 17px}
+.filter-main{display:flex;align-items:flex-end;gap:13px;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:11px;font-weight:500;color:var(--body)}
+.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:8px;min-height:39px;padding:8px 10px;background:white;font-size:12px;width:100%}
+.field textarea{resize:vertical;min-height:90px}
+.filter-main>.field{flex:1 1 140px;max-width:240px}
+.filter-main>.actions{margin-left:auto;flex-shrink:0}
+.filter-more{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;border-top:1px solid var(--line);padding-top:14px;margin-top:15px}
+.filter-chips{display:flex;align-items:center;flex-wrap:wrap;gap:7px;padding-top:13px}
+.filter-chip{background:var(--soft);border:0;border-radius:6px;padding:5px 8px;font-size:10px;color:var(--accent)}
+.filter-chip span{margin-left:6px}
+.filter-result{margin-left:auto;font-size:11px;color:var(--muted)}
+
+/* Overview and clickable distributions. */
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.metric{padding:19px 20px;min-height:142px;position:relative}
+.metric>span{color:var(--body);font-size:11px;font-weight:500}
+.metric strong{display:block;font:500 35px var(--display);line-height:1.2;margin-top:12px;letter-spacing:-1px}
+.metric strong.word{font-size:25px;margin-top:17px;letter-spacing:-.5px}
+.metric .sub{font-size:10px}
+.metric-symbol{position:absolute;top:17px;right:17px;color:#9aaa90}
+.metric-symbol .icon{width:17px;height:17px}
+.activity-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:20px}
+.chart-axis{display:flex;align-items:flex-end;gap:16px;height:155px;padding:9px 0 0;border-bottom:1px solid var(--line)}
+.month{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px;height:100%;min-width:0}
+.month .month-count{font-size:10px;color:var(--body)}
+.month-column{width:100%;max-width:58px;background:#c7d6ba;border-radius:6px 6px 0 0;min-height:2px}
+.month:last-child .month-column{background:var(--accent)}
+.month-labels{display:flex;gap:16px;margin-top:9px}
+.month-labels>span{flex:1;text-align:center;font-size:10px;color:var(--muted)}
+.signal-card{background:var(--brand);border-color:var(--brand);color:#f9faf4}
+.signal-card h2{color:#f9faf4}
+.signal-card .eyebrow{color:#d7dfb1}
+.signal-card .sub{color:#cfdbca}
+.signal-card .signal-copy{font:500 21px/1.4 var(--display);margin:14px 0 17px;max-width:34ch}
+.signal-card .btn{background:var(--lime);color:var(--brand);border-color:var(--lime)}
+.signal-card .signal-small{font-size:11px;color:#c6d4c1;line-height:1.6;margin-top:13px}
+.chart-controls{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.toggle-group{display:inline-flex;border:1px solid var(--line);border-radius:8px;background:white;padding:3px}
+.toggle-group button{font-size:10px;min-height:29px;border:0;background:transparent;padding:5px 10px;border-radius:5px;color:var(--muted)}
+.toggle-group button[aria-pressed="true"]{background:var(--soft);color:var(--brand);font-weight:600}
+.bars{display:flex;flex-direction:column;gap:11px;margin:0;padding:0;list-style:none}
+.bar-button{display:block;width:100%;border:0;background:transparent;padding:0;text-align:left;border-radius:4px}
+.bar-button:hover .bar-name{color:var(--accent)}
+.bar-caption{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:11px;margin-bottom:6px}
+.bar-name{color:var(--body)}
+.bar-value{color:var(--ink);font-variant-numeric:tabular-nums;font-size:11px;white-space:nowrap}
+.bar-track{display:block;height:7px;background:#f0f3ed;border-radius:20px;overflow:hidden}
+.bar-fill{display:block;height:100%;background:#9caf8b;border-radius:20px;transition:width .25s}
+.bar-button[aria-pressed="true"] .bar-fill{background:var(--accent)}
+.bar-button:focus-visible{outline-offset:5px}
+.bars li:nth-child(1) .bar-fill{background:var(--accent)}
+.chart-help{font-size:10px;color:var(--muted);margin-top:17px}
+.recent-plans{display:flex;gap:14px;align-items:center;justify-content:space-between}
+.recent-plans h2{font-size:1.15rem}
+.recent-plans .sub{margin-top:4px}
+
+/* Cohorts and career explorer. */
+.compact-select{border:1px solid var(--line);border-radius:8px;background:white;font-size:11px;padding:7px 10px;max-width:180px}
+.table-wrap{overflow:auto}
+.table{border-collapse:collapse;width:100%;font-size:11px}
+.table th{text-align:left;font-size:10px;color:var(--muted);font-weight:500;padding:12px 9px;background:#fafbf8;white-space:nowrap;border-bottom:1px solid var(--line)}
+.table td{border-bottom:1px solid var(--line);padding:14px 9px;color:var(--body);vertical-align:middle}
+.table td strong{font-weight:500;color:var(--ink)}
+.table tr:last-child td{border-bottom:0}
+.table .number{text-align:right;font-variant-numeric:tabular-nums}
+.table tbody tr:hover{background:#fcfdfb}
+.table .suppressed td{color:var(--muted)}
+.table td .link-btn{padding:0;min-height:28px}
+.table-note{font-size:10px;color:var(--muted);margin-top:13px}
+.table-tools{display:flex;gap:12px;margin-bottom:17px;align-items:center}
+.search{border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12px;min-width:0;flex:1;max-width:380px;background:white}
+.table-tools .compact-select{margin-left:auto}
+.show-more{display:flex;justify-content:center;margin-top:15px}
+.role-code{font-size:10px;font-weight:600;letter-spacing:.07em;background:var(--soft);padding:3px 6px;border-radius:4px}
+.inline-note{padding:11px 13px;border-radius:8px;background:var(--soft);font-size:11px;color:var(--body);line-height:1.6}
+
+/* Programme workspace and resources. */
+.suggestion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.suggestion{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:20px}
+.suggestion h3{font-size:1.15rem;margin-top:2px}
+.suggestion p{font-size:11px;color:var(--body);line-height:1.6}
+.suggestion .demand{font-size:11px;color:var(--accent);font-weight:500;margin-top:auto;padding-top:3px}
+.suggestion .btn{align-self:stretch}
+.draft-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.draft{display:flex;flex-direction:column;gap:13px}
+.draft-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.draft h3{font-size:1.2rem;line-height:1.35}
+.draft-meta{display:flex;flex-wrap:wrap;gap:7px 14px;color:var(--muted);font-size:11px}
+.draft .actions{margin-top:auto;padding-top:5px}
+.draft-summary{font-size:11px;line-height:1.6;color:var(--body)}
+.plan-empty{text-align:center;align-items:center;padding:32px}
+.plan-empty .icon{color:var(--accent);width:30px;height:30px}
+.resources-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.resource{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+.resource h2{font-size:1.35rem}
+.resource p{color:var(--body);font-size:12px;line-height:1.65}
+.resource .for{font-size:10px;color:var(--muted)}
+.resource .actions{margin-top:auto;padding-top:6px}
+.resource .reviewed{font-size:10px;color:var(--muted)}
+.data-details summary{cursor:pointer;font-weight:500;font-size:12px}
+.data-details p{font-size:12px;line-height:1.7;color:var(--body);margin-top:13px;max-width:95ch}
+.report-toolbar{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Dialogs contain local drafts and role details, never messages sent to others. */
+dialog{border:1px solid var(--line);border-radius:18px;background:white;color:var(--ink);width:min(640px,calc(100% - 28px));max-height:90dvh;padding:0;box-shadow:0 30px 100px #17312440}
+dialog::backdrop{background:#1e342d66;backdrop-filter:blur(3px)}
+.dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;padding:24px 25px 19px;border-bottom:1px solid var(--line)}
+.dialog-head h2{margin-top:5px;font-size:1.5rem}
+.close-btn{border:0;background:var(--soft);border-radius:50%;height:32px;width:32px;display:grid;place-items:center;font-size:21px;color:var(--body);flex-shrink:0}
+.dialog-body{padding:23px 25px;display:flex;flex-direction:column;gap:18px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.form-grid .full{grid-column:1/-1}
+.dialog-actions{display:flex;justify-content:flex-end;gap:8px;padding:16px 25px;border-top:1px solid var(--line);background:#fafbf8}
+.audience-preview{padding:15px;background:var(--soft);border-radius:10px;font-size:12px;line-height:1.65}
+.audience-preview strong{font-weight:600}
+.error{font-size:12px;color:#9a4939}
+.brief{font:12px/1.8 var(--font);white-space:pre-wrap;background:var(--soft);padding:16px;border-radius:10px;max-height:50dvh;overflow:auto}
+.role-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.role-facts>div{background:var(--soft);border-radius:9px;padding:13px}
+.role-facts span{font-size:10px;color:var(--muted);display:block;margin-bottom:5px}
+.role-facts b{font-size:13px;font-weight:500}
+.toast{position:fixed;bottom:22px;left:calc(50% + 100px);transform:translateX(-50%);background:var(--brand);color:white;border-radius:9px;padding:12px 18px;font-size:12px;box-shadow:0 4px 20px #263d3328;z-index:30;max-width:90vw}
+
+@media(min-width:1600px){.content{padding-top:40px}
 }
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; background: var(--bg); }
-body { color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; margin: 0; text-wrap: balance; color: var(--ink); }
-h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); }
-h2 { font-size: 1.4rem; }
-h3 { font-size: 1.1rem; font-weight: 600; }
-p { margin: 0; }
-a { color: var(--accent); }
-button, input, select { font: inherit; color: inherit; }
-:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
-.num { font-variant-numeric: tabular-nums; }
-.muted { color: var(--muted); }
-.small { font-size: .875rem; }
-.eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
-.wrap { max-width: 1240px; margin: 0 auto; padding-inline: max(20px, env(safe-area-inset-left, 0px)); }
-.skip-link { position: absolute; left: -999px; top: 8px; background: var(--surface); color: var(--ink); padding: 8px 14px; border-radius: 8px; z-index: 30; }
-.skip-link:focus { left: 12px; }
-
-/* Header band */
-.site-head { background: var(--brand); color: var(--on-brand); }
-.site-head .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; padding-block: 14px; }
-.brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: inherit; text-decoration: none; }
-.brand svg { width: 30px; height: 30px; flex: none; }
-.brand-name { font-family: var(--font-display); font-size: 1.45rem; font-weight: 500; letter-spacing: -.01em; }
-.brand-for { margin-left: 4px; padding-left: 14px; border-left: 1px solid #ffffff3d; font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--on-brand-2); }
-.head-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
-.demo-tag { font-size: .75rem; font-weight: 600; color: var(--brand); background: var(--gold-fill); border-radius: 999px; padding: 3px 11px; }
-.head-link { color: var(--on-brand); font-size: .875rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-
-main.wrap { padding-block: 28px 56px; display: flex; flex-direction: column; gap: 20px; min-height: calc(100vh - 220px); }
-
-/* Surfaces and controls */
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; box-shadow: 0 3px 12px #263d3304; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 8px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: .875rem; font-weight: 600; cursor: pointer; text-decoration: none; }
-.btn:hover:not(:disabled) { filter: brightness(.97); }
-.btn.link { background: none; border: 0; min-height: 32px; padding: 4px 2px; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-.pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 10px; font-size: .75rem; font-weight: 600; background: var(--surface-2); color: var(--ink-2); }
-.pill.good { background: var(--accent-soft); color: var(--accent); }
-.pill.code { background: var(--brand); color: var(--on-brand); letter-spacing: .08em; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field label { font-size: .8rem; font-weight: 600; color: var(--ink-2); }
-.field select { min-height: 42px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: .9rem; }
-
-/* Intro */
-.intro { display: flex; flex-direction: column; gap: 10px; }
-.intro .lede { color: var(--ink-2); max-width: 78ch; font-size: 1rem; }
-.rules { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.rules li { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 12px 4px 9px; font-size: .8125rem; font-weight: 600; color: var(--ink-2); }
-.rules li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-
-/* Data source strip */
-.source { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; background: var(--note-soft); border-radius: 14px; padding: 12px 16px; font-size: .875rem; }
-.source p { flex: 1 1 320px; min-width: 0; }
-.live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-right: 6px; vertical-align: 1px; }
-
-/* Sticky filter toolbar */
-.toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; z-index: 5; }
-.toolbar .field { flex: 1 1 170px; min-width: 150px; max-width: 240px; }
-.toolbar .field select { width: 100%; }
-.toolbar .count { margin-left: auto; text-align: right; font-size: .875rem; color: var(--ink-2); padding-bottom: 10px; }
-.toolbar .count b { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--ink); }
-@media (min-width: 900px) {
-  .toolbar { position: sticky; top: 8px; box-shadow: 0 8px 18px -12px #263d3355; }
+@media(max-width:1200px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+.activity-grid{grid-template-columns:minmax(0,1.2fr) minmax(230px,1fr)}
+.page-heading{flex-direction:column;gap:10px}
+.page-heading .actions{padding-top:0}
+.suggestion-grid{grid-template-columns:1fr}
+.suggestion{display:grid;grid-template-columns:1fr auto;column-gap:25px;gap:8px 20px}
+.suggestion>p,.suggestion>h3{grid-column:1}
+.suggestion>.btn{grid-column:2;grid-row:2/span 2;align-self:center}
+.suggestion>.pill{justify-self:start}
+.suggestion>.demand{grid-column:2;grid-row:1}
 }
 
-/* Counts */
-.dash-body { display: flex; flex-direction: column; gap: 16px; }
-.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-.tile { display: flex; flex-direction: column; gap: 6px; min-height: 124px; }
-.tile-label { font-size: .78rem; font-weight: 600; color: var(--ink-2); }
-.tile-value { font-family: var(--font-display); font-size: 2rem; font-weight: 600; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.tile-value.text { font-size: 1.45rem; line-height: 1.2; }
-.dash-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.dash-card { margin: 0; display: flex; flex-direction: column; gap: 14px; }
-.dash-card figcaption { display: flex; flex-direction: column; gap: 4px; }
-.bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
-.bar-row { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) 3em; gap: 10px; align-items: center; padding: 5px 4px; border-radius: 6px; font-size: .875rem; color: var(--ink-2); cursor: default; }
-.bar-row:hover { background: var(--surface-2); }
-.bar-label { line-height: 1.3; overflow-wrap: anywhere; }
-.bar-track { height: 14px; position: relative; }
-.bar-track i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bar); border-radius: 4px; min-width: 2px; }
-.bar-val { text-align: right; color: var(--ink); font-weight: 600; }
-.tip { position: fixed; z-index: 20; pointer-events: none; max-width: 260px; background: var(--ink); color: var(--bg); font-size: .8125rem; line-height: 1.4; padding: 6px 10px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, .18); }
-.empty { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-.empty p { color: var(--ink-2); max-width: 62ch; }
-
-/* Tables */
-.by-field { max-width: 240px; }
-.table-wrap { overflow-x: auto; }
-.tbl { width: 100%; border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
-.tbl th, .tbl td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; color: var(--ink-2); }
-.tbl th:first-child, .tbl td:first-child { text-align: left; }
-.tbl thead th { color: var(--ink); font-weight: 700; vertical-align: bottom; }
-.tbl tbody th { color: var(--ink); font-weight: 600; }
-.tbl .n { display: block; font-size: .75rem; font-weight: 400; color: var(--muted); }
-.tbl td.hi { color: var(--accent); font-weight: 700; }
-.tbl tr.extra th, .tbl tr.extra td { border-top: 2px solid var(--line); }
-.rec th, .rec td { text-align: left; }
-.rec th { white-space: normal; }
-.rec td { white-space: normal; vertical-align: top; }
-.rec td.nw { white-space: nowrap; }
-.rec td.grp { min-width: 9rem; }
-.rec td.vals { min-width: 11rem; }
-.rec td.skl { min-width: 10rem; }
-.rec td.jobs { min-width: 15rem; }
-.rec tr.mine td { background: var(--accent-soft); }
-details.records > summary { cursor: pointer; font-family: var(--font-display); font-size: 1.2rem; }
-.records-body { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-
-/* Planning */
-.ideas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px 32px; align-items: start; }
-.ideas h2 { margin-top: 4px; }
-.idea-list { margin: 12px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 10px; }
-.idea-list li { color: var(--ink); }
-.idea-list li b { display: block; font-weight: 600; }
-.plan { display: flex; flex-direction: column; gap: 8px; }
-.plan-text { white-space: pre-wrap; background: var(--surface-2); border-radius: 12px; padding: 12px 14px; font-size: .9375rem; line-height: 1.55; color: var(--ink); overflow-wrap: anywhere; }
-.plan-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-
-/* Footer */
-footer.foot { border-top: 1px solid var(--line); padding-block: 18px 28px; font-size: .875rem; color: var(--muted); }
-footer.foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
-footer.foot a { margin-right: 16px; }
-
-@media (max-width: 1000px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 900px) {
-  .dash-grid, .ideas { grid-template-columns: minmax(0, 1fr); }
-  .toolbar .count { margin-left: 0; text-align: left; padding-bottom: 0; flex-basis: 100%; }
+@media(max-width:1000px){.sidebar{width:190px;padding-inline:12px}
+.main-shell{margin-left:190px}
+.content{padding:25px 24px 40px}
+.topbar{padding-inline:24px}
+.two-col,.activity-grid{grid-template-columns:minmax(0,1fr)}
+.signal-card .signal-copy{max-width:none}
+.filter-more{grid-template-columns:repeat(2,minmax(0,1fr))}
+.filter-main>.actions{margin-left:0}
+.resources-grid,.draft-grid{grid-template-columns:minmax(0,1fr)}
 }
-@media (max-width: 600px) {
-  .wrap { padding-inline: 16px; }
-  .tiles { grid-template-columns: minmax(0, 1fr); }
-  .tile { min-height: 0; }
-  .toolbar .field { flex: 1 1 100%; max-width: none; }
-  .bar-row { grid-template-columns: minmax(0, 1fr) 3em; row-gap: 4px; padding: 6px 4px; }
-  .bar-label { grid-column: 1 / -1; }
-  .brand-for { display: none; }
+
+@media(max-width:720px){.sidebar{position:sticky;top:0;width:100%;padding:9px 14px 0;border-right:0;border-bottom:1px solid var(--line);gap:7px}
+.brand{padding:0 4px;gap:7px}
+.brand svg{width:23px;height:23px}
+.brand-name{font-size:23px}
+.workspace-label{margin:0;position:absolute;top:17px;right:18px;font-size:8px}
+.side-nav{flex-direction:row;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px}
+.nav-btn{font-size:10px;min-height:42px;padding:9px 4px;justify-content:center;gap:5px;border-radius:7px 7px 0 0}
+.nav-btn .icon{width:14px;height:14px}
+.nav-count{display:none}
+.sidebar-bottom{display:none}
+.main-shell{margin-left:0}
+.topbar{padding:12px 17px;min-height:54px}
+.topbar-title{display:none}
+.topbar select{max-width:190px;font-size:10px;min-height:34px}
+.content{padding:24px 17px 35px}
+.page-heading{gap:12px;margin-bottom:21px}
+.page-heading h1{font-size:1.8rem}
+.page-heading p{font-size:12px}
+.page-heading .actions{width:100%}
+.page-heading .btn{flex:1;font-size:11px;padding-inline:9px}
+.card{padding:18px}
+.metrics{gap:10px}
+.metric{padding:15px;min-height:128px}
+.metric strong{font-size:30px}
+.metric strong.word{font-size:21px}
+.metric-symbol{right:12px;top:13px}
+.metric-symbol .icon{width:14px;height:14px}
+.metric>span{font-size:10px}
+.filter-main{gap:10px}
+.filter-main>.field{flex:1 1 calc(50% - 10px);max-width:none}
+.filter-main>.field:first-child{flex-basis:100%}
+.filter-main>.actions{width:100%;justify-content:space-between}
+.filters{padding:13px}
+.filter-result{width:100%;margin-left:0}
+.filter-more{gap:10px}
+.two-col,.activity-grid{gap:15px}
+.stack{gap:17px}
+.chart-axis,.month-labels{gap:8px}
+.chart-axis{height:145px}
+.chart-controls{align-items:flex-start}
+.chart-controls .small{font-size:11px}
+.suggestion{display:flex}
+.suggestion>.btn{align-self:stretch}
+.suggestion>.demand{margin-top:3px}
+.section-head{align-items:flex-start}
+.section-head h2{font-size:1.15rem}
+.recent-plans{align-items:flex-start}
+.dialog-head,.dialog-body{padding:20px}
+.dialog-actions{padding:14px 20px}
+.dialog-head h2{font-size:1.35rem}
+.form-grid{gap:13px}
+.form-grid .field{grid-column:1/-1}
+.toast{left:50%;bottom:15px}
+.table-tools{flex-wrap:wrap}
+.table-tools .compact-select{margin-left:0}
+.search{max-width:none;flex-basis:100%}
 }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+*,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+@media print{.sidebar,.topbar,.filters,.page-heading .actions,.page-foot,.btn,.link-btn,.toast,dialog{display:none!important}
+.main-shell{margin:0}
+.content{padding:0}
+.card{break-inside:avoid;box-shadow:none}
+.two-col{grid-template-columns:repeat(2,minmax(0,1fr))}
+.activity-grid{grid-template-columns:1fr}
+.source-note{display:block}
+.bar-fill,.month-column{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
 </style>
 </head>
 <body>
-<a class="skip-link" href="#app">Skip to content</a>
-<header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="index.html" aria-label="Serasi home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c8 0 11 5 0 13C5 8 8 3 16 3Zm13 13c0 8-5 11-13 0 8-11 13-8 13 0ZM16 29c-8 0-11-5 0-13 11 8 8 13 0 13ZM3 16C3 8 8 5 16 16 8 27 3 24 3 16Z" fill="#718258"/><circle cx="16" cy="16" r="3" fill="#DBA874"/></svg>
-      <span class="brand-name">serasi<span style="color:#A1AD7B">.</span></span>
-      <span class="brand-for">for MENDAKI staff</span>
-    </a>
-    <div class="head-meta">
-      <span class="demo-tag">Demo · made-up data</span>
-      <a class="head-link" href="youth.html">Open the youth app ↗</a>
-    </div>
-  </div>
-</header>
-
-<main class="wrap" id="app" tabindex="-1"></main>
-
-<div class="tip" id="tip" role="tooltip" hidden></div>
-<noscript><div class="wrap card"><h1>This page needs JavaScript</h1><p>Enable JavaScript to see the counts, or read the <a href="Serasi%20overview.pdf">Serasi overview</a>.</p></div></noscript>
-
-<footer class="foot">
-  <div class="wrap">
-    <span>Demo only. In the pilot this page would sit behind MENDAKI staff sign-in. Partners, funding and job tasters are proposals; no partner has been approached.</span>
-    <span><a href="youth.html">Youth app</a><a href="Serasi%20overview.pdf">Project overview ↗</a><a href="Serasi%20pitch%20deck.pdf">Pitch deck ↗</a></span>
-  </div>
-</footer>
-
+<a class="skip" href="#app">Skip to workspace</a>
+<aside class="sidebar" aria-label="Staff navigation">
+  <a class="brand" href="index.html" aria-label="Serasi home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c8 0 11 5 0 13C5 8 8 3 16 3Zm13 13c0 8-5 11-13 0 8-11 13-8 13 0ZM16 29c-8 0-11-5 0-13 11 8 8 13 0 13ZM3 16C3 8 8 5 16 16 8 27 3 24 3 16Z" fill="#718258"/><circle cx="16" cy="16" r="3" fill="#dba874"/></svg><span class="brand-name">serasi<span>.</span></span></a>
+  <p class="workspace-label">MENDAKI workspace</p>
+  <nav class="side-nav" id="staff-nav"></nav>
+  <div class="sidebar-bottom"><div class="sidebar-note"><b>Listen. Understand.<br>Plan with purpose.</b>Small signals can shape more relevant opportunities.</div><a href="youth.html">Open the youth app ↗</a><a href="Serasi%20overview.pdf">About the pilot ↗</a></div>
+</aside>
+<div class="main-shell"><header class="topbar"><span class="topbar-title">Serasi / <b id="breadcrumb">Overview</b></span><div class="actions"><span class="pill amber"><span class="source-dot"></span>Demo workspace</span><label class="sr-only" for="data-source">Data source</label><select id="data-source"><option value="sample">Sample cohort</option><option value="shared">Shared in this browser</option><option value="combined">Combined preview</option></select></div></header><main class="content" id="app" tabindex="-1"></main></div>
+<dialog id="staff-dialog" aria-labelledby="dialog-title"></dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+<noscript><main class="content"><h1>Enable JavaScript to open the staff workspace</h1><p>You can still read the <a href="Serasi%20overview.pdf">Serasi overview</a>.</p></main></noscript>
 <script src="serasi-core.js"></script>
+<script src="serasi-staff.js"></script>
 <script>
 (function () {
   'use strict';
-
-  const { TYPES, TYPE_INFO, VALUES, VALUE, SKILLS, SKILL, PATHWAYS, PATH, ROLES, ROLE, AGES, AREAS, EVENT_IDEAS,
-    rank, esc, joinList, lowerTitle, upperFirst, options, readShared, SHARED_KEY } = window.SerasiCore;
-
-  /* ---------- Labels ---------- */
-  const MOCK_SIZE = 240;
-  const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const AGE_LABEL = Object.fromEntries(AGES);
-  const AREA_LABEL = Object.fromEntries(AREAS);
-  const PATH_SHORT = { ITE: 'ITE', Poly: 'Polytechnic', Uni: 'University', Work: 'Working' };
-  const BREAKDOWNS = {
-    age: { label: 'Age', cols: AGES.slice(0, 3) },
-    path: { label: 'Qualification', cols: PATHWAYS.map(x => [x.k, PATH_SHORT[x.k]]) },
-    area: { label: 'Area', cols: AREAS.slice(0, 5) }
+  const C = window.SerasiCore, S = window.SerasiStaff, { esc } = C;
+  const now = new Date(), samples = S.demoRecords(now), app = document.getElementById('app'), dialog = document.getElementById('staff-dialog');
+  let storage = null; try { storage = window.localStorage; } catch (e) { /* read-only mode */ }
+  let plans = S.readPlans(storage), editor = null, toastTimer;
+  const view = { ...S.DEFAULTS, tab: 'overview', source: 'sample', expanded: false, metric: 'percent', by: 'area', search: '', sort: 'count', limit: 15, status: 'active', resourceSearch: '' };
+  const tabs = [['overview', 'grid', 'Overview'], ['cohorts', 'people', 'Cohorts'], ['planner', 'calendar', 'Programmes'], ['resources', 'compass', 'Resources']];
+  const sourceLabels = { sample: 'Sample cohort', shared: 'Shared in this browser', combined: 'Combined preview' };
+  const kindLabels = { taster: 'Job taster', workshop: 'Skills workshop', mentoring: 'Careers circle' };
+  const statusLabels = { draft: 'Draft', review: 'For review', archived: 'Archived' };
+  const allowed = { period: ['all', '3', '1'], age: ['all', ...C.AGES.map(x => x[0]), 'na'], path: ['all', ...C.PATHWAYS.map(x => x.k)], area: ['all', ...C.AREAS.map(x => x[0])], interest: ['all', ...C.TYPES], skill: ['all', ...C.SKILLS.map(x => x.k)], tasters: ['all', 'yes', 'no'] };
+  const query = new URLSearchParams(location.search);
+  S.FILTERS.forEach(k => { if (allowed[k].includes(query.get(k))) view[k] = query.get(k); });
+  if (sourceLabels[query.get('source')]) view.source = query.get('source');
+  if (tabs.some(x => x[0] === location.hash.slice(1))) view.tab = location.hash.slice(1);
+  view.expanded = ['age', 'interest', 'skill', 'tasters'].some(k => view[k] !== 'all');
+  const icon = name => {
+    const paths = { grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>', people: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m20 0v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-10 4h4m-4 3h6"/>', compass: '<circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5Z"/>', arrow: '<path d="M5 12h14m-5-5 5 5-5 5"/>', download: '<path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/>', spark: '<path d="m12 3 2.3 6.7L21 12l-6.7 2.3L12 21l-2.3-6.7L3 12l6.7-2.3Z"/>', shield: '<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-5"/>', chart: '<path d="M4 3v18h17M8 16v-4m5 4V8m5 8V5"/>' };
+    return '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">' + (paths[name] || paths.spark) + '</svg>';
   };
-  const view = { age: 'all', path: 'all', area: 'all', by: 'age' };
-
-  /* ---------- The mock database ---------- */
-  // Made-up youths stand in for MENDAKI's database. If a youth shared in the youth app on this
-  // browser, their one anonymised record is counted alongside them.
-  let mockCache = null;
-
-  function mockRecords() {
-    if (mockCache) return mockCache;
-    let seed = 7;
-    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-    const pick = (arr, wts) => { const tot = wts.reduce((a, b) => a + b, 0); let x = rnd() * tot; for (let i = 0; i < arr.length; i++) { x -= wts.at(i); if (x <= 0) return arr.at(i); } return arr.at(-1); };
-    const rows = [];
-    for (let n = 0; n < MOCK_SIZE; n++) {
-      const t1 = pick(TYPES, [10, 22, 16, 24, 18, 10]);
-      let t2 = pick(TYPES, [10, 18, 14, 20, 20, 18]);
-      if (t2 === t1) t2 = TYPES.at((TYPES.indexOf(t1) + 1) % 6);
-      const rest = TYPES.filter(t => t !== t1 && t !== t2);
-      const t3 = rest[Math.floor(rnd() * rest.length)];
-      const vals = [];
-      while (vals.length < 3) { const v = pick(VALUES.map(x => x.k), [68, 67, 56, 53, 45, 30, 25, 20]); if (!vals.includes(v)) vals.push(v); }
-      const interest = {}; TYPES.forEach(t => { interest[t] = t === t1 ? .9 : t === t2 ? .72 : t === t3 ? .55 : .3 + rnd() * .2; });
-      const prof = { interest, traits: { O: .4 + rnd() * .4, C: .4 + rnd() * .4, E: .3 + rnd() * .5, A: .4 + rnd() * .4, S: .4 + rnd() * .4, H: .5 + rnd() * .4 }, values: vals, faith: [], skills: { num: 3, comm: 3, people: 3, tech: 3, hands: 3, create: 3 }, pathway: pick(['ITE', 'Poly', 'Uni', 'Work'], [25, 35, 25, 15]) };
-      const res = rank(prof, false);
-      rows.push({
-        id: 'Y' + String(n + 1).padStart(3, '0'), month: pick(['2027-04', '2027-05', '2027-06'], [30, 40, 30]),
-        age: pick(['18-20', '21-23', '24-25'], [40, 38, 22]), area: pick(['north', 'north-east', 'east', 'west', 'central'], [18, 24, 22, 24, 12]), path: prof.pathway,
-        code: t1 + t2 + t3, top2: [t1, t2], values: vals, skillsLow: SKILLS.filter(() => rnd() < .3).map(s => s.k),
-        topJobs: res.main.map(s => s.role.id), stretchJobs: res.stretch.map(s => s.role.id), tasters: rnd() < .42
-      });
-    }
-    mockCache = rows;
-    return rows;
+  const button = (action, label, extra = '', style = '') => '<button type="button" class="btn ' + style + '" data-act="' + action + '" ' + extra + '>' + label + '</button>';
+  const option = (value, label, selected) => '<option value="' + esc(value) + '"' + (value === selected ? ' selected' : '') + '>' + esc(label) + '</option>';
+  const select = (key, label, list) => '<div class="field"><label for="filter-' + key + '">' + label + '</label><select id="filter-' + key + '" data-filter="' + key + '">' + option('all', ({ period: 'All responses', area: 'All areas', path: 'All qualifications', age: 'All ages', interest: 'All interests', skill: 'All skill needs', tasters: 'Any preference' })[key], view[key]) + list.map(([k, l]) => option(k, l, view[key])).join('') + '</select></div>';
+  const fmt = n => n.toLocaleString('en-SG');
+  function records(source = view.source) { const mine = C.readShared(); return source === 'shared' ? (mine ? [mine] : []) : source === 'combined' && mine ? samples.concat([mine]) : samples; }
+  const rows = () => S.filterRows(records(), view, now);
+  const canReport = rs => rs.length >= S.MIN_GROUP;
+  function toast(text) { const el = document.getElementById('toast'); el.textContent = text; el.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 4000); }
+  function setURL() { try { const p = new URLSearchParams(); if (view.source !== 'sample') p.set('source', view.source); S.FILTERS.forEach(k => { if (view[k] !== 'all') p.set(k, view[k]); }); const params = p.toString(); history.replaceState(null, '', location.pathname + (params ? '?' + params : '') + '#' + view.tab); } catch (e) { /* local file preview */ } }
+  function preserve(focusId) { const y = window.scrollY; render(); const el = focusId && document.getElementById(focusId); if (el) el.focus({ preventScroll: true }); window.scrollTo(0, y); }
+  function nav() {
+    const active = plans.filter(p => p.status !== 'archived').length;
+    document.getElementById('staff-nav').innerHTML = tabs.map(([key, ic, label]) => '<button type="button" id="nav-' + key + '" class="nav-btn" data-act="tab" data-tab="' + key + '"' + (view.tab === key ? ' aria-current="page"' : '') + '>' + icon(ic) + label + (key === 'planner' && active ? '<span class="nav-count">' + active + '</span>' : '') + '</button>').join('');
+    document.getElementById('breadcrumb').textContent = tabs.find(t => t[0] === view.tab)[2];
+    document.getElementById('data-source').value = view.source;
   }
-
-  // The record shared from this browser comes first, so it leads the records table.
-  function allRecords() {
-    const mine = readShared();
-    const rows = mockRecords();
-    return mine ? [Object.assign(mine, { id: 'This browser', mine: true })].concat(rows) : rows;
+  function filterBar(rs) {
+    const extras = ['age', 'interest', 'skill', 'tasters'].filter(k => view[k] !== 'all').length;
+    const chips = S.FILTERS.filter(k => view[k] !== 'all').map(k => '<button class="filter-chip" type="button" data-act="clear-filter" data-key="' + k + '" aria-label="Remove ' + esc(S.filterLabel({ ...S.DEFAULTS, [k]: view[k] })) + ' filter">' + esc(S.filterLabel({ ...S.DEFAULTS, [k]: view[k] })) + '<span aria-hidden="true">×</span></button>').join('');
+    return '<section class="filters" aria-label="Cohort filters"><div class="filter-main">' + select('period', 'Period', [['3', 'Last 3 months'], ['1', 'This month']]) + select('area', 'Area', C.AREAS) + select('path', 'Qualification', C.PATHWAYS.map(p => [p.k, p.label])) + '<div class="actions">' + button('more-filters', 'More filters' + (extras ? ' (' + extras + ')' : ''), 'id="more-filters" aria-expanded="' + view.expanded + '" aria-controls="extra-filters"') + '<button type="button" class="link-btn" data-act="reset">Reset</button></div></div>' +
+      '<div class="filter-more" id="extra-filters"' + (view.expanded ? '' : ' hidden') + '>' + select('age', 'Age', C.AGES.concat([['na', 'Not given']])) + select('interest', 'Interest', C.TYPES.map(t => [t, C.TYPE_INFO[t].name])) + select('skill', 'Skills to build', C.SKILLS.map(s => [s.k, s.label])) + select('tasters', 'Taster interest', [['yes', 'Interested'], ['no', 'Not selected']]) + '</div><div class="filter-chips">' + chips + '<span class="privacy-note">' + icon('shield') + 'Groups under 10 stay hidden</span><span class="filter-result" role="status">' + (canReport(rs) ? fmt(rs.length) + ' responses in view' : rs.length ? 'Fewer than 10 responses' : 'No responses in view') + '</span></div></section>';
   }
-
-  function filterRows(rows) {
-    return rows.filter(r => (view.age === 'all' || r.age === view.age) && (view.path === 'all' || r.path === view.path) && (view.area === 'all' || r.area === view.area));
+  function sourceNote() {
+    const mine = C.readShared();
+    const range = S.months(now);
+    const text = view.source === 'sample' ? '<b>240 sample responses</b> · ' + esc(S.monthLabel(range[0]) + '–' + S.monthLabel(range[5])) : view.source === 'shared' ? '<b>Opted-in results from this browser</b> · ' + (mine ? '1 shared record' : 'No shared record yet') : '<b>Combined preview</b> · 240 sample responses' + (mine ? ' + 1 shared record' : ' · no browser record');
+    return '<div class="source-note"><span class="source-dot"></span>' + text + '<span>· ' + (view.source === 'shared' ? 'Only results explicitly shared from the youth app are counted.' : 'Sample responses are simulated, not MENDAKI service data.') + '</span></div>';
   }
-
-  function filterText() {
-    return [view.age === 'all' ? 'all ages' : 'aged ' + AGE_LABEL[view.age], view.path === 'all' ? 'all qualifications' : PATH[view.path].label, view.area === 'all' ? 'all areas' : AREA_LABEL[view.area]].join(', ');
+  function emptyCohort(rs) {
+    return '<section class="card empty"><span class="pill amber">' + (rs.length ? 'Small group' : 'No matching responses') + '</span><h2>' + (rs.length ? 'A little more data is needed' : 'No responses in this view yet') + '</h2><p>' + (rs.length ? 'This cohort has fewer than 10 responses. Its insights, audience estimates and exports are hidden. Broaden the filters to explore a larger group.' : view.source === 'shared' ? 'This source includes only the anonymised result explicitly shared from the youth app in this browser. Use the sample cohort to explore the workspace.' : 'Try a broader period or remove a filter to see a larger cohort.') + '</p><div class="actions">' + button('reset', 'Clear filters') + (view.source !== 'sample' ? button('sample', 'Explore sample cohort', '', 'primary') : '') + '</div></section>';
   }
-
-  /* ---------- Counting ---------- */
-  function aggregate(rs) {
-    const count = (getter, keys) => { const m = {}; keys.forEach(k => { m[k] = 0; }); rs.forEach(r => (getter(r) || []).forEach(k => { if (Object.prototype.hasOwnProperty.call(m, k)) m[k]++; })); return m; };
-    return {
-      n: rs.length,
-      tasters: rs.filter(r => r.tasters).length,
-      types: count(r => r.top2, TYPES),
-      values: count(r => r.values, VALUES.map(v => v.k)),
-      skills: count(r => r.skillsLow, SKILLS.map(s => s.k)),
-      jobs: count(r => r.topJobs, ROLES.map(r => r.id)),
-      tasterTypes: count(r => (r.tasters ? r.top2 : []), TYPES)
-    };
+  function metric(label, value, note, ic, word = false) { return '<article class="card metric"><div class="metric-symbol">' + icon(ic) + '</div><span>' + label + '</span><strong class="num' + (word ? ' word' : '') + '">' + value + '</strong><p class="sub">' + esc(note) + '</p></article>'; }
+  function chart(title, subtitle, entries, total, action, key, limit) {
+    const list = entries.filter(e => e.value).slice(0, limit || entries.length);
+    return '<section class="card"><div class="card-head"><div><h2>' + title + '</h2><p class="sub">' + subtitle + '</p></div></div>' + (list.length ? '<ul class="bars">' + list.map(e => {
+      const v = view.metric === 'percent' ? S.share(e.value, total) + '%' : fmt(e.value);
+      const title = e.label + ': ' + e.value + ' of ' + total + ' responses (' + S.share(e.value, total) + '%)';
+      return '<li><button type="button" class="bar-button" data-act="' + action + '" data-key="' + key + '" data-value="' + esc(e.k) + '" aria-label="' + esc((action === 'filter' ? 'Filter by ' : 'View ') + title) + '" title="' + esc(title) + '"><span class="bar-caption"><span class="bar-name">' + esc(e.label) + '</span><span class="bar-value">' + v + '</span></span><span class="bar-track"><span class="bar-fill" style="width:' + S.share(e.value, total) + '%"></span></span></button></li>';
+    }).join('') + '</ul>' : '<p class="sub">No responses for this measure.</p>') + '<p class="chart-help">' + (action === 'filter' ? 'Select a bar to explore that cohort.' : action === 'value-info' ? 'Select a value for its full description.' : 'Select a career to see its requirements.') + '</p></section>';
   }
-
-  // Each measure as a list of {label, value}, most common first.
-  function entriesOf(a) {
-    const desc = (x, y) => y.value - x.value;
-    return {
-      types: TYPES.map(t => ({ label: TYPE_INFO[t].name + ' (' + TYPE_INFO[t].profile + ')', value: a.types[t], t })).sort(desc),
-      jobs: ROLES.map(r => ({ label: r.title, value: a.jobs[r.id] })).sort(desc),
-      values: VALUES.map(v => ({ label: upperFirst(v.short), value: a.values[v.k] })).sort(desc),
-      skills: SKILLS.map(s => ({ label: s.label, value: a.skills[s.k] })).sort(desc)
-    };
+  function activity(rs) {
+    const keys = S.months(now, view.period === 'all' ? 6 : Number(view.period));
+    const ns = keys.map(k => rs.filter(r => r.month === k).length), max = Math.max(1, ...ns);
+    return '<section class="card"><div class="card-head"><div><h2>Responses over time</h2><p class="sub">Monthly completions in this cohort · recent ' + keys.length + (keys.length === 1 ? ' month' : ' months') + '</p></div><span class="pill">' + now.getFullYear() + '</span></div><div class="chart-axis" aria-label="Monthly response counts">' + keys.map((k, i) => '<div class="month"><span class="month-count num">' + (ns[i] >= S.MIN_GROUP ? ns[i] : ns[i] ? '–' : '0') + '</span><span class="month-column" style="height:' + (ns[i] >= S.MIN_GROUP ? Math.max(4, ns[i] / max * 112) : 2) + 'px" title="' + esc(S.monthLabel(k) + ': ' + (ns[i] >= S.MIN_GROUP ? ns[i] + ' responses' : ns[i] ? 'Fewer than 10; hidden' : 'No responses')) + '"></span></div>').join('') + '</div><div class="month-labels">' + keys.map(k => '<span>' + S.monthLabel(k).split(' ')[0] + '</span>').join('') + '</div><p class="chart-help">A dash means fewer than 10 responses in that month.</p></section>';
   }
-
-  /* ---------- Pieces ---------- */
-  function barList(id, title, sub, entries, n, limit) {
-    const rows = entries.filter(e => e.value > 0).slice(0, limit || entries.length);
-    const max = Math.max(1, ...rows.map(e => e.value));
-    const body = rows.length
-      ? '<ul class="bars">' + rows.map(e => {
-          const share = Math.round(100 * e.value / n);
-          return '<li class="bar-row" data-tip="' + esc(e.label + ': ' + e.value + ' of ' + n + ' youths (' + share + '%)') + '"><span class="bar-label">' + esc(e.label) + '</span><span class="bar-track"><i style="width:' + (100 * e.value / max).toFixed(1) + '%"></i></span><span class="bar-val num">' + share + '%</span></li>';
-        }).join('') + '</ul>'
-      : '<p class="muted small">No answers yet in this group.</p>';
-    return '<figure class="card dash-card" aria-labelledby="' + id + '-t"><figcaption><h3 id="' + id + '-t">' + esc(title) + '</h3><p class="small muted">' + esc(sub) + '</p></figcaption>' + body + '</figure>';
+  function overview(rs) {
+    const a = S.aggregate(rs), e = S.entries(a), best = e.types[0], skill = e.skills[0];
+    const previous = view.period === '3' ? S.filterRows(records(), view, now, true) : [];
+    const compare = view.period === '3' && canReport(previous) ? (a.n - previous.length >= 0 ? '+' : '') + (a.n - previous.length) + ' vs previous 3 months' : 'Within your selected cohort';
+    return '<div class="stack"><section class="metrics" aria-label="Cohort summary">' + metric('Responses in view', fmt(a.n), compare, 'people') + metric('Interested in job tasters', S.share(a.tasters, a.n) + '%', a.tasters + ' responses selected interest', 'calendar') + metric('Skill-building needs', S.share(a.support, a.n) + '%', a.support + ' self-rated at least one skill low', 'chart') + metric('Leading interest', esc(best.label), S.share(best.value, a.n) + '% have it in their top two', 'compass', true) + '</section>' +
+      '<div class="activity-grid">' + activity(rs) + '<section class="card signal-card"><span class="eyebrow">A signal to act on</span><p class="signal-copy">' + esc(best.label) + ' leads this cohort. Start with an experience that helps youths try it.</p>' + button('tab', 'Explore programme ideas ' + icon('arrow'), 'data-tab="planner"') + '<p class="signal-small">' + (skill.value ? esc(skill.label) + ' is the most commonly self-rated skill to build (' + S.share(skill.value, a.n) + '%).' : 'No low skill ratings were shared in this cohort.') + '</p></section></div>' +
+      '<div class="chart-controls"><p class="small muted">Explore the signals. Select a bar to dig deeper.</p><div class="toggle-group" role="group" aria-label="Chart display">' + ['percent', 'count'].map(k => '<button type="button" id="metric-' + k + '" data-act="metric" data-metric="' + k + '" aria-pressed="' + (view.metric === k) + '">' + (k === 'percent' ? 'Share %' : 'Counts') + '</button>').join('') + '</div></div><div class="two-col">' + chart('Career interests', 'Interest types in each youth’s top two', e.types, a.n, 'filter', 'interest') + chart('Skills to build', 'Self-ratings of 1 or 2 out of 5', e.skills, a.n, 'filter', 'skill') + chart('Most matched careers', 'Careers appearing in the top 10 results', e.jobs, a.n, 'role', '', 5) + chart('What matters at work', 'Up to three values selected by each youth', e.values, a.n, 'value-info', '', 5) + '</div>' +
+      '<section class="card recent-plans"><div><h2>Keep an idea moving</h2><p class="sub">' + plans.filter(p => p.status !== 'archived').length + ' programme drafts saved in this browser.</p></div>' + button('tab', 'Open planner ' + icon('arrow'), 'data-tab="planner"') + '</section></div>';
   }
-
-  function tile(label, value, sub, isText) {
-    return '<div class="card tile"><p class="tile-label">' + esc(label) + '</p><p class="tile-value' + (isText ? ' text' : '') + '">' + esc(value) + '</p>' + (sub ? '<p class="small muted">' + esc(sub) + '</p>' : '') + '</div>';
+  function cohorts(rs) {
+    const groups = S.groupRows(rs, view.by), query = view.search.toLowerCase().trim();
+    const jobs = S.entries(S.aggregate(rs)).jobs.filter(j => j.value && (j.label + ' ' + C.ROLE[j.k].sector).toLowerCase().includes(query));
+    if (view.sort === 'name') jobs.sort((a, b) => a.label.localeCompare(b.label));
+    return '<div class="stack"><section class="card"><div class="card-head"><div><h2>Compare groups</h2><p class="sub">See where interests and support needs differ.</p></div><label class="sr-only" for="breakdown">Compare groups by</label><select class="compact-select" id="breakdown">' + [['area', 'By area'], ['age', 'By age'], ['path', 'By qualification']].map(([k, l]) => option(k, l, view.by)).join('') + '</select></div><div class="table-wrap"><table class="table"><thead><tr><th>Group</th><th class="number">Responses</th><th class="number">Taster interest</th><th class="number">Skills to build</th><th>Leading interest</th><th></th></tr></thead><tbody>' + groups.map(g => {
+      const top = g.a ? S.entries(g.a).types[0] : null;
+      return '<tr' + (g.hidden ? ' class="suppressed"' : '') + '><td><strong>' + esc(g.label) + '</strong></td><td class="number">' + (g.hidden ? (g.n ? '&lt;10' : '0') : g.n) + '</td><td class="number">' + (g.a ? S.share(g.a.tasters, g.n) + '%' : '–') + '</td><td class="number">' + (g.a ? S.share(g.a.support, g.n) + '%' : '–') + '</td><td>' + (top ? esc(top.label) : 'Hidden') + '</td><td>' + (g.hidden ? '' : '<button type="button" class="link-btn" data-act="filter" data-key="' + view.by + '" data-value="' + g.k + '">Explore ↗</button>') + '</td></tr>';
+    }).join('') + '</tbody></table></div><p class="table-note">Skill needs are self-ratings, not an assessment of job readiness. Groups under 10 are hidden.</p></section>' +
+      '<section class="card"><div class="card-head"><div><h2>Career explorer</h2><p class="sub">Understand the careers appearing in this cohort’s results.</p></div><span class="pill">' + jobs.length + ' careers</span></div><div class="table-tools"><label class="sr-only" for="career-search">Search careers</label><input class="search" id="career-search" type="search" placeholder="Search a career or sector…" value="' + esc(view.search) + '"><label class="sr-only" for="career-sort">Sort careers</label><select class="compact-select" id="career-sort">' + option('count', 'Most matched first', view.sort) + option('name', 'Career name A–Z', view.sort) + '</select></div><div class="table-wrap"><table class="table"><thead><tr><th>Career</th><th>Sector</th><th class="number">Matched responses</th><th class="number">Share</th><th></th></tr></thead><tbody>' + jobs.slice(0, view.limit).map(j => '<tr><td><strong>' + esc(j.label) + '</strong></td><td>' + esc(C.ROLE[j.k].sector) + '</td><td class="number">' + j.value + '</td><td class="number">' + S.share(j.value, rs.length) + '%</td><td><button class="link-btn" type="button" data-act="role" data-value="' + j.k + '">View ↗</button></td></tr>').join('') + '</tbody></table></div>' + (!jobs.length ? '<p class="sub">No careers match that search.</p>' : '') + (jobs.length > view.limit ? '<div class="show-more">' + button('more-jobs', 'Show 15 more careers') + '</div>' : '') + '<p class="table-note">Each youth can match several careers. Shares do not add up to 100%.</p></section></div>';
   }
-
-  // Interest types (rows) by age, qualification or area (columns). Columns under 10 youths are hidden.
-  function crossTab(rs) {
-    const by = view.by, B = BREAKDOWNS[by];
-    const groups = B.cols.map(([k, label]) => ({ label, rows: rs.filter(r => r[by] === k) })).concat([{ label: 'All', rows: rs }]);
-    const lines = TYPES.map(t => ({ label: TYPE_INFO[t].name, test: r => r.top2.includes(t) })).concat([{ label: 'Want job tasters', test: r => r.tasters, extra: true }]);
-    const counts = lines.map(l => groups.map(g => g.rows.filter(l.test).length));
-    const best = groups.map((g, j) => Math.max(...TYPES.map((_, i) => counts[i][j])));
-    const head = '<tr><th scope="col">Interest type</th>' + groups.map(g => '<th scope="col">' + esc(g.label) + '<span class="n">' + g.rows.length + ' youths</span></th>').join('') + '</tr>';
-    const body = lines.map((l, i) => '<tr' + (l.extra ? ' class="extra"' : '') + '><th scope="row">' + esc(l.label) + '</th>' + groups.map((g, j) => {
-      if (g.rows.length < 10) return '<td class="muted" title="Fewer than 10 youths">–</td>';
-      const c = counts[i][j];
-      return '<td' + (!l.extra && c === best[j] && c > 0 ? ' class="hi"' : '') + ' title="' + c + ' of ' + g.rows.length + ' youths">' + Math.round(100 * c / g.rows.length) + '%</td>';
-    }).join('') + '</tr>').join('');
-    return '<figure class="card dash-card" aria-labelledby="dx-t"><figcaption><h3 id="dx-t">Interest types by ' + B.label.toLowerCase() + '</h3>' +
-        '<p class="small muted">Share of youths in each group with the type in their top two. The most common type in each column is highlighted. Groups of fewer than 10 youths show “–”.</p></figcaption>' +
-      '<div class="field by-field"><label for="d-by">Break down by</label><select id="d-by" data-view="by">' + Object.entries(BREAKDOWNS).map(([k, b]) => '<option value="' + k + '"' + (k === by ? ' selected' : '') + '>' + b.label + '</option>').join('') + '</select></div>' +
-      '<div class="table-wrap"><table class="tbl xtab"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div></figure>';
+  function suggestionCard(p, i) { return '<article class="card suggestion"><span class="pill">' + kindLabels[p.kind] + '</span><h3>' + esc(p.title) + '</h3><p>' + esc(p.description) + '</p><p class="demand">' + p.demand + ' potential participants</p>' + button('suggestion', 'Create a draft ' + icon('arrow'), 'data-index="' + i + '"') + '</article>'; }
+  function draftCard(p) { return '<article class="card draft"><div class="draft-top"><span class="pill ' + (p.status === 'review' ? 'amber' : p.status === 'archived' ? 'grey' : '') + '">' + statusLabels[p.status] + '</span><span class="small muted">' + kindLabels[p.kind] + '</span></div><h3>' + esc(p.title) + '</h3><div class="draft-meta"><span>' + p.capacity + ' places planned</span><span>' + (p.date ? esc(p.date) : 'Date to be decided') + '</span></div><p class="draft-summary">' + (p.demand >= S.MIN_GROUP ? p.demand + ' potential participants at last save' : 'Audience below reporting threshold') + ' · ' + sourceLabels[p.source] + '</p><div class="actions">' + button('edit-plan', 'Edit draft', 'data-id="' + esc(p.id) + '"', 'small') + button('plan-brief', 'View brief', 'data-id="' + esc(p.id) + '"', 'small') + button('archive', p.status === 'archived' ? 'Restore' : 'Archive', 'data-id="' + esc(p.id) + '"', 'small') + '</div></article>'; }
+  function planner(rs) {
+    const suggestions = S.suggestions(rs);
+    const shown = plans.filter(p => view.status === 'all' || (view.status === 'active' ? p.status !== 'archived' : p.status === view.status));
+    return '<div class="stack">' + (canReport(rs) ? '<div class="section-head"><div><h2>Ideas for this cohort</h2><p class="sub">Grounded in shared interests and self-rated skill needs.</p></div><span class="pill">' + rs.length + ' responses</span></div><div class="suggestion-grid">' + (suggestions.length ? suggestions.map(suggestionCard).join('') : '<section class="card"><p class="small muted">No programme audience reaches 10 responses in this cohort. Try broader filters.</p></section>') + '</div>' : emptyCohort(rs)) +
+      '<div class="section-head"><div><h2>Your programme drafts</h2><p class="sub">Draft locally, refine the idea, then take it to your team.</p></div><label class="sr-only" for="plan-status">Filter programme drafts</label><select class="compact-select" id="plan-status">' + [['active', 'Active drafts'], ['draft', 'Draft'], ['review', 'For review'], ['archived', 'Archived'], ['all', 'All programmes']].map(([k, l]) => option(k, l, view.status)).join('') + '</select></div>' + (shown.length ? '<div class="draft-grid">' + shown.slice().reverse().map(draftCard).join('') + '</div>' : '<section class="card empty plan-empty">' + icon('calendar') + '<h3>Room for a good idea</h3><p>Create a draft from a suggestion above, or start with your own programme.</p>' + button('new-plan', 'Create programme draft', canReport(rs) ? '' : 'disabled', 'primary') + '</section>') + '<p class="small muted">Drafts are saved only in this browser. Creating or reviewing a draft does not book a programme or send invitations.</p></div>';
   }
-
-  function planningNote(a, e) {
-    const share = v => Math.round(100 * v / a.n) + '%';
-    const [t1, t2] = e.types;
-    const jobs = e.jobs.filter(x => x.value > 0).slice(0, 3).map(x => lowerTitle(x.label));
-    const skill = e.skills[0];
-    return [
-      'Planning note: ' + a.n + ' youths (' + filterText() + '), mock data.',
-      '- ' + TYPE_INFO[t1.t].name + ' is the most common interest type (' + share(t1.value) + ' have it in their top two), followed by ' + TYPE_INFO[t2.t].name + ' (' + share(t2.value) + ').',
-      '- Most shortlisted jobs: ' + joinList(jobs) + '.',
-      '- Top values: ' + joinList(e.values.slice(0, 2).map(x => x.label.toLowerCase() + ' (' + share(x.value) + ')')) + '.',
-      skill.value ? '- Skill most often rated low: ' + skill.label.toLowerCase() + ' (' + share(skill.value) + ').' : '',
-      '- ' + a.tasters + ' youths (' + share(a.tasters) + ') want job tasters or internships.',
-      'Suggested next steps:',
-      '1. ' + EVENT_IDEAS[t1.t] + '.',
-      '2. ' + EVENT_IDEAS[t2.t] + '.',
-      '3. ' + (skill.value ? 'A short ' + skill.label.toLowerCase() + ' workshop before the job tasters.' : 'Invite the youths who want job tasters through MENDAKI programmes.')
-    ].filter(Boolean).join('\n');
+  function resources() {
+    return '<div class="stack"><div class="resources-grid">' + S.RESOURCES.map(r => '<article class="card resource"><span class="pill">' + r.tag + '</span><h2>' + esc(r.title) + '</h2><p>' + esc(r.text) + '</p><span class="for">Useful for: ' + esc(r.for) + '</span><div class="actions"><a class="btn" href="' + esc(r.url) + '" target="_blank" rel="noopener">' + r.label + ' ↗</a>' + (r.reference ? '<a class="small" href="' + esc(r.reference) + '" target="_blank" rel="noopener">University guide ↗</a>' : '') + '</div><span class="reviewed">Source checked ' + r.checked + '</span></article>').join('') + '</div><details class="card data-details"><summary>How to read this workspace</summary><p>The sample cohort contains 240 simulated responses across the most recent six months. “Shared in this browser” reads only the anonymised result explicitly shared from the youth app. “Combined preview” includes both, with the source labelled in reports.</p><p>Counts describe interest types, values, low self-rated skills and careers in the top 10. They do not show names, contact details, quiz answers or personal preferences. Cohorts with fewer than 10 responses cannot be inspected or exported. No individual record viewer is provided.</p><p>Programme ideas and audience estimates support planning; they are not confirmed MENDAKI services, attendance or partner commitments. This demo has no staff authentication or shared server database.</p></details></div>';
   }
-
-  function recordsTable(rs) {
-    const shown = rs.slice(0, 12);
-    const month = m => (m ? MONTH_NAMES[Number(m.slice(5, 7)) - 1] + ' ' + m.slice(0, 4) : '–');
-    const jobs = ids => esc(ids.slice(0, 3).map(id => (ROLE[id] ? ROLE[id].title : id)).join('; ')) + (ids.length > 3 ? ' <span class="muted">+' + (ids.length - 3) + ' more</span>' : '');
-    const who = r => [AGE_LABEL[r.age] || 'Age not given', AREA_LABEL[r.area] || 'Area not given', PATH_SHORT[r.path]].join(' · ');
-    const rows = shown.map(r => '<tr' + (r.mine ? ' class="mine"' : '') + '>' +
-      '<td>' + (r.mine ? '<span class="pill good">This browser</span>' : esc(r.id)) + '</td><td class="nw">' + month(r.month) + '</td><td class="grp">' + esc(who(r)) + '</td>' +
-      '<td><span class="pill code">' + esc(r.code) + '</span></td><td class="vals">' + esc(r.values.map(v => VALUE[v].short).join(', ') || '–') + '</td><td class="skl">' + esc(r.skillsLow.map(k => SKILL[k].label).join(', ') || '–') + '</td>' +
-      '<td class="jobs">' + jobs(r.topJobs) + '</td><td>' + (r.tasters ? 'Yes' : 'No') + '</td></tr>').join('');
-    return '<details class="card records"><summary>See the records behind these numbers</summary><div class="records-body">' +
-      '<p class="small muted">The first ' + shown.length + ' of ' + rs.length + ' records in this group. Each shared result is one row like these, with no name, contact details, quiz answers or personal preferences. In the pilot, staff would see only the grouped counts above; this preview is part of the demo, to show what is stored.</p>' +
-      '<div class="table-wrap"><table class="tbl rec"><thead><tr><th scope="col">Record</th><th scope="col">Month</th><th scope="col">Age · area · qualification</th><th scope="col">Code</th><th scope="col">Values</th><th scope="col">Skills to build</th><th scope="col">Top jobs</th><th scope="col">Job tasters</th></tr></thead><tbody>' + rows + '</tbody></table></div></div></details>';
+  function render() {
+    const rs = rows(), allowedReport = canReport(rs), titles = { overview: ['The bigger picture, a little clearer.', 'Turn youth aspirations into more relevant opportunities.'], cohorts: ['Understand who needs what.', 'Explore groups and the careers that connect with them.'], planner: ['From a signal to a programme.', 'Build a practical draft around the cohort you’re exploring.'], resources: ['Connect youths with the right support.', 'Current starting points for opportunities, mentoring and career guidance.'] };
+    nav(); setURL();
+    app.innerHTML = '<header class="page-heading"><div><span class="eyebrow">' + (view.tab === 'planner' ? 'Programme planning' : 'MENDAKI staff insights') + '</span><h1 id="page-title" tabindex="-1">' + titles[view.tab][0] + '</h1><p>' + titles[view.tab][1] + '</p></div><div class="actions">' + (view.tab !== 'resources' ? button('report', icon('download') + 'Export & brief', allowedReport ? '' : 'disabled') + button(view.tab === 'planner' ? 'new-plan' : 'tab', view.tab === 'planner' ? '+ New programme' : 'Plan a programme', (view.tab === 'planner' ? (allowedReport ? '' : 'disabled') : 'data-tab="planner"'), 'primary') : button('tab', 'Open programme planner ' + icon('arrow'), 'data-tab="planner"', 'primary')) + '</div></header>' + sourceNote() + (view.tab !== 'resources' ? filterBar(rs) : '') +
+      '<div id="view-body">' + (view.tab === 'resources' ? resources() : view.tab === 'planner' ? planner(rs) : !allowedReport ? emptyCohort(rs) : view.tab === 'overview' ? overview(rs) : cohorts(rs)) + '</div><footer class="page-foot"><span>Serasi pilot · ' + C.ROLES.length + ' career profiles · 50% interests / 30% work style / 20% values</span><a href="Serasi%20pitch%20deck.pdf">Pilot proposal ↗</a></footer>';
   }
-
-  /* ---------- Page ---------- */
-  function renderPage() {
-    const sel = (key, label, list) => '<div class="field"><label for="d-' + key + '">' + label + '</label><select id="d-' + key + '" data-view="' + key + '"><option value="all">All</option>' + options(list, view[key]) + '</select></div>';
-    document.getElementById('app').innerHTML =
-      '<section class="intro" aria-labelledby="page-title"><p class="eyebrow">Insights for MENDAKI staff</p><h1 id="page-title">What youths are telling us</h1>' +
-        '<p class="lede">Youths who choose to share add one anonymised record each. This page counts those records so MENDAKI can plan job tasters and events that fit what youths want. It runs on a mock database of ' + MOCK_SIZE + ' made-up youths.</p>' +
-        '<ul class="rules" aria-label="Privacy rules"><li>Grouped counts only</li><li>No names or contact details</li><li>Groups under 10 youths are hidden</li></ul></section>' +
-      '<div class="source" id="source"></div>' +
-      '<form class="toolbar" aria-label="Filters" onsubmit="return false">' +
-        sel('age', 'Age', AGES.slice(0, 3)) + sel('path', 'Qualification or stage', PATHWAYS.map(x => [x.k, x.label])) + sel('area', 'Area', AREAS.slice(0, 5)) +
-        '<button class="btn" type="button" data-action="reset">Reset filters</button>' +
-        '<p class="count" id="count" role="status"></p>' +
-      '</form>' +
-      '<div id="dash-body" class="dash-body"></div>';
-    renderSource();
-    renderDashBody();
+  function showDialog(html) { dialog.innerHTML = html; if (!dialog.open) dialog.showModal(); const focus = dialog.querySelector('[autofocus]'); if (focus) focus.focus(); }
+  const dialogHead = (eyebrow, title) => '<div class="dialog-head"><div><p class="eyebrow">' + eyebrow + '</p><h2 id="dialog-title">' + esc(title) + '</h2></div><button type="button" class="close-btn" data-act="close-dialog" aria-label="Close dialog">×</button></div>';
+  function showRole(id) {
+    const role = C.ROLE[id], rs = rows(); if (!role || !canReport(rs)) return;
+    const matched = rs.filter(r => r.topJobs.includes(id)).length;
+    showDialog(dialogHead('Career context', role.title) + '<div class="dialog-body"><div class="actions"><span class="pill">' + esc(role.sector) + '</span><span class="role-code">' + role.code + '</span></div><p class="small muted">' + matched + ' of ' + rs.length + ' responses (' + S.share(matched, rs.length) + '%) have this career in their top 10.</p><div class="role-facts"><div><span>Usual entry qualification</span><b>' + esc(C.EDU_LABEL[role.edu]) + '</b></div><div><span>Interests it draws on</span><b>' + esc([...role.code].map(t => C.TYPE_INFO[t].name).join(', ')) + '</b></div></div><div><h3>Skills to explore</h3><p class="sub">' + esc(Object.keys(role.skills).map(k => C.SKILL[k].label).join(' · ')) + '</p></div><p class="inline-note">A quiz match is an exploration prompt. Check current job requirements and use practical exposure to help youths decide.</p></div><div class="dialog-actions"><a class="btn" href="' + esc(C.PORTALS.mcf.url(role.q || role.title)) + '" target="_blank" rel="noopener">Current job listings ↗</a>' + button('role-plan', 'Draft a related taster', 'data-value="' + role.code[0] + '"', 'primary') + '</div>');
   }
-
-  function renderSource() {
-    const el = document.getElementById('source');
-    if (!el) return;
-    const mine = readShared();
-    el.innerHTML = '<p><b>Mock data.</b> ' + MOCK_SIZE + ' made-up youths stand in for real results' +
-      (mine ? ', plus <b>1 record shared from this browser</b>, marked “This browser” in the records at the end.' : '. Nothing has been shared from this browser yet.') +
-      ' Open the youth app, finish the quiz and share your results to add one.</p>' +
-      '<a class="btn" href="youth.html">Open the youth app ↗</a>';
+  function openPlan(input) {
+    const rs = rows(); if (!input?.id && !canReport(rs)) return;
+    editor = input?.id ? { ...input } : { kind: 'taster', interest: S.entries(S.aggregate(rs)).types[0].k, skill: 'comm', title: '', capacity: 25, date: '', notes: '', status: 'draft', source: view.source, filters: Object.fromEntries(S.FILTERS.map(k => [k, view[k]])), ...input };
+    editor.skill = C.SKILL[editor.skill] ? editor.skill : 'comm';
+    showDialog(dialogHead(editor.id ? 'Edit local draft' : 'New local draft', editor.id ? editor.title : 'Shape your programme') + '<form id="programme-form"><div class="dialog-body"><div class="form-grid"><div class="field full"><label for="plan-title">Programme title</label><input id="plan-title" name="title" autofocus required maxlength="100" value="' + esc(editor.title) + '" placeholder="For example: Data & discovery day"></div><div class="field"><label for="plan-kind">Format</label><select id="plan-kind" name="kind">' + Object.entries(kindLabels).map(([k, l]) => option(k, l, editor.kind)).join('') + '</select></div><div class="field"><label for="plan-status-edit">Draft status</label><select id="plan-status-edit" name="status">' + Object.entries(statusLabels).map(([k, l]) => option(k, l, editor.status)).join('') + '</select></div><div class="field" id="interest-field"><label for="plan-interest">Career interest</label><select id="plan-interest" name="interest">' + C.TYPES.map(t => option(t, C.TYPE_INFO[t].name, editor.interest)).join('') + '</select></div><div class="field" id="skill-field"><label for="plan-skill">Skill to build</label><select id="plan-skill" name="skill">' + C.SKILLS.map(s => option(s.k, s.label, editor.skill)).join('') + '</select></div><div class="field"><label for="plan-capacity">Places to plan for</label><input id="plan-capacity" name="capacity" type="number" min="1" max="200" value="' + editor.capacity + '" required></div><div class="field"><label for="plan-date">Proposed date (optional)</label><input id="plan-date" name="date" type="date" value="' + esc(editor.date) + '"></div><div class="field full"><label for="plan-notes">Planning notes (optional)</label><textarea id="plan-notes" name="notes" maxlength="600" placeholder="Activities, delivery needs or questions for your team. Avoid personal details.">' + esc(editor.notes) + '</textarea></div></div><div class="audience-preview" id="audience-preview" aria-live="polite"></div><p class="error" id="plan-error" role="alert" hidden></p></div><div class="dialog-actions">' + button('close-dialog', 'Cancel') + '<button class="btn primary" type="submit">Save draft</button></div></form>');
+    updateAudience();
   }
-
-  function renderDashBody() {
-    const body = document.getElementById('dash-body');
-    if (!body) return;
-    const rs = filterRows(allRecords());
-    const count = document.getElementById('count');
-    if (count) count.innerHTML = rs.length < 10 ? '<b class="num">&lt; 10</b> youths in view' : '<b class="num">' + rs.length.toLocaleString('en-SG') + '</b> youths in view';
-    if (rs.length < 10) {
-      body.innerHTML = '<div class="card empty"><h2>Not enough responses in this group</h2><p>This group has fewer than 10 youths, so it is hidden to protect privacy. Widen the filters to see results.</p></div>';
-      return;
-    }
-    const a = aggregate(rs), e = entriesOf(a);
-    const top = e.types[0], topJob = e.jobs[0];
-    const ideas = e.types.slice(0, 3).map(x => '<li><b>' + esc(EVENT_IDEAS[x.t]) + '</b><span class="small muted">' + x.value + ' youths have ' + TYPE_INFO[x.t].name + ' in their top two; ' + a.tasterTypes[x.t] + ' of them want job tasters.</span></li>').join('');
-    body.innerHTML =
-      '<div class="tiles">' +
-        tile('Youths in this group', a.n.toLocaleString('en-SG'), filterText()) +
-        tile('Want job tasters or internships', a.tasters.toLocaleString('en-SG'), Math.round(100 * a.tasters / a.n) + '% of these youths') +
-        tile('Most common interest type', TYPE_INFO[top.t].name, Math.round(100 * top.value / a.n) + '% have it in their top two', true) +
-        tile('Most shortlisted job', topJob.label, Math.round(100 * topJob.value / a.n) + '% have it in their top 10', true) +
-      '</div>' +
-      '<div class="dash-grid">' +
-        barList('dt', 'Interest types', 'Share of youths with each type in their top two', e.types, a.n) +
-        barList('dj', 'Most shortlisted jobs', 'Share of youths with the job in their top 10', e.jobs, a.n, 10) +
-        barList('dv', 'Values chosen', 'Share of youths who picked each value (up to 3 each)', e.values, a.n) +
-        barList('ds', 'Skills to build', 'Share of youths who rated the skill 1 or 2 out of 5', e.skills, a.n) +
-      '</div>' +
-      crossTab(rs) +
-      '<section class="card ideas" aria-labelledby="ideas-t"><div><p class="eyebrow">Using the data</p><h2 id="ideas-t">Job tasters to plan first</h2><p class="small muted" style="margin-top:6px">Based on the three most common interest types in this group.</p>' +
-        '<ol class="idea-list">' + ideas + '</ol></div>' +
-        '<div class="plan"><h3>Planning note</h3><p class="small muted">Written from the counts above, ready to paste into an email or report.</p>' +
-          '<p class="plan-text" id="plan-note">' + esc(planningNote(a, e)) + '</p>' +
-          '<div class="plan-actions"><button class="btn" type="button" data-action="copy-note">Copy note</button><button class="btn" type="button" data-action="csv">Download counts (CSV)</button></div></div>' +
-      '</section>' +
-      recordsTable(rs);
+  function planInput() { const f = document.getElementById('programme-form'); return f ? Object.fromEntries(new FormData(f)) : {}; }
+  function editorRows() { return S.filterRows(records(editor.source), editor.filters, now); }
+  function updateAudience() {
+    const input = planInput(), rs = editorRows(), n = S.audience(rs, input), capacity = Number(input.capacity) || 0;
+    document.getElementById('interest-field').hidden = input.kind === 'workshop';
+    document.getElementById('skill-field').hidden = input.kind !== 'workshop';
+    document.getElementById('audience-preview').innerHTML = '<strong>' + (canReport(rs) && n >= S.MIN_GROUP ? n + ' potential participants' : 'Audience below the reporting threshold') + '</strong><br>' + (canReport(rs) && n >= S.MIN_GROUP ? capacity + ' planned places could accommodate about ' + Math.min(100, S.share(capacity, n)) + '% of this audience.' : 'At least 10 matching responses are needed to show an audience estimate.') + '<p class="sub">' + esc(sourceLabels[editor.source] + ' · ' + S.filterLabel(editor.filters)) + '. Interest is not confirmed attendance.</p>';
   }
-
-  // Grouped counts for the current filters as a spreadsheet file.
-  function downloadCSV() {
-    const rs = filterRows(allRecords());
-    if (rs.length < 10) return;
-    const a = aggregate(rs), e = entriesOf(a);
-    const rows = [['Group', filterText()], ['Youths', a.n], [], ['Measure', 'Item', 'Youths', 'Share of group (%)']];
-    const add = (measure, list) => list.forEach(x => rows.push([measure, x.label, x.value, Math.round(100 * x.value / a.n)]));
-    add('Interest type in top two', e.types);
-    add('Job in top 10', e.jobs.filter(x => x.value > 0));
-    add('Value chosen', e.values);
-    add('Skill rated 1 or 2', e.skills);
-    rows.push(['Job tasters', 'Want job tasters or internships', a.tasters, Math.round(100 * a.tasters / a.n)]);
-    const csv = rows.map(r => r.map(c => { const s = String(c); return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }).join(',')).join('\r\n');
-    const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
-    const link = document.createElement('a');
-    link.href = url; link.download = 'serasi-mock-counts.csv';
-    document.body.appendChild(link); link.click(); link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  function savePlan() {
+    const f = document.getElementById('programme-form'); if (!f.reportValidity()) return;
+    const rs = editorRows(), raw = planInput(), demand = S.audience(rs, raw), timestamp = new Date().toISOString();
+    const plan = S.normalisePlan({ ...editor, ...raw, id: editor.id || 'p-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7), cohortSize: canReport(rs) ? rs.length : 0, demand: canReport(rs) && demand >= S.MIN_GROUP ? demand : 0, createdAt: editor.createdAt || timestamp, updatedAt: timestamp });
+    const error = document.getElementById('plan-error');
+    if (!plan || (!editor.id && plans.length >= 100)) { error.hidden = false; error.textContent = plan ? 'This browser already has 100 drafts. Edit an existing draft.' : 'Add a programme title.'; return; }
+    const next = editor.id ? plans.map(p => p.id === editor.id ? plan : p) : plans.concat(plan);
+    if (!S.writePlans(storage, next)) { error.hidden = false; error.textContent = 'This browser could not save the draft. Check that local storage is available.'; return; }
+    plans = next; dialog.close(); view.tab = 'planner'; view.status = plan.status === 'archived' ? 'archived' : 'active'; render(); toast('Programme draft saved in this browser.');
   }
-
-  function flash(el, text, back) { el.textContent = text; setTimeout(() => { el.textContent = back; }, 1600); }
-
-  /* ---------- Events ---------- */
+  function download(text, name, type) { const url = URL.createObjectURL(new Blob([text], { type })); const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000); }
+  async function copy(text, success) { try { await navigator.clipboard.writeText(text); toast(success); } catch (e) { toast('Copy unavailable. Use the download option.'); } }
+  function showReport() {
+    const rs = rows(), report = S.report(rs, view, sourceLabels[view.source], now); if (!report) return;
+    showDialog(dialogHead('Current cohort', 'A brief for your team') + '<div class="dialog-body"><p class="small muted">This brief and CSV use the filters and data source currently selected.</p><pre class="brief">' + esc(report) + '</pre><div class="report-toolbar">' + button('copy-report', 'Copy brief') + button('download-report', 'Download brief') + button('csv', icon('download') + 'Counts CSV', '', 'primary') + button('copy-view', 'Copy cohort link') + '</div></div>');
+  }
+  function planBrief(p) {
+    return [p.title, kindLabels[p.kind] + ' · ' + statusLabels[p.status], '', 'Proposed date: ' + (p.date || 'To be decided'), 'Planned capacity: ' + p.capacity, 'Data source: ' + sourceLabels[p.source], 'Cohort: ' + S.filterLabel(p.filters), 'Audience at last save: ' + (p.demand >= S.MIN_GROUP ? p.demand + ' potential participants' : 'Hidden; fewer than 10'), 'Last saved: ' + p.updatedAt.slice(0, 10), '', 'Notes:', p.notes || 'No notes yet.', '', 'Local planning draft. Programme delivery, partnerships and attendance are not confirmed.'].join('\n');
+  }
   document.addEventListener('click', ev => {
-    const el = ev.target.closest('[data-action]');
-    if (!el) return;
-    const act = el.dataset.action;
-    if (act === 'copy-note') {
-      const note = document.getElementById('plan-note');
-      try { navigator.clipboard.writeText(note.textContent).then(() => flash(el, 'Copied', 'Copy note'), () => flash(el, 'Couldn’t copy', 'Copy note')); } catch (e) { flash(el, 'Couldn’t copy', 'Copy note'); }
+    const el = ev.target.closest('[data-act]'); if (!el) return;
+    const act = el.dataset.act;
+    if (act === 'tab') { if (!tabs.some(t => t[0] === el.dataset.tab)) return; view.tab = el.dataset.tab; render(); document.getElementById('page-title').focus({ preventScroll: true }); window.scrollTo(0, 0); }
+    if (act === 'more-filters') { view.expanded = !view.expanded; preserve('more-filters'); }
+    if (act === 'reset') { Object.assign(view, S.DEFAULTS, { search: '', limit: 15 }); preserve(); }
+    if (act === 'sample') { view.source = 'sample'; Object.assign(view, S.DEFAULTS); preserve(); }
+    if (act === 'clear-filter') { view[el.dataset.key] = 'all'; preserve(); }
+    if (act === 'filter' && allowed[el.dataset.key]?.includes(el.dataset.value)) { view[el.dataset.key] = el.dataset.value; view.limit = 15; preserve(); }
+    if (act === 'metric') { view.metric = el.dataset.metric; preserve('metric-' + view.metric); }
+    if (act === 'more-jobs') { view.limit += 15; preserve(); }
+    if (act === 'value-info') { const value = C.VALUE[el.dataset.value]; if (value) toast(value.label + ' · selected as one of up to three work values.'); }
+    if (act === 'role') showRole(el.dataset.value);
+    if (act === 'new-plan') openPlan();
+    if (act === 'suggestion') { const s = S.suggestions(rows())[Number(el.dataset.index)]; if (s) openPlan(s); }
+    if (act === 'role-plan') { const t = el.dataset.value; if (S.PROGRAMMES[t]) openPlan({ interest: t, title: S.PROGRAMMES[t][0] }); }
+    if (act === 'edit-plan') { const p = plans.find(p => p.id === el.dataset.id); if (p) openPlan(p); }
+    if (act === 'archive') {
+      const next = plans.map(p => p.id === el.dataset.id ? { ...p, status: p.status === 'archived' ? 'draft' : 'archived', updatedAt: new Date().toISOString() } : p);
+      if (S.writePlans(storage, next)) { plans = next; preserve(); toast('Programme draft updated.'); } else toast('This browser could not save the change.');
     }
-    if (act === 'csv') downloadCSV();
-    if (act === 'reset') {
-      Object.assign(view, { age: 'all', path: 'all', area: 'all' });
-      ['age', 'path', 'area'].forEach(k => { document.getElementById('d-' + k).value = 'all'; });
-      renderDashBody();
-    }
+    if (act === 'plan-brief') { const p = plans.find(p => p.id === el.dataset.id); if (p) showDialog(dialogHead('Saved programme', p.title) + '<div class="dialog-body"><pre class="brief">' + esc(planBrief(p)) + '</pre><div class="actions">' + button('download-plan', 'Download brief', 'data-id="' + esc(p.id) + '"', 'primary') + button('edit-plan', 'Edit draft', 'data-id="' + esc(p.id) + '"') + '</div></div>'); }
+    if (act === 'download-plan') { const p = plans.find(p => p.id === el.dataset.id); if (p) download(planBrief(p), 'serasi-programme-brief.txt', 'text/plain;charset=utf-8'); }
+    if (act === 'report') showReport();
+    if (act === 'copy-report') { const text = S.report(rows(), view, sourceLabels[view.source], now); if (text) copy(text, 'Cohort brief copied.'); }
+    if (act === 'download-report') { const text = S.report(rows(), view, sourceLabels[view.source], now); if (text) download(text, 'serasi-cohort-brief.txt', 'text/plain;charset=utf-8'); }
+    if (act === 'csv') { const data = S.csvRows(rows(), view, sourceLabels[view.source]); if (data) download(S.toCSV(data), 'serasi-' + view.source + '-counts.csv', 'text/csv;charset=utf-8'); }
+    if (act === 'copy-view') copy(location.href, 'Cohort link copied. It contains filters, not individual records.');
+    if (act === 'close-dialog') dialog.close();
   });
-
+  document.addEventListener('submit', ev => { if (ev.target.id === 'programme-form') { ev.preventDefault(); savePlan(); } });
   document.addEventListener('change', ev => {
     const t = ev.target;
-    if (!t.dataset || !t.dataset.view) return;
-    view[t.dataset.view] = t.value;
-    renderDashBody();
-    if (t.id === 'd-by') { const s = document.getElementById('d-by'); if (s) s.focus(); }
+    if (t.dataset.filter && allowed[t.dataset.filter].includes(t.value)) { view[t.dataset.filter] = t.value; view.limit = 15; preserve(t.id); }
+    if (t.id === 'data-source') { view.source = t.value; preserve(t.id); }
+    if (t.id === 'breakdown') { view.by = t.value; preserve(t.id); }
+    if (t.id === 'career-sort') { view.sort = t.value; preserve(t.id); }
+    if (t.id === 'plan-status') { view.status = t.value; preserve(t.id); }
+    if (t.closest('#programme-form')) updateAudience();
   });
-
-  document.addEventListener('pointerover', ev => {
-    const tip = document.getElementById('tip');
-    if (!tip) return;
-    const row = ev.target.closest && ev.target.closest('.bar-row');
-    if (!row) { tip.hidden = true; return; }
-    tip.textContent = row.dataset.tip;
-    tip.hidden = false;
+  document.addEventListener('input', ev => {
+    const t = ev.target;
+    if (t.id === 'career-search') { const start = t.selectionStart; view.search = t.value; view.limit = 15; preserve(t.id); const input = document.getElementById(t.id); if (typeof start === 'number') input.setSelectionRange(start, start); }
+    if (t.id === 'plan-capacity') updateAudience();
   });
-  document.addEventListener('pointermove', ev => {
-    const tip = document.getElementById('tip');
-    if (!tip || tip.hidden) return;
-    tip.style.left = Math.max(8, Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8)) + 'px';
-    tip.style.top = (ev.clientY + 16) + 'px';
-  });
-
-  // A youth sharing or un-sharing in another tab of this browser updates the counts straight away.
-  window.addEventListener('storage', ev => {
-    if (ev.key !== null && ev.key !== SHARED_KEY) return;
-    renderSource();
-    renderDashBody();
-  });
-
-  renderPage();
+  window.addEventListener('storage', ev => { if (ev.key === S.PLAN_KEY || ev.key === null) plans = S.readPlans(storage); if ([null, C.SHARED_KEY, S.PLAN_KEY].includes(ev.key)) { preserve(); if (dialog.open && document.getElementById('programme-form')) updateAudience(); } });
+  window.addEventListener('hashchange', () => { const tab = location.hash.slice(1); if (tabs.some(t => t[0] === tab)) { view.tab = tab; render(); } });
+  render();
 })();
 </script>
 </body>
