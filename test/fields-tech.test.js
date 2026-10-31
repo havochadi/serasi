@@ -127,8 +127,13 @@ test('degrees: data and AI roles get NUS, NTU, SUTD and SIT; civil, mechanical a
 test('the quantity surveyor and the computing, cybersecurity and marine roles have no degree listed (their routes end at a diploma)', () => {
   for (const id of ['qs', 'software-eng', 'cyber', 'marine-eng']) assert.deepEqual(schoolsFor(id, 3), [], id);
 });
-test('SIT fees are null where its pages could not be read, and the other degrees carry a fee with a source', () => {
+test('degree fees have sources where available, including SIT Applied AI’s published total', () => {
   for (const c of L.COURSES.filter(c => c.lvl === 3 && FIELD_IDS.some(f => c.fields.includes(f)))) {
-    if (c.school === 'SIT') assert.equal(c.fee, null, c.course); else { assert.ok(c.fee > 8000, c.course); assert.ok(c.src.length > 0, c.course); }
+    if (c.school === 'SIT' && c.fields.includes('data-ai')) {
+      assert.equal(c.fee * c.yrs, 125 * 180);
+      assert.match(c.note, /annual average.*billed by credits/);
+      assert.ok(c.src.includes('fee-sit-ai26'));
+    } else if (c.school === 'SIT') assert.equal(c.fee, null, c.course);
+    else { assert.ok(c.fee > 8000, c.course); assert.ok(c.src.length > 0, c.course); }
   }
 });

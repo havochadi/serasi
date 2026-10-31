@@ -655,6 +655,57 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .schools .s-m { font-size: .74rem; color: var(--muted); }
 .schools .pill { font-size: .68rem; padding: 1px 8px; }
 .schools a { font-size: .74rem; }
+
+/* Shortest path: one next action, a compact route, then optional detail. */
+.path-panel { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.path-overview { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px; background: var(--accent-soft); border-radius: 14px; }
+.path-overview h3 { margin: 6px 0; font-family: var(--font-display); font-size: 1.4rem; line-height: 1.25; color: var(--ink); }
+.path-overview p { margin: 0; max-width: 55ch; font-size: .82rem; color: var(--ink-2); }
+.path-overview .eyebrow { font-size: .65rem; }
+.path-actions { display: flex; flex-direction: column; align-items: center; gap: 9px; flex-shrink: 0; }
+.path-actions .btn { font-size: .76rem; min-height: 44px; text-align: center; }
+.path-coach { font-size: .72rem; color: var(--accent); text-underline-offset: 3px; }
+.path-facts { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: .74rem; }
+.path-facts b { font-weight: 500; color: var(--ink-2); }
+.path-panel .steps-path { gap: 0; }
+.path-panel .steps-path > li { grid-template-columns: 1.7rem minmax(0, 1fr); padding-bottom: 18px; }
+.path-panel .steps-path > li:last-child { padding-bottom: 0; }
+.path-panel .steps-path > li::before { width: 1.7rem; height: 1.7rem; font-size: .72rem; background: var(--surface); border: 1px solid #B8C8AE; color: var(--accent); grid-row: auto; }
+.path-panel .steps-path > li::after { left: calc(.85rem - 1px); top: 1.8rem; bottom: 2px; }
+.path-step { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.path-step .s-t { font-size: .85rem; }
+.path-step .s-n { margin: 0; max-width: 86ch; font-size: .77rem; line-height: 1.5; }
+.path-note { margin: 0; font-size: .7rem; color: var(--muted); }
+.path-options { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.path-disclosure + .path-disclosure { border-top: 1px solid var(--line); }
+.path-disclosure > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 64px; padding: 14px 18px; cursor: pointer; }
+.path-disclosure > summary::-webkit-details-marker { display: none; }
+.path-disclosure > summary:hover { background: var(--surface-2); }
+.path-disclosure > summary b { display: block; font-size: .82rem; font-weight: 600; color: var(--ink); }
+.path-disclosure > summary small { display: block; font-size: .71rem; color: var(--muted); margin-top: 2px; }
+.path-plus { font-size: 1.3rem; font-weight: 400; color: var(--accent); }
+.path-disclosure[open] > summary .path-plus { transform: rotate(45deg); }
+.path-detail-body { padding: 4px 18px 18px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.path-detail-body > .src { margin: 0; }
+.path-course-group h5 { margin: 0 0 10px; font-size: .8rem; color: var(--ink); }
+.path-course-group + .path-course-group { margin-top: 8px; }
+.path-course-group .schools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.path-course-group .schools li { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; padding: 13px; }
+.path-course-group .schools .s-c { line-height: 1.4; }
+.path-course-group .schools a { margin-top: auto; padding-top: 5px; min-height: 32px; }
+.path-course-group > .small { margin: 10px 0 0; }
+.path-panel .qa { font-size: .8rem; line-height: 1.55; }
+@media (max-width: 680px) {
+  .path-overview { flex-direction: column; align-items: stretch; gap: 14px; padding: 16px; }
+  .path-overview h3 { font-size: 1.25rem; }
+  .path-actions { align-items: stretch; }
+  .path-coach { align-self: center; }
+  .path-facts { flex-direction: column; gap: 4px; }
+  .path-course-group .schools { grid-template-columns: minmax(0, 1fr); }
+  .path-disclosure > summary { padding: 13px 14px; }
+  .path-detail-body { padding: 0 14px 14px; }
+}
+
 /* Overseas: the best place to study as a highlighted card, then the alternatives as short rows (serasi-overseas.js) */
 .overseas { display: flex; flex-direction: column; gap: 10px; }
 .overseas > h4 { margin-bottom: 0; }
@@ -910,15 +961,15 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     } else if (role.trk === 'medicine' && (working || cur === 3)) {
       steps.push({ t: 'Graduate-entry medicine at Duke-NUS (4-year MD)', n: 'Duke-NUS takes graduates from any field. With a degree you can also apply to the NUS or NTU MBBS.', yrs: 4, fee: 'check', schools: role.edu });
     } else if (working) {
-      steps.push({ t: 'Check what you already have', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (STRICT.includes(role.trk) ? ' in this field' : '') + '. If you have it, skip the next step.', yrs: 0, done: true });
+      steps.push({ t: 'Check your existing qualification', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (STRICT.includes(role.trk) ? ' in this field' : '') + '. If yours meets the entry requirements, skip the study step.', yrs: 0, done: true });
       steps.push({ t: 'Study for it: ' + lowerFirst(course(role.edu) || 'a related course'), n: 'ITE, the polytechnics and SUSS run many part-time courses with SkillsFuture subsidies, so you can keep earning; some courses are full-time only.', yrs: yrsOf(role.edu), fee: 'pt', schools: role.edu });
     } else {
       // A diploma or degree only counts if it's in the right field, so offer the matching course as another route.
       if (cur >= role.edu) {
         const strict = STRICT.includes(role.trk);
-        steps.push({ t: 'If your ' + ['', 'ITE course', 'diploma', 'degree'][cur] + ' is in ' + (strict ? 'this field' : 'a related field') + ', you already qualify', n: 'Most ' + lowerTitle(role.title) + ' jobs ask for ' + EDU_LABEL[role.edu] + (strict ? ' in this field.' : ' in a related field.'), yrs: 0, done: true, schools: role.edu });
+        steps.push({ t: 'Check your existing qualification', n: 'Your ' + ['', 'ITE qualification', 'diploma', 'degree'][cur] + ' may meet the education requirement if it is in ' + (strict ? 'this field' : 'a related field') + '. Check the job’s entry requirements.', yrs: 0, done: true, schools: role.edu });
         if (role.trk === 'law' && cur === 3) alts.push('With a degree in another field: the Juris Doctor (JD) at SMU, a law degree for graduates.');
-        else if (role.trk !== 'public' && course(role.edu)) alts.push('If your qualification is in another field: ' + lowerFirst(course(role.edu)) + '. Graduates of other fields often take this route, and some employers sponsor it.');
+        else if (role.trk !== 'public' && course(role.edu)) alts.push('Changing fields? Compare entry requirements before choosing ' + lowerFirst(course(role.edu)) + (strict ? '. Check the required professional qualification before enrolling.' : '. You may only need targeted training.'));
       }
       for (let lvl = cur + 1; lvl <= role.edu; lvl++) study(lvl, fromHere(lvl));
       if (cur === 1 && role.edu >= 2) alts.push('Work-Study Diploma: start work after ITE and earn the diploma while your employer pays the fees.');
@@ -926,7 +977,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     }
     const licence = pc.licence || T.licence;
     if (licence && !(T.custom === 'uniformed')) steps.push({ t: 'Get registered or licensed', n: licence, yrs: 0 });
-    steps.push({ t: 'Apply for jobs', n: 'Use the job searches on the “Why it fits” tab. Ask employers about sponsorship and in-house training.', yrs: 0 });
+    steps.push({ t: 'Apply for jobs', n: 'Compare current openings, tailor your CV and apply. Ask about training if you have skill gaps.', yrs: 0 });
     return { steps, alts, T, years: steps.reduce((a, s) => a + (s.yrs || 0), 0) };
   }
 
@@ -971,21 +1022,34 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     return '<p class="small muted">Fresh-graduate pay: the median starting salary for ' + PAY[k].t + ' was ' + money(PAY[k].v) + ' a month in 2025. Job ads on MyCareersFuture show the range for this job.</p>' + srcLinks([k.startsWith('poly') ? 'ges25p' : 'ges25']);
   }
 
+  const pathSections = new Set();
+
   function pathPanel(s, p) {
     const r = s.role, path = pathFor(r, p), cost = pathCost(path, p), T = path.T;
     const studySteps = path.steps.filter(x => x.lvl);
     const levels = studySteps.map(x => x.fee);
-    const sum = '<p class="path-sum"><span class="pill good">' + (path.years ? 'About ' + fmtYears(path.years) + ' of study or training' : path.steps.some(x => x.done) ? 'No more study if your qualification is related' : 'No more study needed') + '</span>' +
-      (cost.total ? '<span class="pill">Course fees about ' + money(cost.total) + '</span>' : '') + '<span class="small muted">Starting from: ' + esc(PATH[p.pathway].label) + '</span></p>';
-    const meta = st => [st.yrs ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'paid, no fees' : st.fee === 'funded' ? 'funded by MOE, no fees' : st.fee === 'pt' ? 'part-time, subsidised' : st.fee === 'check' ? 'fees differ; check the school' : st.fee ? 'about ' + money(FEES[st.fee].yr) + ' a year' : ''].filter(Boolean).join(' · ');
-    // Every public school that teaches the course at this step's level (lvl), or at the role's own level on a step that only points to
-    // schools (schools: level, with no fee of its own); nothing when none is listed.
-    const schools = st => {
-      const list = st.lvl || st.schools ? SerasiLocal.html(r, st.lvl || st.schools, { esc, money }) : '';
-      return list ? '<div class="s-schools">' + (st.lvl ? '' : '<p class="small muted">Schools that teach it</p>') + list + '</div>' : '';
-    };
-    const steps = '<ol class="steps-path">' + path.steps.map(st => '<li' + (st.done ? ' class="done"' : '') + '><span class="s-t">' + esc(st.t) + '</span>' +
-      (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') + (st.n ? '<span class="s-n">' + esc(st.n) + '</span>' : '') + schools(st) + '</li>').join('') + '</ol>';
+    const hasQualification = path.steps.some(x => x.done);
+    const schoolLevels = uniq(path.steps.map(x => x.lvl || x.schools));
+    const courseCount = schoolLevels.reduce((n, lvl) => n + SerasiLocal.forRole(r, lvl).length, 0);
+    const needsStudy = path.steps.some(x => x.lvl || x.fee === 'pt' || x.fee === 'check');
+    const headline = hasQualification ? 'Start with what you already have' : needsStudy ? 'Build the qualification you need' : 'Start with the entry requirements';
+    const intro = hasQualification ? 'Check how your qualification matches this role before choosing more study.'
+      : needsStudy ? 'Compare entry requirements, then choose a course that fits your starting point.'
+      : 'Check eligibility with the employer or professional body before you apply.';
+    const duration = path.years ? 'About ' + fmtYears(path.years) + ' of study or training' : hasQualification ? 'Further study may not be needed' : 'Training time varies';
+    const jump = (key, label) => '<button class="btn ghost" type="button" data-action="path-section" data-section="' + key + '">' + label + '</button>';
+    const sum = '<header class="path-overview"><div><span class="eyebrow">Your next move</span><h3>' + headline + '</h3><p>' + intro + '</p></div>' +
+      '<div class="path-actions">' + (needsStudy && courseCount ? jump('courses', 'Explore courses') : '<a class="btn primary" href="' + esc(PORTALS.mcf.url(r.q || r.title)) + '" target="_blank" rel="noopener">Check job requirements ↗</a>') +
+      '<a class="path-coach" href="' + esc(CONTACTS.e2i.url) + '" target="_blank" rel="noopener">Talk to a career coach ↗</a></div></header>' +
+      '<div class="path-facts"><span>From <b>' + esc(PATH[p.pathway].label) + '</b></span><span>' + duration + '</span></div>';
+    const meta = st => [st.yrs && !st.t.includes(fmtYears(st.yrs)) ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'Paid training' : st.fee === 'funded' ? 'MOE-funded' : st.fee === 'pt' ? 'Check part-time options' : ''].filter(Boolean).join(' · ');
+    const steps = '<ol class="steps-path">' + path.steps.map(st => '<li><div class="path-step"><span class="s-t">' + esc(st.t) + '</span>' +
+      (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') +
+      (st.n ? '<p class="s-n">' + esc(st.n) + '</p>' : '') + '</div></li>').join('') + '</ol>';
+    const courses = schoolLevels.map(lvl => {
+      const list = SerasiLocal.html(r, lvl, { esc, money });
+      return list ? '<div class="path-course-group"><h5>' + ['', 'ITE courses', 'Diplomas', 'Degrees'][lvl] + '</h5>' + list + '</div>' : '';
+    }).join('');
     const extras = path.alts.concat(T.later ? [T.later] : [], T.note ? [T.note] : []);
 
     let table = '';
@@ -1003,13 +1067,13 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
       const row = x => '<tr><th scope="row">' + esc(FEES[x.s.fee].label) + ' · ' + fmtYears(x.s.yrs) + '</th><td class="num">' + money(x.per) + '</td><td class="num">' + money(x.total) + '</td>' + (showAfter ? '<td class="num">' + (x.after == null ? '–' : money(x.after)) + '</td>' : '') + '</tr>';
       table = '<div class="income-field"><label for="inc-' + r.id + '">Household income per person each month</label><select id="inc-' + r.id + '" data-income="1">' +
           INCOME.map(b => '<option value="' + b.k + '"' + (b.k === state.income ? ' selected' : '') + '>' + esc(b.label) + '</option>').join('') + '</select>' +
-          '<span class="muted">Optional, to estimate TTFS and bursaries. Total monthly household income ÷ number of people. It stays on this device and is never shared.</span></div>' +
+          '<span class="muted">Optional · household income ÷ household size. Saved only on this device; never shared.</span></div>' +
         '<div class="table-wrap"><table class="tbl cost-tbl"><thead><tr><th scope="col">Study step</th><th scope="col" class="num">Fees a year</th><th scope="col" class="num">Total fees</th>' + (showAfter ? '<th scope="col" class="num">After help (estimate)</th>' : '') + '</tr></thead><tbody>' +
         feeRows.map(row).join('') +
         (cost.ipa ? '<tr><th scope="row">ITE Progression Award (into your PSEA)</th><td></td><td></td><td class="num">−' + money(cost.ipa) + '</td></tr>' : '') +
         '</tbody><tfoot><tr><th scope="row">Total</th><td></td><td class="num">' + money(cost.total) + '</td>' + (showAfter ? '<td class="num">' + money(cost.after != null ? cost.after : Math.max(0, cost.total - cost.ipa)) + '</td>' : '') + '</tr></tfoot></table></div>' +
-        '<p class="small muted">Fees are for Singapore Citizens after the MOE Tuition Grant. This table uses the usual fee for students starting in 2025–26; the school fees listed above come from each school’s own page, checked in October 2026. Fees are fixed for your whole course. ' +
-          (cost.after == null && cost.local ? 'Choose your household income above to see TTFS and bursaries taken off.' : cost.after != null ? 'Estimate assumes you’re Malay and get both TTFS and the bursary for your income band; your school confirms the final amount.' : '') + '</p>' +
+        '<p class="small muted">Planning estimate for Singapore Citizens after the Tuition Grant, using 2026 fee references. Course fees and extra charges vary; confirm the intake and total with your school. ' +
+          (cost.after == null && cost.local ? 'Choose your household income above to see TTFS and bursaries taken off.' : cost.after != null ? 'Aid is an estimate, subject to TTFS and bursary eligibility. Your school confirms the amount.' : '') + '</p>' +
         differNote +
         srcLinks(uniq(feeRows.map(x => FEES[x.s.fee].src)).concat(cost.local ? ['ttfs26', 'burs-poly', 'burs-uni'] : [], localSrc));
     }
@@ -1028,13 +1092,18 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const abroadLinks = ov && ov.best ? [ov.best].concat(ov.alts).flatMap(o => o.links || []) : [];
 
     const contacts = uniq((T.contacts || []).concat((r.pc || {}).org ? [ORG[r.pc.org][1]] : [], helpKeys.map(k => HELP[k].c), abroadLinks, ['e2i']));
-    return '<div class="col">' +
-      '<div><h4>Your shortest path</h4>' + sum + '</div>' + steps +
-      (extras.length ? '<div><h4>Other routes and tips</h4><ul class="qa">' + extras.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') +
-      (table ? '<div><h4>Price breakdown</h4>' + table + '</div>' : (localSrc.length ? '<div><h4>School fees</h4>' + srcLinks(localSrc) + '</div>' : '')) +
-      help + payHint(r) + abroad +
-      '<div><h4>Find out more</h4>' + contactList(contacts) + '</div>' +
-    '</div>';
+    const section = (key, title, hint, body) => body ? '<details class="path-disclosure" data-path-key="' + r.id + ':' + key + '" data-path-section="' + key + '"' + (pathSections.has(r.id + ':' + key) ? ' open' : '') + '><summary><span><b>' + title + '</b><small>' + hint + '</small></span><span class="path-plus" aria-hidden="true">+</span></summary><div class="path-detail-body">' + body + '</div></details>' : '';
+    const finance = table + help;
+    return '<div class="path-panel">' + sum + steps +
+      '<p class="path-note">Suggested route. Your field, experience and course exemptions can change the steps.</p>' +
+      '<div class="path-options">' +
+      section('courses', hasQualification ? 'Need to change fields?' : 'Compare local courses', courseCount + ' course' + (courseCount === 1 ? '' : 's') + ' · entry requirements and fees', courses + (courses ? srcLinks(localSrc) : '')) +
+      section('costs', 'Fees & funding', cost.total ? 'About ' + money(cost.total) + ' before additional aid · planning estimate' : 'Subsidies and sponsorship options', finance) +
+      section('alternatives', 'Other ways in', 'Work-study, alternative routes and tips', extras.length ? '<ul class="qa">' + extras.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '') +
+      section('overseas', 'Considering overseas study?', 'Compare courses, costs and recognition', abroad) +
+      section('contacts', 'Useful contacts', 'Admissions, professional bodies and career support', contactList(contacts)) +
+      '</div></div>';
+
   }
 
   // Places where the role's industry is growing, steady or shrinking.
@@ -1717,7 +1786,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const r = s.role, t = lowerTitle(r.title);
     const pp = stage ? Object.assign({}, p, { pathway: stage }) : p;
     const path = pathFor(r, pp), cost = pathCost(path, pp);
-    const lines = [(isTop ? 'For your top match, ' + t + ': the ' : 'The ') + 'shortest path to ' + (r.trk === 'uniformed' ? 'join as ' : 'become ') + article(t) + ' ' + t + ', starting from ' + STAGE_FROM[pp.pathway] + ', takes ' + (path.years ? 'about ' + fmtYears(path.years) + ' of study or training.' : 'no more study.')];
+    const lines = [(isTop ? 'For your top match, ' + t + ': the ' : 'The ') + 'shortest path to ' + (r.trk === 'uniformed' ? 'join as ' : 'become ') + article(t) + ' ' + t + ', starting from ' + STAGE_FROM[pp.pathway] + ', takes ' + (path.years ? 'about ' + fmtYears(path.years) + ' of study or training.' : 'no additional study if you already meet the entry requirements; check any training or registration with the provider.')];
     path.steps.forEach((st, i) => lines.push((i + 1) + '. ' + st.t + (st.n && !st.done && i < path.steps.length - 1 ? '. ' + st.n : '')));
     if (cost.total) lines.push('Course fees: about ' + money(cost.total) + ' in total' + (cost.after != null ? ', or about ' + money(cost.after) + ' after help for your income band.' : ' before TTFS and bursaries.'));
     if (path.alts[0]) lines.push('Another route: ' + path.alts[0]);
@@ -2606,7 +2675,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
         '<h2>Ask Serasi</h2>' +
         '<p>Ask Serasi is an AI career guide powered by Google Gemini. It answers questions about careers and jobs only. With each question it sends a summary of your results: your scores, values, skill ratings, pathway and job list. Your name, age, area and personal preferences are never sent. Google may use what is sent to improve its products, so don’t type personal details, and remember that AI answers can be wrong. The summary also includes the shortest path, costs and world notes for your top jobs, but never your household-income band. If the AI can’t be reached, Serasi answers on your device instead: it can still handle questions about any of the ' + ROLES.length + ' jobs, routes and costs, subsidies, studying or working overseas, pay, interviews and your results, in English or Malay.</p>' +
         '<h2>Shortest paths and costs</h2>' +
-        '<p>Each job shows the quickest route from your current qualification, including overseas options, with fees for Singapore Citizens after the MOE Tuition Grant, MENDAKI’s TTFS, government bursaries, the ITE Progression Award and sponsorships. If you choose your household income band to estimate help, it stays on this device and is never shared. Fees and subsidies were checked in October 2026; your school confirms the final amounts.</p>' +
+        '<p>Each job suggests a route from your qualification level. Your field, experience and exemptions may change it. Expand the course and funding sections for local and overseas options, with fees for Singapore Citizens after the MOE Tuition Grant, MENDAKI’s TTFS, government bursaries, the ITE Progression Award and sponsorships. If you choose your household income band to estimate help, it stays on this device and is never shared. Fees and subsidies were checked in October 2026; your school confirms the final amounts.</p>' +
         '<h2>World map</h2>' +
         '<p>The world map shows where each industry is growing, steady or shrinking, by country and by city, from reports and news checked in October 2026. Each note links to its source. The globe’s map shapes load from public code libraries when you open it. Job markets change quickly, so check current news and visa rules before you move.</p>' +
         '<h2>Locked scores</h2>' +
@@ -2892,6 +2961,16 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     }
     if (act === 'country') selectCountry(el.dataset.iso, { focus: true });
     if (act === 'world-clear') showList(true);
+    if (act === 'path-section') {
+      const panel = el.closest('.path-panel');
+      const details = panel && panel.querySelector('[data-path-section="' + el.dataset.section + '"]');
+      if (details) {
+        details.open = true;
+        pathSections.add(details.dataset.pathKey);
+        details.querySelector('summary').focus({ preventScroll: true });
+        details.scrollIntoView({ block: 'nearest', behavior: reduceMotion() ? 'auto' : 'smooth' });
+      }
+    }
     if (act === 'role-tab') {
       const owner = el.closest('section').id;
       const headTop = (el.closest('li') || el).getBoundingClientRect().top;   // keep the job where it is on screen while its tab changes
@@ -2973,6 +3052,13 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     if (id === 'start-form') { ev.preventDefault(); submitStart(); }
   });
 
+  document.addEventListener('toggle', ev => {
+    const t = ev.target;
+    if (!t.isConnected || !t.dataset.pathKey) return;
+    if (t.open) pathSections.add(t.dataset.pathKey);
+    else pathSections.delete(t.dataset.pathKey);
+  }, true);
+
   document.addEventListener('change', ev => {
     const t = ev.target, a = state.answers;
     if (t.type === 'radio') {
@@ -2995,9 +3081,12 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     if (t.dataset.income) {
       state.income = t.value;
       if (!state.example) save();
-      const id = t.id;
+      const id = t.id, top = t.getBoundingClientRect().top;
+      const details = t.closest('[data-path-key]');
+      if (details) pathSections.add(details.dataset.pathKey);
       renderLists();
-      const sel = document.getElementById(id); if (sel) sel.focus();
+      const sel = document.getElementById(id);
+      if (sel) { window.scrollBy(0, sel.getBoundingClientRect().top - top); sel.focus({ preventScroll: true }); }
     }
   });
 

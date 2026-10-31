@@ -63,7 +63,8 @@ test('html lists each course with school, course, years, fee, link and the fee n
   assert.match(out, /3 years/); assert.match(out, /\$3,180 a year/);
   assert.match(out, /3½ years/); assert.match(out, /\$8,250 a year/);
   assert.match(out, /<a href="https:\/\/example\.sg\/c" target="_blank" rel="noopener">course page ↗<\/a>/);
-  assert.match(out, /Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools' fee pages in October 2026 \(sources below\)\. A note beside a fee says how it was worked out\. The links go to the course pages\./);
+  assert.match(out, /SG Citizen fees after the Tuition Grant · 2026 references unless noted/);
+  assert.match(out, /Confirm your intake’s fees and entry requirements on the course page/);
 });
 test('html says 1 year for a one-year course', () => assert.match(L.html(ROLE['data-sci'], 2, h, [course({ yrs: 1 })]), /1 year[^s]/));
 test('a course with no fee points to the school page, with no null or undefined', () => {

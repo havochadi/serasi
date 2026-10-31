@@ -10,6 +10,7 @@
 
   /* Fee pages for the courses below, checked in October 2026. Singapore Polytechnic's is 'fee-poly' in serasi-pathways.js. */
   Object.assign(window.SerasiPathways.SOURCES, {
+    'fee-sit-ai26': ['SIT, Applied Artificial Intelligence fees: $125 per credit, 180 credits (AY2026; checked 31 October 2026)', 'https://www.singaporetech.edu.sg/undergraduate-programmes/applied-artificial-intelligence'],
     'fee-np26': ['Ngee Ann Polytechnic, full-time diploma fees for AY2026', 'https://np.edu.sg/admissions-enrolment/academic-matters/course-fees'],
     'fee-nyp26': ['Nanyang Polytechnic, annual course fees for AY2026', 'https://www.nyp.edu.sg/student/study/financial-matters/annual-course-fees'],
     'fee-tp26': ['Temasek Polytechnic, full-time diploma fees for AY2026/2027', 'https://www.tp.edu.sg/admissions-and-finance/fees-financial-matters.html'],
@@ -268,7 +269,7 @@
     { school: 'NUS', course: 'Bachelor of Science in Business Analytics', lvl: 3, yrs: 4, fee: 8300, fields: ['data-ai'], url: 'https://www.comp.nus.edu.sg/programmes/ug/ba/', src: ['fee-nus26'] },
     { school: 'NTU', course: 'Bachelor of Science in Data Science and Artificial Intelligence', lvl: 3, yrs: 4, fee: 8300, fields: ['data-ai'], url: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-data-science-artificial-intelligence', src: ['fee-ntu'] },
     { school: 'SUTD', course: 'Bachelor of Science in Design and Artificial Intelligence', lvl: 3, yrs: 3.5, fee: 13500, fields: ['data-ai'], url: 'https://www.sutd.edu.sg/dai/education/undergraduate/curriculum/', src: ['fee-sutd26'] },
-    { school: 'SIT', course: 'Bachelor of Science with Honours in Applied Artificial Intelligence', lvl: 3, yrs: 3, fee: null, fields: ['data-ai'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/applied-artificial-intelligence' },
+    { school: 'SIT', course: 'Bachelor of Science with Honours in Applied Artificial Intelligence', lvl: 3, yrs: 3, fee: 7500, note: 'annual average: $22,500 total over 3 years; billed by credits taken', fields: ['data-ai'], url: 'https://www.singaporetech.edu.sg/undergraduate-programmes/applied-artificial-intelligence', src: ['fee-sit-ai26'] },
 
     // Civil engineering. Only the civil engineer needs a degree: the quantity surveyor's diploma is enough.
     { school: 'NUS', course: 'Bachelor of Engineering (Civil Engineering)', lvl: 3, yrs: 4, fee: 8300, fields: ['civil-eng'], roles: ['civil-eng'], url: 'https://cde.nus.edu.sg/cee/undergraduate/', src: ['fee-nus26'] },
@@ -458,7 +459,7 @@
       (c.mode ? ' <span class="pill">' + esc(c.mode) + '</span>' : '') +
       ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener">course page ↗</a></li>').join('');
     return '<ul class="schools">' + items + '</ul>' +
-      '<p class="small muted">Yearly fees are for Singapore Citizens after the MOE Tuition Grant, taken from the schools\' fee pages in October 2026 (sources below). A note beside a fee says how it was worked out. The links go to the course pages.</p>';
+      '<p class="small muted">SG Citizen fees after the Tuition Grant · 2026 references unless noted. Confirm your intake’s fees and entry requirements on the course page.</p>';
   }
 
   window.SerasiLocal = { SCHOOLS, COURSES, forRole, spread, html };
