@@ -1,0 +1,104 @@
+{
+  "ite": {
+    "file": "ite.png",
+    "source": "https://isomer-user-content.by.gov.sg/145/a78ce53f-5c5e-4fc7-812a-a91fff1359d7/ITE%20Logo%20%28FL%29Pantone-01.png",
+    "page": "https://www.ite.edu.sg",
+    "bytes": 42909
+  },
+  "sp": {
+    "file": "sp.png",
+    "source": "https://www.sp.edu.sg/images/default-source/logos/logo.png?Status=Master&sfvrsn=6447b33_3",
+    "page": "https://www.sp.edu.sg",
+    "bytes": 2518
+  },
+  "nyp": {
+    "file": "nyp.svg",
+    "source": "https://www.nyp.edu.sg/content/dam/nypcorp/sg/en/common/logo-nyp.svg",
+    "page": "https://www.nyp.edu.sg/main",
+    "bytes": 105020
+  },
+  "rp": {
+    "file": "rp.png",
+    "source": "https://isomer-user-content.by.gov.sg/397/debea305-557f-462b-8c58-d21400ce1ec3/rp-logo.png",
+    "page": "https://www.rp.edu.sg",
+    "bytes": 15228
+  },
+  "tp": {
+    "file": "tp.svg",
+    "source": "https://www.tp.edu.sg/content/dam/tp-web/homepage-images/tplogo.svg",
+    "page": "https://www.tp.edu.sg",
+    "bytes": 10762
+  },
+  "nus": {
+    "file": "nus.png",
+    "source": "https://www.nus.edu.sg/images/default-source/base/logo.png",
+    "page": "https://www.nus.edu.sg",
+    "bytes": 26329
+  },
+  "ntu": {
+    "file": "ntu.png",
+    "source": "https://www.ntu.edu.sg/ResourcePackages/NTU/assets/images/NTU_Logo.png",
+    "page": "https://www.ntu.edu.sg",
+    "bytes": 357899
+  },
+  "sutd": {
+    "file": "sutd.png",
+    "source": "https://www.sutd.edu.sg/wp-content/uploads/2024/10/SUTDLogo_Dark%402x.png",
+    "page": "https://www.sutd.edu.sg",
+    "bytes": 20137
+  },
+  "lasalle": {
+    "file": "lasalle.svg",
+    "source": "https://uas.edu.sg/ResourcePackages/UAS/assets/dist/images/lasalle-logo-hd.svg",
+    "page": "https://uas.edu.sg/",
+    "bytes": 6544
+  },
+  "nafa": {
+    "file": "nafa.svg",
+    "source": "https://www.nafa.edu.sg/nafa-corp/theme/default/images/nafa-logo.svg",
+    "page": "https://www.nafa.edu.sg",
+    "bytes": 14423
+  },
+  "uas": {
+    "file": "uas.svg",
+    "source": "https://uas.edu.sg/ResourcePackages/UAS/assets/dist/images/uas-logo-hd.svg",
+    "page": "https://uas.edu.sg/",
+    "bytes": 9815
+  },
+  "nie": {
+    "file": "nie.png",
+    "source": "https://www.ntu.edu.sg/ResourcePackages/NTU/assets/images/nie-logo.png",
+    "page": "https://www.ntu.edu.sg/nie",
+    "bytes": 33862
+  },
+  "np": {
+    "file": "np.png",
+    "source": "https://assets.app.optical.gov.sg/np/production/published/collections/pages/17c64bb4-8632-49e9-af16-047f7cabe99a/ab16008f-a6a0-466e-9193-e16e947261b0.png",
+    "page": "https://www.np.edu.sg",
+    "bytes": 16798
+  },
+  "smu": {
+    "file": "smu.png",
+    "source": "https://www.ecgi.global/sites/default/files/styles/logo/public/2024-04/smu-logo.png?itok=suYZpKnU",
+    "page": "https://www.ecgi.global/network/institutions/singapore-management-university",
+    "bytes": 106830
+  },
+  "sit": {
+    "file": "sit.png",
+    "source": "https://international-sustainable-campus-network.org/wp-content/uploads/2024/10/Singapore-Institute-of-Technology_logo-750x750.png",
+    "page": "https://international-sustainable-campus-network.org/membership/singapore-institute-of-technology/",
+    "bytes": 14893
+  },
+  "suss": {
+    "file": "suss.webp",
+    "source": "https://dxwiommx31r42.cloudfront.net/shrine_store/uploads/networks/732/networks/732/wide-e7480e998705567a47ddd4e815a854db.webp",
+    "page": "https://sussconnect.suss.edu.sg/",
+    "bytes": 42684
+  },
+  "duke-nus": {
+    "file": "duke-nus.jpg",
+    "source": "https://pbs.twimg.com/profile_images/1083188422770970624/EFxjzQCl.jpg",
+    "page": "https://x.com/dukenus",
+    "bytes": 24875
+  }
+}

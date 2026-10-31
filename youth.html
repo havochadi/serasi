@@ -656,17 +656,35 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .schools .pill { font-size: .68rem; padding: 1px 8px; }
 .schools a { font-size: .74rem; }
 
-/* Shortest path: one next action, a compact route, then optional detail. */
-.path-panel { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
-.path-overview { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px; background: var(--accent-soft); border-radius: 14px; }
-.path-overview h3 { margin: 6px 0; font-family: var(--font-display); font-size: 1.4rem; line-height: 1.25; color: var(--ink); }
-.path-overview p { margin: 0; max-width: 55ch; font-size: .82rem; color: var(--ink-2); }
-.path-overview .eyebrow { font-size: .65rem; }
-.path-actions { display: flex; flex-direction: column; align-items: center; gap: 9px; flex-shrink: 0; }
-.path-actions .btn { font-size: .76rem; min-height: 44px; text-align: center; }
-.path-coach { font-size: .72rem; color: var(--accent); text-underline-offset: 3px; }
-.path-facts { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: .74rem; }
-.path-facts b { font-weight: 500; color: var(--ink-2); }
+/* Shortest path: schools first, supporting guidance on demand. */
+.path-panel { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.path-schools { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.school-section-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.school-section-head h3 { margin: 5px 0 8px; font-size: 1.55rem; line-height: 1.2; }
+.school-section-head p { margin: 0; font-size: .8rem; color: var(--ink-2); }
+.school-section-head .eyebrow { font-size: .65rem; }
+.school-count { flex-shrink: 0; padding: 7px 11px; border-radius: 20px; background: var(--accent-soft); color: var(--accent); font-size: .72rem; }
+.school-levels { display: flex; flex-wrap: wrap; gap: 6px; }
+.school-level { min-height: 40px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink-2); font-size: .76rem; cursor: pointer; }
+.school-level[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+.school-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 14px; list-style: none; padding: 0; margin: 0; }
+.school-card { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); min-width: 0; overflow: hidden; }
+.school-card-head { display: flex; align-items: center; gap: 18px; padding: 20px; border-bottom: 1px solid var(--line); }
+.school-logo { display: flex; align-items: center; justify-content: center; flex: 0 0 120px; height: 60px; background: #fff; }
+.school-logo[hidden] { display: none; }
+.school-logo img { width: 120px; height: 56px; object-fit: contain; }
+.school-logo img[src$="/sit.png"] { object-fit: cover; }
+.school-card-head h5 { font-size: .92rem; line-height: 1.3; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+.school-card-head > div > span { color: var(--muted); font-size: .7rem; }
+.school-courses { list-style: none; padding: 0; margin: 0; }
+.school-courses > li { padding: 18px 20px; }
+.school-courses > li + li { border-top: 1px solid var(--line); }
+.school-courses h6 { margin: 0 0 10px; font-size: .85rem; font-weight: 500; color: var(--ink); line-height: 1.45; }
+.school-course-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .73rem; color: var(--muted); }
+.school-course-note { margin: 8px 0 0; font-size: .7rem; line-height: 1.5; color: var(--muted); }
+.school-course-link { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: .75rem; font-weight: 600; color: var(--accent); text-decoration: none; margin-top: 8px; }
+.school-course-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.path-schools > .btn { align-self: flex-start; }
 .path-panel .steps-path { gap: 0; }
 .path-panel .steps-path > li { grid-template-columns: 1.7rem minmax(0, 1fr); padding-bottom: 18px; }
 .path-panel .steps-path > li:last-child { padding-bottom: 0; }
@@ -687,21 +705,15 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .path-disclosure[open] > summary .path-plus { transform: rotate(45deg); }
 .path-detail-body { padding: 4px 18px 18px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .path-detail-body > .src { margin: 0; }
-.path-course-group h5 { margin: 0 0 10px; font-size: .8rem; color: var(--ink); }
-.path-course-group + .path-course-group { margin-top: 8px; }
-.path-course-group .schools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.path-course-group .schools li { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; padding: 13px; }
-.path-course-group .schools .s-c { line-height: 1.4; }
-.path-course-group .schools a { margin-top: auto; padding-top: 5px; min-height: 32px; }
-.path-course-group > .small { margin: 10px 0 0; }
 .path-panel .qa { font-size: .8rem; line-height: 1.55; }
 @media (max-width: 680px) {
-  .path-overview { flex-direction: column; align-items: stretch; gap: 14px; padding: 16px; }
-  .path-overview h3 { font-size: 1.25rem; }
-  .path-actions { align-items: stretch; }
-  .path-coach { align-self: center; }
-  .path-facts { flex-direction: column; gap: 4px; }
-  .path-course-group .schools { grid-template-columns: minmax(0, 1fr); }
+  .school-section-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .school-section-head h3 { font-size: 1.4rem; }
+  .school-grid { grid-template-columns: minmax(0, 1fr); }
+  .school-card-head { padding: 16px; gap: 14px; }
+  .school-logo { flex-basis: 104px; }
+  .school-logo img { width: 104px; }
+  .school-courses > li { padding: 14px 16px; }
   .path-disclosure > summary { padding: 13px 14px; }
   .path-detail-body { padding: 0 14px 14px; }
 }
@@ -1023,33 +1035,29 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
   }
 
   const pathSections = new Set();
+  const pathLevels = new Map();
 
   function pathPanel(s, p) {
     const r = s.role, path = pathFor(r, p), cost = pathCost(path, p), T = path.T;
     const studySteps = path.steps.filter(x => x.lvl);
     const levels = studySteps.map(x => x.fee);
-    const hasQualification = path.steps.some(x => x.done);
-    const schoolLevels = uniq(path.steps.map(x => x.lvl || x.schools));
-    const courseCount = schoolLevels.reduce((n, lvl) => n + SerasiLocal.forRole(r, lvl).length, 0);
-    const needsStudy = path.steps.some(x => x.lvl || x.fee === 'pt' || x.fee === 'check');
-    const headline = hasQualification ? 'Start with what you already have' : needsStudy ? 'Build the qualification you need' : 'Start with the entry requirements';
-    const intro = hasQualification ? 'Check how your qualification matches this role before choosing more study.'
-      : needsStudy ? 'Compare entry requirements, then choose a course that fits your starting point.'
-      : 'Check eligibility with the employer or professional body before you apply.';
-    const duration = path.years ? 'About ' + fmtYears(path.years) + ' of study or training' : hasQualification ? 'Further study may not be needed' : 'Training time varies';
-    const jump = (key, label) => '<button class="btn ghost" type="button" data-action="path-section" data-section="' + key + '">' + label + '</button>';
-    const sum = '<header class="path-overview"><div><span class="eyebrow">Your next move</span><h3>' + headline + '</h3><p>' + intro + '</p></div>' +
-      '<div class="path-actions">' + (needsStudy && courseCount ? jump('courses', 'Explore courses') : '<a class="btn primary" href="' + esc(PORTALS.mcf.url(r.q || r.title)) + '" target="_blank" rel="noopener">Check job requirements ↗</a>') +
-      '<a class="path-coach" href="' + esc(CONTACTS.e2i.url) + '" target="_blank" rel="noopener">Talk to a career coach ↗</a></div></header>' +
-      '<div class="path-facts"><span>From <b>' + esc(PATH[p.pathway].label) + '</b></span><span>' + duration + '</span></div>';
+    const routeLevels = uniq(path.steps.map(x => x.lvl || x.schools));
+    const schoolLevels = (routeLevels.length ? routeLevels : [r.edu]).filter(lvl => SerasiLocal.forRole(r, lvl).length);
+    const selectedLevel = schoolLevels.includes(pathLevels.get(r.id)) ? pathLevels.get(r.id) : schoolLevels[0];
+    const selectedCourses = selectedLevel ? SerasiLocal.forRole(r, selectedLevel) : [];
+    const schoolCount = uniq(selectedCourses.map(c => c.school)).length;
+    const levelNames = { 1: 'ITE courses', 2: 'Diplomas', 3: 'Degrees' };
+    const levelControls = schoolLevels.length > 1 ? '<div class="school-levels" role="group" aria-label="Course level">' + schoolLevels.map(lvl =>
+      '<button type="button" class="school-level" data-action="school-level" data-id="' + r.id + '" data-level="' + lvl + '" aria-pressed="' + (lvl === selectedLevel) + '">' + levelNames[lvl] + '</button>').join('') + '</div>' : '';
+    const courses = selectedLevel ? SerasiLocal.schoolCards(r, selectedLevel, { esc, money }) : '';
+    const schools = '<section class="path-schools" aria-label="Schools and courses"><header class="school-section-head"><div><span class="eyebrow">' + (courses ? 'Study options' : 'Specialist training') + '</span><h3>' + (courses ? 'Schools to explore' : 'Explore the training route') + '</h3><p>' +
+      (courses ? 'Courses related to ' + esc(lowerTitle(r.title)) + '. Check each school’s entry requirements.' : 'This role follows an employer or professional training route. See the steps and contacts below.') + '</p></div>' +
+      (courses ? '<span class="school-count">' + schoolCount + ' school' + (schoolCount === 1 ? '' : 's') + ' · ' + selectedCourses.length + ' course' + (selectedCourses.length === 1 ? '' : 's') + '</span>' : '') + '</header>' +
+      levelControls + (courses ? '<div class="school-results">' + courses + '</div><p class="path-note">SG Citizen fees after the Tuition Grant · 2026 references unless noted. Confirm fees for your intake.</p>' : '<button class="btn ghost" type="button" data-action="path-section" data-section="route">View training route</button>') + '</section>';
     const meta = st => [st.yrs && !st.t.includes(fmtYears(st.yrs)) ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'Paid training' : st.fee === 'funded' ? 'MOE-funded' : st.fee === 'pt' ? 'Check part-time options' : ''].filter(Boolean).join(' · ');
     const steps = '<ol class="steps-path">' + path.steps.map(st => '<li><div class="path-step"><span class="s-t">' + esc(st.t) + '</span>' +
       (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') +
       (st.n ? '<p class="s-n">' + esc(st.n) + '</p>' : '') + '</div></li>').join('') + '</ol>';
-    const courses = schoolLevels.map(lvl => {
-      const list = SerasiLocal.html(r, lvl, { esc, money });
-      return list ? '<div class="path-course-group"><h5>' + ['', 'ITE courses', 'Diplomas', 'Degrees'][lvl] + '</h5>' + list + '</div>' : '';
-    }).join('');
     const extras = path.alts.concat(T.later ? [T.later] : [], T.note ? [T.note] : []);
 
     let table = '';
@@ -1061,7 +1069,7 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const differ = listed.map(x => ({ st: x.st, sp: SerasiLocal.spread(x.list, FEES[x.st.fee].yr) })).filter(x => x.sp && x.sp.differs);
     const differNote = differ.map(x => '<p class="small muted">Fees differ by school' + (differ.length > 1 ? ' for the ' + esc(lowerFirst(FEES[x.st.fee].label)) : '') + ': ' +
       (x.sp.lo === x.sp.hi ? money(x.sp.lo) : money(x.sp.lo) + ' to ' + money(x.sp.hi)) + ' a year; the table uses ' + money(FEES[x.st.fee].yr) + '.</p>').join('');
-    const localSrc = listed.flatMap(x => x.list).concat(shownSchools).flatMap(c => c.src || []);
+    const localSrc = uniq(listed.flatMap(x => x.list).concat(shownSchools, selectedCourses).flatMap(c => c.src || []));
     if (feeRows.length) {
       const showAfter = cost.after != null || cost.ipa;
       const row = x => '<tr><th scope="row">' + esc(FEES[x.s.fee].label) + ' · ' + fmtYears(x.s.yrs) + '</th><td class="num">' + money(x.per) + '</td><td class="num">' + money(x.total) + '</td>' + (showAfter ? '<td class="num">' + (x.after == null ? '–' : money(x.after)) + '</td>' : '') + '</tr>';
@@ -1094,14 +1102,13 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const contacts = uniq((T.contacts || []).concat((r.pc || {}).org ? [ORG[r.pc.org][1]] : [], helpKeys.map(k => HELP[k].c), abroadLinks, ['e2i']));
     const section = (key, title, hint, body) => body ? '<details class="path-disclosure" data-path-key="' + r.id + ':' + key + '" data-path-section="' + key + '"' + (pathSections.has(r.id + ':' + key) ? ' open' : '') + '><summary><span><b>' + title + '</b><small>' + hint + '</small></span><span class="path-plus" aria-hidden="true">+</span></summary><div class="path-detail-body">' + body + '</div></details>' : '';
     const finance = table + help;
-    return '<div class="path-panel">' + sum + steps +
-      '<p class="path-note">Suggested route. Your field, experience and course exemptions can change the steps.</p>' +
+    return '<div class="path-panel">' + schools +
       '<div class="path-options">' +
-      section('courses', hasQualification ? 'Need to change fields?' : 'Compare local courses', courseCount + ' course' + (courseCount === 1 ? '' : 's') + ' · entry requirements and fees', courses + (courses ? srcLinks(localSrc) : '')) +
+      section('route', 'Your route to this role', 'From ' + esc(PATH[p.pathway].label) + (path.years ? ' · about ' + fmtYears(path.years) + ' of study or training' : ''), steps + '<p class="path-note">Suggested route. Your field, experience and course exemptions can change the steps.</p>') +
       section('costs', 'Fees & funding', cost.total ? 'About ' + money(cost.total) + ' before additional aid · planning estimate' : 'Subsidies and sponsorship options', finance) +
       section('alternatives', 'Other ways in', 'Work-study, alternative routes and tips', extras.length ? '<ul class="qa">' + extras.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '') +
       section('overseas', 'Considering overseas study?', 'Compare courses, costs and recognition', abroad) +
-      section('contacts', 'Useful contacts', 'Admissions, professional bodies and career support', contactList(contacts)) +
+      section('contacts', 'Useful contacts & fee sources', 'Admissions, career support and official fee pages', contactList(contacts) + srcLinks(localSrc)) +
       '</div></div>';
 
   }
@@ -2961,6 +2968,17 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     }
     if (act === 'country') selectCountry(el.dataset.iso, { focus: true });
     if (act === 'world-clear') showList(true);
+    if (act === 'school-level') {
+      const owner = el.closest('section[id]').id;
+      const top = el.closest('.path-schools').getBoundingClientRect().top;
+      pathLevels.set(el.dataset.id, Number(el.dataset.level));
+      renderLists();
+      const button = document.querySelector('#' + owner + ' [data-action="school-level"][data-id="' + el.dataset.id + '"][data-level="' + el.dataset.level + '"]');
+      if (button) {
+        window.scrollBy(0, button.closest('.path-schools').getBoundingClientRect().top - top);
+        button.focus({ preventScroll: true });
+      }
+    }
     if (act === 'path-section') {
       const panel = el.closest('.path-panel');
       const details = panel && panel.querySelector('[data-path-section="' + el.dataset.section + '"]');
@@ -3098,8 +3116,8 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     if (t.id === 'ask-input') ask.draft = t.value;
   });
 
-  // A country flag that fails to load is removed, so the profile shows the name alone (load errors don't bubble, hence the capture).
-  document.addEventListener('error', ev => { const t = ev.target; if (t && t.tagName === 'IMG' && t.classList.contains('flag')) t.remove(); }, true);
+  // Keep school names and country names visible if their decorative image fails.
+  document.addEventListener('error', ev => { const t = ev.target; if (t && t.tagName === 'IMG') { if (t.classList.contains('flag')) t.remove(); else if (t.closest('.school-logo')) t.closest('.school-logo').hidden = true; } }, true);
 
   load();
   // The world map has its own link for demos: youth.html#world

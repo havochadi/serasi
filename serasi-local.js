@@ -430,6 +430,15 @@
 
   const fmtYears = y => (y % 1 === .5 ? (Math.floor(y) || '') + '½' : String(y)) + (y === 1 ? ' year' : ' years');
 
+  // Official school marks are served locally; provenance is recorded in assets/schools/sources.json.
+  const SCHOOL_LOGOS = {
+    'ITE': 'ite.png', 'Singapore Polytechnic': 'sp.png', 'Ngee Ann Polytechnic': 'np.png',
+    'Nanyang Polytechnic': 'nyp.svg', 'Republic Polytechnic': 'rp.png', 'Temasek Polytechnic': 'tp.svg',
+    'NUS': 'nus.png', 'NTU': 'ntu.png', 'SMU': 'smu.png', 'SUTD': 'sutd.png', 'SIT': 'sit.png',
+    'SUSS': 'suss.webp', 'LASALLE': 'lasalle.svg', 'NAFA': 'nafa.svg',
+    'University of the Arts Singapore': 'uas.svg', 'Duke-NUS': 'duke-nus.jpg', 'NIE': 'nie.png'
+  };
+
   // The courses for a role at a level (1 = ITE, 2 = diploma, 3 = degree), in the order of SCHOOLS.
   function forRole(role, lvl, courses = COURSES) {
     const field = window.SerasiStudy.fieldOf(role);
@@ -462,5 +471,25 @@
       '<p class="small muted">SG Citizen fees after the Tuition Grant · 2026 references unless noted. Confirm your intake’s fees and entry requirements on the course page.</p>';
   }
 
-  window.SerasiLocal = { SCHOOLS, COURSES, forRole, spread, html };
+  // Group relevant courses by institution so one school has one card and one logo.
+  function schoolCards(role, lvl, h, courses = COURSES) {
+    const list = forRole(role, lvl, courses);
+    if (!list.length) return '';
+    const { esc, money } = h;
+    const schools = [...new Set(list.map(c => c.school))];
+    const card = school => {
+      const courses = list.filter(c => c.school === school);
+      const logo = SCHOOL_LOGOS[school];
+      const mark = logo ? '<span class="school-logo"><img src="assets/schools/' + logo + '" alt="" width="120" height="56" loading="lazy" decoding="async"></span>' : '';
+      return '<li class="school-card"><div class="school-card-head">' + mark + '<div><h5>' + esc(school) + '</h5><span>' + courses.length + ' relevant course' + (courses.length === 1 ? '' : 's') + '</span></div></div>' +
+        '<ul class="school-courses">' + courses.map(c => '<li><h6>' + esc(c.course) + '</h6>' +
+          '<div class="school-course-meta"><span>' + esc(fmtYears(c.yrs)) + '</span><span>' + (c.fee == null ? 'Check fees with school' : esc(money(c.fee)) + ' / year') + '</span>' +
+          (c.mode ? '<span class="pill">' + esc(c.mode) + '</span>' : '') + '</div>' +
+          (c.note ? '<p class="school-course-note">' + esc(c.note) + '</p>' : '') +
+          '<a class="school-course-link" href="' + esc(c.url) + '" target="_blank" rel="noopener" aria-label="' + esc('View ' + c.course + ' at ' + school) + '">View course <span aria-hidden="true">↗</span></a></li>').join('') + '</ul></li>';
+    };
+    return '<ul class="school-grid">' + schools.map(card).join('') + '</ul>';
+  }
+
+  window.SerasiLocal = { SCHOOLS, SCHOOL_LOGOS, COURSES, forRole, spread, html, schoolCards };
 })();

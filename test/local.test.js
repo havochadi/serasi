@@ -11,6 +11,29 @@ const h = { esc, money: n => '$' + Math.round(n).toLocaleString('en-SG') };
 
 const course = (over = {}) => ({ school: 'Ngee Ann Polytechnic', course: 'Diploma in Data Science', lvl: 2, yrs: 3, fee: 3180, fields: ['data-ai'], url: 'https://example.sg/c', ...over });
 
+test('school cards group several courses under one school without losing course links or fee notes', () => {
+  const out = L.schoolCards(ROLE['data-sci'], 2, h, [course(), course({ course: 'Second course', url: 'https://example.sg/second', fee: null, note: 'Ask admissions' })]);
+  assert.equal((out.match(/class="school-card"/g) || []).length, 1);
+  assert.equal((out.match(/class="school-course-link"/g) || []).length, 2);
+  assert.match(out, /2 relevant courses/);
+  assert.match(out, /Check fees with school/);
+  assert.match(out, /Ask admissions/);
+  assert.match(out, /href="https:\/\/example.sg\/second"/);
+  assert.equal(L.schoolCards(ROLE['data-sci'], 3, h, [course()]), '');
+});
+
+test('every school logo is bundled and its source is recorded', () => {
+  const fs = require('node:fs'), path = require('node:path');
+  const dir = path.join(__dirname, '..', 'assets', 'schools');
+  const sources = Object.values(JSON.parse(fs.readFileSync(path.join(dir, 'sources.json'), 'utf8')));
+  for (const school of L.SCHOOLS) {
+    const file = L.SCHOOL_LOGOS[school];
+    assert.ok(file && fs.existsSync(path.join(dir, file)), school);
+    assert.ok(sources.some(s => s.file === file && s.source.startsWith('https://')), school);
+  }
+  assert.match(fs.readFileSync(path.join(__dirname, '..', '.github', 'workflows', 'pages.yml'), 'utf8'), /cp -R assets _site\//);
+});
+
 test('SCHOOLS lists the publicly funded institutions in order', () => assert.deepEqual(plain(L.SCHOOLS), [
   'ITE', 'Singapore Polytechnic', 'Ngee Ann Polytechnic', 'Nanyang Polytechnic', 'Republic Polytechnic', 'Temasek Polytechnic',
   'NUS', 'NTU', 'SMU', 'SUTD', 'SIT', 'SUSS', 'LASALLE', 'NAFA', 'University of the Arts Singapore', 'Duke-NUS', 'NIE']));

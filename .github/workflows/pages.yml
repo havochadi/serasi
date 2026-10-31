@@ -27,6 +27,7 @@ jobs:
         run: |
           mkdir _site
           cp index.html youth.html mendaki.html serasi-core.js serasi-pathways.js serasi-sectors.js serasi-study.js serasi-local.js serasi-overseas.js serasi-countries-data.js serasi-countries.js "Serasi overview.pdf" "Serasi pitch deck.pdf" _site/
+          cp -R assets _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
