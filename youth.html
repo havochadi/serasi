@@ -625,14 +625,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .pill.grow { background: var(--accent-soft); color: var(--accent); }
 .pill.steady { background: var(--note-soft); color: var(--note); }
 .pill.decline { background: var(--flag-soft); color: var(--flag); }
-.steps-path { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; counter-reset: ps; }
-.steps-path > li { counter-increment: ps; display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); column-gap: 12px; padding-bottom: 14px; position: relative; }
-.steps-path > li::before { content: counter(ps); width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 600; font-size: .78rem; grid-row: 1 / span 3; }
-.steps-path > li:not(:last-child)::after { content: ""; position: absolute; left: calc(.95rem - 1px); top: 2rem; bottom: 2px; width: 2px; background: var(--line); }
-.steps-path > li.done::before { content: "✓"; background: var(--accent-soft); color: var(--accent); }
-.steps-path .s-t { font-weight: 600; color: var(--ink); font-size: .87rem; }
-.steps-path .s-m { font-size: .72rem; color: var(--muted); }
-.steps-path .s-n { font-size: .8rem; color: var(--ink-2); margin-top: 2px; }
 .path-sum { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: .8rem; }
 .cost-tbl { width: 100%; border-collapse: collapse; font-size: .78rem; font-variant-numeric: tabular-nums; }
 .cost-tbl th, .cost-tbl td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; color: var(--ink-2); }
@@ -646,7 +638,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .income-field { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; font-size: .76rem; margin-bottom: 10px; }
 .income-field select { min-height: 38px; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); max-width: 100%; font-size: .78rem; }
 /* Local schools under a study step (serasi-local.js) */
-.steps-path .s-schools { grid-column: 2; min-width: 0; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
 .s-schools .small { font-size: .7rem; }
 .schools { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .schools li { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 8px 12px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-size: .78rem; color: var(--ink-2); min-width: 0; overflow-wrap: anywhere; }
@@ -685,14 +676,6 @@ footer.foot { font-size: .72rem; border-top: 1px solid var(--line); margin-botto
 .school-course-link { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: .75rem; font-weight: 600; color: var(--accent); text-decoration: none; margin-top: 8px; }
 .school-course-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 .path-schools > .btn { align-self: flex-start; }
-.path-panel .steps-path { gap: 0; }
-.path-panel .steps-path > li { grid-template-columns: 1.7rem minmax(0, 1fr); padding-bottom: 18px; }
-.path-panel .steps-path > li:last-child { padding-bottom: 0; }
-.path-panel .steps-path > li::before { width: 1.7rem; height: 1.7rem; font-size: .72rem; background: var(--surface); border: 1px solid #B8C8AE; color: var(--accent); grid-row: auto; }
-.path-panel .steps-path > li::after { left: calc(.85rem - 1px); top: 1.8rem; bottom: 2px; }
-.path-step { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.path-step .s-t { font-size: .85rem; }
-.path-step .s-n { margin: 0; max-width: 86ch; font-size: .77rem; line-height: 1.5; }
 .path-note { margin: 0; font-size: .7rem; color: var(--muted); }
 .path-options { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
 .path-disclosure + .path-disclosure { border-top: 1px solid var(--line); }
@@ -1050,14 +1033,10 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const levelControls = schoolLevels.length > 1 ? '<div class="school-levels" role="group" aria-label="Course level">' + schoolLevels.map(lvl =>
       '<button type="button" class="school-level" data-action="school-level" data-id="' + r.id + '" data-level="' + lvl + '" aria-pressed="' + (lvl === selectedLevel) + '">' + levelNames[lvl] + '</button>').join('') + '</div>' : '';
     const courses = selectedLevel ? SerasiLocal.schoolCards(r, selectedLevel, { esc, money }) : '';
-    const schools = '<section class="path-schools" aria-label="Schools and courses"><header class="school-section-head"><div><span class="eyebrow">' + (courses ? 'Study options' : 'Specialist training') + '</span><h3>' + (courses ? 'Schools to explore' : 'Explore the training route') + '</h3><p>' +
-      (courses ? 'Courses related to ' + esc(lowerTitle(r.title)) + '. Check each school’s entry requirements.' : 'This role follows an employer or professional training route. See the steps and contacts below.') + '</p></div>' +
+    const schools = '<section class="path-schools" aria-label="Schools and courses"><header class="school-section-head"><div><span class="eyebrow">' + (courses ? 'Study options' : 'Specialist training') + '</span><h3>' + (courses ? 'Schools to explore' : 'Explore specialist training') + '</h3><p>' +
+      (courses ? 'Courses related to ' + esc(lowerTitle(r.title)) + '. Check each school’s entry requirements.' : 'This role uses employer or professional training. Check entry requirements with the contacts below.') + '</p></div>' +
       (courses ? '<span class="school-count">' + schoolCount + ' school' + (schoolCount === 1 ? '' : 's') + ' · ' + selectedCourses.length + ' course' + (selectedCourses.length === 1 ? '' : 's') + '</span>' : '') + '</header>' +
-      levelControls + (courses ? '<div class="school-results">' + courses + '</div><p class="path-note">SG Citizen fees after the Tuition Grant · 2026 references unless noted. Confirm fees for your intake.</p>' : '<button class="btn ghost" type="button" data-action="path-section" data-section="route">View training route</button>') + '</section>';
-    const meta = st => [st.yrs && !st.t.includes(fmtYears(st.yrs)) ? fmtYears(st.yrs) : '', st.fee === 'paid' ? 'Paid training' : st.fee === 'funded' ? 'MOE-funded' : st.fee === 'pt' ? 'Check part-time options' : ''].filter(Boolean).join(' · ');
-    const steps = '<ol class="steps-path">' + path.steps.map(st => '<li><div class="path-step"><span class="s-t">' + esc(st.t) + '</span>' +
-      (meta(st) ? '<span class="s-m">' + meta(st) + '</span>' : '') +
-      (st.n ? '<p class="s-n">' + esc(st.n) + '</p>' : '') + '</div></li>').join('') + '</ol>';
+      levelControls + (courses ? '<div class="school-results">' + courses + '</div><p class="path-note">SG Citizen fees after the Tuition Grant · 2026 references unless noted. Confirm fees for your intake.</p>' : '<button class="btn ghost" type="button" data-action="path-section" data-section="contacts">View training contacts</button>') + '</section>';
     const extras = path.alts.concat(T.later ? [T.later] : [], T.note ? [T.note] : []);
 
     let table = '';
@@ -1104,7 +1083,6 @@ img.flag { width: 32px; height: 24px; flex: none; object-fit: cover; border-radi
     const finance = table + help;
     return '<div class="path-panel">' + schools +
       '<div class="path-options">' +
-      section('route', 'Your route to this role', 'From ' + esc(PATH[p.pathway].label) + (path.years ? ' · about ' + fmtYears(path.years) + ' of study or training' : ''), steps + '<p class="path-note">Suggested route. Your field, experience and course exemptions can change the steps.</p>') +
       section('costs', 'Fees & funding', cost.total ? 'About ' + money(cost.total) + ' before additional aid · planning estimate' : 'Subsidies and sponsorship options', finance) +
       section('alternatives', 'Other ways in', 'Work-study, alternative routes and tips', extras.length ? '<ul class="qa">' + extras.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '') +
       section('overseas', 'Considering overseas study?', 'Compare courses, costs and recognition', abroad) +

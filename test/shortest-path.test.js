@@ -24,7 +24,7 @@ test('every role renders a valid route at all four qualification stages', () => 
     const out = w.routes.pathPanel({ role }, { pathway: stage.k });
     assert.doesNotMatch(out, /undefined|NaN|you already qualify|No more study needed/);
     assert.match(out, /class="path-panel"/);
-    assert.match(out, /Suggested route/);
+    assert.doesNotMatch(out, /Your route to this role|Suggested route|data-section="route"|class="steps-path"/);
   }
 });
 
