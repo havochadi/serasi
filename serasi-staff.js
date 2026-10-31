@@ -15,12 +15,6 @@
     C: ['Inside finance & operations', 'Explore how finance, logistics and operations teams organise their work.']
   };
   const SKILL_TITLES = { num: 'Numbers & data essentials', comm: 'Confident communication', people: 'Working well with people', tech: 'Digital confidence lab', hands: 'Practical skills workshop', create: 'Creative problem-solving' };
-  const RESOURCES = [
-    { tag: 'Youth opportunities', title: 'KitaKini by MENDAKI', text: 'Explore youth programmes, events, community organisations and resources.', url: 'https://kitakini.mendaki.org.sg/Home', label: 'Explore KitaKini', for: 'Programme discovery', checked: '31 Oct 2026' },
-    { tag: 'Mentoring', title: 'M³+ youth mentoring', text: '#amPowered supports Muslim ITE students. MARA connects undergraduates and young professionals with industry leaders; Flash Mentoring offers focused career conversations.', url: 'https://www.m3plus.gov.sg/focus-areas/empowering-and-mentoring-our-youths/', label: 'Explore mentoring', for: 'Education and career direction', checked: '31 Oct 2026' },
-    { tag: 'Career support', title: 'e2i career coaching', text: 'Direct youths to a career coach for job-search guidance, skills planning and support with career choices.', url: 'https://www.e2i.com.sg/individuals/meet-a-career-coach/', label: 'Find career support', for: 'Job search and career guidance', checked: '31 Oct 2026' },
-    { tag: 'Study funding', title: 'MENDAKI tuition fee subsidy', text: 'Check current eligibility and application details for the Tertiary Tuition Fee Subsidy. The university guide reflects the revised AY2026 criteria.', url: 'https://www.mendaki.org.sg/scheme-detail?id=a0xIW000007IagvYAC', label: 'Open MENDAKI scheme', reference: 'https://admissions.smu.edu.sg/financial-aid/mendaki-tertiary-tuition-fee-subsidy', for: 'Questions about tertiary fees', checked: '31 Oct 2026' }
-  ];
   const unique = xs => [...new Set(Array.isArray(xs) ? xs : [])];
   const share = (n, total) => total ? Math.round(100 * n / total) : 0;
   function monthKey(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); }
@@ -163,6 +157,6 @@
   function writePlans(storage, plans) {
     try { storage.setItem(PLAN_KEY, JSON.stringify(plans.slice(0, 100).map(normalisePlan).filter(Boolean))); return true; } catch (e) { return false; }
   }
-  window.SerasiStaff = { MIN_GROUP, DEMO_SIZE, PLAN_KEY, FILTERS, DEFAULTS, PROGRAMMES, SKILL_TITLES, RESOURCES,
+  window.SerasiStaff = { MIN_GROUP, DEMO_SIZE, PLAN_KEY, FILTERS, DEFAULTS, PROGRAMMES, SKILL_TITLES,
     share, monthKey, months, monthLabel, demoRecords, filterRows, aggregate, entries, groupRows, audience, suggestions, filterLabel, report, csvRows, toCSV, normalisePlan, readPlans, writePlans };
 })();

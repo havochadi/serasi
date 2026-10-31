@@ -165,7 +165,7 @@ h3{font-size:1.1rem}
 .role-code{font-size:10px;font-weight:600;letter-spacing:.07em;background:var(--soft);padding:3px 6px;border-radius:4px}
 .inline-note{padding:11px 13px;border-radius:8px;background:var(--soft);font-size:11px;color:var(--body);line-height:1.6}
 
-/* Programme workspace and resources. */
+/* Programme workspace. */
 .suggestion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .suggestion{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:20px}
 .suggestion h3{font-size:1.15rem;margin-top:2px}
@@ -181,15 +181,6 @@ h3{font-size:1.1rem}
 .draft-summary{font-size:11px;line-height:1.6;color:var(--body)}
 .plan-empty{text-align:center;align-items:center;padding:32px}
 .plan-empty .icon{color:var(--accent);width:30px;height:30px}
-.resources-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.resource{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
-.resource h2{font-size:1.35rem}
-.resource p{color:var(--body);font-size:12px;line-height:1.65}
-.resource .for{font-size:10px;color:var(--muted)}
-.resource .actions{margin-top:auto;padding-top:6px}
-.resource .reviewed{font-size:10px;color:var(--muted)}
-.data-details summary{cursor:pointer;font-weight:500;font-size:12px}
-.data-details p{font-size:12px;line-height:1.7;color:var(--body);margin-top:13px;max-width:95ch}
 .report-toolbar{display:flex;flex-wrap:wrap;gap:8px}
 
 /* Dialogs contain local drafts and role details, never messages sent to others. */
@@ -234,7 +225,7 @@ dialog::backdrop{background:#1e342d66;backdrop-filter:blur(3px)}
 .signal-card .signal-copy{max-width:none}
 .filter-more{grid-template-columns:repeat(2,minmax(0,1fr))}
 .filter-main>.actions{margin-left:0}
-.resources-grid,.draft-grid{grid-template-columns:minmax(0,1fr)}
+.draft-grid{grid-template-columns:minmax(0,1fr)}
 }
 
 @media(max-width:720px){.sidebar{position:sticky;top:0;width:100%;padding:9px 14px 0;border-right:0;border-bottom:1px solid var(--line);gap:7px}
@@ -242,7 +233,7 @@ dialog::backdrop{background:#1e342d66;backdrop-filter:blur(3px)}
 .brand svg{width:23px;height:23px}
 .brand-name{font-size:23px}
 .workspace-label{margin:0;position:absolute;top:17px;right:18px;font-size:8px}
-.side-nav{flex-direction:row;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px}
+.side-nav{flex-direction:row;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
 .nav-btn{font-size:10px;min-height:42px;padding:9px 4px;justify-content:center;gap:5px;border-radius:7px 7px 0 0}
 .nav-btn .icon{width:14px;height:14px}
 .nav-count{display:none}
@@ -332,8 +323,8 @@ dialog::backdrop{background:#1e342d66;backdrop-filter:blur(3px)}
   const now = new Date(), samples = S.demoRecords(now), app = document.getElementById('app'), dialog = document.getElementById('staff-dialog');
   let storage = null; try { storage = window.localStorage; } catch (e) { /* read-only mode */ }
   let plans = S.readPlans(storage), editor = null, toastTimer;
-  const view = { ...S.DEFAULTS, tab: 'overview', source: 'sample', expanded: false, metric: 'percent', by: 'area', search: '', sort: 'count', limit: 15, status: 'active', resourceSearch: '' };
-  const tabs = [['overview', 'grid', 'Overview'], ['cohorts', 'people', 'Cohorts'], ['planner', 'calendar', 'Programmes'], ['resources', 'compass', 'Resources']];
+  const view = { ...S.DEFAULTS, tab: 'overview', source: 'sample', expanded: false, metric: 'percent', by: 'area', search: '', sort: 'count', limit: 15, status: 'active' };
+  const tabs = [['overview', 'grid', 'Overview'], ['cohorts', 'people', 'Cohorts'], ['planner', 'calendar', 'Programmes']];
   const sourceLabels = { sample: 'Sample cohort', shared: 'Shared in this browser', combined: 'Combined preview' };
   const kindLabels = { taster: 'Job taster', workshop: 'Skills workshop', mentoring: 'Careers circle' };
   const statusLabels = { draft: 'Draft', review: 'For review', archived: 'Archived' };
@@ -419,14 +410,11 @@ dialog::backdrop{background:#1e342d66;backdrop-filter:blur(3px)}
     return '<div class="stack">' + (canReport(rs) ? '<div class="section-head"><div><h2>Ideas for this cohort</h2><p class="sub">Grounded in shared interests and self-rated skill needs.</p></div><span class="pill">' + rs.length + ' responses</span></div><div class="suggestion-grid">' + (suggestions.length ? suggestions.map(suggestionCard).join('') : '<section class="card"><p class="small muted">No programme audience reaches 10 responses in this cohort. Try broader filters.</p></section>') + '</div>' : emptyCohort(rs)) +
       '<div class="section-head"><div><h2>Your programme drafts</h2><p class="sub">Draft locally, refine the idea, then take it to your team.</p></div><label class="sr-only" for="plan-status">Filter programme drafts</label><select class="compact-select" id="plan-status">' + [['active', 'Active drafts'], ['draft', 'Draft'], ['review', 'For review'], ['archived', 'Archived'], ['all', 'All programmes']].map(([k, l]) => option(k, l, view.status)).join('') + '</select></div>' + (shown.length ? '<div class="draft-grid">' + shown.slice().reverse().map(draftCard).join('') + '</div>' : '<section class="card empty plan-empty">' + icon('calendar') + '<h3>Room for a good idea</h3><p>Create a draft from a suggestion above, or start with your own programme.</p>' + button('new-plan', 'Create programme draft', canReport(rs) ? '' : 'disabled', 'primary') + '</section>') + '<p class="small muted">Drafts are saved only in this browser. Creating or reviewing a draft does not book a programme or send invitations.</p></div>';
   }
-  function resources() {
-    return '<div class="stack"><div class="resources-grid">' + S.RESOURCES.map(r => '<article class="card resource"><span class="pill">' + r.tag + '</span><h2>' + esc(r.title) + '</h2><p>' + esc(r.text) + '</p><span class="for">Useful for: ' + esc(r.for) + '</span><div class="actions"><a class="btn" href="' + esc(r.url) + '" target="_blank" rel="noopener">' + r.label + ' ↗</a>' + (r.reference ? '<a class="small" href="' + esc(r.reference) + '" target="_blank" rel="noopener">University guide ↗</a>' : '') + '</div><span class="reviewed">Source checked ' + r.checked + '</span></article>').join('') + '</div><details class="card data-details"><summary>How to read this workspace</summary><p>The sample cohort contains 240 simulated responses across the most recent six months. “Shared in this browser” reads only the anonymised result explicitly shared from the youth app. “Combined preview” includes both, with the source labelled in reports.</p><p>Counts describe interest types, values, low self-rated skills and careers in the top 10. They do not show names, contact details, quiz answers or personal preferences. Cohorts with fewer than 10 responses cannot be inspected or exported. No individual record viewer is provided.</p><p>Programme ideas and audience estimates support planning; they are not confirmed MENDAKI services, attendance or partner commitments. This demo has no staff authentication or shared server database.</p></details></div>';
-  }
   function render() {
-    const rs = rows(), allowedReport = canReport(rs), titles = { overview: ['The bigger picture, a little clearer.', 'Turn youth aspirations into more relevant opportunities.'], cohorts: ['Understand who needs what.', 'Explore groups and the careers that connect with them.'], planner: ['From a signal to a programme.', 'Build a practical draft around the cohort you’re exploring.'], resources: ['Connect youths with the right support.', 'Current starting points for opportunities, mentoring and career guidance.'] };
+    const rs = rows(), allowedReport = canReport(rs), titles = { overview: ['The bigger picture, a little clearer.', 'Turn youth aspirations into more relevant opportunities.'], cohorts: ['Understand who needs what.', 'Explore groups and the careers that connect with them.'], planner: ['From a signal to a programme.', 'Build a practical draft around the cohort you’re exploring.'] };
     nav(); setURL();
-    app.innerHTML = '<header class="page-heading"><div><span class="eyebrow">' + (view.tab === 'planner' ? 'Programme planning' : 'MENDAKI staff insights') + '</span><h1 id="page-title" tabindex="-1">' + titles[view.tab][0] + '</h1><p>' + titles[view.tab][1] + '</p></div><div class="actions">' + (view.tab !== 'resources' ? button('report', icon('download') + 'Export & brief', allowedReport ? '' : 'disabled') + button(view.tab === 'planner' ? 'new-plan' : 'tab', view.tab === 'planner' ? '+ New programme' : 'Plan a programme', (view.tab === 'planner' ? (allowedReport ? '' : 'disabled') : 'data-tab="planner"'), 'primary') : button('tab', 'Open programme planner ' + icon('arrow'), 'data-tab="planner"', 'primary')) + '</div></header>' + sourceNote() + (view.tab !== 'resources' ? filterBar(rs) : '') +
-      '<div id="view-body">' + (view.tab === 'resources' ? resources() : view.tab === 'planner' ? planner(rs) : !allowedReport ? emptyCohort(rs) : view.tab === 'overview' ? overview(rs) : cohorts(rs)) + '</div><footer class="page-foot"><span>Serasi pilot · ' + C.ROLES.length + ' career profiles · 50% interests / 30% work style / 20% values</span><a href="Serasi%20pitch%20deck.pdf">Pilot proposal ↗</a></footer>';
+    app.innerHTML = '<header class="page-heading"><div><span class="eyebrow">' + (view.tab === 'planner' ? 'Programme planning' : 'MENDAKI staff insights') + '</span><h1 id="page-title" tabindex="-1">' + titles[view.tab][0] + '</h1><p>' + titles[view.tab][1] + '</p></div><div class="actions">' + (button('report', icon('download') + 'Export & brief', allowedReport ? '' : 'disabled') + button(view.tab === 'planner' ? 'new-plan' : 'tab', view.tab === 'planner' ? '+ New programme' : 'Plan a programme', (view.tab === 'planner' ? (allowedReport ? '' : 'disabled') : 'data-tab="planner"'), 'primary')) + '</div></header>' + sourceNote() + filterBar(rs) +
+      '<div id="view-body">' + (view.tab === 'planner' ? planner(rs) : !allowedReport ? emptyCohort(rs) : view.tab === 'overview' ? overview(rs) : cohorts(rs)) + '</div><footer class="page-foot"><span>Serasi pilot · ' + C.ROLES.length + ' career profiles · 50% interests / 30% work style / 20% values</span><a href="Serasi%20pitch%20deck.pdf">Pilot proposal ↗</a></footer>';
   }
   function showDialog(html) { dialog.innerHTML = html; if (!dialog.open) dialog.showModal(); const focus = dialog.querySelector('[autofocus]'); if (focus) focus.focus(); }
   const dialogHead = (eyebrow, title) => '<div class="dialog-head"><div><p class="eyebrow">' + eyebrow + '</p><h2 id="dialog-title">' + esc(title) + '</h2></div><button type="button" class="close-btn" data-act="close-dialog" aria-label="Close dialog">×</button></div>';
